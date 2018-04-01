@@ -19,6 +19,9 @@
 #ifndef _H_IDE_H_
 #define _H_IDE_H_
 
+#include <libxml/encoding.h>
+#include <libxml/xmlwriter.h>
+
 struct Cont_s;
 struct ide_s;
 
@@ -27,25 +30,25 @@ struct ide_s;
 ****************************************/
 // Struct Cont_s  
 
-struct Cont_s *ideContNew(enum TZD_e tzd, enum TIPO_BOOL_e hverao, 
-                          const char *str, const char *xjust,
-                          const struct Cont_s *newcont)
+struct Cont_s *ideContNew(const struct Cont_s *this,
+                          enum TZD_e tzd, enum TIPO_HVERAO_e hverao, 
+                          const char *str, const char *xjust)
 void ideContDel(const struct Cont_s *cont);
 
+int xmlGenideContNode(xmlTextWriterPtr writer,struct Cont_s *cont);
+
 // Struct ide_s
-struct ide_s *ideNew(enum UF_e cuf, uint32_t cnf, char *natop, 
-                     uint8_t indpag, enum MOD_e mod, uint16_t serie,
-                     uint32_t nnf, char *dhemi, char *dhsaient,
+struct ide_s *ideNew(struct Cont_s *cont, enum UF_e cuf, uint32_t cnf, 
+                     char *natop, uint8_t indpag, enum MOD_e mod, 
+                     uint16_t serie, uint32_t nnf, char *dhemi, char *dhsaient,
                      enum TIPO_NF_e tpnf, enum TIPO_DESTINO_e iddest,
                      uint32_t cmunfg, enum TIPO_IMPRESSAO_e tpimp,
                      enum TIPO_EMISSAO_e tpemis, uint8_t cdv,
                      enum TIPO_AMBIENTE_e tpamb, enum TIPO_FINALIDADE_e finnfe,
                      enum TIPO_OP_e indfinal, enum TIPO_PRES_e indpres,        // 1 caractere
                      enum TIPO_PROC_EMIS_e procemis, char *verproc,
-                     struct Cont_s *cont, TZD_e tzd, TIPO_BOOL_e hverao,
-                     const char *str, struct ide_s *newide);
+                     TZD_e tzd, TIPO_HVERAO_e hverao,
+                     const char *str, struct ide_s *newide)
 void ideDel(struct ide_s *ide);
-
-
 
 #endif

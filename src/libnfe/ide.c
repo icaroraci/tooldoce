@@ -28,7 +28,6 @@
 struct Cont_s {
   char *dhCont;                    // Data
   char xJust[TAM_JUSTIFICATIVA];   // 256 caracteres
-  struct Cont_s *newCont;
 };
 
 
@@ -55,12 +54,11 @@ struct ide_s{
   enum TIPO_PROC_EMIS_e procEmis;  // 1 caractere
   char verProc[TAM_VERSAO_APLIC];  // 20 caracteres
   struct Cont_s *cont;             // Default NULL
-  struct ide_s *newide;
 };
  
 /* Funções auxiliares  */
 
-// TODO: Definir enum TIPO_BOOL_e { VERDADE, FALSO};
+// TODO: Definir enum TIPO_HVERAO_e { SIM, NAO};
 //       Definir enum TZD_e {DEFAULT,FERNANDO_DE_NORONHA, BRASILIA, MANAUS}
 
 /*Data e hora do evento no formato AAAA-MM-DDThh:mm:ssTZD (UTC - 
@@ -71,11 +69,11 @@ struct ide_s{
  * -01:00, -02:00 e -03:00. Ex.:
  * 2010-08-19T13:00:15-03:00.
  * */
-static char *DHSet(enum TZD_e tzd, enum TIPO_BOOL_e hverao,
+static char *DHSet(enum TZD_e tzd, enum TIPO_HVERAO_e hverao,
                    const char *str)
 {
   char *aux;
-  if (hverao == FALSO){
+  if (hverao == NAO){
     switch (tzd){
       case FERNANDO_DE_NORONHA: 
         aux = "2:00";
@@ -88,7 +86,7 @@ static char *DHSet(enum TZD_e tzd, enum TIPO_BOOL_e hverao,
         aux = "4:00";
         break;
     }
-  }else if(hverao == VERDADE){
+  }else if(hverao == SIM){
     switch (tzd){
       case FERNANDO_DE_NORONHA:
         aux = "1:00";
@@ -105,42 +103,30 @@ static char *DHSet(enum TZD_e tzd, enum TIPO_BOOL_e hverao,
   strcat(str,DHDEFAULT); // Vc alocou espaço para *str?
   return strcat(str,aux);
 }
+/* tzd = DEFAULT, FERNANDO_DE_NORONHA, BRASILIA, MANAUS
+ * hverao = SIM, NAO
+ * str = endereço de uma string
+ * xJust = justificativa (até 256 caracteres)
+ * newcont = rerencia 
+*/
 
-
-// Funções de Cont_s
-
-
-static void ContSetdhCont(const struct Cont_s *cont, enum TZD_e tzd,
-                   enum TIPO_BOOL_e hverao, const char *str )
+struct Cont_s *ideContNew(const struct Cont_s *this,
+                          enum TZD_e tzd, enum TIPO_HVERAO_e hverao, 
+                          const char *str, const char *xjust)
 {
-  // devemos passar str ou alocar aqui?
-  cont->dhCont = DHSet(tzd, hverao, str);
-}
-
-static char *ContGetdhCont(const struct Cont_s *cont)
-{
-  return cont->dhCont;
-}
-
-static void ContSetxJust(const struct Cont_s *cont, char *xjust)
-{
-  strcpy(cont->xJust, xjust);
-}
-
-static char *ContGetxJust(const struct Cont_s *cont)
-{
-  return cont->xJust;
-}
-
-struct Cont_s *ideContNew(enum TZD_e tzd, enum TIPO_BOOL_e hverao, 
-                          const char *str, const char *xjust,
-                          const struct Cont_s *newcont)
-{
-  struct Const_s *cont = (struct Cont_s *)malloc(sizeof(struct Const_s));
-  ContSetdhCont(cont, tzd, hverao, str);
-  ContSetxJust(cont, xjust);
-  cont->newCont = newcont;
-  return cont;
+  if(!this) 
+  { 
+    strcpy(this->dhCont, DHSet(tzd, hverao, str);
+    strcpy(this->xJust, xjust);
+    return this;
+  }
+  else
+  {
+    struct Const_s *cont = (struct Cont_s *)malloc(sizeof(struct Const_s));
+    strcpy(cont->dhCont, DHSet(tzd, hverao, str);
+    strcpy(cont->xJust, xjust);
+    return cont;
+  }
 }
 
 void ideContDel(const struct Cont_s *cont)
@@ -148,267 +134,284 @@ void ideContDel(const struct Cont_s *cont)
   free(cont);
 }
 
+int xmlGenideContNode(xmlTextWriterPtr writer,struct Cont_s *cont)
+{
+  int rc;
+  rc = xmlTextWriterStartElement(writer, BAD_CAST "-x-");
+  if (rc < 0) {
+    printf("ide--x-: Erro em xmlTextWriterStartElement\n");
+    return -1;
+  }
+  
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "dhCont","%s", 
+                                               cont->dhCont);
+  if (rc < 0) {
+    printf("ide->cont->dhCont: Erro em xmlTextWriterWriteFormatElement\n");
+    return -1;
+  }
 
-// Funcçoes de ide_s
- 
-static void ideSetcUF(const struct ide_s *ide, enum UF_e cuf)
-{
-  ide->cUF = cuf;
-}
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "xJust","%s", 
+                                               cont->xJust);
+  if (rc < 0) {
+    printf("ide->cont->xJust: Erro em xmlTextWriterWriteFormatElement\n");
+    return -1;
+  }
 
-static enum UF_e ideGetcUF(const struct ide_s *ide)
-{
-  return ide->cUF;
-}
 
-static void ideSetcNF(const struct ide_s *ide, const uint32_t cnf)
-{
-  ide->cNF = cnf;
-}
+  rc = xmlTextWriterEndElement(writer);
+  if (rc < 0) {
+    printf("ide--x-: Erro em xmlTextWriterEndElement\n");
+    return -1;
+  }
 
-static uint32_t ideGetcNF(const struct ide_s *ide)
-{
-  return ide->cNF;
-}
-
-static void ideSetnatOp(const struct ide_s *ide, const char *natop)
-{
-  strcpy(ide->natOp, natop); 
-}
-static char *ideGetnatOp(const struct ide_s *ide)
-{
-  return ide->natOp;
-}
-
-static void ideSetindPag(const struct ide_s *ide, const uint8_t indpag)
-{
-  ide->indPag = indpag;
-}
-static char *ideGetindPag(const struct ide_s *ide)
-{
-  return ide->indPag;
-}
-
-static void ideSetmod(const struct ide_s *ide, enum MOD_e mod)
-{
-  ide->mod = mod;
-}
-static enum MOD_e ideGetmod(const struct ide_s *ide)
-{
-  return ide->mod;
-}
-
-static void ideSetserie(const struct ide_s *ide, const uint16_t serie)
-{
-  ide->serie = serie;
-}
-static uint16_t ideGetserie(const struct ide_s *ide)
-{
-  return ide->serie;
-}
-
-static void ideSetnNF(const struct ide_s *ide, const uint32_t nnf)
-{
-  ide->nNF = nnf;
-}
-static uint32_t ideGetnNF(const struct ide_s *ide)
-{
-  return ide->nNF;
-}
-
-static void ideSetdhEmi(const struct ide_s *ide, enum TZD_e tzd,
-                        enum TIPO_BOOL_e hverao, const char *str)
-{
-  ide->dhEmi = DHSet(tzd, hverao, str);
-}
-static char *ideGetdhEmi(const struct ide_s *ide)
-{
-  return ide->dhEmi;
-}
-
-static void ideSetdhSaiEnt(const struct ide_s *ide, enum TZD_e tzd,
-                           enum TIPO_BOOL_e hverao, const char *str)
-{
-  ide->dhSaiEnt = DHSet(tzd, hverao, str);
-}
-static char *ideGetdhSaiEnt(const struct ide_s *ide)
-{
-  return ide->dhSaiEnt;
-}
-
-static void ideSettpNF(const struct ide_s *ide, enum TIPO_NF_e tpnf)
-{
-  ide->tpNF = tpnf;
-}
-static enum TIPO_NF_e ideGettpNF(const struct ide_s *ide)
-{
-  return ide->tpNF;
-}
-
-static void ideSetidDest(const struct ide_s *ide, enum TIPO_DESTINO_e iddest)
-{
-  ide->idDest = iddest;
-}
-static enum TIPO_DESTINO_e ideGetidDest(const struct ide_s *ide)
-{
-  return ide->idDest;
-}
-
-static void ideSetcMunFG(const struct ide_s *ide, const uint32_t cmunfg)
-{
-  ide->cMunFG = cmunfg;
-}
-static uint32_t ideGetcMunFG(const struct ide_s *ide)
-{
-  return ide->cMunFG;
-}
-
-static void ideSettpImp(const struct ide_s *ide, enum TIPO_IMPRESSAO_e tpimp)
-{
-  ide->tpImp = tpimp;
-}
-static enum TIPO_IMPRESSAO_e ideGettpImp(const struct ide_s *ide)
-{
-  return ide->tpImp;
-}
-
-static void ideSettpEmis(const struct ide_s *ide, enum TIPO_EMISSAO_e tpemis)
-{
-  ide->tpEmis = tpemis;
-}
-static enum TIPO_EMISSAO_e ideGettpEmis(const struct ide_s *ide)
-{
-  return ide->tpEmis;
-}
-
-static void ideSetcDV(const struct ide_s *ide, const uint8_t cdv)
-{
-  ide->cDV = cdv;
-}
-static uint8_t ideGetcDV(const struct ide_s *ide)
-{
-  return ide->cDV;
-}
-
-static void ideSettpAmb(const struct ide_s *ide, enum TIPO_AMBIENTE_e tpamb)
-{
-  ide->tpAmb = tpamp;
-}
-static enum TIPO_AMBIENTE_e ideGettpAmb(const struct ide_s *ide)
-{
-  return ide->tpAmb;
-}
-
-static void ideSetfinNFe(const struct ide_s *ide, enum TIPO_FINALIDADE_e finnfe)
-{
-  ide->finNFe = finnfe;
-}
-static enum TIPO_FINALIDADE_e ideGetfinNFe(const struct ide_s *ide)
-{
-  return ide->finNFe;
-}
-
-static void ideSetindFinal(const struct ide_s *ide, enum TIPO_OP_e indfinal)
-{
-  ide->indFinal = indfinal;
-}
-static enum TIPO_OP_e ideGetindFinal(const struct ide_s *ide)
-{
-  return ide->indFinal;
-}
-
-static void ideSetindPres(const struct ide_s *ide, enum TIPO_PRES_e indpres)
-{
-  ide->indPres = indpres;
-}
-static enum TIPO_PRES_e ideGetindPres(const struct ide_s *ide)
-{
-  return ide->indPres;
-}
-
-static void ideSetprocEmis(const struct ide_s *ide, 
-                                   enum TIPO_PROC_EMIS_e procemis)
-{
-  ide->procEmis = procemis;
-}
-static enum TIPO_PROC_EMIS_e ideGetprocEmis(const struct ide_s *ide)
-{
-  return ide->procEmis;
-}
-
-static void ideSetverProc(const struct ide_s *ide, const char *verproc)
-{
-  strcpy(ide->verProc, verproc);
-}
-static char *ideGetverProc(const struct ide_s *ide)
-{
-  return ide->verProc;
-}
-
-static void ideSetcont(const struct ide_s *ide, const struct Cont_s *const,
-                       enum TZD_e tzd, enum TIPO_BOOL_e hverao, 
-                       const char *str, const char *xjust)
-{
-  if(!const)
-    ide->cont = ideContNew(tzd, hverao, str, xjust);
-  else
-    ide->cont = NULL;
-}
-static struct Cont_t *ideGetcont(const struct ide_s *ide)
-{
-  return ide->cont;
+  return 0;
 }
 
 
-struct ide_s *ideNew(enum UF_e cuf, uint32_t cnf, char *natop, 
-                     uint8_t indpag, enum MOD_e mod, uint16_t serie,
-                     uint32_t nnf, char *dhemi, char *dhsaient,
+
+struct ide_s *ideNew(struct Cont_s *cont, enum UF_e cuf, uint32_t cnf, 
+                     char *natop, uint8_t indpag, enum MOD_e mod, 
+                     uint16_t serie, uint32_t nnf, char *dhemi, char *dhsaient,
                      enum TIPO_NF_e tpnf, enum TIPO_DESTINO_e iddest,
                      uint32_t cmunfg, enum TIPO_IMPRESSAO_e tpimp,
                      enum TIPO_EMISSAO_e tpemis, uint8_t cdv,
                      enum TIPO_AMBIENTE_e tpamb, enum TIPO_FINALIDADE_e finnfe,
                      enum TIPO_OP_e indfinal, enum TIPO_PRES_e indpres,        // 1 caractere
                      enum TIPO_PROC_EMIS_e procemis, char *verproc,
-                     struct Cont_s *cont, TZD_e tzd, TIPO_BOOL_e hverao,
+                     TZD_e tzd, TIPO_HVERAO_e hverao,
                      const char *str, struct ide_s *newide)
 {
-  struct ide_s *ide = (struct ide_s *)malloc(sizeof(struct ide_s));
-  ideSetcUF(ide, cuf);
-  ideSetcNF(ide, nnf);
-  ideSetnatOp(ide, natop);
-  ideSetindPag(ide, indpag);
-  ideSetmod(ide, mod);
-  ideSetserie(ide, serie);
-  ideSetnNF(ide, nnf);
-  ideSetdhEmi(ide, tzd. hverao, str);
-  ideSetdhSaiEnt(ide, tzd, hverao, str);
-  ideSettpNF(ide, tpnf);
-  ideSetidDest(ide, idedest);
-  ideSetcMunFG(ide, cmunfg);
-  ideSettpImp(ide, tpimp);
-  ideSettpEmis(ide, tpemis);
-  ideSetcDV(ide, cdv);
-  ideSettpAmb(ide, tpamb);
-  ideSetfinNFe(ide, finnfe);
-  ideSetindFinal(ide, indfinal);
-  ideSetindPres(ide, indpres);
-  ideSetprocEmis(ide, procemis);
-  ideSetverProc(ide, verproc);
-  ideSetcont(ide, cont); // precisa rever
-  ide->newide = newide;
-  return ide;
+  if(!this)
+  {
+    this->cUF = cuf;
+    this->cNF = cnf;
+    strcpy(this->natOp, natop);
+    this->indPag = indpag;
+    this->mod = mod;
+    this->serir = serie;
+    this->nNF = nnf;
+    strcpy(this->dhEmi, DHSet(tzd, hverão, str)); // precisa rever isso
+    strcpy(this->dhSaiEnt, DHSet(tzd, hverao, str);
+    this->tpNF = tpnf;
+    this->ideDest = idedest;
+    this->cMunFG = cmunfg;
+    this->tpImp = tpimp;
+    this->tpEmis = tpemis;
+    this->cDV = cdv;
+    this->tpAmb = tpamb;
+    this->finNFe = finnfe;
+    this->indFinal = indfinal;
+    this->indPres = indpres;
+    this->proEmis = procemis;
+    strcpy(this->verProc, verproc);
+    this->cont = cont;
+    this->newide = newide; 
+    return this;
+  }
+  else
+ {
+    struct ide_s *ide = (struct ide_s *)malloc(sizeof(struct ide_s));
+    ide->cUF = cuf;
+    ide->cNF = cnf;
+    strcpy(ide->natOp, natop);
+    ide->indPag = indpag;
+    ide->mod = mod;
+    ide->serir = serie;
+    ide->nNF = nnf;
+    strcpy(ide->dhEmi, DHSet(tzd, hverão, str)); // precisa rever isso
+    strcpy(ide->dhSaiEnt, DHSet(tzd, hverao, str);
+    ide->tpNF = tpnf;
+    ide->ideDest = idedest;
+    ide->cMunFG = cmunfg;
+    ide->tpImp = tpimp;
+    ide->tpEmis = tpemis;
+    ide->cDV = cdv;
+    ide->tpAmb = tpamb;
+    ide->finNFe = finnfe;
+    ide->indFinal = indfinal;
+    ide->indPres = indpres;
+    ide->proEmis = procemis;
+    strcpy(ide->verProc, verproc);
+    ide->cont = cont;
+    ide->newide = newide; 
+    return ide;
+ }
+  
 }
 
-/* Se houver alocação de memoria da struct Cont_s esta deve ser liberada
- * antes de liberar memória da struct ide_s */
 void ideDel(struct ide_s *ide)
 {
   if(!ide->cont)
-  {
-    ideContDel(ide->cont); 
-    free(ide);
+    ideContDel(ide->cont);
+
+  free(ide); 
+}
+
+int xmlGenideNode(xmlTextWriterPtr writer,struct ide_s *ide)
+{
+  int rc;
+  rc = xmlTextWriterStartElement(writer, BAD_CAST "ide");
+  if (rc < 0) {
+    printf("ide-: Erro em xmlTextWriterStartElement\n");
+    return -1;
   }
-  else
-    free(ide);
+  
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "cUF","%02u", 
+                                               ide->cUF);
+  if (rc < 0) {
+    printf("ide->cUF: Erro em xmlTextWriterWriteFormatElement\n");
+    return -1;
+  }
+
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "cNF","%08lu", 
+                                               ide->cNF);
+  if (rc < 0) {
+    printf("ide->cNF: Erro em xmlTextWriterWriteFormatElement\n");
+    return -1;
+  }
+
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "natOp","%s", 
+                                               ide->natOp);
+  if (rc < 0) {
+    printf("ide->natOp: Erro em xmlTextWriterWriteFormatElement\n");
+    return -1;
+  }
+
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "indPag","%1u", 
+                                               ide->indPag);
+  if (rc < 0) {
+    printf("ide->indPag: Erro em xmlTextWriterWriteFormatElement\n");
+    return -1;
+  }
+  
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "mod","%02u", 
+                                               ide->mod);
+  if (rc < 0) {
+    printf("ide->mod: Erro em xmlTextWriterWriteFormatElement\n");
+    return -1;
+  }
+  
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "serie","%3u", 
+                                               ide->serie);
+  if (rc < 0) {
+    printf("ide->serie: Erro em xmlTextWriterWriteFormatElement\n");
+    return -1;
+  }
+
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "nNF","%9lu", 
+                                               ide->cNF);
+  if (rc < 0) {
+    printf("ide->nNF: Erro em xmlTextWriterWriteFormatElement\n");
+    return -1;
+  }
+
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "dhEmi","%s", 
+                                               ide->dhEmi);
+  if (rc < 0) {
+    printf("ide->dhEmi: Erro em xmlTextWriterWriteFormatElement\n");
+    return -1;
+  }
+
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "dhSaiEnt","%s", 
+                                               ide->dhSaiEnt);
+  if (rc < 0) {
+    printf("ide->dhSaiEnt: Erro em xmlTextWriterWriteFormatElement\n");
+    return -1;
+  }
+
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "tpNF","%1u", 
+                                               ide->tpNF);
+  if (rc < 0) {
+    printf("ide->tpNF: Erro em xmlTextWriterWriteFormatElement\n");
+    return -1;
+  }
+
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "idDest","%1u", 
+                                               ide->idDest);
+  if (rc < 0) {
+    printf("ide->idDest: Erro em xmlTextWriterWriteFormatElement\n");
+    return -1;
+  }
+
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "cMunFG","%07lu", 
+                                               ide->cMunFG);
+  if (rc < 0) {
+    printf("ide->cMunFG: Erro em xmlTextWriterWriteFormatElement\n");
+    return -1;
+  }
+
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "tpImp","%u", 
+                                               ide->tpImp);
+  if (rc < 0) {
+    printf("ide->tpImp: Erro em xmlTextWriterWriteFormatElement\n");
+    return -1;
+  }
+
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "tpEmis","%u", 
+                                               ide->tpEmis);
+  if (rc < 0) {
+    printf("ide->tpEmis: Erro em xmlTextWriterWriteFormatElement\n");
+    return -1;
+  }
+
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "cDV","%u", 
+                                               ide->cDV);
+  if (rc < 0) {
+    printf("ide->cDV: Erro em xmlTextWriterWriteFormatElement\n");
+    return -1;
+  }
+
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "tpAmb","%u", 
+                                               ide->tpAmb);
+  if (rc < 0) {
+    printf("ide->tpAmb: Erro em xmlTextWriterWriteFormatElement\n");
+    return -1;
+  }
+
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "finNFe","%u", 
+                                               ide->finNFe);
+  if (rc < 0) {
+    printf("ide->finNFe: Erro em xmlTextWriterWriteFormatElement\n");
+    return -1;
+  }
+
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "indFinal","%u", 
+                                               ide->indFinal);
+  if (rc < 0) {
+    printf("ide->indFinal: Erro em xmlTextWriterWriteFormatElement\n");
+    return -1;
+  }
+
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "indPres","%u", 
+                                               ide->indPres);
+  if (rc < 0) {
+    printf("ide->indPres: Erro em xmlTextWriterWriteFormatElement\n");
+    return -1;
+  }
+
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "procEmis","%u", 
+                                               ide->procEmis);
+  if (rc < 0) {
+    printf("ide->procEmis: Erro em xmlTextWriterWriteFormatElement\n");
+    return -1;
+  }
+
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "verProc","%s", 
+                                               ide->verProc);
+  if (rc < 0) {
+    printf("ide->verProc: Erro em xmlTextWriterWriteFormatElement\n");
+    return -1;
+  }
+
+  if(!ide->cont)
+     rc = xmlGenideContNode(writer, ide->cont);
+
+  rc = xmlTextWriterEndElement(writer);
+  if (rc < 0) {
+    printf("ide: Erro em xmlTextWriterEndElement\n");
+    return -1;
+  }
+
+  return 0;
 }
 
