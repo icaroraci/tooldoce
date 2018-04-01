@@ -19,8 +19,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "include/libnfe/NFref.h"
-#include "include/libnfe/defs.h"
+#include <libnfe/NFref.hr>
+#include <libnfe/defs.h>"
 
 
 
