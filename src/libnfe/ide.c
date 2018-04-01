@@ -32,11 +32,11 @@ struct Cont_s {
 
 
 struct ide_s{
-  enum UF_e cUF;                   // 2 caracteres
+  enum TIPO_UF_e cUF;              // 2 caracteres
   uint32_t cNF;                    // 8 caracteres 
   char natOp[TAM_NATOP];           // 61 caracteres
-  uint8_t indPag;                  // 1 caractere
-  enum MOD_e mod;                  // 2 caracteres
+  enum TIPO_PGTO_e indPag;                  // 1 caractere
+  enum TIPO_MOD_e mod;             // 2 caracteres
   uint16_t serie;                  // 3 caracteres
   uint32_t nNF;                    // 9 caracteres
   char *dhEmi;                     // Data
@@ -111,7 +111,7 @@ static char *DHSet(enum TZD_e tzd, enum TIPO_HVERAO_e hverao,
 */
 
 struct Cont_s *ideContNew(const struct Cont_s *this,
-                          enum TZD_e tzd, enum TIPO_HVERAO_e hverao, 
+                          enum TIPO_TZD_e tzd, enum TIPO_HVERAO_e hverao, 
                           const char *str, const char *xjust)
 {
   if(!this) 
@@ -169,8 +169,8 @@ int xmlGenideContNode(xmlTextWriterPtr writer,struct Cont_s *cont)
 
 
 
-struct ide_s *ideNew(struct Cont_s *cont, enum UF_e cuf, uint32_t cnf, 
-                     char *natop, uint8_t indpag, enum MOD_e mod, 
+struct ide_s *ideNew(struct ide_s *this, enum TIPO_UF_e cuf, uint32_t cnf, 
+                     char *natop, enum TIPO_PGTO_e indpag, enum TIPO_MOD_e mod, 
                      uint16_t serie, uint32_t nnf, char *dhemi, char *dhsaient,
                      enum TIPO_NF_e tpnf, enum TIPO_DESTINO_e iddest,
                      uint32_t cmunfg, enum TIPO_IMPRESSAO_e tpimp,
@@ -178,8 +178,8 @@ struct ide_s *ideNew(struct Cont_s *cont, enum UF_e cuf, uint32_t cnf,
                      enum TIPO_AMBIENTE_e tpamb, enum TIPO_FINALIDADE_e finnfe,
                      enum TIPO_OP_e indfinal, enum TIPO_PRES_e indpres,        // 1 caractere
                      enum TIPO_PROC_EMIS_e procemis, char *verproc,
-                     TZD_e tzd, TIPO_HVERAO_e hverao,
-                     const char *str, struct ide_s *newide)
+                     enum TIPO_TZD_e tzd, enum TIPO_HVERAO_e hverao,
+                     const char *str, struct Cont_s *cont)
 {
   if(!this)
   {
@@ -205,7 +205,6 @@ struct ide_s *ideNew(struct Cont_s *cont, enum UF_e cuf, uint32_t cnf,
     this->proEmis = procemis;
     strcpy(this->verProc, verproc);
     this->cont = cont;
-    this->newide = newide; 
     return this;
   }
   else
