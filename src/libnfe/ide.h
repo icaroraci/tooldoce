@@ -35,8 +35,10 @@ struct ide_s;
 */ 
 
 struct Cont_s *ideContNew(const struct Cont_s *this,
-                          enum TIPO_TZD_e tzd, enum TIPO_HVERAO_e hverao, 
-                          const char *str, const char *xjust);
+                          enum TIPO_TZD_e tzd, 
+                          enum TIPO_HVERAO_e hverao, 
+                          const char *str, 
+                          const char *xjust);
 
 void ideContDel(const struct Cont_s *cont);
 
@@ -77,17 +79,32 @@ void ideContDel(const struct Cont_s *cont);
  * str      = string indicativa da hora
  * 
 **/
-struct ide_s *ideNew(struct ide_s *this, enum TIPO_UF_e cuf, uint32_t cnf, 
-                     char *natop, enum TIPO_PGTO_e indpag, enum TIPO_MOD_e mod, 
-                     uint16_t serie, uint32_t nnf, char *dhemi, char *dhsaient,
-                     enum TIPO_NF_e tpnf, enum TIPO_DESTINO_e iddest,
-                     uint32_t cmunfg, enum TIPO_IMPRESSAO_e tpimp,
-                     enum TIPO_EMISSAO_e tpemis, uint8_t cdv,
-                     enum TIPO_AMBIENTE_e tpamb, enum TIPO_FINALIDADE_e finnfe,
-                     enum TIPO_OP_e indfinal, enum TIPO_PRES_e indpres,        // 1 caractere
-                     enum TIPO_PROC_EMIS_e procemis, char *verproc,
-                     enum TIPO_TZD_e tzd, enum TIPO_HVERAO_e hverao,
-                     const char *str, struct Cont_s *cont)
+struct ide_s *ideNew(struct ide_s *this, 
+                     enum TIPO_UF_e cuf, 
+                     uint32_t cnf, 
+                     char *natop, 
+                     enum TIPO_PGTO_e indpag, 
+                     enum TIPO_MOD_e mod, 
+                     uint16_t serie, 
+                     uint32_t nnf, 
+                     char *dhemi, 
+                     char *dhsaient,
+                     enum TIPO_NF_e tpnf, 
+                     enum TIPO_DESTINO_e iddest,
+                     uint32_t cmunfg, 
+                     enum TIPO_IMPRESSAO_e tpimp,
+                     enum TIPO_EMISSAO_e tpemis, 
+                     uint8_t cdv,
+                     enum TIPO_AMBIENTE_e tpamb, 
+                     enum TIPO_FINALIDADE_e finnfe,
+                     enum TIPO_OP_e indfinal, 
+                     enum TIPO_PRES_e indpres,
+                     enum TIPO_PROC_EMIS_e procemis, 
+                     char *verproc,
+                     struct Cont_s *cont,
+                     enum TIPO_TZD_e tzd, 
+                     enum TIPO_HVERAO_e hverao,
+                     const char *str );
 {
 void ideDel(struct ide_s *ide);
 
