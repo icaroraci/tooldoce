@@ -32,7 +32,7 @@
 #define TAM_NCOO 7
 
 
-
+typedef uint64_t CNPJouCPF;
 
 #endif
 
