@@ -16,6 +16,8 @@
  * along with tooldoce.  If not, see <http://www.gnu.org/licenses/>.
  * */
 
+#ifndef INCLUIDO_LIBNFE_H
+#define INCLUIDO_LIBNFE_H
 enum COD_UF_E {
 	/* Regiao Norte*/
 	UF_RONDONIA = 11,
@@ -133,10 +135,4 @@ enum PROCESSO_EMISSAO_E{
 };
 
 		
-
-
-
-
-
-
-
+#endif
