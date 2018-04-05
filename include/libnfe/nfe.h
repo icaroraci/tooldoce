@@ -44,7 +44,7 @@ enum COD_UF_E {
 	UF_PARANA = 41,
 	UF_SANTA_CATARINA = 42,
 	UF_RIO_GRANDE_S = 43,
-	/*Regiao centro Oeste*/
+	/*Regiao Centro Oeste*/
 	UF_MATO_GROSSO_S = 50,
 	UF_MATO_GROSSO = 51,
 	UF_GOIAS = 52,
