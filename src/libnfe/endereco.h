@@ -19,8 +19,16 @@
 #ifndef INCLUIDO_MUNICIO_H
 #define INCLUIDO_MUNICIO_H
 
-struct pais_s;
-struct endereco_t;
+#include<libnfe/erros.h>
+typedef struct pais_s Pais;
+typedef struct uf_s Uf;
+typedef struct municipio_s Municipio;
+typedef struct endereco_s Endereco;
+
+Endereco *  NewEndereco(void);
+
+
+
 
 #endif
 
