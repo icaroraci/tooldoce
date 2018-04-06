@@ -88,13 +88,7 @@ struct endereco_s{
 	uint32_t CEP;
 	uint64_t fone;
 	Municipio *municipio;
-} ;
-/*
-static Pais*  _newPais(void); 
-static Uf* _newUf(void);
-static Municipio* _newMunicipio(void);
-
-*/
+	} ;
 
 static Pais* _newPais(){
 	 Pais temp = {
@@ -155,5 +149,37 @@ Endereco * NewEndereco(){
 	return ptr;	
 };
 
+static 	void _delPais(Pais* t){
+	if(ptrnull(t) == 0){
+		free(t);
+	}
+};
 
+static void _delUf(Uf* t){
+	if(ptrnull(t) == 0){
+		_delPais(t->pais);
+		free(t);
+	}
+};
 
+static void _delMunicipio(Municipio * t){
+	if(ptrnull(t) == 0){
+		_delUf(t->uf);
+		free(t);
+	}
+};
+
+void DelEndereco(Endereco* t){
+	if(ptrnull(t) == 0){
+		_delMunicipio(t->municipio);
+		free(t);
+	}
+};
+
+unsigned int GetCEP(Endereco * end){
+	return end->CEP;
+};
+
+unsigned int SetCEP(Endereco * end, unsigned int c){
+	end->CEP = c;
+};

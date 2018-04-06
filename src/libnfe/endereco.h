@@ -26,6 +26,10 @@ typedef struct municipio_s Municipio;
 typedef struct endereco_s Endereco;
 
 Endereco *  NewEndereco(void);
+void DelEndereco(Endereco* t);
+unsigned int SetCEP(Endereco * end, unsigned int c);
+unsigned int GetCEP(Endereco * end);
+
 
 
 
