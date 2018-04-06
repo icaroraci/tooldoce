@@ -19,15 +19,17 @@
 #ifndef INCLUIDO_ERROS_H
 #define INCLUIDO_ERROS_H
 
-#define E_MALLOC 101
-#define E_REALLOC 102
-#define E_CALLOC 103
-#define E_FREE 104
+#define E_ISNULL -1
+#define E_MALLOC -101
+#define E_REALLOC -102
+#define E_CALLOC -103
+#define E_FREE -104
 
-#define E_NEWPAIS 1001
-#define E_NEWUF   1002
-#define E_NEWMUNICIPIO 1003
-#define E_NEWENDERECO  1004
+#define E_NEWPAIS -1001
+#define E_NEWUF   -1002
+#define E_NEWMUNICIPIO -1003
+#define E_NEWENDERECO  -1004
+
 
 
 #endif

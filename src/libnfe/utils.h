@@ -22,5 +22,5 @@
 #include<libnfe/erros.h>
 
 int error(char* msg, int codErro);
-
+int ptrnull(void* ptr);
 #endif

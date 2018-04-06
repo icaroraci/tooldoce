@@ -25,4 +25,11 @@ int error(char* msg, int codErro){
 	fprintf(stderr, "%s: %s com erro: %d\n", msg, strerror(errno), codErro);
 	return codErro;
 };
+int ptrnull(void * ptr){
+	if(ptr == NULL){
+		error("Ponteiro NULL",E_ISNULL);
+		return E_ISNULL;
+	}
+	return 0;
+};
 
