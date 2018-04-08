@@ -12,4 +12,5 @@
 <!--- Se você não tiver certeza de nada disso, não hesite em perguntar. Nós estamos aqui para ajudar! -->
 - [ ] Meu código segue o [estilo de código](https://github.com/icaroraci/tooldoce/wiki/Code-style) deste projeto.
 - [ ] Minha alteração requer uma alteração na documentação.
-- [ ] Eu atualizei a documentação de acordo.--- Que tipos de mudanças seu código introduz? Coloque um `x` em todas as caixas que se aplicam: -->
+- [ ] Eu atualizei a documentação de acordo.
+
