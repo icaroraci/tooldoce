@@ -19,6 +19,8 @@
 #ifndef INCLUIDO_LIBNFE_H
 #define INCLUIDO_LIBNFE_H
 
+#define FORMATO_DATA_HORA "%Y-%m-%d-T-%H:%M:%S-"
+
 enum COD_UF_E {
 	/* Regiao Norte*/
 	UF_RONDONIA = 11,
