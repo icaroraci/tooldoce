@@ -19,8 +19,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <libnfe/refNF.h>
+
+
+#include "refNF.h"
+
+
 #include <libnfe/defs.h>
+
 
 
 struct refNF_s {
