@@ -1,3 +1,6 @@
+# Meu projeto, minhas regras
+main.c
+docs/reference/libnfe/Diagrama_classe
 # Prerequisites
 *.d
 
@@ -41,7 +44,6 @@
 *.su
 *.idb
 *.pdb
-
 # Kernel Module Compile Results
 *.mod*
 *.cmd

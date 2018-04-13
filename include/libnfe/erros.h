@@ -16,25 +16,20 @@
  * along with tooldoce.  If not, see <http://www.gnu.org/licenses/>.
  * */
 
-#ifndef INCLUIDO_DEFS_H
-#define INCLUIDO_DEFS_H
+#ifndef INCLUIDO_ERROS_H
+#define INCLUIDO_ERROS_H
 
-#define TAM_CHAVE      45
-#define TAM_CUF         3
-#define TAM_AAMM        5
-#define TAM_CNPJ       15
-#define TAM_NNF        10
-#define TAM_SERIE       4
-#define TAM_MOD_NF      3
-#define TAM_CPF        12
-#define TAM_IE         15
-#define TAM_NECF        4
-#define TAM_NCOO        7
+#define E_ISNULL -1
+#define E_MALLOC -101
+#define E_REALLOC -102
+#define E_CALLOC -103
+#define E_FREE -104
 
-#define TAM_NATOP           62
-#define TAM_VERSAO_APLIC    21
+#define E_NEWPAIS -1001
+#define E_NEWUF   -1002
+#define E_NEWMUNICIPIO -1003
+#define E_NEWENDERECO  -1004
+
 
 
 #endif
-
-
