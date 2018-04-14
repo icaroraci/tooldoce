@@ -21,7 +21,7 @@ Sempre escreva uma mensagem de log clara para seus commits. Mensagens de uma lin
     > Um parágrafo descrevendo o que mudou e seu impacto. "
 
 ## Convenções de codificação
-0. Em breve code style
+0. [code style](https://github.com/icaroraci/tooldoce/wiki/Code-style)
 
 1. Certifique-se de que quaisquer dependências de instalação ou construção sejam removidas antes do final da camada ao executar um
    builder.
