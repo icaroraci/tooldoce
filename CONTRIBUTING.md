@@ -28,6 +28,85 @@ Sempre escreva uma mensagem de log clara para seus commits. Mensagens de uma lin
 2. Atualize o README.md com detalhes das mudanças na interface, isso inclui novo ambiente
    variáveis, portas expostas, locais de arquivos úteis e parâmetros.
 
+## Mantendo um fork
+
+Para contribuir com este projeto enviando alterações, é necessário que você mantenha um fork do mesmo na sua conta pessoal do GitHub. Caso não saiba como fazê-lo, você pode seguir este guia.
+
+0. Crie uma conta no [GitHub](https://github.com/), caso ainda não tenha, e faça login na mesma.
+1. Crie seu fork, acessando o [repositório do projeto](https://github.com/icaroraci/tooldoce) e clicando no botão *Fork* no canto superior direito.
+2. No seu computador, faça o clone do fork que você acabou de criar com o seguinte comando:
+
+   ```
+   $ git clone https://github.com/seu_usuario/tooldoce.git
+   ```
+
+   Lembre de usar o caminho correto para o seu repositório, que irá incluir o seu nome de usuário e pode variar um pouco conforme você opte por HTTPS ou SSH.
+3. Para facilitar algumas operações, como receber as atualizações do repositório principal para seu fork, adicione um romote para o repositório principal:
+
+   ```
+   $ git remote add principal https://github.com/icaroraci/tooldoce.git
+   ```
+
+   A configuração do mesmo pode ser verificado como a baixo:
+
+   ```
+   $ git remote -v
+   origin	git@github.com:seu_usuario/tooldoce.git (fetch)
+   origin	git@github.com:seu_usuario/tooldoce.git (push)
+   principal	https://github.com/icaroraci/tooldoce.git (fetch)
+   principal	https://github.com/icaroraci/tooldoce.git (push)
+   ```
+
+   Observe que a saída deste comando pode estar levemente diferente do apresentado aqui, porém se configurado corretamente irá funcionar da mesma forma.
+
+   Outro ponto importante é que para esse repositório que você está configurando agora, `origin` é o nome dado ao seu fork e `principal` é o nome dado ao repositório principal ao qual você fez o fork.
+
+
+### Atualizando seu fork
+
+Para atualizar o seu fork, você deve baixar os commits do repositório principal, unindo-os ao seu repositório, o que pode ser feito com:
+
+```
+$ git checkout master  # Vai para a branch principal do projeto
+$ git pull origin master  # Atualiza sua branch `master` para ter certeza de ter baixado todos os commits do seu fork no GitHub
+$ git fetch principal master  # Busca os commits que estão na `master` do repositório principal
+$ git merge principal/master  # Une os commits baixados com a sua branch `master` local
+$ git push origin master  # Envia esses commits ao seu fork no GitHub
+```
+
+Caso algum desses comandos apresente algum problema, leia sua mensagem de erro, ou verifique com `git status`, que será explicado o que ocorreu e muitas vezes sugerindo dicas ou até mesmo o comando necessário para a correção do problema.
+
+### Criando uma branch para suas alterações
+
+É interessante fazer suas alterações em uma branch própria para isso (não usar a `master`), desta forma, permite fazer uma segunda alteração, enquanto ainda espera a alteração anterior ser aceita.
+
+Para criar uma branch nova, primeiramente atualize seu fork como descrito anteriormente para evitar ao máximo que ocorram conflitos e ter certeza de que você está trabalhando na versão mais nova do código.
+
+Estando na branch `master` (o que pode ser verificado com o comando `git status` na primeira linha `On branch ...`), escolha um nome descritivo para essa alteração e execute o comando a baixo:
+
+```
+$ git checkout -b ajute-do-titulo
+```
+
+De proceguimento no desenvolvimento, fazendo seus commits. Quando terminado, envie as alterações para o seu fork:
+
+```
+$ git push origin ajute-do-titulo
+```
+
+E abra o Pull Request na interface do GitHub (Obrigado por contribuir).
+
+Caso queira testar a versão sem suas modificações, ou queira ir para outra modificação (branch), execute:
+
+```
+$ git checkout master  # Sem suas modificações
+$ git checkout ajute-do-titulo  # Voltar as suas modificações ou ir para outra modificação
+```
+
+Lembrando que para isso você não pode ter feito modificações nos arquivos ou ter já ter feito o commit dos mesmos para que essa operação seja corretamente executada (use `git status` para verificar isso).
+
+Você ainda pode listar suas branches com `git branch`.
+
 ## Código de conduta
 
 ### Nosso compromisso
