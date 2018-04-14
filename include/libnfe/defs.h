@@ -19,18 +19,20 @@
 #ifndef INCLUIDO_DEFS_H
 #define INCLUIDO_DEFS_H
 
-#define TAM_CHAVE 45
-#define TAM_CUF 3
-#define TAM_AAMM 5
-#define TAM_CNPJ 15
-#define TAM_NNF 10
-#define TAM_SERIE 4
-#define TAM_MOD_NF 3
-#define TAM_CPF 12
-#define TAM_IE 15
-#define TAM_NECF 4
-#define TAM_NCOO 7
+#define TAM_CHAVE      45
+#define TAM_CUF         3
+#define TAM_AAMM        5
+#define TAM_CNPJ       15
+#define TAM_NNF        10
+#define TAM_SERIE       4
+#define TAM_MOD_NF      3
+#define TAM_CPF        12
+#define TAM_IE         15
+#define TAM_NECF        4
+#define TAM_NCOO        7
 
+#define TAM_NATOP           62
+#define TAM_VERSAO_APLIC    21
 
 
 #endif
