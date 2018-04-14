@@ -16,8 +16,10 @@
  * along with tooldoce.  If not, see <http://www.gnu.org/licenses/>.
  * */
 
-#ifndef _H_IDE_H_
-#define _H_IDE_H_
+
+
+#ifndef INCLUIDO_IDE_H
+#define INCLUIDO_IDE_H
 
 #include <libxml/encoding.h>
 #include <libxml/xmlwriter.h>
