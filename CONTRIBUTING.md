@@ -8,7 +8,7 @@ Se você ainda não o fez, venha nos encontrar no [Telegram](https://t.me/LivreD
 Ao contribuir com este repositório, por favor, primeiro discuta a mudança que você deseja fazer através do [issues](https://github.com/icaroraci/tooldoce/issues),
 <a href="mailto:gabriellampa@gmail.com">e-mail</a>, Telegram (@GabrielLampa) ou qualquer outro método com os proprietários deste repositório antes de fazer uma alteração.
 
-Por favor, note que temos um código de conduta, por favor, siga-o em todas as suas interações com o projeto.
+Por favor, note que temos um [código de conduta](https://github.com/icaroraci/tooldoce/blob/master/CODE_OF_CONDUCT.md), por favor, siga-o em todas as suas interações com o projeto.
 
 ## Pull Request Process
 ## Enviando alterações
