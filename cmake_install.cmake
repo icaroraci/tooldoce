@@ -1,4 +1,4 @@
-# Install script for directory: /home/marcelo/cpp/gitProjects/tooldoce/src/libnfe
+# Install script for directory: /home/marcelo/cpp/gitProjects/tooldoce
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/marcelo/cpp/gitProjects/tooldoce/src/libnfe/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/marcelo/cpp/gitProjects/tooldoce/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
