@@ -20,6 +20,10 @@
 #define INCLUIDO_MUNICIO_H
 
 #include<libnfe/erros.h>
+#include<stdint.h>
+#include<stdlib.h>
+
+
 
 typedef struct pais_s Pais;
 typedef struct uf_s Uf;
