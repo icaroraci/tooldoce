@@ -1,0 +1,97 @@
+- [ ] **Struct NFe**
+	- [ ] **Struct infNFe**
+		- [ ] [**Struct ide**]()
+			- [ ] Métodos Get & Set
+			- [ ] Métodos Alocar/Desalocar (New & Free)
+			- [ ] Método Gerar xml
+			- [ ] _Notas fiscais referênciada_
+				- [ ] Struct refNFe
+					- [ ] Métodos Get & Set
+					- [ ] Métodos Alocar/Desalocar (New & Free)
+					- [ ] Método Gerar xml
+				- [ ] Struct refNF
+					- [ ] Métodos Get & Set
+					- [ ] Métodos Alocar/Desalocar (New & Free)
+					- [ ] Método Gerar xml
+				- [ ] Struct refNFP
+					- [ ] Métodos Get & Set
+					- [ ] Métodos Alocar/Desalocar (New & Free)
+					- [ ] Método Gerar xml				
+				- [ ] Struct refCTe
+					- [ ] Métodos Get & Set
+					- [ ] Métodos Alocar/Desalocar (New & Free)
+					- [ ] Método Gerar xml
+				- [ ] Struct refECF
+					- [ ] Métodos Get & Set
+					- [ ] Métodos Alocar/Desalocar (New & Free)
+					- [ ] Método Gerar xml
+		- [ ] **Struct emit**
+			- [ ] Métodos Get & Set
+			- [ ] Métodos Alocar/Desalocar (New & Free)
+			- [ ] Método Gerar xml
+		- [ ] _Avulsa_
+			- [ ] Métodos Get & Set
+			- [ ] Métodos Alocar/Desalocar (New & Free)
+			- [ ] Método Gerar xml
+		- [ ] **Struct dest**
+			- [ ] Métodos Get & Set
+			- [ ] Métodos Alocar/Desalocar (New & Free)
+			- [ ] Método Gerar xml
+		- [ ] _Struct retirada_
+			- [ ] Métodos Get & Set
+			- [ ] Métodos Alocar/Desalocar (New & Free)
+			- [ ] Método Gerar xml
+		- [ ] _Struct entrega_
+			- [ ] Métodos Get & Set
+			- [ ] Métodos Alocar/Desalocar (New & Free)
+			- [ ] Método Gerar xml
+		- [ ] _autXML_
+			- [ ] Métodos Get & Set
+			- [ ] Métodos Alocar/Desalocar (New & Free)
+			- [ ] Método Gerar xml
+		- [ ] **Struct det**
+			- [ ] **Struct prod**
+			  - [ ] **Informações comuns**
+				- [ ] Métodos Get & Set
+				- [ ] Métodos Alocar/Desalocar (New & Free)
+				- [ ] Métodos Get & Set
+				- [ ] _Struct DI_
+					- [ ] Métodos Get & Set
+					- [ ] Métodos Alocar/Desalocar (New & Free)
+					- [ ] Métodos Get & Set
+					- [ ] _Struct adi_
+						- [ ] Métodos Get & Set
+						- [ ] Métodos Alocar/Desalocar (New & Free)
+						- [ ] Métodos Get & Set
+				- [ ] _Struct rastro_
+					- [ ] Métodos Get & Set
+					- [ ] Métodos Alocar/Desalocar (New & Free)
+					- [ ] Métodos Get & Set
+				- [ ] _Estruturas opcionais que são mutuamente exclusivos._
+					- [ ] Struct veicProd
+						- [ ] Métodos Get & Set
+						- [ ] Métodos Alocar/Desalocar (New & Free)
+						- [ ] Métodos Get & Set
+					- [ ] Struct med
+						- [ ] Métodos Get & Set
+						- [ ] Métodos Alocar/Desalocar (New & Free)
+						- [ ] Métodos Get & Set
+					- [ ] Struct arma
+						- [ ] Métodos Get & Set
+						- [ ] Métodos Alocar/Desalocar (New & Free)
+						- [ ] Métodos Get & Set
+					- [ ] Struct comb
+						- [ ] Métodos Get & Set
+						- [ ] Métodos Alocar/Desalocar (New & Free)
+						- [ ] Métodos Get & Set
+			- [ ] **Struct imposto**
+		- [ ] **Struct total**
+		- [ ] **Struct transp**
+		- [ ] _Struct cobr_
+		- [ ] _Struct infAdic_
+		- [ ] _Struct exporta_
+		- [ ] _Struct compra_
+		- [ ] _Struct cana_
+
+	- [ ] **Struct Signature**
+		- [ ] Método assinar
