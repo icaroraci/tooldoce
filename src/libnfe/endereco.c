@@ -150,72 +150,21 @@ Endereco * NewEndereco(){
 };
 
 static 	void _delPais(Pais* t){
-	if(ptrnull(t) == 0){
-		free(t);
-	}
+		NFE_free(t);
 };
 
 static void _delUf(Uf* t){
-	if(ptrnull(t) == 0){
 		_delPais(t->pais);
-		free(t);
-	}
+		NFE_free(t);
 };
 
 static void _delMunicipio(Municipio * t){
-	if(ptrnull(t) == 0){
 		_delUf(t->uf);
-		free(t);
-	}
+		NFE_free(t);
 };
 
 void DelEndereco(Endereco* t){
-	if(ptrnull(t) == 0){
 		_delMunicipio(t->municipio);
-		free(t);
-	}
-};
-
-uint32_t GetCEP(Endereco * end){
-	int rc;
-	rc = ptrnull(end);
-	if (rc == 0){
-		return end->CEP;
-	}else{
-		return 0;
-	}
-				
-};
-
-int  SetCEP(Endereco * end, uint32_t cep){
-	int rc;
-	rc = ptrnull(end);
-	if (rc == 0){
-		end->CEP = cep;
-		return 0;
-	}else{
-		return rc;
-	}
-};
-
-int SetFone(Endereco* end, uint64_t fone){
-	int rc;
-	rc = ptrnull(end);
-	if (rc == 0){
-		end->fone = fone;
-		return 0;
-	}else{
-		return rc;
-	}
-};
-
-uint64_t GetFone(Endereco* end){
-	int rc;
-	rc = ptrnull(end);
-	if (rc == 0){
-	 	return	end->fone ;
-	}else{
-		return 0 ;
-	}
+		NFE_free(t);
 };
 
