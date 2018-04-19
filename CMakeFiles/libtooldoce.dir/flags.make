@@ -6,5 +6,5 @@ C_FLAGS =
 
 C_DEFINES = 
 
-C_INCLUDES = -I/home/marcelo/cpp/gitProjects/tooldoce/include/libnfe -I/home/marcelo/cpp/gitProjects/tooldoce/src/libnfe -I/usr/include/libxml2 
+C_INCLUDES = -I/home/marcelo/cpp/gitProjects/tooldoce/include -I/home/marcelo/cpp/gitProjects/tooldoce/src -I/usr/include/libxml2 
 

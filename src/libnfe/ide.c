@@ -20,7 +20,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
-#include "include/libnfe/defs.h"
+#include "libnfe/defs.h"
 #include "ide.h"
 
 #define DHDEFAULT "%Y-%m-%d-T-%H:%M:%S-"

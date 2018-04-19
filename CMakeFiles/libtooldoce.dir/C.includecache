@@ -13,8 +13,8 @@ stdio.h
 -
 string.h
 -
-defs.h
-/home/marcelo/cpp/gitProjects/tooldoce/src/libnfe/defs.h
+libnfe/defs.h
+/home/marcelo/cpp/gitProjects/tooldoce/src/libnfe/libnfe/defs.h
 NFref.h
 /home/marcelo/cpp/gitProjects/tooldoce/src/libnfe/NFref.h
 
@@ -53,8 +53,8 @@ stdint.h
 -
 string.h
 -
-include/libnfe/defs.h
-/home/marcelo/cpp/gitProjects/tooldoce/src/libnfe/include/libnfe/defs.h
+libnfe/defs.h
+/home/marcelo/cpp/gitProjects/tooldoce/src/libnfe/libnfe/defs.h
 ide.h
 /home/marcelo/cpp/gitProjects/tooldoce/src/libnfe/ide.h
 
@@ -309,4 +309,8 @@ libxml/xmlstring.h
 -
 
 include/libnfe/defs.h
+
+include/libnfe/erros.h
+
+include/libnfe/nfe.h
 

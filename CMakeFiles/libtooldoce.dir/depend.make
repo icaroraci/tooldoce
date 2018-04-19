@@ -30,6 +30,8 @@ CMakeFiles/libtooldoce.dir/src/libnfe/NFref.c.o: include/libnfe/defs.h
 CMakeFiles/libtooldoce.dir/src/libnfe/endereco.c.o: src/libnfe/endereco.c
 CMakeFiles/libtooldoce.dir/src/libnfe/endereco.c.o: src/libnfe/endereco.h
 CMakeFiles/libtooldoce.dir/src/libnfe/endereco.c.o: src/libnfe/utils.h
+CMakeFiles/libtooldoce.dir/src/libnfe/endereco.c.o: include/libnfe/erros.h
+CMakeFiles/libtooldoce.dir/src/libnfe/endereco.c.o: include/libnfe/nfe.h
 
 CMakeFiles/libtooldoce.dir/src/libnfe/ide.c.o: src/libnfe/ide.c
 CMakeFiles/libtooldoce.dir/src/libnfe/ide.c.o: src/libnfe/ide.h
@@ -55,6 +57,7 @@ CMakeFiles/libtooldoce.dir/src/libnfe/ide.c.o: /usr/include/libxml2/libxml/xmlre
 CMakeFiles/libtooldoce.dir/src/libnfe/ide.c.o: /usr/include/libxml2/libxml/xmlstring.h
 CMakeFiles/libtooldoce.dir/src/libnfe/ide.c.o: /usr/include/libxml2/libxml/xmlversion.h
 CMakeFiles/libtooldoce.dir/src/libnfe/ide.c.o: /usr/include/libxml2/libxml/xmlwriter.h
+CMakeFiles/libtooldoce.dir/src/libnfe/ide.c.o: include/libnfe/defs.h
 
 CMakeFiles/libtooldoce.dir/src/libnfe/refNF.c.o: src/libnfe/refNF.c
 CMakeFiles/libtooldoce.dir/src/libnfe/refNF.c.o: src/libnfe/refNF.h
@@ -80,7 +83,9 @@ CMakeFiles/libtooldoce.dir/src/libnfe/refNF.c.o: /usr/include/libxml2/libxml/xml
 CMakeFiles/libtooldoce.dir/src/libnfe/refNF.c.o: /usr/include/libxml2/libxml/xmlstring.h
 CMakeFiles/libtooldoce.dir/src/libnfe/refNF.c.o: /usr/include/libxml2/libxml/xmlversion.h
 CMakeFiles/libtooldoce.dir/src/libnfe/refNF.c.o: /usr/include/libxml2/libxml/xmlwriter.h
+CMakeFiles/libtooldoce.dir/src/libnfe/refNF.c.o: include/libnfe/defs.h
 
 CMakeFiles/libtooldoce.dir/src/libnfe/utils.c.o: src/libnfe/utils.c
 CMakeFiles/libtooldoce.dir/src/libnfe/utils.c.o: src/libnfe/utils.h
+CMakeFiles/libtooldoce.dir/src/libnfe/utils.c.o: include/libnfe/erros.h
 

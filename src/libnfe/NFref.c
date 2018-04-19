@@ -19,7 +19,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "defs.h"
+#include "libnfe/defs.h"
 #include "NFref.h"
 
 
