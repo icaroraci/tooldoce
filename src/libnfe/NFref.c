@@ -23,7 +23,6 @@
 #include <libnfe/defs.h>
 
 
-
 struct NFref_s{
   char refNFe[TAM_CHAVE];
 };

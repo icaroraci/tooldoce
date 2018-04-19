@@ -20,6 +20,11 @@
 #define INCLUIDO_MUNICIO_H
 
 #include<libnfe/erros.h>
+#include<stdint.h>
+#include<stdlib.h>
+
+
+
 typedef struct pais_s Pais;
 typedef struct uf_s Uf;
 typedef struct municipio_s Municipio;
@@ -27,8 +32,25 @@ typedef struct endereco_s Endereco;
 
 Endereco *  NewEndereco(void);
 void DelEndereco(Endereco* t);
-unsigned int SetCEP(Endereco * end, unsigned int c);
-unsigned int GetCEP(Endereco * end);
+
+char* GetLgr(Endereco* end);
+char* GetNro(Endereco* end);
+char* GetCpl(Endereco* end);
+char* GetBairro(Endereco* end);
+uint32_t GetCEP(Endereco * end);
+uint64_t GetFone(Endereco* end);
+Municipio* GetMunicipio(Endereco* end);
+
+int SetLgr(Endereco* end, const char* xlgr);
+int SetNro(Endereco* end, const char* nro);
+int SetCpl(Endereco* end, const char* cpl);
+int SetBairro(Endereco* end, const char* bairro);
+int SetCEP(Endereco * end, uint32_t cep);
+int SetFone(Endereco* end, uint64_t fone);
+int SetMunicipio(Endereco* end, Municipio* muni);
+
+
+
 
 
 

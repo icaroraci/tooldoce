@@ -176,10 +176,46 @@ void DelEndereco(Endereco* t){
 	}
 };
 
-unsigned int GetCEP(Endereco * end){
-	return end->CEP;
+uint32_t GetCEP(Endereco * end){
+	int rc;
+	rc = ptrnull(end);
+	if (rc == 0){
+		return end->CEP;
+	}else{
+		return 0;
+	}
+				
 };
 
-unsigned int SetCEP(Endereco * end, unsigned int c){
-	end->CEP = c;
+int  SetCEP(Endereco * end, uint32_t cep){
+	int rc;
+	rc = ptrnull(end);
+	if (rc == 0){
+		end->CEP = cep;
+		return 0;
+	}else{
+		return rc;
+	}
 };
+
+int SetFone(Endereco* end, uint64_t fone){
+	int rc;
+	rc = ptrnull(end);
+	if (rc == 0){
+		end->fone = fone;
+		return 0;
+	}else{
+		return rc;
+	}
+};
+
+uint64_t GetFone(Endereco* end){
+	int rc;
+	rc = ptrnull(end);
+	if (rc == 0){
+	 	return	end->fone ;
+	}else{
+		return 0 ;
+	}
+};
+
