@@ -14,14 +14,8 @@ stdio.h
 string.h
 -
 libnfe/defs.h
-/home/marcelo/cpp/gitProjects/tooldoce/src/libnfe/libnfe/defs.h
-NFref.h
-/home/marcelo/cpp/gitProjects/tooldoce/src/libnfe/NFref.h
-
-/home/marcelo/cpp/gitProjects/tooldoce/src/libnfe/NFref.h
-libxml/encoding.h
 -
-libxml/xmlwriter.h
+libnfe/NFref.h
 -
 
 /home/marcelo/cpp/gitProjects/tooldoce/src/libnfe/endereco.c
@@ -35,13 +29,9 @@ libnfe/erros.h
 -
 libnfe/nfe.h
 -
-utils.h
-/home/marcelo/cpp/gitProjects/tooldoce/src/libnfe/utils.h
-endereco.h
-/home/marcelo/cpp/gitProjects/tooldoce/src/libnfe/endereco.h
-
-/home/marcelo/cpp/gitProjects/tooldoce/src/libnfe/endereco.h
-libnfe/erros.h
+libnfe/utils.h
+-
+libnfe/endereco.h
 -
 
 /home/marcelo/cpp/gitProjects/tooldoce/src/libnfe/ide.c
@@ -54,14 +44,8 @@ stdint.h
 string.h
 -
 libnfe/defs.h
-/home/marcelo/cpp/gitProjects/tooldoce/src/libnfe/libnfe/defs.h
-ide.h
-/home/marcelo/cpp/gitProjects/tooldoce/src/libnfe/ide.h
-
-/home/marcelo/cpp/gitProjects/tooldoce/src/libnfe/ide.h
-libxml/encoding.h
 -
-libxml/xmlwriter.h
+libnfe/ide.h
 -
 
 /home/marcelo/cpp/gitProjects/tooldoce/src/libnfe/refNF.c
@@ -313,4 +297,24 @@ include/libnfe/defs.h
 include/libnfe/erros.h
 
 include/libnfe/nfe.h
+
+src/libnfe/NFref.h
+libxml/encoding.h
+-
+libxml/xmlwriter.h
+-
+
+src/libnfe/endereco.h
+libnfe/erros.h
+-
+
+src/libnfe/ide.h
+libxml/encoding.h
+-
+libxml/xmlwriter.h
+-
+
+src/libnfe/utils.h
+libnfe/erros.h
+-
 
