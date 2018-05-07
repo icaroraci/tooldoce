@@ -73,8 +73,9 @@ enum TIPO_OPERACAO_E {
 	OPERACAO_SAIDA = 1
 };
 
+
 /*TODO:CABE REGRA*/
-enum OPERACAO_DESTINO_E {
+enum TIPO_DESTINO_E {
 	DESTINO_INTERNO = 1,
 	DESTINO_INTERESTADUAL = 2,
 	DESTINO_EXTERIOR = 3
@@ -136,6 +137,39 @@ enum PROCESSO_EMISSAO_E{
 	EMISSAO_AVULSA_FISCO = 1,
 	EMISSAO_AVULSA_SITEFISCO = 2,
 	EMISSAO_CONTRIBUINTE_APPFISCO = 3
+};
+/**
+ * TIPO_TZD_E:
+ * @TZD_FERNANDO_NORONHA: HORÁRIO DE FERNANDO DE NORONHA
+ * @TZD_BRASILIA: HORARIO OFICIAL
+ * @TZD_MANAUS: HORARIO DE MANAUS
+ *
+ * Data e hora do evento no formato AAAA-MM-DDThh:mm:ssTZD 
+ * (UTC - Universal Coordinated Time ,onde TZD pode ser 
+ * -02:00 (Fernando de Noronha), 
+ * -03:00 (Brasília) ou 
+ * -04:00 (Manaus), 
+ *  no horário de verão serão -01:00, -02:00 e -03:00. Ex.: 2010-08-19T13:00:15-03:00.
+ */
+enum TIPO_TZD_E{
+	TZD_FERNANDO_NORONHA = -2, 
+	TZD_BRASILIA = -3, 
+	TZD_MANAUS = -4
+};
+
+/**
+ * TIPO_HVERAO_E:
+ * @HORA_NORMAL: HORARIO NORMAL
+ * @HORA_VERAO: HORARIO DE VERÃO
+ *
+ * Deve-se sempre informar o fuso-horaio #TIPO_TZD_E  quanto o horaio de verão somando-se os dois
+ * EX:
+ * TZD_BRASILIA + HORA_VERAO
+ */
+
+enum TIPO_HVERAO_E{
+	HORA_NORMAL = 0,
+	HORA_VERAO = 1 
 };
 
 		
