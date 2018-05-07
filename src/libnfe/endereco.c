@@ -16,15 +16,15 @@
  * along with tooldoce.  If not, see <http://www.gnu.org/licenses/>.
  * */
 
-#include<stdint.h>
-#include<string.h>
-#include<stdlib.h>
+#include <stdint.h>
+#include <string.h>
+#include <stdlib.h>
 
-#include<libnfe/erros.h>
-#include<libnfe/nfe.h>
+#include <libnfe/erros.h>
+#include <libnfe/nfe.h>
 
-#include"utils.h"
-#include"endereco.h"
+#include <libnfe/utils.h>
+#include <libnfe/endereco.h>
 
 
 

@@ -1,0 +1,3 @@
+/home/marcelo/cpp/gitProjects/tooldoce/CMakeFiles/rebuild_cache.dir
+/home/marcelo/cpp/gitProjects/tooldoce/CMakeFiles/libtooldoce.dir
+/home/marcelo/cpp/gitProjects/tooldoce/CMakeFiles/edit_cache.dir

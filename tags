@@ -1,0 +1,322 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AAMM	src/libnfe/refNF.c	/^  char AAMM[TAM_AAMM];$/;"	m	struct:refNF_s	file:	access:public
+AMBIENTE_HOMOLOGACAO	include/libnfe/nfe.h	/^	AMBIENTE_HOMOLOGACAO = 2$/;"	e	enum:EMISSAO_AMBIENTE_E
+AMBIENTE_PRODUCAO	include/libnfe/nfe.h	/^	AMBIENTE_PRODUCAO = 1,$/;"	e	enum:EMISSAO_AMBIENTE_E
+CEP	src/libnfe/endereco.c	/^	uint32_t CEP;$/;"	m	struct:endereco_s	file:	access:public
+CNPJ	src/libnfe/refNF.c	/^  char CNPJ[TAM_CNPJ];$/;"	m	struct:refNF_s	file:	access:public
+COD_UF_E	include/libnfe/nfe.h	/^enum COD_UF_E {$/;"	g
+CONSUMIDOR_FINAL	include/libnfe/nfe.h	/^	CONSUMIDOR_FINAL = 1$/;"	e	enum:OPERACAO_CONSUMIDOR_E
+CONSUMIDOR_NOMAL	include/libnfe/nfe.h	/^	CONSUMIDOR_NOMAL = 0,$/;"	e	enum:OPERACAO_CONSUMIDOR_E
+Cont_s	src/libnfe/ide.c	/^struct Cont_s {$/;"	s	file:
+Cont_s	src/libnfe/ide.h	/^struct Cont_s;$/;"	x
+Cont_s::dhCont	src/libnfe/ide.c	/^  char *dhCont;                    \/\/ Data$/;"	m	struct:Cont_s	file:	access:public
+Cont_s::xJust	src/libnfe/ide.c	/^  char xJust[TAM_JUSTIFICATIVA];   \/\/ 256 caracteres$/;"	m	struct:Cont_s	file:	access:public
+Cpl	src/libnfe/endereco.c	/^	const char *Cpl;$/;"	m	struct:endereco_s	file:	access:public
+DANFE_NFCE	include/libnfe/nfe.h	/^	DANFE_NFCE = 4,$/;"	e	enum:FORMATO_DANFE_E
+DANFE_NFCE_ELETRONICA	include/libnfe/nfe.h	/^	DANFE_NFCE_ELETRONICA = 5$/;"	e	enum:FORMATO_DANFE_E
+DANFE_NORMAL_PAISAGEM	include/libnfe/nfe.h	/^	DANFE_NORMAL_PAISAGEM = 2,$/;"	e	enum:FORMATO_DANFE_E
+DANFE_NORMAL_RETRATO	include/libnfe/nfe.h	/^	DANFE_NORMAL_RETRATO = 1,$/;"	e	enum:FORMATO_DANFE_E
+DANFE_SEM_GERAR	include/libnfe/nfe.h	/^	DANFE_SEM_GERAR = 0,$/;"	e	enum:FORMATO_DANFE_E
+DANFE_SIMPLIFICADA	include/libnfe/nfe.h	/^	DANFE_SIMPLIFICADA = 3,$/;"	e	enum:FORMATO_DANFE_E
+DESTINO_EXTERIOR	include/libnfe/nfe.h	/^	DESTINO_EXTERIOR = 3$/;"	e	enum:OPERACAO_DESTINO_E
+DESTINO_INTERESTADUAL	include/libnfe/nfe.h	/^	DESTINO_INTERESTADUAL = 2,$/;"	e	enum:OPERACAO_DESTINO_E
+DESTINO_INTERNO	include/libnfe/nfe.h	/^	DESTINO_INTERNO = 1,$/;"	e	enum:OPERACAO_DESTINO_E
+DHDEFAULT	src/libnfe/ide.c	26;"	d	file:
+DHSet	src/libnfe/ide.c	/^static char *DHSet(enum TZD_e tzd, enum TIPO_HVERAO_e hverao,$/;"	f	file:	signature:(enum TZD_e tzd, enum TIPO_HVERAO_e hverao, const char *str)
+DOCUMENTO_MODELO_E	include/libnfe/nfe.h	/^enum DOCUMENTO_MODELO_E {$/;"	g
+DelEndereco	src/libnfe/endereco.c	/^void DelEndereco(Endereco* t){$/;"	f	signature:(Endereco* t)
+DelEndereco	src/libnfe/endereco.h	/^void DelEndereco(Endereco* t);$/;"	p	signature:(Endereco* t)
+EMISSAO_AMBIENTE_E	include/libnfe/nfe.h	/^enum EMISSAO_AMBIENTE_E{$/;"	g
+EMISSAO_AVULSA_FISCO	include/libnfe/nfe.h	/^	EMISSAO_AVULSA_FISCO = 1,$/;"	e	enum:PROCESSO_EMISSAO_E
+EMISSAO_AVULSA_SITEFISCO	include/libnfe/nfe.h	/^	EMISSAO_AVULSA_SITEFISCO = 2,$/;"	e	enum:PROCESSO_EMISSAO_E
+EMISSAO_CONTIGENCIA_DPEC	include/libnfe/nfe.h	/^	EMISSAO_CONTIGENCIA_DPEC = 4,$/;"	e	enum:TIPO_EMISSAO_E
+EMISSAO_CONTIGENCIA_FSDA	include/libnfe/nfe.h	/^	EMISSAO_CONTIGENCIA_FSDA = 5,$/;"	e	enum:TIPO_EMISSAO_E
+EMISSAO_CONTIGENCIA_FSIA	include/libnfe/nfe.h	/^	EMISSAO_CONTIGENCIA_FSIA = 2,$/;"	e	enum:TIPO_EMISSAO_E
+EMISSAO_CONTIGENCIA_OFFLINE_NFCE	include/libnfe/nfe.h	/^	EMISSAO_CONTIGENCIA_OFFLINE_NFCE = 9$/;"	e	enum:TIPO_EMISSAO_E
+EMISSAO_CONTIGENCIA_SCAN	include/libnfe/nfe.h	/^	EMISSAO_CONTIGENCIA_SCAN = 3,$/;"	e	enum:TIPO_EMISSAO_E
+EMISSAO_CONTIGENCIA_SVC_AN	include/libnfe/nfe.h	/^	EMISSAO_CONTIGENCIA_SVC_AN = 6,$/;"	e	enum:TIPO_EMISSAO_E
+EMISSAO_CONTIGENCIA_SVC_RS	include/libnfe/nfe.h	/^	EMISSAO_CONTIGENCIA_SVC_RS = 7,$/;"	e	enum:TIPO_EMISSAO_E
+EMISSAO_CONTRIBUINTE_APPFISCO	include/libnfe/nfe.h	/^	EMISSAO_CONTRIBUINTE_APPFISCO = 3$/;"	e	enum:PROCESSO_EMISSAO_E
+EMISSAO_CONTRIBUINTE_APPPROPRIO	include/libnfe/nfe.h	/^	EMISSAO_CONTRIBUINTE_APPPROPRIO = 0,$/;"	e	enum:PROCESSO_EMISSAO_E
+EMISSAO_NORMAL	include/libnfe/nfe.h	/^	EMISSAO_NORMAL = 1,$/;"	e	enum:TIPO_EMISSAO_E
+E_CALLOC	include/libnfe/erros.h	25;"	d
+E_FREE	include/libnfe/erros.h	26;"	d
+E_ISNULL	include/libnfe/erros.h	22;"	d
+E_MALLOC	include/libnfe/erros.h	23;"	d
+E_NEWENDERECO	include/libnfe/erros.h	31;"	d
+E_NEWMUNICIPIO	include/libnfe/erros.h	30;"	d
+E_NEWPAIS	include/libnfe/erros.h	28;"	d
+E_NEWUF	include/libnfe/erros.h	29;"	d
+E_REALLOC	include/libnfe/erros.h	24;"	d
+Endereco	src/libnfe/endereco.h	/^typedef struct endereco_s Endereco;$/;"	t	typeref:struct:endereco_s
+FINALIDADE_NFE_E	include/libnfe/nfe.h	/^enum FINALIDADE_NFE_E{$/;"	g
+FORMATO_DANFE_E	include/libnfe/nfe.h	/^enum FORMATO_DANFE_E{$/;"	g
+FORMATO_DATA_HORA	include/libnfe/nfe.h	22;"	d
+FORMA_PAGAMENTO_E	include/libnfe/nfe.h	/^enum FORMA_PAGAMENTO_E {$/;"	g
+GetBairro	src/libnfe/endereco.h	/^char* GetBairro(Endereco* end);$/;"	p	signature:(Endereco* end)
+GetCEP	src/libnfe/endereco.c	/^uint32_t GetCEP(Endereco * end){$/;"	f	signature:(Endereco * end)
+GetCEP	src/libnfe/endereco.h	/^uint32_t GetCEP(Endereco * end);$/;"	p	signature:(Endereco * end)
+GetCpl	src/libnfe/endereco.h	/^char* GetCpl(Endereco* end);$/;"	p	signature:(Endereco* end)
+GetFone	src/libnfe/endereco.c	/^uint64_t GetFone(Endereco* end){$/;"	f	signature:(Endereco* end)
+GetFone	src/libnfe/endereco.h	/^uint64_t GetFone(Endereco* end);$/;"	p	signature:(Endereco* end)
+GetLgr	src/libnfe/endereco.h	/^char* GetLgr(Endereco* end);$/;"	p	signature:(Endereco* end)
+GetMunicipio	src/libnfe/endereco.h	/^Municipio* GetMunicipio(Endereco* end);$/;"	p	signature:(Endereco* end)
+GetNro	src/libnfe/endereco.h	/^char* GetNro(Endereco* end);$/;"	p	signature:(Endereco* end)
+INCLUIDO_DEFS_H	include/libnfe/defs.h	20;"	d
+INCLUIDO_ERROS_H	include/libnfe/erros.h	20;"	d
+INCLUIDO_IDE_H	src/libnfe/ide.h	22;"	d
+INCLUIDO_LIBNFE_H	include/libnfe/nfe.h	20;"	d
+INCLUIDO_MUNICIO_H	src/libnfe/endereco.h	20;"	d
+INCLUIDO_UTILS_H	src/libnfe/utils.h	20;"	d
+MODELO_NFCE	include/libnfe/nfe.h	/^	MODELO_NFCE = 65$/;"	e	enum:DOCUMENTO_MODELO_E
+MODELO_NFE	include/libnfe/nfe.h	/^	MODELO_NFE = 55,$/;"	e	enum:DOCUMENTO_MODELO_E
+Municipio	src/libnfe/endereco.h	/^typedef struct municipio_s Municipio;$/;"	t	typeref:struct:municipio_s
+NFE_AJUSTE	include/libnfe/nfe.h	/^	NFE_AJUSTE = 3,$/;"	e	enum:FINALIDADE_NFE_E
+NFE_COMPLEMENTAR	include/libnfe/nfe.h	/^	NFE_COMPLEMENTAR = 2,$/;"	e	enum:FINALIDADE_NFE_E
+NFE_DEVOLUCAO	include/libnfe/nfe.h	/^	NFE_DEVOLUCAO = 4$/;"	e	enum:FINALIDADE_NFE_E
+NFE_NORMAL	include/libnfe/nfe.h	/^	NFE_NORMAL = 1,$/;"	e	enum:FINALIDADE_NFE_E
+NFref.c	src/libnfe/NFref.c	1;"	F
+NFref.h	src/libnfe/NFref.h	1;"	F
+NFrefDel	src/libnfe/NFref.c	/^void NFrefDel(struct NFref_s *nf)$/;"	f	signature:(struct NFref_s *nf)
+NFrefDel	src/libnfe/NFref.h	/^void NFrefDel(struct NFref_s *nf);$/;"	p	signature:(struct NFref_s *nf)
+NFrefGetrefNFe	src/libnfe/NFref.c	/^char *NFrefGetrefNFe(struct NFref_s *nf)$/;"	f	signature:(struct NFref_s *nf)
+NFrefGetrefNFe	src/libnfe/NFref.h	/^char *NFrefGetrefNFe(struct NFref_s *nf);$/;"	p	signature:(struct NFref_s *nf)
+NFrefNew	src/libnfe/NFref.c	/^struct NFref_s *NFrefNew()$/;"	f
+NFrefNew	src/libnfe/NFref.h	/^struct NFref_s *NFrefNew();$/;"	p	signature:()
+NFrefSetrefNFe	src/libnfe/NFref.c	/^void NFrefSetrefNFe(struct NFref_s *nf, char *ref)$/;"	f	signature:(struct NFref_s *nf, char *ref)
+NFrefSetrefNFe	src/libnfe/NFref.h	/^void NFrefSetrefNFe(struct NFref_s *nf, char *ref);$/;"	p	signature:(struct NFref_s *nf, char *ref)
+NFref_s	src/libnfe/NFref.c	/^struct NFref_s{$/;"	s	file:
+NFref_s	src/libnfe/NFref.h	/^struct NFref_s;$/;"	x
+NFref_s::refNFe	src/libnfe/NFref.c	/^  char refNFe[TAM_CHAVE];$/;"	m	struct:NFref_s	file:	access:public
+NewEndereco	src/libnfe/endereco.c	/^Endereco * NewEndereco(){$/;"	f
+NewEndereco	src/libnfe/endereco.h	/^Endereco *  NewEndereco(void);$/;"	p	signature:(void)
+OPERACAO_CONSUMIDOR_E	include/libnfe/nfe.h	/^enum OPERACAO_CONSUMIDOR_E{$/;"	g
+OPERACAO_DESTINO_E	include/libnfe/nfe.h	/^enum OPERACAO_DESTINO_E {$/;"	g
+OPERACAO_ENTRADA	include/libnfe/nfe.h	/^	OPERACAO_ENTRADA = 0,$/;"	e	enum:TIPO_OPERACAO_E
+OPERACAO_NAOAPLICA	include/libnfe/nfe.h	/^	OPERACAO_NAOAPLICA = 0,$/;"	e	enum:PRESENCA_COMPRADOR_E
+OPERACAO_NFCE_ENTREGADOMICILIAR	include/libnfe/nfe.h	/^	OPERACAO_NFCE_ENTREGADOMICILIAR = 4,$/;"	e	enum:PRESENCA_COMPRADOR_E
+OPERACAO_NPRESENCIAL_INTERNET	include/libnfe/nfe.h	/^	OPERACAO_NPRESENCIAL_INTERNET = 2,$/;"	e	enum:PRESENCA_COMPRADOR_E
+OPERACAO_NPRESENCIAL_OUTROS	include/libnfe/nfe.h	/^	OPERACAO_NPRESENCIAL_OUTROS = 9$/;"	e	enum:PRESENCA_COMPRADOR_E
+OPERACAO_NPRESENCIAL_TELE	include/libnfe/nfe.h	/^	OPERACAO_NPRESENCIAL_TELE = 3,$/;"	e	enum:PRESENCA_COMPRADOR_E
+OPERACAO_PRESENCIAL	include/libnfe/nfe.h	/^	OPERACAO_PRESENCIAL = 1,$/;"	e	enum:PRESENCA_COMPRADOR_E
+OPERACAO_SAIDA	include/libnfe/nfe.h	/^	OPERACAO_SAIDA = 1$/;"	e	enum:TIPO_OPERACAO_E
+PAGAMENTO_AVISTA	include/libnfe/nfe.h	/^	PAGAMENTO_AVISTA = 0,$/;"	e	enum:FORMA_PAGAMENTO_E
+PAGAMENTO_OUTROS	include/libnfe/nfe.h	/^	PAGAMENTO_OUTROS = 2$/;"	e	enum:FORMA_PAGAMENTO_E
+PAGAMENTO_PRAZO	include/libnfe/nfe.h	/^	PAGAMENTO_PRAZO = 1,$/;"	e	enum:FORMA_PAGAMENTO_E
+PRESENCA_COMPRADOR_E	include/libnfe/nfe.h	/^enum PRESENCA_COMPRADOR_E{$/;"	g
+PROCESSO_EMISSAO_E	include/libnfe/nfe.h	/^enum PROCESSO_EMISSAO_E{$/;"	g
+Pais	src/libnfe/endereco.h	/^typedef struct pais_s Pais;$/;"	t	typeref:struct:pais_s
+RefNFGetAAMM	src/libnfe/refNF.c	/^char *RefNFGetAAMM(struct refNF_s *nf)$/;"	f	signature:(struct refNF_s *nf)
+RefNFGetAAMM	src/libnfe/refNF.h	/^char *RefNFGetAAMM(struct refNF_s *nf);$/;"	p	signature:(struct refNF_s *nf)
+RefNFGetCNPJ	src/libnfe/refNF.c	/^char *RefNFGetCNPJ(struct refNF_s *nf)$/;"	f	signature:(struct refNF_s *nf)
+RefNFGetCNPJ	src/libnfe/refNF.h	/^char *RefNFGetCNPJ(struct refNF_s *nf);$/;"	p	signature:(struct refNF_s *nf)
+RefNFGetSerie	src/libnfe/refNF.h	/^char *RefNFGetSerie(struct refNF_s *nf);$/;"	p	signature:(struct refNF_s *nf)
+RefNFGetcUF	src/libnfe/refNF.c	/^char *RefNFGetcUF(struct refNF_s *nf)$/;"	f	signature:(struct refNF_s *nf)
+RefNFGetcUF	src/libnfe/refNF.h	/^char *RefNFGetcUF(struct refNF_s *nf);$/;"	p	signature:(struct refNF_s *nf)
+RefNFGetmod	src/libnfe/refNF.c	/^char *RefNFGetmod(struct refNF_s *nf)$/;"	f	signature:(struct refNF_s *nf)
+RefNFGetmod	src/libnfe/refNF.h	/^char *RefNFGetmod(struct refNF_s *nf);$/;"	p	signature:(struct refNF_s *nf)
+RefNFGetnNF	src/libnfe/refNF.c	/^char *RefNFGetnNF(struct refNF_s *nf)$/;"	f	signature:(struct refNF_s *nf)
+RefNFGetnNF	src/libnfe/refNF.h	/^char *RefNFGetnNF(struct refNF_s *nf);$/;"	p	signature:(struct refNF_s *nf)
+RefNFGetserie	src/libnfe/refNF.c	/^char *RefNFGetserie(struct refNF_s *nf)$/;"	f	signature:(struct refNF_s *nf)
+RefNFNew	src/libnfe/refNF.c	/^struct refNF_s *RefNFNew()$/;"	f
+RefNFNew	src/libnfe/refNF.h	/^struct refNF_s *RefNFNew();$/;"	p	signature:()
+RefNFSetAAMM	src/libnfe/refNF.c	/^void RefNFSetAAMM(struct refNF_s *nf, const int ano, enum MES_e mes)$/;"	f	signature:(struct refNF_s *nf, const int ano, enum MES_e mes)
+RefNFSetAAMM	src/libnfe/refNF.h	/^void RefNFSetAAMM(struct refNF_s *nf, const int ano, enum MES_e mes);$/;"	p	signature:(struct refNF_s *nf, const int ano, enum MES_e mes)
+RefNFSetCNPJ	src/libnfe/refNF.c	/^void RefNFSetCNPJ(struct refNF_s *nf, const char *cnpj)$/;"	f	signature:(struct refNF_s *nf, const char *cnpj)
+RefNFSetCNPJ	src/libnfe/refNF.h	/^void RefNFSetCNPJ(struct refNF_s *nf, const char *cnpj);$/;"	p	signature:(struct refNF_s *nf, const char *cnpj)
+RefNFSetSerie	src/libnfe/refNF.h	/^void RefNFSetSerie(struct refNF_s *nf, const char *serie);$/;"	p	signature:(struct refNF_s *nf, const char *serie)
+RefNFSetcUF	src/libnfe/refNF.c	/^void RefNFSetcUF(struct refNF_s *nf, enum UF_e uf)$/;"	f	signature:(struct refNF_s *nf, enum UF_e uf)
+RefNFSetcUF	src/libnfe/refNF.h	/^void RefNFSetcUF(struct refNF_s *nf, enum UF_e uf);$/;"	p	signature:(struct refNF_s *nf, enum UF_e uf)
+RefNFSetmod	src/libnfe/refNF.c	/^void RefNFSetmod(struct refNF_s *nf, const char *mod)$/;"	f	signature:(struct refNF_s *nf, const char *mod)
+RefNFSetmod	src/libnfe/refNF.h	/^void RefNFSetmod(struct refNF_s *nf, const char *mod);$/;"	p	signature:(struct refNF_s *nf, const char *mod)
+RefNFSetnNF	src/libnfe/refNF.c	/^void RefNFSetnNF(struct refNF_s *nf, const char *nnf)$/;"	f	signature:(struct refNF_s *nf, const char *nnf)
+RefNFSetnNF	src/libnfe/refNF.h	/^void RefNFSetnNF(struct refNF_s *nf, const char *nnf);$/;"	p	signature:(struct refNF_s *nf, const char *nnf)
+RefNFSetserie	src/libnfe/refNF.c	/^void RefNFSetserie(struct refNF_s *nf, const char *serie)$/;"	f	signature:(struct refNF_s *nf, const char *serie)
+RefNfDel	src/libnfe/refNF.c	/^void RefNfDel(struct refNF_s *nf)$/;"	f	signature:(struct refNF_s *nf)
+RefNfDel	src/libnfe/refNF.h	/^void RefNfDel(struct refNF_s *nf);$/;"	p	signature:(struct refNF_s *nf)
+SetBairro	src/libnfe/endereco.h	/^int SetBairro(Endereco* end, const char* bairro);$/;"	p	signature:(Endereco* end, const char* bairro)
+SetCEP	src/libnfe/endereco.c	/^int  SetCEP(Endereco * end, uint32_t cep){$/;"	f	signature:(Endereco * end, uint32_t cep)
+SetCEP	src/libnfe/endereco.h	/^int SetCEP(Endereco * end, uint32_t cep);$/;"	p	signature:(Endereco * end, uint32_t cep)
+SetCpl	src/libnfe/endereco.h	/^int SetCpl(Endereco* end, const char* cpl);$/;"	p	signature:(Endereco* end, const char* cpl)
+SetFone	src/libnfe/endereco.c	/^int SetFone(Endereco* end, uint64_t fone){$/;"	f	signature:(Endereco* end, uint64_t fone)
+SetFone	src/libnfe/endereco.h	/^int SetFone(Endereco* end, uint64_t fone);$/;"	p	signature:(Endereco* end, uint64_t fone)
+SetLgr	src/libnfe/endereco.h	/^int SetLgr(Endereco* end, const char* xlgr);$/;"	p	signature:(Endereco* end, const char* xlgr)
+SetMunicipio	src/libnfe/endereco.h	/^int SetMunicipio(Endereco* end, Municipio* muni);$/;"	p	signature:(Endereco* end, Municipio* muni)
+SetNro	src/libnfe/endereco.h	/^int SetNro(Endereco* end, const char* nro);$/;"	p	signature:(Endereco* end, const char* nro)
+TAM_AAMM	include/libnfe/defs.h	24;"	d
+TAM_CHAVE	include/libnfe/defs.h	22;"	d
+TAM_CNPJ	include/libnfe/defs.h	25;"	d
+TAM_CPF	include/libnfe/defs.h	29;"	d
+TAM_CUF	include/libnfe/defs.h	23;"	d
+TAM_IE	include/libnfe/defs.h	30;"	d
+TAM_MOD_NF	include/libnfe/defs.h	28;"	d
+TAM_NATOP	include/libnfe/defs.h	34;"	d
+TAM_NCOO	include/libnfe/defs.h	32;"	d
+TAM_NECF	include/libnfe/defs.h	31;"	d
+TAM_NNF	include/libnfe/defs.h	26;"	d
+TAM_SERIE	include/libnfe/defs.h	27;"	d
+TAM_VERSAO_APLIC	include/libnfe/defs.h	35;"	d
+TIPO_EMISSAO_E	include/libnfe/nfe.h	/^enum TIPO_EMISSAO_E{$/;"	g
+TIPO_OPERACAO_E	include/libnfe/nfe.h	/^enum TIPO_OPERACAO_E {$/;"	g
+UF_ACRE	include/libnfe/nfe.h	/^	UF_ACRE = 12,$/;"	e	enum:COD_UF_E
+UF_ALAGOAS	include/libnfe/nfe.h	/^	UF_ALAGOAS = 27,$/;"	e	enum:COD_UF_E
+UF_AMAPA	include/libnfe/nfe.h	/^	UF_AMAPA = 16,$/;"	e	enum:COD_UF_E
+UF_AMAZONAS	include/libnfe/nfe.h	/^	UF_AMAZONAS = 13,$/;"	e	enum:COD_UF_E
+UF_BAHIA	include/libnfe/nfe.h	/^	UF_BAHIA = 29,$/;"	e	enum:COD_UF_E
+UF_CEARA	include/libnfe/nfe.h	/^	UF_CEARA = 23,$/;"	e	enum:COD_UF_E
+UF_DISTRITO_FEDERAL	include/libnfe/nfe.h	/^	UF_DISTRITO_FEDERAL = 53$/;"	e	enum:COD_UF_E
+UF_ESPIRITO_SANTO	include/libnfe/nfe.h	/^	UF_ESPIRITO_SANTO = 32,$/;"	e	enum:COD_UF_E
+UF_GOIAS	include/libnfe/nfe.h	/^	UF_GOIAS = 52,$/;"	e	enum:COD_UF_E
+UF_MARANHAO	include/libnfe/nfe.h	/^	UF_MARANHAO = 21,$/;"	e	enum:COD_UF_E
+UF_MATO_GROSSO	include/libnfe/nfe.h	/^	UF_MATO_GROSSO = 51,$/;"	e	enum:COD_UF_E
+UF_MATO_GROSSO_S	include/libnfe/nfe.h	/^	UF_MATO_GROSSO_S = 50,$/;"	e	enum:COD_UF_E
+UF_MINAS_GERAIS	include/libnfe/nfe.h	/^	UF_MINAS_GERAIS = 31,$/;"	e	enum:COD_UF_E
+UF_PARA	include/libnfe/nfe.h	/^	UF_PARA = 15,$/;"	e	enum:COD_UF_E
+UF_PARAIBA	include/libnfe/nfe.h	/^	UF_PARAIBA = 25,$/;"	e	enum:COD_UF_E
+UF_PARANA	include/libnfe/nfe.h	/^	UF_PARANA = 41,$/;"	e	enum:COD_UF_E
+UF_PERNAMBUCO	include/libnfe/nfe.h	/^	UF_PERNAMBUCO = 26,$/;"	e	enum:COD_UF_E
+UF_PIAUI	include/libnfe/nfe.h	/^	UF_PIAUI = 22,$/;"	e	enum:COD_UF_E
+UF_RIO_GRANDE_N	include/libnfe/nfe.h	/^	UF_RIO_GRANDE_N = 24,$/;"	e	enum:COD_UF_E
+UF_RIO_GRANDE_S	include/libnfe/nfe.h	/^	UF_RIO_GRANDE_S = 43,$/;"	e	enum:COD_UF_E
+UF_RIO_JANEIRO	include/libnfe/nfe.h	/^	UF_RIO_JANEIRO = 33,$/;"	e	enum:COD_UF_E
+UF_RONDONIA	include/libnfe/nfe.h	/^	UF_RONDONIA = 11,$/;"	e	enum:COD_UF_E
+UF_RORAIMA	include/libnfe/nfe.h	/^	UF_RORAIMA = 14,$/;"	e	enum:COD_UF_E
+UF_SANTA_CATARINA	include/libnfe/nfe.h	/^	UF_SANTA_CATARINA = 42,$/;"	e	enum:COD_UF_E
+UF_SAO_PAULO	include/libnfe/nfe.h	/^	UF_SAO_PAULO = 35,$/;"	e	enum:COD_UF_E
+UF_SERGIPE	include/libnfe/nfe.h	/^	UF_SERGIPE = 28,$/;"	e	enum:COD_UF_E
+UF_TOCANTIS	include/libnfe/nfe.h	/^	UF_TOCANTIS = 17,$/;"	e	enum:COD_UF_E
+Uf	src/libnfe/endereco.h	/^typedef struct uf_s Uf;$/;"	t	typeref:struct:uf_s
+_H_NFREF_H_	src/libnfe/NFref.h	20;"	d
+_H_REFNF_H_	src/libnfe/refNF.h	20;"	d
+_delMunicipio	src/libnfe/endereco.c	/^static void _delMunicipio(Municipio * t){$/;"	f	file:	signature:(Municipio * t)
+_delPais	src/libnfe/endereco.c	/^static 	void _delPais(Pais* t){$/;"	f	file:	signature:(Pais* t)
+_delUf	src/libnfe/endereco.c	/^static void _delUf(Uf* t){$/;"	f	file:	signature:(Uf* t)
+_newMunicipio	src/libnfe/endereco.c	/^static Municipio* _newMunicipio(){$/;"	f	file:
+_newPais	src/libnfe/endereco.c	/^static Pais* _newPais(){$/;"	f	file:
+_newUf	src/libnfe/endereco.c	/^static Uf* _newUf(){$/;"	f	file:
+cDV	src/libnfe/ide.c	/^  uint8_t cDV;                     \/\/ 1 caractere$/;"	m	struct:ide_s	file:	access:public
+cMun	src/libnfe/endereco.c	/^	uint16_t cMun;$/;"	m	struct:municipio_s	file:	access:public
+cMunFG	src/libnfe/ide.c	/^  uint32_t cMunFG;                 \/\/ 7 caracteres$/;"	m	struct:ide_s	file:	access:public
+cNF	src/libnfe/ide.c	/^  uint32_t cNF;                    \/\/ 8 caracteres $/;"	m	struct:ide_s	file:	access:public
+cPais	src/libnfe/endereco.c	/^	uint16_t cPais;$/;"	m	struct:pais_s	file:	access:public
+cUF	src/libnfe/endereco.c	/^	enum COD_UF_E cUF;$/;"	m	struct:uf_s	typeref:enum:uf_s::COD_UF_E	file:	access:public
+cUF	src/libnfe/ide.c	/^  enum TIPO_UF_e cUF;              \/\/ 2 caracteres$/;"	m	struct:ide_s	typeref:enum:ide_s::TIPO_UF_e	file:	access:public
+cUF	src/libnfe/refNF.c	/^  char cUF[TAM_CUF];$/;"	m	struct:refNF_s	file:	access:public
+cont	src/libnfe/ide.c	/^  struct Cont_s *cont;             \/\/ Default NULL$/;"	m	struct:ide_s	typeref:struct:ide_s::Cont_s	file:	access:public
+defs.h	include/libnfe/defs.h	1;"	F
+dhCont	src/libnfe/ide.c	/^  char *dhCont;                    \/\/ Data$/;"	m	struct:Cont_s	file:	access:public
+dhEmi	src/libnfe/ide.c	/^  char *dhEmi;                     \/\/ Data$/;"	m	struct:ide_s	file:	access:public
+dhSaiEnt	src/libnfe/ide.c	/^  char *dhSaiEnt;                  \/\/ Data$/;"	m	struct:ide_s	file:	access:public
+endereco.c	src/libnfe/endereco.c	1;"	F
+endereco.h	src/libnfe/endereco.h	1;"	F
+endereco_s	src/libnfe/endereco.c	/^struct endereco_s{$/;"	s	file:
+endereco_s::CEP	src/libnfe/endereco.c	/^	uint32_t CEP;$/;"	m	struct:endereco_s	file:	access:public
+endereco_s::Cpl	src/libnfe/endereco.c	/^	const char *Cpl;$/;"	m	struct:endereco_s	file:	access:public
+endereco_s::fone	src/libnfe/endereco.c	/^	uint64_t fone;$/;"	m	struct:endereco_s	file:	access:public
+endereco_s::municipio	src/libnfe/endereco.c	/^	Municipio *municipio;$/;"	m	struct:endereco_s	file:	access:public
+endereco_s::nro	src/libnfe/endereco.c	/^	const char* nro;$/;"	m	struct:endereco_s	file:	access:public
+endereco_s::xBairro	src/libnfe/endereco.c	/^	const char *xBairro;$/;"	m	struct:endereco_s	file:	access:public
+endereco_s::xLgr	src/libnfe/endereco.c	/^	const char *xLgr;$/;"	m	struct:endereco_s	file:	access:public
+error	src/libnfe/utils.c	/^int error(char* msg, int codErro){$/;"	f	signature:(char* msg, int codErro)
+error	src/libnfe/utils.h	/^int error(char* msg, int codErro);$/;"	p	signature:(char* msg, int codErro)
+erros.h	include/libnfe/erros.h	1;"	F
+finNFe	src/libnfe/ide.c	/^  enum TIPO_FINALIDADE_e finNFe;   \/\/ 1 caractere$/;"	m	struct:ide_s	typeref:enum:ide_s::TIPO_FINALIDADE_e	file:	access:public
+fone	src/libnfe/endereco.c	/^	uint64_t fone;$/;"	m	struct:endereco_s	file:	access:public
+idDest	src/libnfe/ide.c	/^  enum TIPO_DESTINO_e idDest;      \/\/ 1 caractere$/;"	m	struct:ide_s	typeref:enum:ide_s::TIPO_DESTINO_e	file:	access:public
+ide.c	src/libnfe/ide.c	1;"	F
+ide.h	src/libnfe/ide.h	1;"	F
+ideContDel	src/libnfe/ide.c	/^void ideContDel(const struct Cont_s *cont)$/;"	f	signature:(const struct Cont_s *cont)
+ideContDel	src/libnfe/ide.h	/^void ideContDel(const struct Cont_s *cont);$/;"	p	signature:(const struct Cont_s *cont)
+ideContNew	src/libnfe/ide.c	/^struct Cont_s *ideContNew(const struct Cont_s *this,$/;"	p	file:	signature:(const struct Cont_s *this, enum TIPO_TZD_e tzd, enum TIPO_HVERAO_e hverao, const char *str, const char *xjust)
+ideContNew	src/libnfe/ide.h	/^struct Cont_s *ideContNew(const struct Cont_s *this,$/;"	p	signature:(const struct Cont_s *this, enum TIPO_TZD_e tzd, enum TIPO_HVERAO_e hverao, const char *str, const char *xjust)
+ideDel	src/libnfe/ide.c	/^void ideDel(struct ide_s *ide)$/;"	f	signature:(struct ide_s *ide)
+ideNew	src/libnfe/ide.c	/^struct ide_s *ideNew(struct ide_s *this, $/;"	f	signature:(struct ide_s *this, enum TIPO_UF_e cuf, uint32_t cnf, char *natop, enum TIPO_PGTO_e indpag, enum TIPO_MOD_e mod, uint16_t serie, uint32_t nnf, char *dhemi, char *dhsaient, enum TIPO_NF_e tpnf, enum TIPO_DESTINO_e iddest, uint32_t cmunfg, enum TIPO_IMPRESSAO_e tpimp, enum TIPO_EMISSAO_e tpemis, uint8_t cdv, enum TIPO_AMBIENTE_e tpamb, enum TIPO_FINALIDADE_e finnfe, enum TIPO_OP_e indfinal, enum TIPO_PRES_e indpres, enum TIPO_PROC_EMIS_e procemis, char *verproc, struct Cont_s *cont, enum TIPO_TZD_e tzd, enum TIPO_HVERAO_e hverao, const char *str )
+ideNew	src/libnfe/ide.h	/^struct ide_s *ideNew(struct ide_s *this, $/;"	p	signature:(struct ide_s *this, enum TIPO_UF_e cuf, uint32_t cnf, char *natop, enum TIPO_PGTO_e indpag, enum TIPO_MOD_e mod, uint16_t serie, uint32_t nnf, char *dhemi, char *dhsaient, enum TIPO_NF_e tpnf, enum TIPO_DESTINO_e iddest, uint32_t cmunfg, enum TIPO_IMPRESSAO_e tpimp, enum TIPO_EMISSAO_e tpemis, uint8_t cdv, enum TIPO_AMBIENTE_e tpamb, enum TIPO_FINALIDADE_e finnfe, enum TIPO_OP_e indfinal, enum TIPO_PRES_e indpres, enum TIPO_PROC_EMIS_e procemis, char *verproc, struct Cont_s *cont, enum TIPO_TZD_e tzd, enum TIPO_HVERAO_e hverao, const char *str )
+ide_s	src/libnfe/ide.c	/^struct ide_s{$/;"	s	file:
+ide_s	src/libnfe/ide.h	/^struct ide_s;$/;"	x
+ide_s::cDV	src/libnfe/ide.c	/^  uint8_t cDV;                     \/\/ 1 caractere$/;"	m	struct:ide_s	file:	access:public
+ide_s::cMunFG	src/libnfe/ide.c	/^  uint32_t cMunFG;                 \/\/ 7 caracteres$/;"	m	struct:ide_s	file:	access:public
+ide_s::cNF	src/libnfe/ide.c	/^  uint32_t cNF;                    \/\/ 8 caracteres $/;"	m	struct:ide_s	file:	access:public
+ide_s::cUF	src/libnfe/ide.c	/^  enum TIPO_UF_e cUF;              \/\/ 2 caracteres$/;"	m	struct:ide_s	typeref:enum:ide_s::TIPO_UF_e	file:	access:public
+ide_s::cont	src/libnfe/ide.c	/^  struct Cont_s *cont;             \/\/ Default NULL$/;"	m	struct:ide_s	typeref:struct:ide_s::Cont_s	file:	access:public
+ide_s::dhEmi	src/libnfe/ide.c	/^  char *dhEmi;                     \/\/ Data$/;"	m	struct:ide_s	file:	access:public
+ide_s::dhSaiEnt	src/libnfe/ide.c	/^  char *dhSaiEnt;                  \/\/ Data$/;"	m	struct:ide_s	file:	access:public
+ide_s::finNFe	src/libnfe/ide.c	/^  enum TIPO_FINALIDADE_e finNFe;   \/\/ 1 caractere$/;"	m	struct:ide_s	typeref:enum:ide_s::TIPO_FINALIDADE_e	file:	access:public
+ide_s::idDest	src/libnfe/ide.c	/^  enum TIPO_DESTINO_e idDest;      \/\/ 1 caractere$/;"	m	struct:ide_s	typeref:enum:ide_s::TIPO_DESTINO_e	file:	access:public
+ide_s::indFinal	src/libnfe/ide.c	/^  enum TIPO_OP_e indFinal;         \/\/ 1 caractere$/;"	m	struct:ide_s	typeref:enum:ide_s::TIPO_OP_e	file:	access:public
+ide_s::indPag	src/libnfe/ide.c	/^  enum TIPO_PGTO_e indPag;                  \/\/ 1 caractere$/;"	m	struct:ide_s	typeref:enum:ide_s::TIPO_PGTO_e	file:	access:public
+ide_s::indPres	src/libnfe/ide.c	/^  enum TIPO_PRES_e indPres;        \/\/ 1 caractere$/;"	m	struct:ide_s	typeref:enum:ide_s::TIPO_PRES_e	file:	access:public
+ide_s::mod	src/libnfe/ide.c	/^  enum TIPO_MOD_e mod;             \/\/ 2 caracteres$/;"	m	struct:ide_s	typeref:enum:ide_s::TIPO_MOD_e	file:	access:public
+ide_s::nNF	src/libnfe/ide.c	/^  uint32_t nNF;                    \/\/ 9 caracteres$/;"	m	struct:ide_s	file:	access:public
+ide_s::natOp	src/libnfe/ide.c	/^  char natOp[TAM_NATOP];           \/\/ 61 caracteres$/;"	m	struct:ide_s	file:	access:public
+ide_s::procEmis	src/libnfe/ide.c	/^  enum TIPO_PROC_EMIS_e procEmis;  \/\/ 1 caractere$/;"	m	struct:ide_s	typeref:enum:ide_s::TIPO_PROC_EMIS_e	file:	access:public
+ide_s::serie	src/libnfe/ide.c	/^  uint16_t serie;                  \/\/ 3 caracteres$/;"	m	struct:ide_s	file:	access:public
+ide_s::tpAmb	src/libnfe/ide.c	/^  enum TIPO_AMBIENTE_e tpAmb;      \/\/ 1 caractere$/;"	m	struct:ide_s	typeref:enum:ide_s::TIPO_AMBIENTE_e	file:	access:public
+ide_s::tpEmis	src/libnfe/ide.c	/^  enum TIPO_EMISSAO_e tpEmis;      \/\/ 1 caractere$/;"	m	struct:ide_s	typeref:enum:ide_s::TIPO_EMISSAO_e	file:	access:public
+ide_s::tpImp	src/libnfe/ide.c	/^  enum TIPO_IMPRESSAO_e tpImp;     \/\/ 1 caractere$/;"	m	struct:ide_s	typeref:enum:ide_s::TIPO_IMPRESSAO_e	file:	access:public
+ide_s::tpNF	src/libnfe/ide.c	/^  enum TIPO_NF_e tpNF;             \/\/ 1 caractere$/;"	m	struct:ide_s	typeref:enum:ide_s::TIPO_NF_e	file:	access:public
+ide_s::verProc	src/libnfe/ide.c	/^  char verProc[TAM_VERSAO_APLIC];  \/\/ 20 caracteres$/;"	m	struct:ide_s	file:	access:public
+indFinal	src/libnfe/ide.c	/^  enum TIPO_OP_e indFinal;         \/\/ 1 caractere$/;"	m	struct:ide_s	typeref:enum:ide_s::TIPO_OP_e	file:	access:public
+indPag	src/libnfe/ide.c	/^  enum TIPO_PGTO_e indPag;                  \/\/ 1 caractere$/;"	m	struct:ide_s	typeref:enum:ide_s::TIPO_PGTO_e	file:	access:public
+indPres	src/libnfe/ide.c	/^  enum TIPO_PRES_e indPres;        \/\/ 1 caractere$/;"	m	struct:ide_s	typeref:enum:ide_s::TIPO_PRES_e	file:	access:public
+mod	src/libnfe/ide.c	/^  enum TIPO_MOD_e mod;             \/\/ 2 caracteres$/;"	m	struct:ide_s	typeref:enum:ide_s::TIPO_MOD_e	file:	access:public
+mod	src/libnfe/refNF.c	/^  char mod[TAM_MOD_NF];$/;"	m	struct:refNF_s	file:	access:public
+municipio	src/libnfe/endereco.c	/^	Municipio *municipio;$/;"	m	struct:endereco_s	file:	access:public
+municipio_s	src/libnfe/endereco.c	/^struct municipio_s{$/;"	s	file:
+municipio_s::cMun	src/libnfe/endereco.c	/^	uint16_t cMun;$/;"	m	struct:municipio_s	file:	access:public
+municipio_s::uf	src/libnfe/endereco.c	/^	Uf *uf;$/;"	m	struct:municipio_s	file:	access:public
+municipio_s::xMun	src/libnfe/endereco.c	/^	const char *xMun;$/;"	m	struct:municipio_s	file:	access:public
+nNF	src/libnfe/ide.c	/^  uint32_t nNF;                    \/\/ 9 caracteres$/;"	m	struct:ide_s	file:	access:public
+nNF	src/libnfe/refNF.c	/^  char nNF[TAM_NNF];$/;"	m	struct:refNF_s	file:	access:public
+natOp	src/libnfe/ide.c	/^  char natOp[TAM_NATOP];           \/\/ 61 caracteres$/;"	m	struct:ide_s	file:	access:public
+nfe.h	include/libnfe/nfe.h	1;"	F
+nro	src/libnfe/endereco.c	/^	const char* nro;$/;"	m	struct:endereco_s	file:	access:public
+pais	src/libnfe/endereco.c	/^	Pais *pais;$/;"	m	struct:uf_s	file:	access:public
+pais_s	src/libnfe/endereco.c	/^struct pais_s{$/;"	s	file:
+pais_s::cPais	src/libnfe/endereco.c	/^	uint16_t cPais;$/;"	m	struct:pais_s	file:	access:public
+pais_s::xPais	src/libnfe/endereco.c	/^	const char *xPais;$/;"	m	struct:pais_s	file:	access:public
+procEmis	src/libnfe/ide.c	/^  enum TIPO_PROC_EMIS_e procEmis;  \/\/ 1 caractere$/;"	m	struct:ide_s	typeref:enum:ide_s::TIPO_PROC_EMIS_e	file:	access:public
+ptrnull	src/libnfe/utils.c	/^int ptrnull(void * ptr){$/;"	f	signature:(void * ptr)
+ptrnull	src/libnfe/utils.h	/^int ptrnull(void* ptr);$/;"	p	signature:(void* ptr)
+refNF.c	src/libnfe/refNF.c	1;"	F
+refNF.h	src/libnfe/refNF.h	1;"	F
+refNF_s	src/libnfe/refNF.c	/^struct refNF_s {$/;"	s	file:
+refNF_s	src/libnfe/refNF.h	/^struct refNF_s;$/;"	x
+refNF_s::AAMM	src/libnfe/refNF.c	/^  char AAMM[TAM_AAMM];$/;"	m	struct:refNF_s	file:	access:public
+refNF_s::CNPJ	src/libnfe/refNF.c	/^  char CNPJ[TAM_CNPJ];$/;"	m	struct:refNF_s	file:	access:public
+refNF_s::cUF	src/libnfe/refNF.c	/^  char cUF[TAM_CUF];$/;"	m	struct:refNF_s	file:	access:public
+refNF_s::mod	src/libnfe/refNF.c	/^  char mod[TAM_MOD_NF];$/;"	m	struct:refNF_s	file:	access:public
+refNF_s::nNF	src/libnfe/refNF.c	/^  char nNF[TAM_NNF];$/;"	m	struct:refNF_s	file:	access:public
+refNF_s::serie	src/libnfe/refNF.c	/^  char serie[TAM_SERIE];$/;"	m	struct:refNF_s	file:	access:public
+refNFe	src/libnfe/NFref.c	/^  char refNFe[TAM_CHAVE];$/;"	m	struct:NFref_s	file:	access:public
+serie	src/libnfe/ide.c	/^  uint16_t serie;                  \/\/ 3 caracteres$/;"	m	struct:ide_s	file:	access:public
+serie	src/libnfe/refNF.c	/^  char serie[TAM_SERIE];$/;"	m	struct:refNF_s	file:	access:public
+tpAmb	src/libnfe/ide.c	/^  enum TIPO_AMBIENTE_e tpAmb;      \/\/ 1 caractere$/;"	m	struct:ide_s	typeref:enum:ide_s::TIPO_AMBIENTE_e	file:	access:public
+tpEmis	src/libnfe/ide.c	/^  enum TIPO_EMISSAO_e tpEmis;      \/\/ 1 caractere$/;"	m	struct:ide_s	typeref:enum:ide_s::TIPO_EMISSAO_e	file:	access:public
+tpImp	src/libnfe/ide.c	/^  enum TIPO_IMPRESSAO_e tpImp;     \/\/ 1 caractere$/;"	m	struct:ide_s	typeref:enum:ide_s::TIPO_IMPRESSAO_e	file:	access:public
+tpNF	src/libnfe/ide.c	/^  enum TIPO_NF_e tpNF;             \/\/ 1 caractere$/;"	m	struct:ide_s	typeref:enum:ide_s::TIPO_NF_e	file:	access:public
+uf	src/libnfe/endereco.c	/^	Uf *uf;$/;"	m	struct:municipio_s	file:	access:public
+uf_s	src/libnfe/endereco.c	/^struct uf_s{$/;"	s	file:
+uf_s::cUF	src/libnfe/endereco.c	/^	enum COD_UF_E cUF;$/;"	m	struct:uf_s	typeref:enum:uf_s::COD_UF_E	file:	access:public
+uf_s::pais	src/libnfe/endereco.c	/^	Pais *pais;$/;"	m	struct:uf_s	file:	access:public
+uf_s::xUF	src/libnfe/endereco.c	/^	const char *xUF;$/;"	m	struct:uf_s	file:	access:public
+utils.c	src/libnfe/utils.c	1;"	F
+utils.h	src/libnfe/utils.h	1;"	F
+verProc	src/libnfe/ide.c	/^  char verProc[TAM_VERSAO_APLIC];  \/\/ 20 caracteres$/;"	m	struct:ide_s	file:	access:public
+xBairro	src/libnfe/endereco.c	/^	const char *xBairro;$/;"	m	struct:endereco_s	file:	access:public
+xJust	src/libnfe/ide.c	/^  char xJust[TAM_JUSTIFICATIVA];   \/\/ 256 caracteres$/;"	m	struct:Cont_s	file:	access:public
+xLgr	src/libnfe/endereco.c	/^	const char *xLgr;$/;"	m	struct:endereco_s	file:	access:public
+xMun	src/libnfe/endereco.c	/^	const char *xMun;$/;"	m	struct:municipio_s	file:	access:public
+xPais	src/libnfe/endereco.c	/^	const char *xPais;$/;"	m	struct:pais_s	file:	access:public
+xUF	src/libnfe/endereco.c	/^	const char *xUF;$/;"	m	struct:uf_s	file:	access:public
+xmlGenNFrefNode	src/libnfe/NFref.c	/^int xmlGenNFrefNode(xmlTextWriterPtr writer, struct NFref_s *nf)$/;"	f	signature:(xmlTextWriterPtr writer, struct NFref_s *nf)
+xmlGenNFrefNode	src/libnfe/NFref.h	/^int xmlGenNFrefNode(xmlTextWriterPtr writer, struct NFref_s *nf);$/;"	p	signature:(xmlTextWriterPtr writer, struct NFref_s *nf)
+xmlGenRefNFNode	src/libnfe/refNF.c	/^int xmlGenRefNFNode(xmlTextWriterPtr writer, struct refNF_s *nf)$/;"	f	signature:(xmlTextWriterPtr writer, struct refNF_s *nf)
+xmlGenRefNFNode	src/libnfe/refNF.h	/^int xmlGenRefNFNode(xmlTextWriterPtr writer, struct refNF_s *nf);$/;"	p	signature:(xmlTextWriterPtr writer, struct refNF_s *nf)
+xmlGenideContNode	src/libnfe/ide.c	/^int xmlGenideContNode(xmlTextWriterPtr writer,struct Cont_s *cont)$/;"	f	signature:(xmlTextWriterPtr writer,struct Cont_s *cont)
+xmlGenideNode	src/libnfe/ide.c	/^int xmlGenideNode(xmlTextWriterPtr writer,struct ide_s *ide)$/;"	f	signature:(xmlTextWriterPtr writer,struct ide_s *ide)
