@@ -30,7 +30,7 @@
 #define TAM_IE         15
 #define TAM_NECF        4
 #define TAM_NCOO        7
-
+#define TAM_RAZAO      62
 #define TAM_NATOP           62
 #define TAM_VERSAO_APLIC    21
 
