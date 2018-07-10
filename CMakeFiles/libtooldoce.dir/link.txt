@@ -1,2 +1,0 @@
-/usr/bin/ar qc lib/liblibtooldoce.a  CMakeFiles/libtooldoce.dir/src/libnfe/NFref.c.o CMakeFiles/libtooldoce.dir/src/libnfe/endereco.c.o CMakeFiles/libtooldoce.dir/src/libnfe/ide.c.o CMakeFiles/libtooldoce.dir/src/libnfe/refNF.c.o CMakeFiles/libtooldoce.dir/src/libnfe/utils.c.o
-/usr/bin/ranlib lib/liblibtooldoce.a
