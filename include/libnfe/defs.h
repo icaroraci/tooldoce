@@ -34,6 +34,16 @@
 #define TAM_NATOP           62
 #define TAM_VERSAO_APLIC    21
 
+#define NFE_strlen(a) (a == NULL ? 0 : strlen(a))
+#define NFE_free  (a) (a == NULL ? NULL : free(a))
+#define NFE_memcpy(a, b) (a == NULL  || b == NULL ? NULL : memcpy(a, b))
+#define NFE_strdup(a) (a == NULL ? NULL : strdup(a))
+#define NFE_null  (a) (a == NULL ? E_ISNULL : 0)
+#define GetCEP    (a) (NFE_null(a) == E_ISNULL ? 0 : a->CEP)
+#define SetCEP    (a, b) (NFE_null(a) == E_ISNULL ? 0 : a->CEP = b)
+#define SetFone   (a, b) (NFE_null(a) == E_ISNULL ? 0 : a->fone = b)
+#define GetFone   (a) (NFE_null(a) == E_ISNULL ? 0 : a->fone)
+
 
 #endif
 
