@@ -345,6 +345,184 @@ static void teste_calcular_totais(void)
 	VERIFICA_INT(nfe_nfe_calcular_totais(NULL), E_ISNULL);
 }
 
+/* Endereço completo para os locais de retirada e entrega */
+static nfe_endereco *endereco(void)
+{
+	nfe_endereco *end = nfe_endereco_new();
+	int rc = 0;
+
+	rc |= nfe_endereco_set_xlgr(end, "AV. BRASIL");
+	rc |= nfe_endereco_set_nro(end, "1000");
+	rc |= nfe_endereco_set_xbairro(end, "JARDIM");
+	rc |= nfe_endereco_set_cmun(end, 3304557);
+	rc |= nfe_endereco_set_xmun(end, "RIO DE JANEIRO");
+	rc |= nfe_endereco_set_uf(end, "RJ");
+	rc |= nfe_endereco_set_fone(end, "2133334444");
+	VERIFICA_INT(rc, 0);
+	return end;
+}
+
+/* Grupos opcionais de infNFe, na ordem do leiaute */
+static void teste_grupos_opcionais(void)
+{
+	nfe_nfe *nfe = nota(NFE_MODELO_NFE);
+	nfe_local *ret = nfe_local_new(), *ent = nfe_local_new();
+	nfe_cobr *cobr = nfe_cobr_new();
+	nfe_infadic *inf = nfe_infadic_new();
+	nfe_resptec *rt = nfe_resptec_new();
+	char *xml = NULL;
+	int rc = 0;
+
+	rc |= nfe_local_set_cnpj(ret, "12345678000195");
+	rc |= nfe_local_set_xnome(ret, "DEPOSITO CENTRAL");
+	rc |= nfe_local_set_endereco(ret, endereco());
+	rc |= nfe_local_set_email(ret, "deposito@exemplo.com.br");
+	rc |= nfe_local_set_ie(ret, "123456789");
+	rc |= nfe_local_set_cpf(ent, "12345678909");
+	rc |= nfe_local_set_endereco(ent, endereco());
+	rc |= nfe_cobr_set_fat(cobr, "FAT-1", "30.00", "0.00", "30.00");
+	rc |= nfe_cobr_add_dup(cobr, "001", "2026-11-03", "15.00");
+	rc |= nfe_cobr_add_dup(cobr, "002", "2026-12-03", "15.00");
+	rc |= nfe_infadic_set_infadfisco(inf,
+	                                 "Documento emitido por ME ou EPP");
+	rc |= nfe_infadic_set_infcpl(inf, "Pedido 123. Obrigado pela compra!");
+	rc |= nfe_infadic_add_obscont(inf, "vendedor", "MARIA");
+	rc |= nfe_infadic_add_obsfisco(inf, "regime", "ESPECIAL");
+	rc |= nfe_infadic_add_procref(inf, "PROC-2026/1", NFE_PROCESSO_SEFAZ,
+	                              NFE_ATO_REGIME_ESPECIAL);
+	rc |= nfe_infadic_add_procref(inf, "0001234-56.2026.4.03.0000",
+	                              NFE_PROCESSO_JUSTICA_FEDERAL,
+	                              NFE_ATO_NAO_INFORMADO);
+	rc |= nfe_resptec_set(rt, "12ABC34501DE35", "SUPORTE TECNICO",
+	                      "suporte@exemplo.com.br", "1140028922");
+	rc |= nfe_resptec_set_csrt(rt, 1, "AAECAwQFBgcICQoLDA0ODxAREhM=");
+	rc |= nfe_nfe_set_retirada(nfe, ret);
+	rc |= nfe_nfe_set_entrega(nfe, ent);
+	rc |= nfe_nfe_add_autxml(nfe, "12345678000195");
+	rc |= nfe_nfe_add_autxml(nfe, "12345678909");
+	rc |= nfe_nfe_set_cobr(nfe, cobr);
+	rc |= nfe_nfe_set_intermed(nfe, "12ABC34501DE35", "LOJA-42");
+	rc |= nfe_nfe_set_infadic(nfe, inf);
+	rc |= nfe_nfe_set_resptec(nfe, rt);
+	VERIFICA_INT(rc, 0);
+
+	VERIFICA_INT(nfe_nfe_xml(nfe, &xml, NULL), 0);
+	VERIFICA(xml != NULL);
+	if (xml) {
+		VERIFICA(strstr(xml,
+		                "</emit><retirada><CNPJ>12345678000195</CNPJ>"
+		                "<xNome>DEPOSITO CENTRAL</xNome>"
+		                "<xLgr>AV. BRASIL</xLgr>") != NULL);
+		VERIFICA(strstr(xml,
+		                "<fone>2133334444</fone>"
+		                "<email>deposito@exemplo.com.br</email>"
+		                "<IE>123456789</IE></retirada>"
+		                "<entrega><CPF>12345678909</CPF>") != NULL);
+		VERIFICA(strstr(xml,
+		                "</entrega><autXML><CNPJ>12345678000195"
+		                "</CNPJ></autXML><autXML><CPF>12345678909"
+		                "</CPF></autXML><det nItem=\"1\">") != NULL);
+		VERIFICA(strstr(xml, "</transp><cobr><fat><nFat>FAT-1</nFat>"
+		                     "<vOrig>30.00</vOrig><vDesc>0.00</vDesc>"
+		                     "<vLiq>30.00</vLiq></fat><dup><nDup>001"
+		                     "</nDup><dVenc>2026-11-03</dVenc>"
+		                     "<vDup>15.00</vDup></dup>") != NULL);
+		VERIFICA(strstr(xml, "</cobr><pag>") != NULL);
+		VERIFICA(strstr(xml,
+		                "</pag><infIntermed><CNPJ>12ABC34501DE35"
+		                "</CNPJ><idCadIntTran>LOJA-42</idCadIntTran>"
+		                "</infIntermed><infAdic>") != NULL);
+		VERIFICA(strstr(xml,
+		                "<obsCont xCampo=\"vendedor\"><xTexto>MARIA"
+		                "</xTexto></obsCont><obsFisco xCampo=\"regime"
+		                "\"><xTexto>ESPECIAL</xTexto></obsFisco>"
+		                "<procRef><nProc>PROC-2026/1</nProc>"
+		                "<indProc>0</indProc><tpAto>10</tpAto>"
+		                "</procRef><procRef>") != NULL);
+		VERIFICA(strstr(xml,
+		                "<indProc>1</indProc></procRef></infAdic>"
+		                "<infRespTec><CNPJ>12ABC34501DE35</CNPJ>"
+		                "<xContato>SUPORTE TECNICO</xContato>"
+		                "<email>suporte@exemplo.com.br</email>"
+		                "<fone>1140028922</fone><idCSRT>01</idCSRT>"
+		                "<hashCSRT>AAECAwQFBgcICQoLDA0ODxAREhM="
+		                "</hashCSRT></infRespTec></infNFe>") != NULL);
+		VERIFICA_INT(valida_infnfe(xml), 0);
+	}
+	free(xml);
+
+	/* Valores recusados */
+	VERIFICA_INT(nfe_nfe_add_autxml(nfe, "123"), E_TAMANHO);
+	VERIFICA_INT(nfe_nfe_add_autxml(nfe, "12345678000196"), E_VALOR);
+	VERIFICA_INT(nfe_nfe_set_intermed(nfe, "12345678000195", NULL),
+	             E_ISNULL);
+	VERIFICA_INT(nfe_nfe_set_intermed(nfe, "12345678000195", "X"),
+	             E_TAMANHO);
+	VERIFICA_INT(nfe_local_set_cnpj(ret, "1"), E_TAMANHO);
+	VERIFICA_INT(nfe_local_set_ie(ret, "isento"), E_VALOR);
+	VERIFICA_INT(nfe_local_set_endereco(ret, NULL), E_ISNULL);
+	VERIFICA_INT(nfe_cobr_set_fat(cobr, "", NULL, NULL, NULL), E_TAMANHO);
+	VERIFICA_INT(nfe_cobr_set_fat(cobr, NULL, "1,00", NULL, NULL), E_VALOR);
+	VERIFICA_INT(nfe_cobr_add_dup(cobr, NULL, "2026-13-01", "1.00"),
+	             E_VALOR);
+	VERIFICA_INT(nfe_cobr_add_dup(cobr, NULL, NULL, "0.00"), E_VALOR);
+	VERIFICA_INT(nfe_cobr_add_dup(cobr, NULL, NULL, NULL), E_ISNULL);
+	VERIFICA_INT(nfe_infadic_set_infcpl(inf, " texto"), E_VALOR);
+	VERIFICA_INT(
+	        nfe_infadic_add_obscont(inf, "campo com mais de 20 c", "x"),
+	        E_TAMANHO);
+	VERIFICA_INT(nfe_infadic_add_procref(inf, "P", (nfe_origem_processo)5,
+	                                     NFE_ATO_NAO_INFORMADO),
+	             E_VALOR);
+	VERIFICA_INT(nfe_infadic_add_procref(inf, "P", NFE_PROCESSO_SEFAZ,
+	                                     (nfe_ato_concessorio)9),
+	             E_VALOR);
+	VERIFICA_INT(nfe_resptec_set(rt, "12345678000195", "SUPORTE", "a@b.c",
+	                             "1140028922"),
+	             E_TAMANHO);
+	VERIFICA_INT(
+	        nfe_resptec_set_csrt(rt, 100, "AAECAwQFBgcICQoLDA0ODxAREhM="),
+	        E_VALOR);
+	VERIFICA_INT(nfe_resptec_set_csrt(rt, 1, "curto="), E_VALOR);
+
+	/* Removendo os grupos e limpando listas */
+	VERIFICA_INT(nfe_nfe_remove_autxml(nfe), 0);
+	VERIFICA_INT(nfe_nfe_set_intermed(nfe, NULL, NULL), 0);
+	VERIFICA_INT(nfe_cobr_remove_dup(cobr), 0);
+	VERIFICA_INT(nfe_cobr_set_fat(cobr, NULL, NULL, NULL, NULL), 0);
+	VERIFICA_INT(nfe_infadic_remove_obs(inf), 0);
+	VERIFICA_INT(nfe_infadic_remove_procref(inf), 0);
+	VERIFICA_INT(nfe_infadic_set_infadfisco(inf, NULL), 0);
+	VERIFICA_INT(nfe_resptec_set_csrt(rt, 0, NULL), 0);
+	VERIFICA_INT(nfe_nfe_set_retirada(nfe, NULL), 0);
+	VERIFICA_INT(nfe_nfe_set_entrega(nfe, NULL), 0);
+	xml = NULL;
+	VERIFICA_INT(nfe_nfe_xml(nfe, &xml, NULL), 0);
+	if (xml) {
+		VERIFICA(strstr(xml, "retirada") == NULL);
+		VERIFICA(strstr(xml, "entrega") == NULL);
+		VERIFICA(strstr(xml, "autXML") == NULL);
+		VERIFICA(strstr(xml, "infIntermed") == NULL);
+		VERIFICA(strstr(xml, "<cobr></cobr>") != NULL ||
+		         strstr(xml, "<cobr/>") != NULL);
+		VERIFICA(strstr(xml, "<infAdic><infCpl>") != NULL);
+		VERIFICA(strstr(xml, "CSRT") == NULL);
+		VERIFICA_INT(valida_infnfe(xml), 0);
+	}
+	free(xml);
+	VERIFICA_INT(nfe_nfe_set_cobr(nfe, NULL), 0);
+	VERIFICA_INT(nfe_nfe_set_infadic(nfe, NULL), 0);
+	VERIFICA_INT(nfe_nfe_set_resptec(nfe, NULL), 0);
+
+	/* Grupos incompletos são recusados ao gerar */
+	VERIFICA_INT(nfe_nfe_set_entrega(nfe, nfe_local_new()), 0);
+	VERIFICA_INT(nfe_nfe_xml(nfe, &xml, NULL), E_VALOR);
+	VERIFICA_INT(nfe_nfe_set_entrega(nfe, NULL), 0);
+	VERIFICA_INT(nfe_nfe_set_resptec(nfe, nfe_resptec_new()), 0);
+	VERIFICA_INT(nfe_nfe_xml(nfe, &xml, NULL), E_VALOR);
+	nfe_nfe_free(nfe);
+}
+
 static void teste_obrigatorios(void)
 {
 	nfe_nfe *nfe = nfe_nfe_new();
@@ -399,6 +577,7 @@ int main(int argc, char **argv)
 	teste_nfe_com_destinatario();
 	teste_salvar(argv[1]);
 	teste_calcular_totais();
+	teste_grupos_opcionais();
 	teste_obrigatorios();
 
 	teste_libera_schema();

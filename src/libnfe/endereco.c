@@ -161,6 +161,47 @@ int nfe_endereco_set_fone(nfe_endereco *end, const char *fone)
 	return copia_opcional(end->fone, sizeof end->fone, fone, "[0-9]{6,14}");
 }
 
+/* Escreve os campos do endereço (xLgr a fone) */
+static int escreve_campos(xmlTextWriterPtr writer, const nfe_endereco *end)
+{
+	int rc;
+
+	NFE_ESCREVE("xLgr", "%s", end->xLgr);
+	NFE_ESCREVE("nro", "%s", end->nro);
+	if (end->xCpl[0] != '\0')
+		NFE_ESCREVE("xCpl", "%s", end->xCpl);
+	NFE_ESCREVE("xBairro", "%s", end->xBairro);
+	NFE_ESCREVE("cMun", "%07u", (unsigned)end->cMun);
+	NFE_ESCREVE("xMun", "%s", end->xMun);
+	NFE_ESCREVE("UF", "%s", end->UF);
+	if (end->CEP[0] != '\0')
+		NFE_ESCREVE("CEP", "%s", end->CEP);
+	if (end->cPais != 0)
+		NFE_ESCREVE("cPais", "%u", end->cPais);
+	if (end->xPais[0] != '\0')
+		NFE_ESCREVE("xPais", "%s", end->xPais);
+	if (end->fone[0] != '\0')
+		NFE_ESCREVE("fone", "%s", end->fone);
+	return 0;
+}
+
+/* Campos obrigatórios em qualquer endereço */
+static int completo(const nfe_endereco *end)
+{
+	return end->xLgr[0] != '\0' && end->nro[0] != '\0' &&
+	       end->xBairro[0] != '\0' && end->cMun != 0 &&
+	       end->xMun[0] != '\0' && end->UF[0] != '\0';
+}
+
+int nfe_endereco_write_campos(xmlTextWriterPtr writer, const nfe_endereco *end)
+{
+	if (!writer || !end)
+		return E_ISNULL;
+	if (!completo(end))
+		return E_VALOR;
+	return escreve_campos(writer, end);
+}
+
 int nfe_endereco_write_xml(xmlTextWriterPtr writer, nfe_endereco_tipo tipo,
                            const nfe_endereco *end)
 {
@@ -179,11 +220,7 @@ int nfe_endereco_write_xml(xmlTextWriterPtr writer, nfe_endereco_tipo tipo,
 	default:
 		return E_VALOR;
 	}
-
-	/* Campos obrigatórios */
-	if (end->xLgr[0] == '\0' || end->nro[0] == '\0' ||
-	    end->xBairro[0] == '\0' || end->cMun == 0 || end->xMun[0] == '\0' ||
-	    end->UF[0] == '\0')
+	if (!completo(end))
 		return E_VALOR;
 
 	/* Emitente (TEnderEmi): CEP obrigatório, UF sem "EX" e país só o
@@ -197,22 +234,9 @@ int nfe_endereco_write_xml(xmlTextWriterPtr writer, nfe_endereco_tipo tipo,
 
 	if (xmlTextWriterStartElement(writer, BAD_CAST tag) < 0)
 		return E_XML;
-	NFE_ESCREVE("xLgr", "%s", end->xLgr);
-	NFE_ESCREVE("nro", "%s", end->nro);
-	if (end->xCpl[0] != '\0')
-		NFE_ESCREVE("xCpl", "%s", end->xCpl);
-	NFE_ESCREVE("xBairro", "%s", end->xBairro);
-	NFE_ESCREVE("cMun", "%07u", (unsigned)end->cMun);
-	NFE_ESCREVE("xMun", "%s", end->xMun);
-	NFE_ESCREVE("UF", "%s", end->UF);
-	if (end->CEP[0] != '\0')
-		NFE_ESCREVE("CEP", "%s", end->CEP);
-	if (end->cPais != 0)
-		NFE_ESCREVE("cPais", "%u", end->cPais);
-	if (end->xPais[0] != '\0')
-		NFE_ESCREVE("xPais", "%s", end->xPais);
-	if (end->fone[0] != '\0')
-		NFE_ESCREVE("fone", "%s", end->fone);
+	rc = escreve_campos(writer, end);
+	if (rc != 0)
+		return rc;
 	if (xmlTextWriterEndElement(writer) < 0)
 		return E_XML;
 	return 0;

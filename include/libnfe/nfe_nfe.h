@@ -24,11 +24,15 @@
 #include <libxml/encoding.h>
 #include <libxml/xmlwriter.h>
 
+#include <libnfe/cobr.h>
 #include <libnfe/dest.h>
 #include <libnfe/det.h>
 #include <libnfe/emit.h>
 #include <libnfe/ide.h>
+#include <libnfe/infadic.h>
+#include <libnfe/local.h>
 #include <libnfe/pag.h>
+#include <libnfe/resptec.h>
 #include <libnfe/total.h>
 #include <libnfe/transp.h>
 
@@ -36,10 +40,10 @@
  * Nota fiscal completa (NF-e modelo 55 ou NFC-e modelo 65): junta os grupos
  * de infNFe e gera o documento XML.
  *
- * Grupos implementados: ide, emit, dest, det, total, transp e pag. Os
- * opcionais avulsa, retirada, entrega, autXML, cobr, infIntermed, infAdic,
- * exporta, compra, cana, infRespTec, infSolicNFF, agropecuario e infPAA
- * ainda não.
+ * Grupos implementados: ide, emit, dest, retirada, entrega, autXML, det,
+ * total, transp, cobr, pag, infIntermed, infAdic e infRespTec. Os opcionais
+ * avulsa, exporta, compra, cana, infSolicNFF, agropecuario e infPAA ainda
+ * não.
  *
  * O documento gerado ainda não tem a assinatura digital (ds:Signature),
  * exigida pela SEFAZ e pelo schema nfe_v4.00.xsd.
@@ -73,6 +77,30 @@ int nfe_nfe_set_dest(nfe_nfe *nfe, nfe_dest *dest);
 int nfe_nfe_set_total(nfe_nfe *nfe, nfe_total *total);
 int nfe_nfe_set_transp(nfe_nfe *nfe, nfe_transp *transp);
 int nfe_nfe_set_pag(nfe_nfe *nfe, nfe_pag *pag);
+
+/* Grupos opcionais: em caso de sucesso a nota passa a ser dona do grupo (e
+ * libera o anterior); NULL remove. Retornam 0 ou E_ISNULL. */
+int nfe_nfe_set_retirada(nfe_nfe *nfe, nfe_local *retirada);
+int nfe_nfe_set_entrega(nfe_nfe *nfe, nfe_local *entrega);
+int nfe_nfe_set_cobr(nfe_nfe *nfe, nfe_cobr *cobr);
+int nfe_nfe_set_infadic(nfe_nfe *nfe, nfe_infadic *infadic);
+int nfe_nfe_set_resptec(nfe_nfe *nfe, nfe_resptec *resptec);
+
+/* Número máximo de autorizados a baixar o XML (autXML) */
+#define NFE_MAX_AUTXML 10
+
+/* autXML: CNPJ (14 posições) ou CPF (11 dígitos) autorizado a obter o XML
+ * da nota, até NFE_MAX_AUTXML. Retorna 0, E_ISNULL, E_TAMANHO ou E_VALOR
+ * (documento inválido ou limite atingido). nfe_nfe_remove_autxml apaga
+ * todos. */
+int nfe_nfe_add_autxml(nfe_nfe *nfe, const char *cnpjcpf);
+int nfe_nfe_remove_autxml(nfe_nfe *nfe);
+
+/* infIntermed: CNPJ do intermediador (marketplace) e identificador do
+ * vendedor no cadastro dele (2 a 60 caracteres). Ambos NULL removem.
+ * Retorna 0, E_ISNULL, E_TAMANHO ou E_VALOR. */
+int nfe_nfe_set_intermed(nfe_nfe *nfe, const char *cnpj,
+                         const char *idcadinttran);
 
 /* Acrescenta um item (até NFE_MAX_ITENS). O número do item (nItem) passa a
  * ser a sua posição, a partir de 1. Em caso de sucesso a nota passa a ser

@@ -24,6 +24,8 @@
 #include <libxml/encoding.h>
 #include <libxml/xmlwriter.h>
 
+#include <libnfe/utils.h>
+
 /*
  * Endereço do emitente (enderEmit, tipo TEnderEmi) ou do destinatário
  * (enderDest, tipo TEndereco).
@@ -92,5 +94,11 @@ int nfe_endereco_set_fone(nfe_endereco *end, const char *fone);
  * quando UF é "EX" ou o país não é o Brasil. */
 int nfe_endereco_write_xml(xmlTextWriterPtr writer, nfe_endereco_tipo tipo,
                            const nfe_endereco *end);
+
+/* Uso interno: escreve só os campos (xLgr a fone), sem o elemento que os
+ * envolve, com as regras do destinatário (grupos retirada e entrega).
+ * Retorna 0, E_VALOR (falta campo obrigatório) ou E_XML. */
+NFE_INTERNO int nfe_endereco_write_campos(xmlTextWriterPtr writer,
+                                          const nfe_endereco *end);
 
 #endif

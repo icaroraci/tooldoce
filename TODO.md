@@ -20,9 +20,9 @@ Marque `[x]` quando a estrutura tiver: criação/liberação, setters com valida
     - [ ] [**avulsa**](docs/diagramas/NFe/infNFe/avulsa.svg) `0..1` _(opcional)_
     - [x] [**dest**](docs/diagramas/NFe/infNFe/dest.svg) `0..1` _(opcional)_
       - [x] [**enderDest**](docs/diagramas/NFe/infNFe/dest/enderDest.svg) `0..1` _(opcional)_
-    - [ ] [**retirada**](docs/diagramas/NFe/infNFe/retirada.svg) `0..1` _(opcional)_
-    - [ ] [**entrega**](docs/diagramas/NFe/infNFe/entrega.svg) `0..1` _(opcional)_
-    - [ ] [**autXML**](docs/diagramas/NFe/infNFe/autXML.svg) `0..10` _(opcional)_
+    - [x] [**retirada**](docs/diagramas/NFe/infNFe/retirada.svg) `0..1` _(opcional)_
+    - [x] [**entrega**](docs/diagramas/NFe/infNFe/entrega.svg) `0..1` _(opcional)_
+    - [x] [**autXML**](docs/diagramas/NFe/infNFe/autXML.svg) `0..10` _(opcional)_
     - [ ] [**det**](docs/diagramas/NFe/infNFe/det.svg) `1..990`
       - [ ] [**prod**](docs/diagramas/NFe/infNFe/det/prod.svg)
         - [ ] [**gCred**](docs/diagramas/NFe/infNFe/det/prod/gCred.svg) `0..4` _(opcional)_
@@ -152,23 +152,23 @@ Marque `[x]` quando a estrutura tiver: criação/liberação, setters com valida
       - [ ] [**reboque**](docs/diagramas/NFe/infNFe/transp/reboque.svg) `0..5` _(opcional)_
       - [ ] [**vol**](docs/diagramas/NFe/infNFe/transp/vol.svg) `0..5000` _(opcional)_
         - [ ] [**lacres**](docs/diagramas/NFe/infNFe/transp/vol/lacres.svg) `0..5000` _(opcional)_
-    - [ ] [**cobr**](docs/diagramas/NFe/infNFe/cobr.svg) `0..1` _(opcional)_
-      - [ ] [**fat**](docs/diagramas/NFe/infNFe/cobr/fat.svg) `0..1` _(opcional)_
-      - [ ] [**dup**](docs/diagramas/NFe/infNFe/cobr/dup.svg) `0..120` _(opcional)_
+    - [x] [**cobr**](docs/diagramas/NFe/infNFe/cobr.svg) `0..1` _(opcional)_
+      - [x] [**fat**](docs/diagramas/NFe/infNFe/cobr/fat.svg) `0..1` _(opcional)_
+      - [x] [**dup**](docs/diagramas/NFe/infNFe/cobr/dup.svg) `0..120` _(opcional)_
     - [x] [**pag**](docs/diagramas/NFe/infNFe/pag.svg)
       - [x] [**detPag**](docs/diagramas/NFe/infNFe/pag/detPag.svg) `1..100`
         - [x] [**card**](docs/diagramas/NFe/infNFe/pag/detPag/card.svg) `0..1` _(opcional)_
-    - [ ] [**infIntermed**](docs/diagramas/NFe/infNFe/infIntermed.svg) `0..1` _(opcional)_
-    - [ ] [**infAdic**](docs/diagramas/NFe/infNFe/infAdic.svg) `0..1` _(opcional)_
-      - [ ] [**obsCont**](docs/diagramas/NFe/infNFe/infAdic/obsCont.svg) `0..10` _(opcional)_
-      - [ ] [**obsFisco**](docs/diagramas/NFe/infNFe/infAdic/obsFisco.svg) `0..10` _(opcional)_
-      - [ ] [**procRef**](docs/diagramas/NFe/infNFe/infAdic/procRef.svg) `0..100` _(opcional)_
+    - [x] [**infIntermed**](docs/diagramas/NFe/infNFe/infIntermed.svg) `0..1` _(opcional)_
+    - [x] [**infAdic**](docs/diagramas/NFe/infNFe/infAdic.svg) `0..1` _(opcional)_
+      - [x] [**obsCont**](docs/diagramas/NFe/infNFe/infAdic/obsCont.svg) `0..10` _(opcional)_
+      - [x] [**obsFisco**](docs/diagramas/NFe/infNFe/infAdic/obsFisco.svg) `0..10` _(opcional)_
+      - [x] [**procRef**](docs/diagramas/NFe/infNFe/infAdic/procRef.svg) `0..100` _(opcional)_
     - [ ] [**exporta**](docs/diagramas/NFe/infNFe/exporta.svg) `0..1` _(opcional)_
     - [ ] [**compra**](docs/diagramas/NFe/infNFe/compra.svg) `0..1` _(opcional)_
     - [ ] [**cana**](docs/diagramas/NFe/infNFe/cana.svg) `0..1` _(opcional)_
       - [ ] [**forDia**](docs/diagramas/NFe/infNFe/cana/forDia.svg) `1..31`
       - [ ] [**deduc**](docs/diagramas/NFe/infNFe/cana/deduc.svg) `0..10` _(opcional)_
-    - [ ] [**infRespTec**](docs/diagramas/NFe/infNFe/infRespTec.svg) `0..1` _(opcional)_
+    - [x] [**infRespTec**](docs/diagramas/NFe/infNFe/infRespTec.svg) `0..1` _(opcional)_
     - [ ] [**infSolicNFF**](docs/diagramas/NFe/infNFe/infSolicNFF.svg) `0..1` _(opcional)_
     - [ ] [**agropecuario**](docs/diagramas/NFe/infNFe/agropecuario.svg) `0..1` _(opcional)_
       - [ ] [**defensivo**](docs/diagramas/NFe/infNFe/agropecuario/defensivo.svg) `1..20`

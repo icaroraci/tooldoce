@@ -25,11 +25,13 @@
 #include <string.h>
 #include <unistd.h>
 
+#include <libnfe/cnpjcpf.h>
 #include <libnfe/decimal.h>
 #include <libnfe/defs.h>
 #include <libnfe/erros.h>
 #include <libnfe/escrita.h>
 #include <libnfe/nfe_nfe.h>
+#include <libnfe/valida.h>
 
 #define NS_NFE     "http://www.portalfiscal.inf.br/nfe"
 #define VERSAO_NFE "4.00"
@@ -37,12 +39,21 @@
 struct nfe_nfe {
 	nfe_ide *ide;
 	nfe_emit *emit;
-	nfe_dest *dest; /* NULL: não informado */
+	nfe_dest *dest; /* opcionais: NULL quando não informados */
+	nfe_local *retirada;
+	nfe_local *entrega;
+	char autXML[NFE_MAX_AUTXML][NFE_TAM_ASCII(NFE_TAM_CNPJ)];
+	int nAutXML;
 	nfe_det *det[NFE_MAX_ITENS];
 	int nDet;
 	nfe_total *total;
 	nfe_transp *transp;
+	nfe_cobr *cobr;
 	nfe_pag *pag;
+	char intermedCNPJ[NFE_TAM_ASCII(NFE_TAM_CNPJ)]; /* "": não informado */
+	char idCadIntTran[NFE_TAM_UTF8(NFE_TAM_IDCADINT)];
+	nfe_infadic *infadic;
+	nfe_resptec *resptec;
 };
 
 nfe_nfe *nfe_nfe_new(void)
@@ -59,6 +70,11 @@ void nfe_nfe_free(nfe_nfe *nfe)
 	nfe_ide_free(nfe->ide);
 	nfe_emit_free(nfe->emit);
 	nfe_dest_free(nfe->dest);
+	nfe_local_free(nfe->retirada);
+	nfe_local_free(nfe->entrega);
+	nfe_cobr_free(nfe->cobr);
+	nfe_infadic_free(nfe->infadic);
+	nfe_resptec_free(nfe->resptec);
 	for (i = 0; i < nfe->nDet; i++)
 		nfe_det_free(nfe->det[i]);
 	nfe_total_free(nfe->total);
@@ -108,6 +124,84 @@ int nfe_nfe_set_transp(nfe_nfe *nfe, nfe_transp *transp)
 int nfe_nfe_set_pag(nfe_nfe *nfe, nfe_pag *pag)
 {
 	TROCA(pag, pag, nfe_pag_free, 0);
+}
+
+int nfe_nfe_set_retirada(nfe_nfe *nfe, nfe_local *retirada)
+{
+	TROCA(retirada, retirada, nfe_local_free, 1);
+}
+
+int nfe_nfe_set_entrega(nfe_nfe *nfe, nfe_local *entrega)
+{
+	TROCA(entrega, entrega, nfe_local_free, 1);
+}
+
+int nfe_nfe_set_cobr(nfe_nfe *nfe, nfe_cobr *cobr)
+{
+	TROCA(cobr, cobr, nfe_cobr_free, 1);
+}
+
+int nfe_nfe_set_infadic(nfe_nfe *nfe, nfe_infadic *infadic)
+{
+	TROCA(infadic, infadic, nfe_infadic_free, 1);
+}
+
+int nfe_nfe_set_resptec(nfe_nfe *nfe, nfe_resptec *resptec)
+{
+	TROCA(resptec, resptec, nfe_resptec_free, 1);
+}
+
+int nfe_nfe_add_autxml(nfe_nfe *nfe, const char *cnpjcpf)
+{
+	size_t n;
+	int rc;
+
+	if (!nfe || !cnpjcpf)
+		return E_ISNULL;
+	if (nfe->nAutXML >= NFE_MAX_AUTXML)
+		return E_VALOR;
+	n = strlen(cnpjcpf);
+	if (n == NFE_TAM_CNPJ)
+		rc = nfe_cnpj_validar(cnpjcpf);
+	else if (n == NFE_TAM_CPF)
+		rc = nfe_cpf_validar(cnpjcpf);
+	else
+		return E_TAMANHO;
+	if (rc != 0)
+		return rc;
+	memcpy(nfe->autXML[nfe->nAutXML++], cnpjcpf, n + 1);
+	return 0;
+}
+
+int nfe_nfe_remove_autxml(nfe_nfe *nfe)
+{
+	if (!nfe)
+		return E_ISNULL;
+	nfe->nAutXML = 0;
+	return 0;
+}
+
+int nfe_nfe_set_intermed(nfe_nfe *nfe, const char *cnpj,
+                         const char *idcadinttran)
+{
+	int rc;
+
+	if (!nfe)
+		return E_ISNULL;
+	if (!cnpj && !idcadinttran) {
+		nfe->intermedCNPJ[0] = '\0';
+		return 0;
+	}
+	if (!cnpj || !idcadinttran)
+		return E_ISNULL;
+	rc = nfe_cnpj_validar(cnpj);
+	if (rc == 0)
+		rc = nfe_valida_texto(idcadinttran, 2, NFE_TAM_IDCADINT);
+	if (rc != 0)
+		return rc;
+	strcpy(nfe->intermedCNPJ, cnpj);
+	strcpy(nfe->idCadIntTran, idcadinttran);
+	return 0;
 }
 
 int nfe_nfe_add_det(nfe_nfe *nfe, nfe_det *det)
@@ -291,14 +385,48 @@ int nfe_nfe_write_xml(xmlTextWriterPtr writer, nfe_nfe *nfe)
 		rc = nfe_emit_write_xml(writer, nfe->emit);
 	if (rc == 0 && nfe->dest)
 		rc = nfe_dest_write_xml(writer, nfe->dest);
+	if (rc == 0 && nfe->retirada)
+		rc = nfe_local_write_xml(writer, NFE_LOCAL_RETIRADA,
+		                         nfe->retirada);
+	if (rc == 0 && nfe->entrega)
+		rc = nfe_local_write_xml(writer, NFE_LOCAL_ENTREGA,
+		                         nfe->entrega);
+	for (i = 0; rc == 0 && i < nfe->nAutXML; i++) {
+		rc = nfe_abre(writer, "autXML");
+		if (rc == 0)
+			rc = nfe_escreve(writer,
+			                 strlen(nfe->autXML[i]) == NFE_TAM_CNPJ
+			                         ? "CNPJ"
+			                         : "CPF",
+			                 "%s", nfe->autXML[i]);
+		if (rc == 0)
+			rc = nfe_fecha(writer);
+	}
 	for (i = 0; rc == 0 && i < nfe->nDet; i++)
 		rc = nfe_det_write_xml(writer, nfe->det[i]);
 	if (rc == 0)
 		rc = nfe_total_write_xml(writer, nfe->total);
 	if (rc == 0)
 		rc = nfe_transp_write_xml(writer, nfe->transp);
+	if (rc == 0 && nfe->cobr)
+		rc = nfe_cobr_write_xml(writer, nfe->cobr);
 	if (rc == 0)
 		rc = nfe_pag_write_xml(writer, nfe->pag);
+	if (rc == 0 && nfe->intermedCNPJ[0] != '\0') {
+		rc = nfe_abre(writer, "infIntermed");
+		if (rc == 0)
+			rc = nfe_escreve(writer, "CNPJ", "%s",
+			                 nfe->intermedCNPJ);
+		if (rc == 0)
+			rc = nfe_escreve(writer, "idCadIntTran", "%s",
+			                 nfe->idCadIntTran);
+		if (rc == 0)
+			rc = nfe_fecha(writer);
+	}
+	if (rc == 0 && nfe->infadic)
+		rc = nfe_infadic_write_xml(writer, nfe->infadic);
+	if (rc == 0 && nfe->resptec)
+		rc = nfe_resptec_write_xml(writer, nfe->resptec);
 	if (rc != 0)
 		return rc;
 
