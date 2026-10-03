@@ -1,97 +1,126 @@
-- [ ] **Struct NFe**
-	- [ ] **Struct infNFe**
-		- [ ] [**Struct ide**]()
-			- [ ] Métodos Get & Set
-			- [ ] Métodos Alocar/Desalocar (New & Free)
-			- [ ] Método Gerar xml
-			- [ ] _Notas fiscais referênciada_
-				- [ ] Struct refNFe
-					- [ ] Métodos Get & Set
-					- [ ] Métodos Alocar/Desalocar (New & Free)
-					- [ ] Método Gerar xml
-				- [ ] Struct refNF
-					- [ ] Métodos Get & Set
-					- [ ] Métodos Alocar/Desalocar (New & Free)
-					- [ ] Método Gerar xml
-				- [ ] Struct refNFP
-					- [ ] Métodos Get & Set
-					- [ ] Métodos Alocar/Desalocar (New & Free)
-					- [ ] Método Gerar xml				
-				- [ ] Struct refCTe
-					- [ ] Métodos Get & Set
-					- [ ] Métodos Alocar/Desalocar (New & Free)
-					- [ ] Método Gerar xml
-				- [ ] Struct refECF
-					- [ ] Métodos Get & Set
-					- [ ] Métodos Alocar/Desalocar (New & Free)
-					- [ ] Método Gerar xml
-		- [ ] **Struct emit**
-			- [ ] Métodos Get & Set
-			- [ ] Métodos Alocar/Desalocar (New & Free)
-			- [ ] Método Gerar xml
-		- [ ] _Avulsa_
-			- [ ] Métodos Get & Set
-			- [ ] Métodos Alocar/Desalocar (New & Free)
-			- [ ] Método Gerar xml
-		- [ ] **Struct dest**
-			- [ ] Métodos Get & Set
-			- [ ] Métodos Alocar/Desalocar (New & Free)
-			- [ ] Método Gerar xml
-		- [ ] _Struct retirada_
-			- [ ] Métodos Get & Set
-			- [ ] Métodos Alocar/Desalocar (New & Free)
-			- [ ] Método Gerar xml
-		- [ ] _Struct entrega_
-			- [ ] Métodos Get & Set
-			- [ ] Métodos Alocar/Desalocar (New & Free)
-			- [ ] Método Gerar xml
-		- [ ] _autXML_
-			- [ ] Métodos Get & Set
-			- [ ] Métodos Alocar/Desalocar (New & Free)
-			- [ ] Método Gerar xml
-		- [ ] **Struct det**
-			- [ ] **Struct prod**
-			  - [ ] **Informações comuns**
-				- [ ] Métodos Get & Set
-				- [ ] Métodos Alocar/Desalocar (New & Free)
-				- [ ] Métodos Get & Set
-				- [ ] _Struct DI_
-					- [ ] Métodos Get & Set
-					- [ ] Métodos Alocar/Desalocar (New & Free)
-					- [ ] Métodos Get & Set
-					- [ ] _Struct adi_
-						- [ ] Métodos Get & Set
-						- [ ] Métodos Alocar/Desalocar (New & Free)
-						- [ ] Métodos Get & Set
-				- [ ] _Struct rastro_
-					- [ ] Métodos Get & Set
-					- [ ] Métodos Alocar/Desalocar (New & Free)
-					- [ ] Métodos Get & Set
-				- [ ] _Estruturas opcionais que são mutuamente exclusivos._
-					- [ ] Struct veicProd
-						- [ ] Métodos Get & Set
-						- [ ] Métodos Alocar/Desalocar (New & Free)
-						- [ ] Métodos Get & Set
-					- [ ] Struct med
-						- [ ] Métodos Get & Set
-						- [ ] Métodos Alocar/Desalocar (New & Free)
-						- [ ] Métodos Get & Set
-					- [ ] Struct arma
-						- [ ] Métodos Get & Set
-						- [ ] Métodos Alocar/Desalocar (New & Free)
-						- [ ] Métodos Get & Set
-					- [ ] Struct comb
-						- [ ] Métodos Get & Set
-						- [ ] Métodos Alocar/Desalocar (New & Free)
-						- [ ] Métodos Get & Set
-			- [ ] **Struct imposto**
-		- [ ] **Struct total**
-		- [ ] **Struct transp**
-		- [ ] _Struct cobr_
-		- [ ] _Struct infAdic_
-		- [ ] _Struct exporta_
-		- [ ] _Struct compra_
-		- [ ] _Struct cana_
+# TODO
 
-	- [ ] **Struct Signature**
-		- [ ] Método assinar
+Estruturas da NF-e (leiaute 4.00) a implementar, na ordem do schema oficial. Cada item leva ao diagrama da estrutura.
+
+Marque `[x]` quando a estrutura tiver: criação/liberação, setters com validação, geração do XML e testes validando contra o XSD. A lista é gerada por `python3 tools/gerar_diagramas.py --todo`, que preserva os itens marcados.
+
+## Estruturas da NF-e
+
+- [ ] [**NFe**](docs/diagramas/NFe.svg)
+  - [ ] [**infNFe**](docs/diagramas/NFe/infNFe.svg)
+    - [x] [**ide**](docs/diagramas/NFe/infNFe/ide.svg)
+      - [ ] [**NFref**](docs/diagramas/NFe/infNFe/ide/NFref.svg) `0..999` _(opcional)_
+        - [x] [**refNF**](docs/diagramas/NFe/infNFe/ide/NFref/refNF.svg)
+        - [ ] [**refNFP**](docs/diagramas/NFe/infNFe/ide/NFref/refNFP.svg)
+        - [ ] [**refECF**](docs/diagramas/NFe/infNFe/ide/NFref/refECF.svg)
+    - [ ] [**emit**](docs/diagramas/NFe/infNFe/emit.svg)
+      - [ ] [**enderEmit**](docs/diagramas/NFe/infNFe/emit/enderEmit.svg)
+    - [ ] [**avulsa**](docs/diagramas/NFe/infNFe/avulsa.svg) `0..1` _(opcional)_
+    - [ ] [**dest**](docs/diagramas/NFe/infNFe/dest.svg) `0..1` _(opcional)_
+      - [ ] [**enderDest**](docs/diagramas/NFe/infNFe/dest/enderDest.svg) `0..1` _(opcional)_
+    - [ ] [**retirada**](docs/diagramas/NFe/infNFe/retirada.svg) `0..1` _(opcional)_
+    - [ ] [**entrega**](docs/diagramas/NFe/infNFe/entrega.svg) `0..1` _(opcional)_
+    - [ ] [**autXML**](docs/diagramas/NFe/infNFe/autXML.svg) `0..10` _(opcional)_
+    - [ ] [**det**](docs/diagramas/NFe/infNFe/det.svg) `1..990`
+      - [ ] [**prod**](docs/diagramas/NFe/infNFe/det/prod.svg)
+        - [ ] [**gCred**](docs/diagramas/NFe/infNFe/det/prod/gCred.svg) `0..4` _(opcional)_
+        - [ ] [**DI**](docs/diagramas/NFe/infNFe/det/prod/DI.svg) `0..100` _(opcional)_
+          - [ ] [**adi**](docs/diagramas/NFe/infNFe/det/prod/DI/adi.svg) `1..999`
+        - [ ] [**detExport**](docs/diagramas/NFe/infNFe/det/prod/detExport.svg) `0..500` _(opcional)_
+          - [ ] [**exportInd**](docs/diagramas/NFe/infNFe/det/prod/detExport/exportInd.svg) `0..1` _(opcional)_
+        - [ ] [**rastro**](docs/diagramas/NFe/infNFe/det/prod/rastro.svg) `0..500` _(opcional)_
+        - [ ] [**infProdNFF**](docs/diagramas/NFe/infNFe/det/prod/infProdNFF.svg) `0..1` _(opcional)_
+        - [ ] [**infProdEmb**](docs/diagramas/NFe/infNFe/det/prod/infProdEmb.svg) `0..1` _(opcional)_
+        - [ ] [**veicProd**](docs/diagramas/NFe/infNFe/det/prod/veicProd.svg)
+        - [ ] [**med**](docs/diagramas/NFe/infNFe/det/prod/med.svg)
+        - [ ] [**arma**](docs/diagramas/NFe/infNFe/det/prod/arma.svg) `1..500`
+        - [ ] [**comb**](docs/diagramas/NFe/infNFe/det/prod/comb.svg)
+          - [ ] [**CIDE**](docs/diagramas/NFe/infNFe/det/prod/comb/CIDE.svg) `0..1` _(opcional)_
+          - [ ] [**encerrante**](docs/diagramas/NFe/infNFe/det/prod/comb/encerrante.svg) `0..1` _(opcional)_
+          - [ ] [**origComb**](docs/diagramas/NFe/infNFe/det/prod/comb/origComb.svg) `0..30` _(opcional)_
+      - [ ] [**imposto**](docs/diagramas/NFe/infNFe/det/imposto.svg)
+        - [ ] [**ICMS**](docs/diagramas/NFe/infNFe/det/imposto/ICMS.svg)
+          - [ ] [**ICMS00**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMS00.svg)
+          - [ ] [**ICMS02**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMS02.svg)
+          - [ ] [**ICMS10**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMS10.svg)
+          - [ ] [**ICMS15**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMS15.svg)
+          - [ ] [**ICMS20**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMS20.svg)
+          - [ ] [**ICMS30**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMS30.svg)
+          - [ ] [**ICMS40**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMS40.svg)
+          - [ ] [**ICMS51**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMS51.svg)
+          - [ ] [**ICMS53**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMS53.svg)
+          - [ ] [**ICMS60**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMS60.svg)
+          - [ ] [**ICMS61**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMS61.svg)
+          - [ ] [**ICMS70**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMS70.svg)
+          - [ ] [**ICMS90**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMS90.svg)
+          - [ ] [**ICMSPart**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMSPart.svg)
+          - [ ] [**ICMSST**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMSST.svg)
+          - [ ] [**ICMSSN101**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMSSN101.svg)
+          - [ ] [**ICMSSN102**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMSSN102.svg)
+          - [ ] [**ICMSSN201**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMSSN201.svg)
+          - [ ] [**ICMSSN202**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMSSN202.svg)
+          - [ ] [**ICMSSN500**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMSSN500.svg)
+          - [ ] [**ICMSSN900**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMSSN900.svg)
+        - [ ] [**IPI**](docs/diagramas/NFe/infNFe/det/imposto/IPI.svg) `0..1` _(opcional)_
+          - [ ] [**IPITrib**](docs/diagramas/NFe/infNFe/det/imposto/IPI/IPITrib.svg)
+          - [ ] [**IPINT**](docs/diagramas/NFe/infNFe/det/imposto/IPI/IPINT.svg)
+        - [ ] [**II**](docs/diagramas/NFe/infNFe/det/imposto/II.svg) `0..1` _(opcional)_
+        - [ ] [**ISSQN**](docs/diagramas/NFe/infNFe/det/imposto/ISSQN.svg)
+        - [ ] [**PIS**](docs/diagramas/NFe/infNFe/det/imposto/PIS.svg) `0..1` _(opcional)_
+          - [ ] [**PISAliq**](docs/diagramas/NFe/infNFe/det/imposto/PIS/PISAliq.svg)
+          - [ ] [**PISQtde**](docs/diagramas/NFe/infNFe/det/imposto/PIS/PISQtde.svg)
+          - [ ] [**PISNT**](docs/diagramas/NFe/infNFe/det/imposto/PIS/PISNT.svg)
+          - [ ] [**PISOutr**](docs/diagramas/NFe/infNFe/det/imposto/PIS/PISOutr.svg)
+        - [ ] [**PISST**](docs/diagramas/NFe/infNFe/det/imposto/PISST.svg) `0..1` _(opcional)_
+        - [ ] [**COFINS**](docs/diagramas/NFe/infNFe/det/imposto/COFINS.svg) `0..1` _(opcional)_
+          - [ ] [**COFINSAliq**](docs/diagramas/NFe/infNFe/det/imposto/COFINS/COFINSAliq.svg)
+          - [ ] [**COFINSQtde**](docs/diagramas/NFe/infNFe/det/imposto/COFINS/COFINSQtde.svg)
+          - [ ] [**COFINSNT**](docs/diagramas/NFe/infNFe/det/imposto/COFINS/COFINSNT.svg)
+          - [ ] [**COFINSOutr**](docs/diagramas/NFe/infNFe/det/imposto/COFINS/COFINSOutr.svg)
+        - [ ] [**COFINSST**](docs/diagramas/NFe/infNFe/det/imposto/COFINSST.svg) `0..1` _(opcional)_
+        - [ ] [**ICMSUFDest**](docs/diagramas/NFe/infNFe/det/imposto/ICMSUFDest.svg) `0..1` _(opcional)_
+      - [ ] [**impostoDevol**](docs/diagramas/NFe/infNFe/det/impostoDevol.svg) `0..1` _(opcional)_
+        - [ ] [**IPI**](docs/diagramas/NFe/infNFe/det/impostoDevol/IPI.svg)
+      - [ ] [**obsItem**](docs/diagramas/NFe/infNFe/det/obsItem.svg) `0..1` _(opcional)_
+        - [ ] [**obsCont**](docs/diagramas/NFe/infNFe/det/obsItem/obsCont.svg) `0..1` _(opcional)_
+        - [ ] [**obsFisco**](docs/diagramas/NFe/infNFe/det/obsItem/obsFisco.svg) `0..1` _(opcional)_
+    - [ ] [**total**](docs/diagramas/NFe/infNFe/total.svg)
+      - [ ] [**ICMSTot**](docs/diagramas/NFe/infNFe/total/ICMSTot.svg)
+      - [ ] [**ISSQNtot**](docs/diagramas/NFe/infNFe/total/ISSQNtot.svg) `0..1` _(opcional)_
+      - [ ] [**retTrib**](docs/diagramas/NFe/infNFe/total/retTrib.svg) `0..1` _(opcional)_
+    - [ ] [**transp**](docs/diagramas/NFe/infNFe/transp.svg)
+      - [ ] [**transporta**](docs/diagramas/NFe/infNFe/transp/transporta.svg) `0..1` _(opcional)_
+      - [ ] [**retTransp**](docs/diagramas/NFe/infNFe/transp/retTransp.svg) `0..1` _(opcional)_
+      - [ ] [**veicTransp**](docs/diagramas/NFe/infNFe/transp/veicTransp.svg) `0..1` _(opcional)_
+      - [ ] [**reboque**](docs/diagramas/NFe/infNFe/transp/reboque.svg) `0..5` _(opcional)_
+      - [ ] [**vol**](docs/diagramas/NFe/infNFe/transp/vol.svg) `0..5000` _(opcional)_
+        - [ ] [**lacres**](docs/diagramas/NFe/infNFe/transp/vol/lacres.svg) `0..5000` _(opcional)_
+    - [ ] [**cobr**](docs/diagramas/NFe/infNFe/cobr.svg) `0..1` _(opcional)_
+      - [ ] [**fat**](docs/diagramas/NFe/infNFe/cobr/fat.svg) `0..1` _(opcional)_
+      - [ ] [**dup**](docs/diagramas/NFe/infNFe/cobr/dup.svg) `0..120` _(opcional)_
+    - [ ] [**pag**](docs/diagramas/NFe/infNFe/pag.svg)
+      - [ ] [**detPag**](docs/diagramas/NFe/infNFe/pag/detPag.svg) `1..100`
+        - [ ] [**card**](docs/diagramas/NFe/infNFe/pag/detPag/card.svg) `0..1` _(opcional)_
+    - [ ] [**infIntermed**](docs/diagramas/NFe/infNFe/infIntermed.svg) `0..1` _(opcional)_
+    - [ ] [**infAdic**](docs/diagramas/NFe/infNFe/infAdic.svg) `0..1` _(opcional)_
+      - [ ] [**obsCont**](docs/diagramas/NFe/infNFe/infAdic/obsCont.svg) `0..10` _(opcional)_
+      - [ ] [**obsFisco**](docs/diagramas/NFe/infNFe/infAdic/obsFisco.svg) `0..10` _(opcional)_
+      - [ ] [**procRef**](docs/diagramas/NFe/infNFe/infAdic/procRef.svg) `0..100` _(opcional)_
+    - [ ] [**exporta**](docs/diagramas/NFe/infNFe/exporta.svg) `0..1` _(opcional)_
+    - [ ] [**compra**](docs/diagramas/NFe/infNFe/compra.svg) `0..1` _(opcional)_
+    - [ ] [**cana**](docs/diagramas/NFe/infNFe/cana.svg) `0..1` _(opcional)_
+      - [ ] [**forDia**](docs/diagramas/NFe/infNFe/cana/forDia.svg) `1..31`
+      - [ ] [**deduc**](docs/diagramas/NFe/infNFe/cana/deduc.svg) `0..10` _(opcional)_
+    - [ ] [**infRespTec**](docs/diagramas/NFe/infNFe/infRespTec.svg) `0..1` _(opcional)_
+    - [ ] [**infSolicNFF**](docs/diagramas/NFe/infNFe/infSolicNFF.svg) `0..1` _(opcional)_
+  - [ ] [**infNFeSupl**](docs/diagramas/NFe/infNFeSupl.svg) `0..1` _(opcional)_
+
+## Além do leiaute
+
+- [x] Chave de acesso e dígito verificador (#54)
+- [ ] CNPJ alfanumérico (#66)
+- [ ] Assinatura digital XMLDSig (#56)
+- [ ] Transmissão aos webservices da SEFAZ e tratamento do retorno (#57)
+- [ ] Atualizar os schemas para a Reforma Tributária (grupos de IBS/CBS); o leiaute em `tests/schemas/` vai até a NT 2024.003
+- [ ] NFC-e, NFS-e, CT-e, MDF-e (ver `docs/VISAO.md`)
+- [ ] Troca da licença para LGPL (#59)
