@@ -29,17 +29,24 @@ caminho marcado como **provisório**.
    preferir setters tipados para algum grupo, dá para acrescentar por cima.
 4. **Licença LGPL** (#59): continua esperando a autorização do Marcelo.
    Não vou mexer.
-5. **Schemas dos webservices (para a transmissão, #57).** O pacote
-   PL_010f que você mandou traz só os schemas da nota. Para transmitir e
-   ler as respostas da SEFAZ, preciso também dos schemas das mensagens:
-   envio do lote (enviNFe/retEnviNFe), consulta do recibo
-   (consReciNFe/retConsReciNFe), consulta da situação (consSitNFe),
-   status do serviço (consStatServ) e eventos (cancelamento, carta de
-   correção). Ficam no Portal Nacional da NF-e
-   (www.nfe.fazenda.gov.br), em Documentos > Esquemas XML, nos pacotes
-   de liberação (PL) mais recentes e no "Pacote de Eventos". Pode baixar
-   e mandar os .zip? **Provisório:** começo pela comunicação (SOAP/TLS
-   com o certificado A1) e pelo status do serviço, que é simples.
+5. **Schemas dos webservices (para a transmissão, #57).** Obrigado pelo
+   pacote dos eventos da Reforma Tributária (RTC): guardei em
+   `tests/schemas/eventos_rtc`. Ele traz só o detalhe de cada evento novo;
+   ainda faltam os schemas das mensagens. Pela lista que você mandou do
+   portal, devem estar nestes pacotes (pode baixar e mandar os .zip?):
+   - "Pacote de Liberação 010d_v1.03 (ZIP) CNPJ Alfanumérico", que deve
+     ser o pacote completo, com enviNFe, retEnviNFe, consReciNFe,
+     consSitNFe, consStatServ e inutNFe (o 010f parece trazer só os
+     arquivos que mudaram);
+   - "Evento Cancelamento (Atualizado em 21/12/2018)";
+   - "Pacote de Liberação Evento CCe v1.01 (30/05/2014)";
+   - "Pacote de Liberação Evento Generico v1.01 (30/05/2014)".
+   **Provisório:** a comunicação (SOAP/TLS com o certificado A1), o envio
+   do lote, as consultas e o nfeProc já estão feitos e testados com um
+   servidor falso; os schemas servirão para validar as mensagens.
+   Também não consigo acessar o portal daqui (o acesso é bloqueado), então
+   a tabela de endereços dos webservices por UF fica para depois: por
+   enquanto, quem usa a biblioteca informa o endereço.
 6. **libcurl (para a transmissão).** Para conversar com a SEFAZ por HTTPS
    com o certificado, vou usar a libcurl, cuja licença (curl, no estilo
    MIT) permite uso em programas fechados, como a xmlsec1 e o OpenSSL que

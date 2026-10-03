@@ -33,6 +33,8 @@ const char *nfe_strerror(int codigo)
 		return "falha ao escrever o XML";
 	case E_ARQUIVO:
 		return "falha ao gravar o arquivo";
+	case E_REDE:
+		return "falha na comunicação com a SEFAZ";
 	case E_MALLOC:
 		return "falta de memória";
 	default:

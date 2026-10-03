@@ -12,6 +12,12 @@
 
 Os diagramas de `docs/diagramas/` e o `TODO.md` também são gerados a partir destes schemas (`tools/gerar_diagramas.py`).
 
+`eventos_rtc/` contém os schemas oficiais dos eventos da Reforma Tributária
+(**Schema dos eventos da NT 2025.002 v.1.40 – RTC, de 27/07/2026**), sem
+alteração (só o espaço no nome de `e112120_v1.00.xsd` foi tirado). São o
+detalhe (`detEvento`) de cada evento e serão usados quando a biblioteca
+gerar eventos.
+
 ## Atualizar
 
 1. Baixe o pacote novo no Portal Nacional da NF-e (Documentos › Esquemas XML).

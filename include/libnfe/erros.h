@@ -27,6 +27,7 @@
 #define E_VALOR   -3   /* valor fora da faixa permitida */
 #define E_XML     -4   /* falha ao escrever o XML (libxml2) */
 #define E_ARQUIVO -5   /* falha ao gravar o arquivo */
+#define E_REDE    -6   /* falha na comunicação com a SEFAZ */
 #define E_MALLOC  -101 /* falta de memória */
 
 /* Descrição do código de erro (texto estático, não deve ser liberado) */
