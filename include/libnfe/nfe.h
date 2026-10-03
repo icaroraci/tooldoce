@@ -254,6 +254,25 @@ typedef enum nfe_ind_ie_dest {
 	NFE_IE_DEST_NAO_CONTRIBUINTE = 9 /* não contribuinte (pode ter IE) */
 } nfe_ind_ie_dest;
 
+/* indEscala: produção em escala relevante (Convênio ICMS 52/17) */
+typedef enum nfe_escala {
+	NFE_ESCALA_NAO_INFORMADA = 0,
+	NFE_ESCALA_RELEVANTE,    /* "S" */
+	NFE_ESCALA_NAO_RELEVANTE /* "N" */
+} nfe_escala;
+
+/* tpCredPresIBSZFM: classificação para o crédito presumido de IBS na Zona
+ * Franca de Manaus (art. 450, § 1º, LC 214/25) */
+typedef enum nfe_cred_pres_zfm {
+	NFE_CRED_PRES_ZFM_NAO_INFORMADO = -1,
+	NFE_CRED_PRES_ZFM_SEM = 0,            /* sem crédito presumido */
+	NFE_CRED_PRES_ZFM_CONSUMO_FINAL = 1,  /* bens de consumo final (55%) */
+	NFE_CRED_PRES_ZFM_CAPITAL = 2,        /* bens de capital (75%) */
+	NFE_CRED_PRES_ZFM_INTERMEDIARIOS = 3, /* bens intermediários (90,25%) */
+	NFE_CRED_PRES_ZFM_INFORMATICA = 4     /* bens de informática e outros
+	                                         (100%) */
+} nfe_cred_pres_zfm;
+
 /**
  * nfe_tzd:
  * @NFE_TZD_FERNANDO_NORONHA: horário de Fernando de Noronha (UTC-02:00)
