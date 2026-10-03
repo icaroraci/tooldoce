@@ -100,19 +100,13 @@ struct Cont_s *ideContNew(struct Cont_s *this,
                           char *str, 
                           const char *xjust)
 {
-  if(!this) 
-  { 
-    strcpy(this->dhCont, DHSet(tzd, str));
-    strcpy(this->xJust, xjust);
-    return this;
-  }
-  else
-  {
-    struct Cont_s *cont = (struct Cont_s *)malloc(sizeof(struct Cont_s));
-    strcpy(cont->dhCont, DHSet(tzd, str));
-    strcpy(cont->xJust, xjust);
-    return cont;
-  }
+  /* Reaproveita o objeto informado; se for NULL, aloca um novo */
+  struct Cont_s *cont = this;
+  if (!cont)
+    cont = (struct Cont_s *)malloc(sizeof(struct Cont_s));
+  strcpy(cont->dhCont, DHSet(tzd, str));
+  strcpy(cont->xJust, xjust);
+  return cont;
 }
 
 void ideContDel(struct Cont_s *cont)
@@ -181,65 +175,41 @@ struct ide_s *ideNew(struct ide_s *this,
                      nfe_tzd tzd, 
                      char *str )
 {
-  if(!this)
-  {
-    this->cUF = cuf;
-    this->cNF = cnf;
-    strcpy(this->natOp, natop);
-    this->indPag = indpag;
-    this->mod = mod;
-    this->serie = serie;
-    this->nNF = nnf;
-    strcpy(this->dhEmi, DHSet(tzd, str)); // precisa rever isso
-    strcpy(this->dhSaiEnt, DHSet(tzd, str));
-    this->tpNF = tpnf;
-    this->idDest = iddest;
-    this->cMunFG = cmunfg;
-    this->tpImp = tpimp;
-    this->tpEmis = tpemis;
-    this->cDV = cdv;
-    this->tpAmb = tpamb;
-    this->finNFe = finnfe;
-    this->indFinal = indfinal;
-    this->indPres = indpres;
-    this->procEmis = procemis;
-    strcpy(this->verProc, verproc);
-    this->cont = cont;
-    return this;
-  }
-  else
- {
-    struct ide_s *ide = (struct ide_s *)malloc(sizeof(struct ide_s));
-    ide->cUF = cuf;
-    ide->cNF = cnf;
-    strcpy(ide->natOp, natop);
-    ide->indPag = indpag;
-    ide->mod = mod;
-    ide->serie = serie;
-    ide->nNF = nnf;
-    strcpy(ide->dhEmi, DHSet(tzd, str)); // precisa rever isso
-    strcpy(ide->dhSaiEnt, DHSet(tzd, str));
-    ide->tpNF = tpnf;
-    ide->idDest = iddest;
-    ide->cMunFG = cmunfg;
-    ide->tpImp = tpimp;
-    ide->tpEmis = tpemis;
-    ide->cDV = cdv;
-    ide->tpAmb = tpamb;
-    ide->finNFe = finnfe;
-    ide->indFinal = indfinal;
-    ide->indPres = indpres;
-    ide->procEmis = procemis;
-    strcpy(ide->verProc, verproc);
-    ide->cont = cont;
-    return ide;
- }
-  
+  /* Reaproveita o objeto informado; se for NULL, aloca um novo */
+  struct ide_s *ide = this;
+  if (!ide)
+    ide = (struct ide_s *)malloc(sizeof(struct ide_s));
+  ide->cUF = cuf;
+  ide->cNF = cnf;
+  strcpy(ide->natOp, natop);
+  ide->indPag = indpag;
+  ide->mod = mod;
+  ide->serie = serie;
+  ide->nNF = nnf;
+  strcpy(ide->dhEmi, DHSet(tzd, str)); // precisa rever isso
+  strcpy(ide->dhSaiEnt, DHSet(tzd, str));
+  ide->tpNF = tpnf;
+  ide->idDest = iddest;
+  ide->cMunFG = cmunfg;
+  ide->tpImp = tpimp;
+  ide->tpEmis = tpemis;
+  ide->cDV = cdv;
+  ide->tpAmb = tpamb;
+  ide->finNFe = finnfe;
+  ide->indFinal = indfinal;
+  ide->indPres = indpres;
+  ide->procEmis = procemis;
+  strcpy(ide->verProc, verproc);
+  ide->cont = cont;
+  return ide;
 }
 
 void ideDel(struct ide_s *ide)
 {
-  if(!ide->cont)
+  if (!ide)
+    return;
+
+  if (ide->cont)
     ideContDel(ide->cont);
 
   free(ide); 
@@ -401,7 +371,7 @@ int xmlGenideNode(xmlTextWriterPtr writer,struct ide_s *ide)
     return -1;
   }
 
-  if(!ide->cont)
+  if(ide->cont)
      rc = xmlGenideContNode(writer, ide->cont);
 
   rc = xmlTextWriterEndElement(writer);
