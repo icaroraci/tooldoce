@@ -56,3 +56,7 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Cache do Python
+__pycache__/
+*.pyc
