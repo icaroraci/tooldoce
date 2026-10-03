@@ -31,7 +31,8 @@ struct NFref_s{
 
 struct NFref_s *NFrefNew()
 {
-  struct NFref_s *nf = (struct NFref_s *)malloc(sizeof(struct NFref_s));
+  /* calloc: campos começam vazios; NULL se faltar memória */
+  struct NFref_s *nf = (struct NFref_s *)calloc(1, sizeof(struct NFref_s));
   return nf;
 }
 

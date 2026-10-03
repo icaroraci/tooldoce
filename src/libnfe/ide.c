@@ -116,8 +116,11 @@ struct Cont_s *ideContNew(struct Cont_s *this,
 {
   /* Reaproveita o objeto informado; se for NULL, aloca um novo */
   struct Cont_s *cont = this;
-  if (!cont)
-    cont = (struct Cont_s *)malloc(sizeof(struct Cont_s));
+  if (!cont){
+    cont = (struct Cont_s *)calloc(1, sizeof(struct Cont_s));
+    if (!cont)
+      return NULL;
+  }
   if (DHSet(cont->dhCont, sizeof cont->dhCont, dhcont, tzd) != 0 ||
       nfe_copia_texto(cont->xJust, sizeof cont->xJust, xjust,
                       15, NFE_TAM_XJUST) != 0){
@@ -195,8 +198,11 @@ struct ide_s *ideNew(struct ide_s *this,
 {
   /* Reaproveita o objeto informado; se for NULL, aloca um novo */
   struct ide_s *ide = this;
-  if (!ide)
-    ide = (struct ide_s *)malloc(sizeof(struct ide_s));
+  if (!ide){
+    ide = (struct ide_s *)calloc(1, sizeof(struct ide_s));
+    if (!ide)
+      return NULL;
+  }
   ide->cUF = cuf;
   ide->cNF = cnf;
   ide->indPag = indpag;

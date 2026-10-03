@@ -41,7 +41,8 @@ struct refNF_s {
 
 struct refNF_s *RefNFNew()
 {
-  struct refNF_s *nf = (struct refNF_s *)malloc(sizeof(struct refNF_s));
+  /* calloc: campos começam vazios; NULL se faltar memória */
+  struct refNF_s *nf = (struct refNF_s *)calloc(1, sizeof(struct refNF_s));
   return nf;
 }
 
