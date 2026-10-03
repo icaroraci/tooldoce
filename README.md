@@ -1,8 +1,10 @@
 # tooldoce
 [![CI](https://github.com/icaroraci/tooldoce/actions/workflows/ci.yml/badge.svg)](https://github.com/icaroraci/tooldoce/actions/workflows/ci.yml)
 
-Ferramenta para emissão de documentos eletrônicos
+Biblioteca livre em C para emissão de documentos fiscais eletrônicos brasileiros (NF-e, NFC-e, NFS-e, CT-e, MDF-e...), feita para ser usada por ERPs e outros sistemas. A plataforma nativa é Linux.
 
+* [Visão e requisitos do projeto](docs/VISAO.md)
+* [Convenções de código](docs/CONVENCOES.md)
 * Veja como [contribuir](https://github.com/icaroraci/tooldoce/blob/master/CONTRIBUTING.md)
 * Como manter um [fork](https://github.com/icaroraci/tooldoce/blob/master/CONTRIBUTING.md#mantendo-um-fork)
 * [Code Style](https://github.com/icaroraci/tooldoce/wiki/Code-style)

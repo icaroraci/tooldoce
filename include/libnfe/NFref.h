@@ -16,8 +16,8 @@
  * along with tooldoce.  If not, see <http://www.gnu.org/licenses/>.
  * */
 
-#ifndef _H_NFREF_H_
-#define _H_NFREF_H_
+#ifndef LIBNFE_NFREF_H
+#define LIBNFE_NFREF_H
 
 #include <libxml/encoding.h>
 #include <libxml/xmlwriter.h>

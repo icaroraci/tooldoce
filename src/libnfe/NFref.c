@@ -24,7 +24,7 @@
 
 
 struct NFref_s{
-  char refNFe[TAM_CHAVE];
+  char refNFe[NFE_TAM_ASCII(NFE_TAM_CHAVE)];
 };
 
 struct NFref_s *NFrefNew()

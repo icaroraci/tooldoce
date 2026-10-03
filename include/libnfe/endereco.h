@@ -16,8 +16,8 @@
  ** along with tooldoce.  If not, see <http://www.gnu.org/licenses/>.
  ** */
 
-#ifndef INCLUIDO_MUNICIO_H
-#define INCLUIDO_MUNICIO_H
+#ifndef LIBNFE_ENDERECO_H
+#define LIBNFE_ENDERECO_H
 
 #include<libnfe/erros.h>
 #include<stdint.h>

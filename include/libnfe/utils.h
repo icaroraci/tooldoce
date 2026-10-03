@@ -16,11 +16,18 @@
  * along with tooldoce.  If not, see <http://www.gnu.org/licenses/>.
  * */
 
-#ifndef INCLUIDO_UTILS_H
-#define INCLUIDO_UTILS_H
+#ifndef LIBNFE_UTILS_H
+#define LIBNFE_UTILS_H
 
 #include<libnfe/erros.h>
 
-int error(char* msg, int codErro);
-int ptrnull(void* ptr);
+/* Funções de uso interno da biblioteca: não são exportadas na libnfe.so */
+#if defined(__GNUC__) && __GNUC__ >= 4
+#define NFE_INTERNO __attribute__((visibility("hidden")))
+#else
+#define NFE_INTERNO
+#endif
+
+NFE_INTERNO int nfe_error(const char *msg, int codErro);
+NFE_INTERNO int nfe_ptrnull(const void *ptr);
 #endif

@@ -29,12 +29,12 @@
 
 
 struct refNF_s {
-  char cUF[TAM_CUF];
-  char AAMM[TAM_AAMM];
-  char CNPJ[TAM_CNPJ];
-  char mod[TAM_MOD_NF];
-  char serie[TAM_SERIE];
-  char nNF[TAM_NNF];
+  char cUF[NFE_TAM_ASCII(NFE_TAM_CUF)];
+  char AAMM[NFE_TAM_ASCII(NFE_TAM_AAMM)];
+  char CNPJ[NFE_TAM_ASCII(NFE_TAM_CNPJ)];
+  char mod[NFE_TAM_ASCII(NFE_TAM_MOD)];
+  char serie[NFE_TAM_ASCII(NFE_TAM_SERIE)];
+  char nNF[NFE_TAM_ASCII(NFE_TAM_NNF)];
 };
 
 struct refNF_s *RefNFNew()
@@ -49,7 +49,7 @@ void RefNfDel(struct refNF_s *nf)
 }
 
 
-void RefNFSetcUF(struct refNF_s *nf, enum UF_e uf)
+void RefNFSetcUF(struct refNF_s *nf, nfe_uf uf)
 {
   strcpy(nf->cUF, ConverteUFParaCodStr(uf));
 }
@@ -59,7 +59,7 @@ char *RefNFGetcUF(struct refNF_s *nf)
   return nf->cUF;
 }
 
-void RefNFSetAAMM(struct refNF_s *nf, const int ano, enum MES_e mes)
+void RefNFSetAAMM(struct refNF_s *nf, const int ano, nfe_mes mes)
 {
   if (ano >= 0 && ano < 100)
     strcpy(nf->AAMM, ConverteAnoParaCodStr(ano));

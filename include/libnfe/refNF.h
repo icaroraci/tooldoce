@@ -16,11 +16,13 @@
  * along with tooldoce.  If not, see <http://www.gnu.org/licenses/>.
  * */
 
-#ifndef _H_REFNF_H_
-#define _H_REFNF_H_
+#ifndef LIBNFE_REFNF_H
+#define LIBNFE_REFNF_H
 
 #include <libxml/encoding.h>
 #include <libxml/xmlwriter.h>
+
+#include <libnfe/nfe.h>
 
 
 struct refNF_s;
@@ -30,10 +32,10 @@ struct refNF_s *RefNFNew();
 void RefNfDel(struct refNF_s *nf);
 
 /* Funções de acesso ao dado  */
-void RefNFSetcUF(struct refNF_s *nf, enum UF_e uf);
+void RefNFSetcUF(struct refNF_s *nf, nfe_uf uf);
 char *RefNFGetcUF(struct refNF_s *nf);
 
-void RefNFSetAAMM(struct refNF_s *nf, const int ano, enum MES_e mes);
+void RefNFSetAAMM(struct refNF_s *nf, const int ano, nfe_mes mes);
 char *RefNFGetAAMM(struct refNF_s *nf);
 
 void RefNFSetCNPJ(struct refNF_s *nf, const char *cnpj);
