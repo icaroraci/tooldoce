@@ -9,8 +9,10 @@ de tamanho de cada campo, e se o campo é texto livre (tipo TString). As
 folhas de uma raiz recebem índices consecutivos, de modo que as folhas de
 qualquer nó formam um intervalo.
 
-Restrições: elementos com maxOccurs > 1 e atributos não são suportados
-dentro das raízes escolhidas (o gerador falha se encontrar algum).
+Elementos repetidos (maxOccurs > 1) ganham tabela própria e aparecem na
+tabela do pai como listas (ESQ_LISTA); atributos são folhas (ESQ_ATTR).
+Conteúdo misto, simpleContent e sequências repetidas não são suportados (o
+gerador falha se encontrar algum).
 
 Uso: python3 tools/gerar_esquemas.py [--verificar]
 """
@@ -30,7 +32,24 @@ SAIDA = os.path.join(RAIZ, "src", "libnfe", "esquemas.c")
 XS = "{http://www.w3.org/2001/XMLSchema}"
 
 # (nome C, nome do elemento no leiaute) das raízes descritas
-RAIZES = (("imposto", "imposto"),)
+RAIZES = (
+    ("imposto", "imposto"),
+    ("prod", "prod"),
+    ("transp", "transp"),
+    ("total", "total"),
+    ("NFref", "NFref"),
+    ("impostoDevol", "impostoDevol"),
+    ("obsItem", "obsItem"),
+    ("DFeReferenciado", "DFeReferenciado"),
+    ("avulsa", "avulsa"),
+    ("exporta", "exporta"),
+    ("compra", "compra"),
+    ("cana", "cana"),
+    ("infSolicNFF", "infSolicNFF"),
+    ("agropecuario", "agropecuario"),
+    ("infPAA", "infPAA"),
+    ("infNFeSupl", "infNFeSupl"),
+)
 
 CABECALHO = """\
 /* Gerado por tools/gerar_esquemas.py a partir de tests/schemas/nfe.
@@ -120,7 +139,8 @@ class Tipos:
         return None
 
     def conteudo_complexo(self, el):
-        """sequence/choice do elemento complexo, ou None se for simples"""
+        """(sequence/choice, atributos) do elemento complexo; (None, [])
+        se for simples"""
         tipo = el.get("type")
         ct = None
         if tipo is not None and tipo.split(":")[-1] in self.complexos:
@@ -128,21 +148,31 @@ class Tipos:
         elif el.find(XS + "complexType") is not None:
             ct = el.find(XS + "complexType")
         if ct is None:
-            return None
-        if ct.find(XS + "attribute") is not None:
-            sys.exit("%s: atributos não suportados" % el.get("name"))
+            return None, []
+        atributos = ct.findall(XS + "attribute")
+        conteudo = None
         for c in ct:
             if c.tag in (XS + "sequence", XS + "choice"):
-                return c
-        sys.exit("%s: conteúdo complexo não suportado" % el.get("name"))
+                conteudo = c
+            elif c.tag not in (XS + "attribute", XS + "annotation"):
+                sys.exit("%s: conteúdo complexo não suportado"
+                         % el.get("name"))
+        return conteudo, atributos
 
 
 class Gerador:
-    def __init__(self, tipos):
+    """Gera a tabela de uma raiz. Elementos repetidos (maxOccurs > 1) viram
+    nós ESQ_LISTA que apontam para a tabela própria do elemento, gerada
+    antes (em tabelas)."""
+
+    def __init__(self, tipos, nome_c, tabelas, listas):
         self.tipos = tipos
+        self.nome_c = nome_c
+        self.tabelas = tabelas
+        self.listas = listas
         self.nos = []
         self.folhas = 0
-        self.listas = {}
+        self.nlistas = 0
 
     def lista(self, valores):
         chave = tuple(valores)
@@ -153,8 +183,10 @@ class Gerador:
     def no(self, pai, tipo, nome=None, minimo=1, f=None):
         i = len(self.nos)
         self.nos.append({"pai": pai, "tipo": tipo, "nome": nome,
-                         "min": minimo, "f": f, "filho": -1, "irmao": -1,
-                         "folha": -1, "ini": self.folhas})
+                         "min": minimo, "max": 1, "f": f, "filho": -1,
+                         "irmao": -1, "folha": -1, "lista": -1,
+                         "ini": self.folhas, "lini": self.nlistas,
+                         "sub": None})
         if pai >= 0:
             p = self.nos[pai]
             if p["filho"] < 0:
@@ -166,26 +198,49 @@ class Gerador:
                 self.nos[j]["irmao"] = i
         return i
 
-    def ocorrencias(self, el):
-        m = el.get("maxOccurs")
-        if m not in (None, "1"):
-            sys.exit("%s: maxOccurs %s não suportado" % (el.get("name"), m))
-        return 0 if el.get("minOccurs") == "0" else 1
+    def fecha(self, i):
+        self.nos[i]["fim"] = self.folhas
+        self.nos[i]["lfim"] = self.nlistas
 
-    def elemento(self, el, pai):
-        conteudo = self.tipos.conteudo_complexo(el)
-        minimo = self.ocorrencias(el)
-        if conteudo is None:
+    def folha(self, pai, tipo, nome, minimo, f):
+        i = self.no(pai, tipo, nome, minimo, f)
+        self.nos[i]["folha"] = self.folhas
+        self.folhas += 1
+        self.fecha(i)
+        return i
+
+    def elemento(self, el, pai, raiz=False):
+        maximo = el.get("maxOccurs")
+        if not raiz and maximo not in (None, "1"):
+            sub = gera_raiz(self.tipos, "%s_%s" % (self.nome_c,
+                                                   el.get("name")),
+                            el, self.tabelas, self.listas)
+            i = self.no(pai, "ESQ_LISTA", el.get("name"),
+                        0 if el.get("minOccurs") == "0" else 1)
+            self.nos[i]["max"] = 0 if maximo == "unbounded" else int(maximo)
+            self.nos[i]["sub"] = sub
+            self.nos[i]["lista"] = self.nlistas
+            self.nlistas += 1
+            self.fecha(i)
+            return i
+        minimo = 1 if raiz or el.get("minOccurs") != "0" else 0
+        conteudo, atributos = self.tipos.conteudo_complexo(el)
+        if conteudo is None and not atributos:
             f = self.tipos.facetas_elemento(el)
             if f is None:
                 sys.exit("%s: tipo desconhecido" % el.get("name"))
-            i = self.no(pai, "ESQ_ELEM", el.get("name"), minimo, f)
-            self.nos[i]["folha"] = self.folhas
-            self.folhas += 1
-        else:
-            i = self.no(pai, "ESQ_ELEM", el.get("name"), minimo)
+            return self.folha(pai, "ESQ_ELEM", el.get("name"), minimo, f)
+        i = self.no(pai, "ESQ_ELEM", el.get("name"), minimo)
+        for a in atributos:
+            f = self.tipos.facetas_elemento(a)
+            if f is None:
+                sys.exit("%s/@%s: tipo desconhecido" % (el.get("name"),
+                                                        a.get("name")))
+            self.folha(i, "ESQ_ATTR", a.get("name"),
+                       1 if a.get("use") == "required" else 0, f)
+        if conteudo is not None:
             self.grupo(conteudo, i)
-        self.nos[i]["fim"] = self.folhas
+        self.fecha(i)
         return i
 
     def grupo(self, g, pai):
@@ -200,8 +255,17 @@ class Gerador:
                 self.grupo(c, i)
             elif c.tag != XS + "annotation":
                 sys.exit("nó %s não suportado" % c.tag)
-        self.nos[i]["fim"] = self.folhas
+        self.fecha(i)
         return i
+
+
+def gera_raiz(tipos, nome_c, el, tabelas, listas):
+    """Gera a tabela do elemento el (e, antes, as das suas listas) e a
+    acrescenta a tabelas; retorna o nome C da estrutura"""
+    g = Gerador(tipos, nome_c, tabelas, listas)
+    g.elemento(el, -1, raiz=True)
+    tabelas.append((nome_c, el.get("name"), g))
+    return "esq_" + nome_c
 
 
 def procura(raiz, nome):
@@ -220,11 +284,11 @@ def gerar():
     partes = [CABECALHO]
     tabelas = []
     listas = {}
+    publicas = set()
     for nome_c, nome in RAIZES:
-        g = Gerador(tipos)
-        g.listas = listas
-        g.elemento(procura(tipos.leiaute, nome), -1)
-        tabelas.append((nome_c, nome, g))
+        gera_raiz(tipos, nome_c, procura(tipos.leiaute, nome), tabelas,
+                  listas)
+        publicas.add(nome_c)
     corpo = []
     for nome_c, nome, g in tabelas:
         corpo.append("static const struct nfe_esq_no nos_%s[] = {\n"
@@ -234,17 +298,21 @@ def gerar():
             valores = (g.lista(f["enumeration"]) if f.get("enumeration")
                        else "NULL")
             corpo.append(
-                "\t{ %s, %s, %d, %s, %s, %d, %d, %d, %d, %d, %d, %d, %d, %d"
-                " },\n" % (c_texto(n["nome"]), n["tipo"], n["min"],
-                           c_texto(f.get("pattern")), valores,
-                           f.get("minLength", 0), f.get("maxLength", 0),
-                           1 if f.get("tstring") else 0, n["pai"],
-                           n["filho"], n["irmao"], n["folha"], n["ini"],
-                           n["fim"]))
+                "\t{ %s, %s, %d, %d, %s, %s, %d, %d, %d, %d, %d, %d, %d,"
+                " %d, %d, %d, %d, %d, %s },\n"
+                % (c_texto(n["nome"]), n["tipo"], n["min"], n["max"],
+                   c_texto(f.get("pattern")), valores,
+                   f.get("minLength", 0), f.get("maxLength", 0),
+                   1 if f.get("tstring") else 0, n["pai"], n["filho"],
+                   n["irmao"], n["folha"], n["ini"], n["fim"], n["lista"],
+                   n["lini"], n["lfim"],
+                   "&" + n["sub"] if n["sub"] else "NULL"))
         corpo.append("};\n\n")
-        corpo.append("const struct nfe_esq nfe_esq_%s = { %s, nos_%s, %d,"
-                     " %d };\n\n" % (nome_c, literal_c(nome), nome_c,
-                                      len(g.nos), g.folhas))
+        corpo.append("%sconst struct nfe_esq esq_%s = { %s, nos_%s, %d,"
+                     " %d, %d };\n\n"
+                     % ("" if nome_c in publicas else "static ", nome_c,
+                        literal_c(nome), nome_c, len(g.nos), g.folhas,
+                        g.nlistas))
     for valores, nome in sorted(listas.items(),
                                 key=lambda x: int(x[1].split("_")[1])):
         partes.append("static const char *const %s[] = { %s, NULL };\n"

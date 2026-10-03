@@ -129,6 +129,54 @@ static void teste_transportador_e_volumes(void)
 	nfe_transp_free(tr);
 }
 
+/* Veículo, reboques e lacres pelo grupo genérico */
+static void teste_subgrupos(void)
+{
+	nfe_transp *tr = nfe_transp_new();
+	nfe_grupo *g = nfe_transp_grupo(tr), *reb, *vol, *lac;
+	char *xml;
+	int rc = 0;
+
+	rc |= nfe_transp_set_modfrete(tr, NFE_FRETE_REMETENTE);
+	rc |= nfe_grupo_set(g, "veicTransp/placa", "ABC1D23");
+	rc |= nfe_grupo_set(g, "veicTransp/UF", "SP");
+	rc |= nfe_grupo_add(g, "reboque", &reb);
+	rc |= nfe_grupo_set(reb, "placa", "XYZ9A87");
+	rc |= nfe_transp_add_vol(tr, "1", "CAIXA", NULL, NULL, NULL, NULL);
+	vol = nfe_grupo_item(g, "vol", 0);
+	VERIFICA(vol != NULL);
+	rc |= nfe_grupo_add(vol, "lacres", &lac);
+	rc |= nfe_grupo_set(lac, "nLacre", "LAC-1");
+	VERIFICA_INT(rc, 0);
+	xml = teste_gera(escreve, tr, &rc);
+	VERIFICA_INT(rc, 0);
+	VERIFICA(xml != NULL);
+	if (xml) {
+		VERIFICA(strstr(xml,
+		                "<modFrete>0</modFrete><veicTransp><placa>"
+		                "ABC1D23</placa><UF>SP</UF></veicTransp>"
+		                "<reboque><placa>XYZ9A87</placa></reboque>"
+		                "<vol><qVol>1</qVol><esp>CAIXA</esp><lacres>"
+		                "<nLacre>LAC-1</nLacre></lacres></vol>") !=
+		         NULL);
+		VERIFICA_INT(teste_valida(xml), 0);
+	}
+	free(xml);
+
+	/* vagao é outro ramo da escolha: apaga veículo e reboques */
+	VERIFICA_INT(nfe_grupo_set(g, "vagao", "VAG-01"), 0);
+	VERIFICA_INT(nfe_grupo_quantidade(g, "reboque"), 0);
+	xml = teste_gera(escreve, tr, &rc);
+	VERIFICA_INT(rc, 0);
+	if (xml) {
+		VERIFICA(strstr(xml, "veicTransp") == NULL);
+		VERIFICA(strstr(xml, "<vagao>VAG-01</vagao><vol>") != NULL);
+		VERIFICA_INT(teste_valida(xml), 0);
+	}
+	free(xml);
+	nfe_transp_free(tr);
+}
+
 static void teste_valores_invalidos(void)
 {
 	nfe_transp *tr = nfe_transp_new();
@@ -194,6 +242,7 @@ int main(int argc, char **argv)
 
 	teste_sem_transporte();
 	teste_transportador_e_volumes();
+	teste_subgrupos();
 	teste_valores_invalidos();
 
 	teste_libera_schema();

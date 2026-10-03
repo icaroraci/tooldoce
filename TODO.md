@@ -24,22 +24,22 @@ Marque `[x]` quando a estrutura tiver: criação/liberação, setters com valida
     - [x] [**entrega**](docs/diagramas/NFe/infNFe/entrega.svg) `0..1` _(opcional)_
     - [x] [**autXML**](docs/diagramas/NFe/infNFe/autXML.svg) `0..10` _(opcional)_
     - [ ] [**det**](docs/diagramas/NFe/infNFe/det.svg) `1..990`
-      - [ ] [**prod**](docs/diagramas/NFe/infNFe/det/prod.svg)
-        - [ ] [**gCred**](docs/diagramas/NFe/infNFe/det/prod/gCred.svg) `0..4` _(opcional)_
-        - [ ] [**DI**](docs/diagramas/NFe/infNFe/det/prod/DI.svg) `0..100` _(opcional)_
-          - [ ] [**adi**](docs/diagramas/NFe/infNFe/det/prod/DI/adi.svg) `1..999`
-        - [ ] [**detExport**](docs/diagramas/NFe/infNFe/det/prod/detExport.svg) `0..500` _(opcional)_
-          - [ ] [**exportInd**](docs/diagramas/NFe/infNFe/det/prod/detExport/exportInd.svg) `0..1` _(opcional)_
-        - [ ] [**rastro**](docs/diagramas/NFe/infNFe/det/prod/rastro.svg) `0..500` _(opcional)_
-        - [ ] [**infProdNFF**](docs/diagramas/NFe/infNFe/det/prod/infProdNFF.svg) `0..1` _(opcional)_
-        - [ ] [**infProdEmb**](docs/diagramas/NFe/infNFe/det/prod/infProdEmb.svg) `0..1` _(opcional)_
-        - [ ] [**veicProd**](docs/diagramas/NFe/infNFe/det/prod/veicProd.svg)
-        - [ ] [**med**](docs/diagramas/NFe/infNFe/det/prod/med.svg)
-        - [ ] [**arma**](docs/diagramas/NFe/infNFe/det/prod/arma.svg) `1..500`
-        - [ ] [**comb**](docs/diagramas/NFe/infNFe/det/prod/comb.svg)
-          - [ ] [**CIDE**](docs/diagramas/NFe/infNFe/det/prod/comb/CIDE.svg) `0..1` _(opcional)_
-          - [ ] [**encerrante**](docs/diagramas/NFe/infNFe/det/prod/comb/encerrante.svg) `0..1` _(opcional)_
-          - [ ] [**origComb**](docs/diagramas/NFe/infNFe/det/prod/comb/origComb.svg) `0..30` _(opcional)_
+      - [x] [**prod**](docs/diagramas/NFe/infNFe/det/prod.svg)
+        - [x] [**gCred**](docs/diagramas/NFe/infNFe/det/prod/gCred.svg) `0..4` _(opcional)_
+        - [x] [**DI**](docs/diagramas/NFe/infNFe/det/prod/DI.svg) `0..100` _(opcional)_
+          - [x] [**adi**](docs/diagramas/NFe/infNFe/det/prod/DI/adi.svg) `1..999`
+        - [x] [**detExport**](docs/diagramas/NFe/infNFe/det/prod/detExport.svg) `0..500` _(opcional)_
+          - [x] [**exportInd**](docs/diagramas/NFe/infNFe/det/prod/detExport/exportInd.svg) `0..1` _(opcional)_
+        - [x] [**rastro**](docs/diagramas/NFe/infNFe/det/prod/rastro.svg) `0..500` _(opcional)_
+        - [x] [**infProdNFF**](docs/diagramas/NFe/infNFe/det/prod/infProdNFF.svg) `0..1` _(opcional)_
+        - [x] [**infProdEmb**](docs/diagramas/NFe/infNFe/det/prod/infProdEmb.svg) `0..1` _(opcional)_
+        - [x] [**veicProd**](docs/diagramas/NFe/infNFe/det/prod/veicProd.svg)
+        - [x] [**med**](docs/diagramas/NFe/infNFe/det/prod/med.svg)
+        - [x] [**arma**](docs/diagramas/NFe/infNFe/det/prod/arma.svg) `1..500`
+        - [x] [**comb**](docs/diagramas/NFe/infNFe/det/prod/comb.svg)
+          - [x] [**CIDE**](docs/diagramas/NFe/infNFe/det/prod/comb/CIDE.svg) `0..1` _(opcional)_
+          - [x] [**encerrante**](docs/diagramas/NFe/infNFe/det/prod/comb/encerrante.svg) `0..1` _(opcional)_
+          - [x] [**origComb**](docs/diagramas/NFe/infNFe/det/prod/comb/origComb.svg) `0..30` _(opcional)_
       - [x] [**imposto**](docs/diagramas/NFe/infNFe/det/imposto.svg)
         - [x] [**ICMS**](docs/diagramas/NFe/infNFe/det/imposto/ICMS.svg)
           - [x] [**ICMS00**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMS00.svg)
@@ -133,25 +133,25 @@ Marque `[x]` quando a estrutura tiver: criação/liberação, setters com valida
         - [ ] [**obsCont**](docs/diagramas/NFe/infNFe/det/obsItem/obsCont.svg) `0..1` _(opcional)_
         - [ ] [**obsFisco**](docs/diagramas/NFe/infNFe/det/obsItem/obsFisco.svg) `0..1` _(opcional)_
       - [ ] [**DFeReferenciado**](docs/diagramas/NFe/infNFe/det/DFeReferenciado.svg) `0..1` _(opcional)_
-    - [ ] [**total**](docs/diagramas/NFe/infNFe/total.svg)
+    - [x] [**total**](docs/diagramas/NFe/infNFe/total.svg)
       - [x] [**ICMSTot**](docs/diagramas/NFe/infNFe/total/ICMSTot.svg)
-      - [ ] [**ISSQNtot**](docs/diagramas/NFe/infNFe/total/ISSQNtot.svg) `0..1` _(opcional)_
-      - [ ] [**retTrib**](docs/diagramas/NFe/infNFe/total/retTrib.svg) `0..1` _(opcional)_
-      - [ ] [**ISTot**](docs/diagramas/NFe/infNFe/total/ISTot.svg) `0..1` _(opcional)_
-      - [ ] [**IBSCBSTot**](docs/diagramas/NFe/infNFe/total/IBSCBSTot.svg) `0..1` _(opcional)_
-        - [ ] [**gIBS**](docs/diagramas/NFe/infNFe/total/IBSCBSTot/gIBS.svg) `0..1` _(opcional)_
-          - [ ] [**gIBSUF**](docs/diagramas/NFe/infNFe/total/IBSCBSTot/gIBS/gIBSUF.svg)
-          - [ ] [**gIBSMun**](docs/diagramas/NFe/infNFe/total/IBSCBSTot/gIBS/gIBSMun.svg)
-        - [ ] [**gCBS**](docs/diagramas/NFe/infNFe/total/IBSCBSTot/gCBS.svg) `0..1` _(opcional)_
-        - [ ] [**gMono**](docs/diagramas/NFe/infNFe/total/IBSCBSTot/gMono.svg) `0..1` _(opcional)_
-        - [ ] [**gEstornoCred**](docs/diagramas/NFe/infNFe/total/IBSCBSTot/gEstornoCred.svg) `0..1` _(opcional)_
-    - [ ] [**transp**](docs/diagramas/NFe/infNFe/transp.svg)
+      - [x] [**ISSQNtot**](docs/diagramas/NFe/infNFe/total/ISSQNtot.svg) `0..1` _(opcional)_
+      - [x] [**retTrib**](docs/diagramas/NFe/infNFe/total/retTrib.svg) `0..1` _(opcional)_
+      - [x] [**ISTot**](docs/diagramas/NFe/infNFe/total/ISTot.svg) `0..1` _(opcional)_
+      - [x] [**IBSCBSTot**](docs/diagramas/NFe/infNFe/total/IBSCBSTot.svg) `0..1` _(opcional)_
+        - [x] [**gIBS**](docs/diagramas/NFe/infNFe/total/IBSCBSTot/gIBS.svg) `0..1` _(opcional)_
+          - [x] [**gIBSUF**](docs/diagramas/NFe/infNFe/total/IBSCBSTot/gIBS/gIBSUF.svg)
+          - [x] [**gIBSMun**](docs/diagramas/NFe/infNFe/total/IBSCBSTot/gIBS/gIBSMun.svg)
+        - [x] [**gCBS**](docs/diagramas/NFe/infNFe/total/IBSCBSTot/gCBS.svg) `0..1` _(opcional)_
+        - [x] [**gMono**](docs/diagramas/NFe/infNFe/total/IBSCBSTot/gMono.svg) `0..1` _(opcional)_
+        - [x] [**gEstornoCred**](docs/diagramas/NFe/infNFe/total/IBSCBSTot/gEstornoCred.svg) `0..1` _(opcional)_
+    - [x] [**transp**](docs/diagramas/NFe/infNFe/transp.svg)
       - [x] [**transporta**](docs/diagramas/NFe/infNFe/transp/transporta.svg) `0..1` _(opcional)_
-      - [ ] [**retTransp**](docs/diagramas/NFe/infNFe/transp/retTransp.svg) `0..1` _(opcional)_
-      - [ ] [**veicTransp**](docs/diagramas/NFe/infNFe/transp/veicTransp.svg) `0..1` _(opcional)_
-      - [ ] [**reboque**](docs/diagramas/NFe/infNFe/transp/reboque.svg) `0..5` _(opcional)_
-      - [ ] [**vol**](docs/diagramas/NFe/infNFe/transp/vol.svg) `0..5000` _(opcional)_
-        - [ ] [**lacres**](docs/diagramas/NFe/infNFe/transp/vol/lacres.svg) `0..5000` _(opcional)_
+      - [x] [**retTransp**](docs/diagramas/NFe/infNFe/transp/retTransp.svg) `0..1` _(opcional)_
+      - [x] [**veicTransp**](docs/diagramas/NFe/infNFe/transp/veicTransp.svg) `0..1` _(opcional)_
+      - [x] [**reboque**](docs/diagramas/NFe/infNFe/transp/reboque.svg) `0..5` _(opcional)_
+      - [x] [**vol**](docs/diagramas/NFe/infNFe/transp/vol.svg) `0..5000` _(opcional)_
+        - [x] [**lacres**](docs/diagramas/NFe/infNFe/transp/vol/lacres.svg) `0..5000` _(opcional)_
     - [x] [**cobr**](docs/diagramas/NFe/infNFe/cobr.svg) `0..1` _(opcional)_
       - [x] [**fat**](docs/diagramas/NFe/infNFe/cobr/fat.svg) `0..1` _(opcional)_
       - [x] [**dup**](docs/diagramas/NFe/infNFe/cobr/dup.svg) `0..120` _(opcional)_

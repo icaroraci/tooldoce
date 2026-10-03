@@ -42,7 +42,7 @@ nfe_imposto *nfe_imposto_new(void)
 
 	if (!imp)
 		return NULL;
-	imp->g = nfe_grupo_new(&nfe_esq_imposto);
+	imp->g = nfe_grupo_new(&esq_imposto);
 	if (!imp->g) {
 		free(imp);
 		return NULL;
@@ -56,6 +56,11 @@ void nfe_imposto_free(nfe_imposto *imp)
 		return;
 	nfe_grupo_free(imp->g);
 	free(imp);
+}
+
+nfe_grupo *nfe_imposto_grupo(nfe_imposto *imp)
+{
+	return imp ? imp->g : NULL;
 }
 
 int nfe_imposto_set(nfe_imposto *imp, const char *caminho, const char *valor)
@@ -76,7 +81,7 @@ int nfe_imposto_remove(nfe_imposto *imp, const char *caminho)
 {
 	if (!imp)
 		return E_ISNULL;
-	return nfe_grupo_limpa(imp->g, caminho);
+	return nfe_grupo_remove(imp->g, caminho);
 }
 
 /* Valida todos os campos; se todos forem aceitos, apaga o tributo e grava
@@ -94,13 +99,13 @@ static int grava_grupo(nfe_imposto *imp, const char *tributo,
 		if (rc != 0)
 			return rc;
 	}
-	nfe_grupo_limpa(imp->g, tributo);
+	nfe_grupo_remove(imp->g, tributo);
 	for (i = 0; i < n; i++) {
 		if (!campos[i].valor)
 			continue;
 		rc = nfe_grupo_set(imp->g, campos[i].caminho, campos[i].valor);
 		if (rc != 0) {
-			nfe_grupo_limpa(imp->g, tributo);
+			nfe_grupo_remove(imp->g, tributo);
 			return rc;
 		}
 	}

@@ -61,8 +61,8 @@ A ordem a partir do item 2 é uma proposta e pode ser revista conforme a demanda
 | Dependência | Uso | Licença |
 |---|---|---|
 | [libxml2](https://gitlab.gnome.org/GNOME/libxml2) | Geração, leitura e validação de XML (XSD) | MIT |
-| [xmlsec1](https://www.aleksey.com/xmlsec/) (previsto) | Assinatura XMLDSig | MIT |
-| [OpenSSL](https://www.openssl.org/) (previsto) | Certificados e criptografia | Apache 2.0 |
+| [xmlsec1](https://www.aleksey.com/xmlsec/) (aprovado) | Assinatura XMLDSig | MIT |
+| [OpenSSL](https://www.openssl.org/) 3.x (aprovado) | Certificados e criptografia | Apache 2.0 |
 | [libcurl](https://curl.se/libcurl/) (previsto) | Comunicação HTTPS com os webservices | curl (estilo MIT) |
 
 ## 6. Licença
@@ -104,7 +104,7 @@ O núcleo comum evita reescrever assinatura, transmissão e validação em cada 
 
 ## 10. Decisões pendentes
 
-- [ ] Impressão da DANFE: dentro ou fora do escopo?
-- [ ] Suporte a certificado A3 (token/cartão, via PKCS#11) além do A1 (arquivo).
+- [x] Impressão da DANFE: **fora** do escopo (projeto à parte; decisão de 03/10/2026).
+- [ ] Suporte a certificado A3 (token/cartão, via PKCS#11) além do A1 (arquivo). Proposta: começar com A1 e deixar a fonte da chave trocável (ver `docs/DUVIDAS.md`).
 - [ ] Nome final da biblioteca quando houver mais de um documento (hoje `libnfe`).
 - [ ] Ordem de prioridade dos documentos a partir da NFC-e.

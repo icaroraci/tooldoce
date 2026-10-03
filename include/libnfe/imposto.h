@@ -22,6 +22,7 @@
 #include <libxml/encoding.h>
 #include <libxml/xmlwriter.h>
 
+#include <libnfe/grupo.h>
 #include <libnfe/nfe.h>
 #include <libnfe/utils.h>
 
@@ -76,6 +77,9 @@ nfe_imposto *nfe_imposto_new(void);
 
 /* Libera o imposto; aceita NULL */
 void nfe_imposto_free(nfe_imposto *imp);
+
+/* Grupo genérico com todos os campos de <imposto> (pertence ao imposto) */
+nfe_grupo *nfe_imposto_grupo(nfe_imposto *imp);
 
 /* Grava um campo qualquer de <imposto> pelo caminho; NULL apaga o campo */
 int nfe_imposto_set(nfe_imposto *imp, const char *caminho, const char *valor);
