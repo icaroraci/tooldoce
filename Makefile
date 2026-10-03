@@ -1,10 +1,20 @@
+# Dependência: libxml2 (pacote libxml2-dev / libxml2-devel)
+XML2_CONFIG ?= xml2-config
+
+ifeq ($(filter clean,$(MAKECMDGOALS)),)
+ifeq ($(shell command -v $(XML2_CONFIG) 2>/dev/null),)
+$(error $(XML2_CONFIG) não encontrado. Instale a libxml2 de desenvolvimento (ex.: apt install libxml2-dev ou dnf install libxml2-devel))
+endif
+endif
+
+
 # Flags do compilador
 # -MMD -MP gera arquivos .d para recompilar quando um header muda
-CFLAGS = -Werror -Wall -std=c99 -g -fPIC -MMD -MP `xml2-config --cflags`
+CFLAGS := -Werror -Wall -std=c99 -g -fPIC -MMD -MP $(shell $(XML2_CONFIG) --cflags)
 
 
 # Flags para adicionar libs
-LIBS = `xml2-config --libs`
+LIBS := $(shell $(XML2_CONFIG) --libs)
 
 
 #-I includes
