@@ -43,7 +43,7 @@ struct refNF_s *RefNFNew()
   return nf;
 }
 
-void RefNfDel(struct refNF_s *nf)
+void RefNFDel(struct refNF_s *nf)
 {
   free(nf);
 }
@@ -92,12 +92,12 @@ char *RefNFGetmod(struct refNF_s *nf)
   return nf->mod;
 }
 
-void RefNFSetserie(struct refNF_s *nf, const char *serie)
+void RefNFSetSerie(struct refNF_s *nf, const char *serie)
 {
   strcpy(nf->serie, serie);
 }
 
-char *RefNFGetserie(struct refNF_s *nf)
+char *RefNFGetSerie(struct refNF_s *nf)
 {
   return nf->serie;
 }

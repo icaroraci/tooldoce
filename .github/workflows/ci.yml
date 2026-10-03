@@ -18,9 +18,9 @@ jobs:
         cc: [gcc, clang]
     env:
       CC: ${{ matrix.cc }}
-      # Fontes que ainda não compilam. Remova da lista quando a issue for resolvida.
-      #   refNF.c -> #28, #29
-      KNOWN_BROKEN: "refNF.c"
+      # Fontes que ainda não compilam (nenhum no momento). Cada entrada deve
+      # citar a issue que a resolve.
+      KNOWN_BROKEN: ""
       # Headers que ainda não compilam sozinhos (nenhum no momento).
       KNOWN_BROKEN_HEADERS: ""
     steps:
