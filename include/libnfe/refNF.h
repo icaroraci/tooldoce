@@ -29,7 +29,7 @@ struct refNF_s;
 
 /* Alocação de memória para os dados */
 struct refNF_s *RefNFNew();
-void RefNfDel(struct refNF_s *nf);
+void RefNFDel(struct refNF_s *nf);
 
 /* Funções de acesso ao dado  */
 void RefNFSetcUF(struct refNF_s *nf, nfe_uf uf);

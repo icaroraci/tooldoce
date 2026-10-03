@@ -43,7 +43,7 @@ struct refNF_s *RefNFNew()
   return nf;
 }
 
-void RefNfDel(struct refNF_s *nf)
+void RefNFDel(struct refNF_s *nf)
 {
   free(nf);
 }
@@ -51,7 +51,7 @@ void RefNfDel(struct refNF_s *nf)
 
 void RefNFSetcUF(struct refNF_s *nf, nfe_uf uf)
 {
-  strcpy(nf->cUF, ConverteUFParaCodStr(uf));
+  snprintf(nf->cUF, sizeof nf->cUF, "%02d", (int)uf);
 }
 
 char *RefNFGetcUF(struct refNF_s *nf)
@@ -59,11 +59,12 @@ char *RefNFGetcUF(struct refNF_s *nf)
   return nf->cUF;
 }
 
+/* ano: dois dígitos (0 a 99); valores fora da faixa são ignorados */
 void RefNFSetAAMM(struct refNF_s *nf, const int ano, nfe_mes mes)
 {
-  if (ano >= 0 && ano < 100)
-    strcpy(nf->AAMM, ConverteAnoParaCodStr(ano));
-  strcat(nf->AAMM, ConverteMesParaCodStr(mes));
+  if (ano >= 0 && ano < 100 &&
+      mes >= NFE_MES_JANEIRO && mes <= NFE_MES_DEZEMBRO)
+    snprintf(nf->AAMM, sizeof nf->AAMM, "%02d%02d", ano, (int)mes);
 }
 
 char *RefNFGetAAMM(struct refNF_s *nf)
@@ -91,12 +92,12 @@ char *RefNFGetmod(struct refNF_s *nf)
   return nf->mod;
 }
 
-void RefNFSetserie(struct refNF_s *nf, const char *serie)
+void RefNFSetSerie(struct refNF_s *nf, const char *serie)
 {
   strcpy(nf->serie, serie);
 }
 
-char *RefNFGetserie(struct refNF_s *nf)
+char *RefNFGetSerie(struct refNF_s *nf)
 {
   return nf->serie;
 }
@@ -127,37 +128,37 @@ int xmlGenRefNFNode(xmlTextWriterPtr writer, struct refNF_s *nf)
     return -1;
   }
   rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "cUF",
-                                       "%s", getRefNFcUF(nf));
+                                       "%s", nf->cUF);
   if(rc < 0){
     printf("cUF: Erro em xmlTextWriterWriteFormatElement\n");
     return -1;
   }
   rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "AAMM",
-                                       "%s", getRefNFAAMM(nf));
+                                       "%s", nf->AAMM);
   if(rc < 0){
     printf("AAMM: Erro em xmlTextWriterWriteFormatElement\n");
     return -1;
   }
   rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "CNPJ",
-                                       "%s", getRefNFCNPJ(nf));
+                                       "%s", nf->CNPJ);
   if(rc < 0){
     printf("CNPJ: Erro em xmlTextWriterWriteFormatElement\n");
     return -1;
   }
   rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "mod",
-                                       "%s", getRefNFMod(nf));
+                                       "%s", nf->mod);
   if(rc < 0){
     printf("mod: Erro em xmlTextWriterWriteFormatElement\n");
     return -1;
   }
   rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "serie",
-                                       "%s", getRefNFSerie(nf));
+                                       "%s", nf->serie);
   if(rc < 0){
     printf("serie: Erro em xmlTextWriterWriteFormatElement\n");
     return -1;
   }
   rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "nNF",
-                                       "%s", getRefNFnNF(nf));
+                                       "%s", nf->nNF);
   if(rc < 0){
     printf("nNF: Erro em xmlTextWriterWriteFormatElement\n");
     return -1;

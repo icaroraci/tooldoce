@@ -53,5 +53,9 @@
 #define NFE_TAM_NATOP    60  /* natOp: natureza da operação (1 a 60) */
 #define NFE_TAM_VERPROC  20  /* verProc: versão do aplicativo emissor (1 a 20) */
 #define NFE_TAM_XJUST   256  /* xJust: justificativa da contingência (15 a 256) */
+#define NFE_TAM_XLGR     60  /* xLgr: logradouro (2 a 60) */
+#define NFE_TAM_NRO      60  /* nro: número (1 a 60) */
+#define NFE_TAM_XCPL     60  /* xCpl: complemento (1 a 60) */
+#define NFE_TAM_XBAIRRO  60  /* xBairro: bairro (2 a 60) */
 
 #endif
