@@ -40,7 +40,6 @@ struct ide_s{
   nfe_uf cUF;              // 2 caracteres
   uint32_t cNF;                    // 8 caracteres 
   char natOp[NFE_TAM_UTF8(NFE_TAM_NATOP)];     // 60 caracteres
-  nfe_forma_pagamento indPag;                  // 1 caractere
   nfe_modelo mod;             // 2 caracteres
   uint16_t serie;                  // 3 caracteres
   uint32_t nNF;                    // 9 caracteres
@@ -164,7 +163,6 @@ struct ide_s *ideNew(struct ide_s *this,
                      nfe_uf cuf, 
                      uint32_t cnf, 
                      char *natop, 
-                     nfe_forma_pagamento indpag, 
                      nfe_modelo mod, 
                      uint16_t serie, 
                      uint32_t nnf, 
@@ -194,7 +192,6 @@ struct ide_s *ideNew(struct ide_s *this,
   }
   ide->cUF = cuf;
   ide->cNF = cnf;
-  ide->indPag = indpag;
   ide->mod = mod;
   ide->serie = serie;
   ide->nNF = nnf;
@@ -264,13 +261,6 @@ int xmlGenideNode(xmlTextWriterPtr writer,struct ide_s *ide)
     return -1;
   }
 
-  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "indPag","%1u", 
-                                               ide->indPag);
-  if (rc < 0) {
-    printf("ide->indPag: Erro em xmlTextWriterWriteFormatElement\n");
-    return -1;
-  }
-  
   rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "mod","%02d", 
                                                (int)ide->mod);
   if (rc < 0) {

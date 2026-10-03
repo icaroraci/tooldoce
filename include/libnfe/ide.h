@@ -59,7 +59,6 @@ void ideContDel(struct Cont_s *cont);
  * cuf      = UF, código IBGE (nfe_uf)
  * cnf      = chave de acesso - 8 caracteres
  * natop    = Descrição natureza da operação: string 60 caracteres;
- * indpag   = forma de pagamento (nfe_forma_pagamento);
  * mod      = modelo do documento (nfe_modelo);
  * serie    = serie do documento fiscal - 3 algarismos
  * dhemi    = instante de emissão
@@ -88,7 +87,6 @@ struct ide_s *ideNew(struct ide_s *this,
                      nfe_uf cuf, 
                      uint32_t cnf, 
                      char *natop, 
-                     nfe_forma_pagamento indpag, 
                      nfe_modelo mod, 
                      uint16_t serie, 
                      uint32_t nnf, 
