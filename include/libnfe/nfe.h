@@ -163,34 +163,21 @@ typedef enum nfe_processo_emissao {
 
 /**
  * nfe_tzd:
- * @NFE_TZD_FERNANDO_NORONHA: horário de Fernando de Noronha
- * @NFE_TZD_BRASILIA: horário oficial de Brasília
- * @NFE_TZD_MANAUS: horário de Manaus
+ * @NFE_TZD_FERNANDO_NORONHA: horário de Fernando de Noronha (UTC-02:00)
+ * @NFE_TZD_BRASILIA: horário oficial de Brasília (UTC-03:00)
+ * @NFE_TZD_MANAUS: horário do Amazonas e demais estados em UTC-04:00
+ * @NFE_TZD_ACRE: horário do Acre e do extremo oeste do Amazonas (UTC-05:00)
  *
- * Data e hora do evento no formato AAAA-MM-DDThh:mm:ssTZD
- * (UTC - Universal Coordinated Time), onde TZD pode ser
- * -02:00 (Fernando de Noronha),
- * -03:00 (Brasília) ou
- * -04:00 (Manaus);
- * no horário de verão serão -01:00, -02:00 e -03:00. Ex.: 2010-08-19T13:00:15-03:00.
+ * Fuso horário (TZD) das datas no formato AAAA-MM-DDThh:mm:ssTZD.
+ * Ex.: 2010-08-19T13:00:15-03:00.
+ *
+ * O horário de verão foi extinto no Brasil em 2019 (Decreto 9.772/2019).
  */
 typedef enum nfe_tzd {
 	NFE_TZD_FERNANDO_NORONHA = -2,
 	NFE_TZD_BRASILIA = -3,
-	NFE_TZD_MANAUS = -4
+	NFE_TZD_MANAUS = -4,
+	NFE_TZD_ACRE = -5
 } nfe_tzd;
-
-/**
- * nfe_hverao:
- * @NFE_HORA_NORMAL: horário normal
- * @NFE_HORA_VERAO: horário de verão
- *
- * Deve-se sempre informar o fuso horário (#nfe_tzd) e o horário de verão,
- * somando-se os dois. Ex.: NFE_TZD_BRASILIA + NFE_HORA_VERAO
- */
-typedef enum nfe_hverao {
-	NFE_HORA_NORMAL = 0,
-	NFE_HORA_VERAO = 1
-} nfe_hverao;
 
 #endif

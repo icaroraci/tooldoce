@@ -60,49 +60,36 @@ struct ide_s{
 
 
 /*Data e hora do evento no formato AAAA-MM-DDThh:mm:ssTZD (UTC - 
- * Universal Coordinated Time , onde TZD pode ser 
+ * Universal Coordinated Time), onde TZD pode ser 
  * -02:00 (Fernando de Noronha), 
- * -03:00 (Brasília) ou 
- * -04:00 (Manaus), no  horário de verão serão 
- * -01:00, -02:00 e -03:00. Ex.:
+ * -03:00 (Brasília), 
+ * -04:00 (Manaus) ou 
+ * -05:00 (Acre). Ex.:
  * 2010-08-19T13:00:15-03:00.
+ * Não há horário de verão no Brasil desde 2019.
  * */
-static char *DHSet(nfe_tzd tzd, nfe_hverao hverao,
-                   const char *str)
+static char *DHSet(nfe_tzd tzd, const char *str)
 {
   char *aux;
-  if (hverao == NFE_HORA_NORMAL){
-    switch (tzd){
-      case NFE_TZD_FERNANDO_NORONHA: 
-        aux = "2:00";
-        break;
-      case NFE_TZD_BRASILIA:
-      default:    
-        aux = "3:00";
-        break;
-      case NFE_TZD_MANAUS:
-        aux = "4:00";
-        break;
-    }
-  }else if(hverao == NFE_HORA_VERAO){
-    switch (tzd){
-      case NFE_TZD_FERNANDO_NORONHA:
-        aux = "1:00";
-        break;
-      case NFE_TZD_BRASILIA:
-      default:    
-        aux = "2:00";
-        break;
-      case NFE_TZD_MANAUS:
-        aux = "3:00";
-        break;
-    }
+  switch (tzd){
+    case NFE_TZD_FERNANDO_NORONHA: 
+      aux = "2:00";
+      break;
+    case NFE_TZD_BRASILIA:
+    default:    
+      aux = "3:00";
+      break;
+    case NFE_TZD_MANAUS:
+      aux = "4:00";
+      break;
+    case NFE_TZD_ACRE:
+      aux = "5:00";
+      break;
   }
   strcat(str,DHDEFAULT); // Vc alocou espaço para *str?
   return strcat(str,aux);
 }
 /* tzd = fuso horário (nfe_tzd)
- * hverao = horário de verão (nfe_hverao)
  * str = endereço de uma string
  * xJust = justificativa (até 256 caracteres)
  * newcont = rerencia 
@@ -110,20 +97,19 @@ static char *DHSet(nfe_tzd tzd, nfe_hverao hverao,
 
 struct Cont_s *ideContNew(const struct Cont_s *this,
                           nfe_tzd tzd, 
-                          nfe_hverao hverao, 
                           const char *str, 
                           const char *xjust);
 {
   if(!this) 
   { 
-    strcpy(this->dhCont, DHSet(tzd, hverao, str);
+    strcpy(this->dhCont, DHSet(tzd, str);
     strcpy(this->xJust, xjust);
     return this;
   }
   else
   {
     struct Const_s *cont = (struct Cont_s *)malloc(sizeof(struct Const_s));
-    strcpy(cont->dhCont, DHSet(tzd, hverao, str);
+    strcpy(cont->dhCont, DHSet(tzd, str);
     strcpy(cont->xJust, xjust);
     return cont;
   }
@@ -193,7 +179,6 @@ struct ide_s *ideNew(struct ide_s *this,
                      char *verproc,
                      struct Cont_s *cont,
                      nfe_tzd tzd, 
-                     nfe_hverao hverao,
                      const char *str )
 {
   if(!this)
@@ -205,8 +190,8 @@ struct ide_s *ideNew(struct ide_s *this,
     this->mod = mod;
     this->serir = serie;
     this->nNF = nnf;
-    strcpy(this->dhEmi, DHSet(tzd, hverão, str)); // precisa rever isso
-    strcpy(this->dhSaiEnt, DHSet(tzd, hverao, str);
+    strcpy(this->dhEmi, DHSet(tzd, str)); // precisa rever isso
+    strcpy(this->dhSaiEnt, DHSet(tzd, str);
     this->tpNF = tpnf;
     this->ideDest = idedest;
     this->cMunFG = cmunfg;
@@ -232,8 +217,8 @@ struct ide_s *ideNew(struct ide_s *this,
     ide->mod = mod;
     ide->serir = serie;
     ide->nNF = nnf;
-    strcpy(ide->dhEmi, DHSet(tzd, hverão, str)); // precisa rever isso
-    strcpy(ide->dhSaiEnt, DHSet(tzd, hverao, str);
+    strcpy(ide->dhEmi, DHSet(tzd, str)); // precisa rever isso
+    strcpy(ide->dhSaiEnt, DHSet(tzd, str);
     ide->tpNF = tpnf;
     ide->ideDest = idedest;
     ide->cMunFG = cmunfg;

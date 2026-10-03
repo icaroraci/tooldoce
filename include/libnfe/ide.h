@@ -32,7 +32,6 @@ struct ide_s;
 
 /* this = um objeto struct Cont_s
  * tzd = fuso horário (nfe_tzd)
- * hverao = horário de verão (nfe_hverao)
  * str = endereço de uma string
  * xJust = justificativa (até 256 caracteres)
  *  
@@ -40,7 +39,6 @@ struct ide_s;
 
 struct Cont_s *ideContNew(const struct Cont_s *this,
                           nfe_tzd tzd, 
-                          nfe_hverao hverao, 
                           const char *str, 
                           const char *xjust);
 
@@ -72,7 +70,6 @@ void ideContDel(const struct Cont_s *cont);
  * procemis = processo de emissão (nfe_processo_emissao);
  * verproc  = Versão do protocolo de emissao: 20 caracteres
  * tzd      = fuso horário (nfe_tzd);
- * hverao   = horário de verão (nfe_hverao)
  * str      = string indicativa da hora
  * 
 **/
@@ -100,7 +97,6 @@ struct ide_s *ideNew(struct ide_s *this,
                      char *verproc,
                      struct Cont_s *cont,
                      nfe_tzd tzd, 
-                     nfe_hverao hverao,
                      const char *str );
 {
 void ideDel(struct ide_s *ide);
