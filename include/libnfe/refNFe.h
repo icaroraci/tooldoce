@@ -1,4 +1,4 @@
-/* Copyright (c) 2017, 2018 Gabriel Lampa da Cunha <gabriellampa@gmail.com>
+/* Copyright (c) 2017-2026 Gabriel Lampa da Cunha <gabriellampa@gmail.com>
  *
  * This file is part of tooldoce.
  *
@@ -14,29 +14,33 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with tooldoce.  If not, see <http://www.gnu.org/licenses/>.
- * */
+ */
+
+/*
+ * Elemento refNFe (dentro de NFref): NF-e ou NFC-e referenciada pela chave
+ * de acesso.
+ */
 
 #ifndef LIBNFE_REFNFE_H
 #define LIBNFE_REFNFE_H
 
-#include <libxml/encoding.h>
 #include <libxml/xmlwriter.h>
 
 struct refNFe_s;
 
-/* Funções de alocação de memória */
-
+/* Cria um refNFe vazio; NULL se faltar memória */
 struct refNFe_s *RefNFeNew(void);
+/* Libera o refNFe (aceita NULL) */
 void RefNFeDel(struct refNFe_s *nf);
 
-/* Funções de acesso aos dados  */
-/* ref: chave de acesso com 44 dígitos e dígito verificador correto;
- * retorna 0, E_ISNULL, E_TAMANHO ou E_VALOR (dígito verificador errado ou
- * caractere que não é dígito) */
+/* Chave de acesso: 44 caracteres com dígito verificador válido.
+ * Retorna 0, E_ISNULL, E_TAMANHO ou E_VALOR; se recusada, a chave anterior
+ * é mantida. */
 int RefNFeSetrefNFe(struct refNFe_s *nf, const char *ref);
+/* "" enquanto a chave não for informada; NULL se nf for NULL */
 const char *RefNFeGetrefNFe(const struct refNFe_s *nf);
 
-/* Funções para tratamento do xml  */
-
+/* Escreve <refNFe>; quem chama abre e fecha <NFref> */
 int xmlGenRefNFeNode(xmlTextWriterPtr writer, const struct refNFe_s *nf);
+
 #endif

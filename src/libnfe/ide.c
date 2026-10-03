@@ -1,4 +1,4 @@
-/* Copyright (c) 2017, 2018 Gabriel Lampa da Cunha <gabriellampa@gmail.com>
+/* Copyright (c) 2017-2026 Gabriel Lampa da Cunha <gabriellampa@gmail.com>
  *
  * This file is part of tooldoce.
  *
@@ -14,7 +14,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with tooldoce.  If not, see <http://www.gnu.org/licenses/>.
- * */
+ */
 
 /* gmtime_r (POSIX) */
 #define _POSIX_C_SOURCE 200809L
@@ -25,13 +25,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <libnfe/ide.h>
 #include <libnfe/chave.h>
 #include <libnfe/cnpjcpf.h>
 #include <libnfe/defs.h>
 #include <libnfe/erros.h>
 #include <libnfe/escrita.h>
 #include <libnfe/esquema.h>
-#include <libnfe/ide.h>
 #include <libnfe/refNF.h>
 #include <libnfe/refNFe.h>
 #include <libnfe/utils.h>
@@ -99,84 +99,94 @@ struct nfe_ide {
 	int nPagAntecipado;
 };
 
-/* Escreve em dst (tam bytes) o instante t no formato AAAA-MM-DDThh:mm:ssTZD,
- * no fuso tzd. Ex.: 2010-08-19T13:00:15-03:00.
- * Não há horário de verão no Brasil desde 2019.
- * Retorna 0, E_VALOR (fuso inválido) ou E_TAMANHO (buffer pequeno). */
+/* Fusos aceitos: os de nfe_tzd, de UTC-02:00 (Fernando de Noronha) a
+ * UTC-05:00 (Acre) */
+static int fuso_conhecido(nfe_tzd tzd)
+{
+	return tzd >= NFE_TZD_ACRE && tzd <= NFE_TZD_FERNANDO_NORONHA;
+}
+
+/* Grava em dst (tam bytes) o instante t como AAAA-MM-DDThh:mm:ssTZD no fuso
+ * tzd, por exemplo 2010-08-19T13:00:15-03:00. Não considera horário de
+ * verão, extinto no Brasil em 2019.
+ * Retorna 0, E_VALOR (fuso desconhecido) ou E_TAMANHO (dst pequeno). */
 int nfe_data_hora(char *dst, size_t tam, time_t t, nfe_tzd tzd)
 {
-	struct tm tm;
-	time_t local;
-	size_t n;
-	int r;
+	time_t no_fuso = t + (time_t)tzd * 3600;
+	struct tm campos;
+	size_t usados;
+	int sufixo;
 
-	switch (tzd) {
-	case NFE_TZD_FERNANDO_NORONHA:
-	case NFE_TZD_BRASILIA:
-	case NFE_TZD_MANAUS:
-	case NFE_TZD_ACRE:
-		break;
-	default:
+	if (!fuso_conhecido(tzd))
 		return E_VALOR;
-	}
-
-	/* Hora local = UTC deslocado pelo fuso; gmtime_r não depende do fuso
-	 * configurado na máquina */
-	local = t + (time_t)tzd * 3600;
-	if (!gmtime_r(&local, &tm))
+	/* gmtime_r sobre o instante já deslocado: o resultado não depende do
+	 * fuso configurado na máquina */
+	if (gmtime_r(&no_fuso, &campos) == NULL)
 		return E_VALOR;
-
-	n = strftime(dst, tam, NFE_FORMATO_DATA_HORA, &tm);
-	if (n == 0)
+	usados = strftime(dst, tam, NFE_FORMATO_DATA_HORA, &campos);
+	if (usados == 0)
 		return E_TAMANHO;
-
-	r = snprintf(dst + n, tam - n, "-%02d:00", -(int)tzd);
-	if (r < 0 || (size_t)r >= tam - n)
+	sufixo = snprintf(dst + usados, tam - usados, "-%02d:00", -(int)tzd);
+	if (sufixo < 0 || (size_t)sufixo >= tam - usados)
 		return E_TAMANHO;
-
 	return 0;
 }
 
+/* Valores iniciais de um ide novo; os demais campos começam zerados */
+static const nfe_ide ide_padrao = {
+	.mod = NFE_MODELO_NFE,
+	.dhEmi = NFE_SEM_DATA,
+	.dhSaiEnt = NFE_SEM_DATA,
+	.dPrevEntrega = NFE_SEM_DATA,
+	.tpNF = NFE_OPERACAO_SAIDA,
+	.idDest = NFE_DESTINO_INTERNO,
+	.tpImp = NFE_DANFE_NORMAL_RETRATO,
+	.tpEmis = NFE_EMISSAO_NORMAL,
+	.tpAmb = NFE_AMBIENTE_HOMOLOGACAO,
+	.finNFe = NFE_FINALIDADE_NORMAL,
+	.indFinal = NFE_CONSUMIDOR_NORMAL,
+	.indPres = NFE_PRESENCA_NAO_SE_APLICA,
+	.indIntermed = NFE_INTERMEDIADOR_NAO_INFORMADO,
+	.procEmi = NFE_PROCESSO_APP_CONTRIBUINTE,
+	.tzd = NFE_TZD_BRASILIA,
+};
+
 nfe_ide *nfe_ide_new(void)
 {
-	nfe_ide *ide = (nfe_ide *)calloc(1, sizeof(nfe_ide));
-	if (!ide)
-		return NULL;
-	ide->mod = NFE_MODELO_NFE;
-	ide->dhEmi = NFE_SEM_DATA;
-	ide->dhSaiEnt = NFE_SEM_DATA;
-	ide->dPrevEntrega = NFE_SEM_DATA;
-	ide->tpNF = NFE_OPERACAO_SAIDA;
-	ide->idDest = NFE_DESTINO_INTERNO;
-	ide->tpImp = NFE_DANFE_NORMAL_RETRATO;
-	ide->tpEmis = NFE_EMISSAO_NORMAL;
-	ide->tpAmb = NFE_AMBIENTE_HOMOLOGACAO;
-	ide->finNFe = NFE_FINALIDADE_NORMAL;
-	ide->indFinal = NFE_CONSUMIDOR_NORMAL;
-	ide->indPres = NFE_PRESENCA_NAO_SE_APLICA;
-	ide->indIntermed = NFE_INTERMEDIADOR_NAO_INFORMADO;
-	ide->procEmi = NFE_PROCESSO_APP_CONTRIBUINTE;
-	ide->tzd = NFE_TZD_BRASILIA;
-	return ide;
+	nfe_ide *novo = malloc(sizeof *novo);
+
+	if (novo != NULL)
+		*novo = ide_padrao;
+	return novo;
+}
+
+/* Libera um item de NFref junto com o documento que ele aponta */
+static void libera_ref(struct ref_s *ref)
+{
+	switch (ref->tipo) {
+	case REF_NFE:
+		RefNFeDel(ref->doc.nfe);
+		break;
+	case REF_NF:
+		RefNFDel(ref->doc.nf);
+		break;
+	case REF_GRUPO:
+		nfe_grupo_free(ref->doc.g);
+		break;
+	}
+	free(ref);
 }
 
 void nfe_ide_free(nfe_ide *ide)
 {
-	if (!ide)
+	struct ref_s *ref, *seguinte;
+
+	if (ide == NULL)
 		return;
-
-	while (ide->refs) {
-		struct ref_s *prox = ide->refs->prox;
-		if (ide->refs->tipo == REF_NFE)
-			RefNFeDel(ide->refs->doc.nfe);
-		else if (ide->refs->tipo == REF_NF)
-			RefNFDel(ide->refs->doc.nf);
-		else
-			nfe_grupo_free(ide->refs->doc.g);
-		free(ide->refs);
-		ide->refs = prox;
+	for (ref = ide->refs; ref != NULL; ref = seguinte) {
+		seguinte = ref->prox;
+		libera_ref(ref);
 	}
-
 	free(ide);
 }
 
