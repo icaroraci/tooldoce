@@ -19,29 +19,29 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <libnfe/NFref.h>
+#include <libnfe/refNFe.h>
 #include <libnfe/defs.h>
 #include <libnfe/erros.h>
 #include <libnfe/utils.h>
 
 
-struct NFref_s{
+struct refNFe_s{
   char refNFe[NFE_TAM_ASCII(NFE_TAM_CHAVE)];
 };
 
-struct NFref_s *NFrefNew()
+struct refNFe_s *RefNFeNew(void)
 {
   /* calloc: campos começam vazios; NULL se faltar memória */
-  struct NFref_s *nf = (struct NFref_s *)calloc(1, sizeof(struct NFref_s));
+  struct refNFe_s *nf = (struct refNFe_s *)calloc(1, sizeof(struct refNFe_s));
   return nf;
 }
 
-void NFrefDel(struct NFref_s *nf)
+void RefNFeDel(struct refNFe_s *nf)
 {
   free(nf);
 }
 
-int NFrefSetrefNFe(struct NFref_s *nf, const char *ref)
+int RefNFeSetrefNFe(struct refNFe_s *nf, const char *ref)
 {
   if (!nf)
     return E_ISNULL;
@@ -49,12 +49,12 @@ int NFrefSetrefNFe(struct NFref_s *nf, const char *ref)
                          NFE_TAM_CHAVE, NFE_TAM_CHAVE);
 }
 
-char *NFrefGetrefNFe(struct NFref_s *nf)
+char *RefNFeGetrefNFe(struct refNFe_s *nf)
 {
   return nf->refNFe;
 }
 
-int xmlGenNFrefNode(xmlTextWriterPtr writer, struct NFref_s *nf)
+int xmlGenRefNFeNode(xmlTextWriterPtr writer, struct refNFe_s *nf)
 {
   int rc;
   rc = xmlTextWriterStartElement(writer, BAD_CAST "NFref");
