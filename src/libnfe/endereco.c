@@ -50,7 +50,7 @@ struct pais_s{
  */
 struct uf_s{
 	const char *xUF;
-	enum COD_UF_E cUF;
+	nfe_uf cUF;
 	Pais *pais;
 };
 

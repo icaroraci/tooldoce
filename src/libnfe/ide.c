@@ -32,34 +32,32 @@ struct Cont_s {
 
 
 struct ide_s{
-  enum TIPO_UF_e cUF;              // 2 caracteres
+  nfe_uf cUF;              // 2 caracteres
   uint32_t cNF;                    // 8 caracteres 
   char natOp[TAM_NATOP];           // 61 caracteres
-  enum TIPO_PGTO_e indPag;                  // 1 caractere
-  enum TIPO_MOD_e mod;             // 2 caracteres
+  nfe_forma_pagamento indPag;                  // 1 caractere
+  nfe_modelo mod;             // 2 caracteres
   uint16_t serie;                  // 3 caracteres
   uint32_t nNF;                    // 9 caracteres
   char *dhEmi;                     // Data
   char *dhSaiEnt;                  // Data
-  enum TIPO_NF_e tpNF;             // 1 caractere
-  enum TIPO_DESTINO_e idDest;      // 1 caractere
+  nfe_tipo_operacao tpNF;             // 1 caractere
+  nfe_destino idDest;      // 1 caractere
   uint32_t cMunFG;                 // 7 caracteres
-  enum TIPO_IMPRESSAO_e tpImp;     // 1 caractere
-  enum TIPO_EMISSAO_e tpEmis;      // 1 caractere
+  nfe_danfe tpImp;     // 1 caractere
+  nfe_emissao tpEmis;      // 1 caractere
   uint8_t cDV;                     // 1 caractere
-  enum TIPO_AMBIENTE_e tpAmb;      // 1 caractere
-  enum TIPO_FINALIDADE_e finNFe;   // 1 caractere
-  enum TIPO_OP_e indFinal;         // 1 caractere
-  enum TIPO_PRES_e indPres;        // 1 caractere
-  enum TIPO_PROC_EMIS_e procEmis;  // 1 caractere
+  nfe_ambiente tpAmb;      // 1 caractere
+  nfe_finalidade finNFe;   // 1 caractere
+  nfe_consumidor indFinal;         // 1 caractere
+  nfe_presenca indPres;        // 1 caractere
+  nfe_processo_emissao procEmis;  // 1 caractere
   char verProc[TAM_VERSAO_APLIC];  // 20 caracteres
   struct Cont_s *cont;             // Default NULL
 };
  
 /* Funções auxiliares  */
 
-// TODO: Definir enum TIPO_HVERAO_e { SIM, NAO};
-//       Definir enum TZD_e {DEFAULT,FERNANDO_DE_NORONHA, BRASILIA, MANAUS}
 
 /*Data e hora do evento no formato AAAA-MM-DDThh:mm:ssTZD (UTC - 
  * Universal Coordinated Time , onde TZD pode ser 
@@ -69,33 +67,33 @@ struct ide_s{
  * -01:00, -02:00 e -03:00. Ex.:
  * 2010-08-19T13:00:15-03:00.
  * */
-static char *DHSet(enum TZD_e tzd, enum TIPO_HVERAO_e hverao,
+static char *DHSet(nfe_tzd tzd, nfe_hverao hverao,
                    const char *str)
 {
   char *aux;
-  if (hverao == NAO){
+  if (hverao == NFE_HORA_NORMAL){
     switch (tzd){
-      case FERNANDO_DE_NORONHA: 
+      case NFE_TZD_FERNANDO_NORONHA: 
         aux = "2:00";
         break;
-      case BRASILIA:
+      case NFE_TZD_BRASILIA:
       default:    
         aux = "3:00";
         break;
-      case MANAUS:
+      case NFE_TZD_MANAUS:
         aux = "4:00";
         break;
     }
-  }else if(hverao == SIM){
+  }else if(hverao == NFE_HORA_VERAO){
     switch (tzd){
-      case FERNANDO_DE_NORONHA:
+      case NFE_TZD_FERNANDO_NORONHA:
         aux = "1:00";
         break;
-      case BRASILIA:
+      case NFE_TZD_BRASILIA:
       default:    
         aux = "2:00";
         break;
-      case MANAUS:
+      case NFE_TZD_MANAUS:
         aux = "3:00";
         break;
     }
@@ -103,16 +101,16 @@ static char *DHSet(enum TZD_e tzd, enum TIPO_HVERAO_e hverao,
   strcat(str,DHDEFAULT); // Vc alocou espaço para *str?
   return strcat(str,aux);
 }
-/* tzd = DEFAULT, FERNANDO_DE_NORONHA, BRASILIA, MANAUS
- * hverao = SIM, NAO
+/* tzd = fuso horário (nfe_tzd)
+ * hverao = horário de verão (nfe_hverao)
  * str = endereço de uma string
  * xJust = justificativa (até 256 caracteres)
  * newcont = rerencia 
 */
 
 struct Cont_s *ideContNew(const struct Cont_s *this,
-                          enum TIPO_TZD_e tzd, 
-                          enum TIPO_HVERAO_e hverao, 
+                          nfe_tzd tzd, 
+                          nfe_hverao hverao, 
                           const char *str, 
                           const char *xjust);
 {
@@ -172,30 +170,30 @@ int xmlGenideContNode(xmlTextWriterPtr writer,struct Cont_s *cont)
 
 
 struct ide_s *ideNew(struct ide_s *this, 
-                     enum TIPO_UF_e cuf, 
+                     nfe_uf cuf, 
                      uint32_t cnf, 
                      char *natop, 
-                     enum TIPO_PGTO_e indpag, 
-                     enum TIPO_MOD_e mod, 
+                     nfe_forma_pagamento indpag, 
+                     nfe_modelo mod, 
                      uint16_t serie, 
                      uint32_t nnf, 
                      char *dhemi, 
                      char *dhsaient,
-                     enum TIPO_NF_e tpnf, 
-                     enum TIPO_DESTINO_e iddest,
+                     nfe_tipo_operacao tpnf, 
+                     nfe_destino iddest,
                      uint32_t cmunfg, 
-                     enum TIPO_IMPRESSAO_e tpimp,
-                     enum TIPO_EMISSAO_e tpemis, 
+                     nfe_danfe tpimp,
+                     nfe_emissao tpemis, 
                      uint8_t cdv,
-                     enum TIPO_AMBIENTE_e tpamb, 
-                     enum TIPO_FINALIDADE_e finnfe,
-                     enum TIPO_OP_e indfinal, 
-                     enum TIPO_PRES_e indpres,
-                     enum TIPO_PROC_EMIS_e procemis, 
+                     nfe_ambiente tpamb, 
+                     nfe_finalidade finnfe,
+                     nfe_consumidor indfinal, 
+                     nfe_presenca indpres,
+                     nfe_processo_emissao procemis, 
                      char *verproc,
                      struct Cont_s *cont,
-                     enum TIPO_TZD_e tzd, 
-                     enum TIPO_HVERAO_e hverao,
+                     nfe_tzd tzd, 
+                     nfe_hverao hverao,
                      const char *str )
 {
   if(!this)

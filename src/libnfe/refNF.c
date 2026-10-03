@@ -49,7 +49,7 @@ void RefNfDel(struct refNF_s *nf)
 }
 
 
-void RefNFSetcUF(struct refNF_s *nf, enum UF_e uf)
+void RefNFSetcUF(struct refNF_s *nf, nfe_uf uf)
 {
   strcpy(nf->cUF, ConverteUFParaCodStr(uf));
 }
@@ -59,7 +59,7 @@ char *RefNFGetcUF(struct refNF_s *nf)
   return nf->cUF;
 }
 
-void RefNFSetAAMM(struct refNF_s *nf, const int ano, enum MES_e mes)
+void RefNFSetAAMM(struct refNF_s *nf, const int ano, nfe_mes mes)
 {
   if (ano >= 0 && ano < 100)
     strcpy(nf->AAMM, ConverteAnoParaCodStr(ano));
