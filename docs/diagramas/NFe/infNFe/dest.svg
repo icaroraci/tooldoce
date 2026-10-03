@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<svg xmlns='http://www.w3.org/2000/svg' width='814' height='1180' viewBox='0 0 814 1180'>
+<rect width='100%' height='100%' fill='#ffffff'/>
+<text x='20' y='26' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='15' font-weight='bold' fill='#1a1a1a'>NFe › infNFe › dest</text><text x='20' y='42' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>Gerado de leiauteNFe_v4.00.xsd por tools/gerar_diagramas.py — caixa tracejada: opcional; ⊞: estrutura com diagrama próprio</text>
+
+<rect x='464' y='52' width='330' height='94' rx='3' fill='#ffffff' stroke='#1f4e79' stroke-width='1.3'/>
+<rect x='464' y='52' width='330' height='22' rx='3' fill='#dce9f5' stroke='#1f4e79' stroke-width='1.3'/>
+<text x='472' y='68' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#1a1a1a'>CNPJ</text>
+<text x='472' y='86' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>tipo</text>
+<text x='538' y='86' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>TCnpj</title>TCnpj</text>
+<text x='472' y='101' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>tamanho</text>
+<text x='538' y='101' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>0 a 14</title>0 a 14</text>
+<text x='472' y='116' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>padrão</text>
+<text x='538' y='116' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>[0-9]{14}</title>[0-9]{14}</text>
+<text x='472' y='135' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Número do CNPJ</text>
+
+
+<rect x='464' y='160' width='330' height='94' rx='3' fill='#ffffff' stroke='#1f4e79' stroke-width='1.3'/>
+<rect x='464' y='160' width='330' height='22' rx='3' fill='#dce9f5' stroke='#1f4e79' stroke-width='1.3'/>
+<text x='472' y='176' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#1a1a1a'>CPF</text>
+<text x='472' y='194' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>tipo</text>
+<text x='538' y='194' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>TCpf</title>TCpf</text>
+<text x='472' y='209' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>tamanho</text>
+<text x='538' y='209' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>0 a 11</title>0 a 11</text>
+<text x='472' y='224' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>padrão</text>
+<text x='538' y='224' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>[0-9]{11}</title>[0-9]{11}</text>
+<text x='472' y='243' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Número do CPF</text>
+
+
+<rect x='464' y='268' width='330' height='92' rx='3' fill='#ffffff' stroke='#1f4e79' stroke-width='1.3'/>
+<rect x='464' y='268' width='330' height='22' rx='3' fill='#dce9f5' stroke='#1f4e79' stroke-width='1.3'/>
+<text x='472' y='284' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#1a1a1a'>idEstrangeiro</text>
+<text x='472' y='302' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>tipo</text>
+<text x='538' y='302' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>string</title>string</text>
+<text x='472' y='317' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>padrão</text>
+<text x='538' y='317' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>([!-ÿ]{0}|[!-ÿ]{5,20})?</title>([!-ÿ]{0}|[!-ÿ]{5,20})?</text>
+<text x='472' y='336' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Identificador do destinatário, em caso de comprador</text>
+<text x='472' y='349' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>estrangeiro</text>
+
+<rect x='374' y='158.0' width='56' height='26' rx='13' fill='#f3f6f9' stroke='#7a8a99'/>
+<text x='402.0' y='175.0' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' text-anchor='middle' fill='#1a1a1a'>escolha</text>
+<path d='M430,171.0 H447.0 V63 H464' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M430,171.0 H447.0 V171 H464' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M430,171.0 H447.0 V279 H464' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+
+<rect x='374' y='374' width='330' height='94' rx='3' fill='#ffffff' stroke='#1f4e79' stroke-width='1.3' stroke-dasharray='5,3'/>
+<rect x='374' y='374' width='330' height='22' rx='3' fill='#dce9f5' stroke='#1f4e79' stroke-width='1.3' stroke-dasharray='5,3'/>
+<text x='382' y='390' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#1a1a1a'>xNome</text>
+<text x='696' y='390' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' text-anchor='end' fill='#1f4e79'>0..1</text>
+<text x='382' y='408' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>tipo</text>
+<text x='448' y='408' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>TString</title>TString</text>
+<text x='382' y='423' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>tamanho</text>
+<text x='448' y='423' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>2 a 60</title>2 a 60</text>
+<text x='382' y='438' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>padrão</text>
+<text x='448' y='438' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>[!-ÿ]{1}[ -ÿ]*[!-ÿ]{1}|[!-ÿ]{1}</title>[!-ÿ]{1}[ -ÿ]*[!-ÿ]{1}|[!-ÿ]{1}</text>
+<text x='382' y='457' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Razão Social ou nome do destinatário</text>
+
+<a href='dest/enderDest.svg'>
+<rect x='374' y='482' width='330' height='64' rx='3' fill='#fff2cc' stroke='#1f4e79' stroke-width='1.3' stroke-dasharray='5,3'/>
+<rect x='374' y='482' width='330' height='22' rx='3' fill='#dce9f5' stroke='#1f4e79' stroke-width='1.3' stroke-dasharray='5,3'/>
+<text x='382' y='498' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#1a1a1a'>enderDest ⊞</text>
+<text x='696' y='498' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' text-anchor='end' fill='#1f4e79'>0..1</text>
+<text x='382' y='516' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>estrutura</text>
+<text x='448' y='516' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>TEndereco — ver diagrama próprio</title>TEndereco — ver diagrama próprio</text>
+<text x='382' y='535' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Dados do endereço</text>
+</a>
+
+<rect x='374' y='560' width='330' height='105' rx='3' fill='#ffffff' stroke='#1f4e79' stroke-width='1.3'/>
+<rect x='374' y='560' width='330' height='22' rx='3' fill='#dce9f5' stroke='#1f4e79' stroke-width='1.3'/>
+<text x='382' y='576' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#1a1a1a'>indIEDest</text>
+<text x='382' y='594' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>tipo</text>
+<text x='448' y='594' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>string</title>string</text>
+<text x='382' y='609' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>valores</text>
+<text x='448' y='609' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>1, 2, 9</title>1, 2, 9</text>
+<text x='382' y='628' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Indicador da IE do destinatário: 1 – Contribuinte</text>
+<text x='382' y='641' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>ICMSpagamento à vista; 2 – Contribuinte isento de</text>
+<text x='382' y='654' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>inscrição; 9 – Não Contribuinte</text>
+
+
+<rect x='374' y='679' width='330' height='107' rx='3' fill='#ffffff' stroke='#1f4e79' stroke-width='1.3' stroke-dasharray='5,3'/>
+<rect x='374' y='679' width='330' height='22' rx='3' fill='#dce9f5' stroke='#1f4e79' stroke-width='1.3' stroke-dasharray='5,3'/>
+<text x='382' y='695' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#1a1a1a'>IE</text>
+<text x='696' y='695' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' text-anchor='end' fill='#1f4e79'>0..1</text>
+<text x='382' y='713' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>tipo</text>
+<text x='448' y='713' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>TIeDestNaoIsento</title>TIeDestNaoIsento</text>
+<text x='382' y='728' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>tamanho</text>
+<text x='448' y='728' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>0 a 14</title>0 a 14</text>
+<text x='382' y='743' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>padrão</text>
+<text x='448' y='743' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>[0-9]{2,14}</title>[0-9]{2,14}</text>
+<text x='382' y='762' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Inscrição Estadual (obrigatório nas operações com</text>
+<text x='382' y='775' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>contribuintes do ICMS)</text>
+
+
+<rect x='374' y='800' width='330' height='118' rx='3' fill='#ffffff' stroke='#1f4e79' stroke-width='1.3' stroke-dasharray='5,3'/>
+<rect x='374' y='800' width='330' height='22' rx='3' fill='#dce9f5' stroke='#1f4e79' stroke-width='1.3' stroke-dasharray='5,3'/>
+<text x='382' y='816' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#1a1a1a'>ISUF</text>
+<text x='696' y='816' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' text-anchor='end' fill='#1f4e79'>0..1</text>
+<text x='382' y='834' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>tipo</text>
+<text x='448' y='834' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>string</title>string</text>
+<text x='382' y='849' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>padrão</text>
+<text x='448' y='849' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>[0-9]{8,9}</title>[0-9]{8,9}</text>
+<text x='382' y='868' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Inscrição na SUFRAMA (Obrigatório nas operações com</text>
+<text x='382' y='881' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>as áreas com benefícios de incentivos fiscais sob</text>
+<text x='382' y='894' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>controle da SUFRAMA) PL_005d - 11/08/09 - alterado</text>
+<text x='382' y='907' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>para aceitar 8 ou 9 dígitos</text>
+
+
+<rect x='374' y='932' width='330' height='94' rx='3' fill='#ffffff' stroke='#1f4e79' stroke-width='1.3' stroke-dasharray='5,3'/>
+<rect x='374' y='932' width='330' height='22' rx='3' fill='#dce9f5' stroke='#1f4e79' stroke-width='1.3' stroke-dasharray='5,3'/>
+<text x='382' y='948' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#1a1a1a'>IM</text>
+<text x='696' y='948' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' text-anchor='end' fill='#1f4e79'>0..1</text>
+<text x='382' y='966' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>tipo</text>
+<text x='448' y='966' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>TString</title>TString</text>
+<text x='382' y='981' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>tamanho</text>
+<text x='448' y='981' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>1 a 15</title>1 a 15</text>
+<text x='382' y='996' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>padrão</text>
+<text x='448' y='996' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>[!-ÿ]{1}[ -ÿ]*[!-ÿ]{1}|[!-ÿ]{1}</title>[!-ÿ]{1}[ -ÿ]*[!-ÿ]{1}|[!-ÿ]{1}</text>
+<text x='382' y='1015' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Inscrição Municipal do tomador do serviço</text>
+
+
+<rect x='374' y='1040' width='330' height='120' rx='3' fill='#ffffff' stroke='#1f4e79' stroke-width='1.3' stroke-dasharray='5,3'/>
+<rect x='374' y='1040' width='330' height='22' rx='3' fill='#dce9f5' stroke='#1f4e79' stroke-width='1.3' stroke-dasharray='5,3'/>
+<text x='382' y='1056' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#1a1a1a'>email</text>
+<text x='696' y='1056' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' text-anchor='end' fill='#1f4e79'>0..1</text>
+<text x='382' y='1074' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>tipo</text>
+<text x='448' y='1074' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>TString</title>TString</text>
+<text x='382' y='1089' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>tamanho</text>
+<text x='448' y='1089' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>1 a 60</title>1 a 60</text>
+<text x='382' y='1104' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>padrão</text>
+<text x='448' y='1104' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>[!-ÿ]{1}[ -ÿ]*[!-ÿ]{1}|[!-ÿ]{1}</title>[!-ÿ]{1}[ -ÿ]*[!-ÿ]{1}|[!-ÿ]{1}</text>
+<text x='382' y='1123' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Informar o e-mail do destinatário. O campo pode ser</text>
+<text x='382' y='1136' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>utilizado para informar o e-mail de recepção da NF-e</text>
+<text x='382' y='1149' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>indicada pelo destinatário</text>
+
+<rect x='284' y='598.0' width='56' height='26' rx='13' fill='#f3f6f9' stroke='#7a8a99'/>
+<text x='312.0' y='615.0' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' text-anchor='middle' fill='#1a1a1a'>seq.</text>
+<path d='M340,611.0 H357.0 V171.0 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,611.0 H357.0 V385 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,611.0 H357.0 V493 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,611.0 H357.0 V571 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,611.0 H357.0 V690 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,611.0 H357.0 V811 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,611.0 H357.0 V943 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,611.0 H357.0 V1051 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+
+<rect x='20' y='600.0' width='230' height='49' rx='3' fill='#ffffff' stroke='#1f4e79' stroke-width='1.3' stroke-dasharray='5,3'/>
+<rect x='20' y='600.0' width='230' height='22' rx='3' fill='#dce9f5' stroke='#1f4e79' stroke-width='1.3' stroke-dasharray='5,3'/>
+<text x='28' y='616.0' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#1a1a1a'>dest</text>
+<text x='242' y='616.0' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' text-anchor='end' fill='#1f4e79'>0..1</text>
+<text x='28' y='638.0' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Identificação do Destinatário</text>
+
+<path d='M250,611.0 H267.0 V611.0 H284' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+</svg>
