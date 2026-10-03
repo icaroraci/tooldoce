@@ -65,7 +65,7 @@ struct uf_s{
  */
 struct municipio_s{
 	const char *xMun;
-	uint16_t cMun;
+	uint32_t cMun; /* 7 dígitos (ex.: 3550308) */
 	Uf *uf;
 } ;
 
