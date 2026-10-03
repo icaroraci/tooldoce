@@ -23,7 +23,6 @@
 #include <libnfe/defs.h>
 #include <libnfe/ide.h>
 
-#define DHDEFAULT "%Y-%m-%d-T-%H:%M:%S-"
 
 struct Cont_s {
   char *dhCont;                    // Data
@@ -73,20 +72,20 @@ static char *DHSet(nfe_tzd tzd, const char *str)
   char *aux;
   switch (tzd){
     case NFE_TZD_FERNANDO_NORONHA: 
-      aux = "2:00";
+      aux = "-02:00";
       break;
     case NFE_TZD_BRASILIA:
     default:    
-      aux = "3:00";
+      aux = "-03:00";
       break;
     case NFE_TZD_MANAUS:
-      aux = "4:00";
+      aux = "-04:00";
       break;
     case NFE_TZD_ACRE:
-      aux = "5:00";
+      aux = "-05:00";
       break;
   }
-  strcat(str,DHDEFAULT); // Vc alocou espaço para *str?
+  strcat(str,NFE_FORMATO_DATA_HORA); // Vc alocou espaço para *str?
   return strcat(str,aux);
 }
 /* tzd = fuso horário (nfe_tzd)

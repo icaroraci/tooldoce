@@ -19,7 +19,9 @@
 #ifndef LIBNFE_NFE_H
 #define LIBNFE_NFE_H
 
-#define FORMATO_DATA_HORA "%Y-%m-%d-T-%H:%M:%S-"
+/* Data e hora (strftime) no formato AAAA-MM-DDThh:mm:ss; o fuso (TZD, ex.:
+ * -03:00) é acrescentado depois, conforme nfe_tzd. */
+#define NFE_FORMATO_DATA_HORA "%Y-%m-%dT%H:%M:%S"
 
 /* cUF: código IBGE da Unidade Federativa */
 typedef enum nfe_uf {
