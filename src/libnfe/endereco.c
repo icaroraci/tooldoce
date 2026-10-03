@@ -101,9 +101,7 @@ static Pais* _newPais(void){
 		.xPais = "BRASIL"
 	};
 	Pais * ptr = (Pais *) malloc( sizeof (struct pais_s));
-	if(ptr == NULL){
-		nfe_error("Erro ao alocar pais_s",E_NEWPAIS);
-	}else{
+	if(ptr != NULL){
 		memcpy(ptr, &temp, sizeof(struct pais_s));
 	}
 	return ptr;
@@ -121,7 +119,6 @@ static Uf* _newUf(void){
 	}
 	ptr = (Uf *) malloc(sizeof (struct uf_s));
 	if(ptr == NULL){
-		nfe_error("Erro ao alocar uf_s", E_NEWUF);
 		_delPais(temp.pais);
 		return NULL;
 	}
@@ -141,7 +138,6 @@ static Municipio* _newMunicipio(void){
 	}
 	ptr = (Municipio *) malloc(sizeof(struct municipio_s));
 	if(ptr == NULL){
-		nfe_error("Erro ao alocar municipio_s", E_NEWMUNICIPIO);
 		_delUf(temp.uf);
 		return NULL;
 	}
@@ -163,7 +159,6 @@ Endereco * NewEndereco(void){
 	}
 	ptr = (Endereco *) malloc(sizeof(struct endereco_s));
 	if(ptr == NULL){
-		nfe_error("Erro ao alocar endereco_s", E_NEWENDERECO);
 		_delMunicipio(temp.municipio);
 		return NULL;
 	}

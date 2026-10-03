@@ -16,19 +16,24 @@
  * along with tooldoce.  If not, see <http://www.gnu.org/licenses/>.
  * */
 
-#ifndef LIBNFE_ERROS_H
-#define LIBNFE_ERROS_H
+#include <libnfe/erros.h>
 
-/* Códigos de erro devolvidos pelas funções da biblioteca (sempre negativos;
- * 0 indica sucesso). A biblioteca não imprime mensagens: use nfe_strerror()
- * para obter a descrição de um código. */
-#define E_ISNULL  -1 /* ponteiro nulo recebido */
-#define E_TAMANHO -2 /* texto fora dos limites do campo */
-#define E_VALOR   -3 /* valor fora da faixa permitida */
-#define E_XML     -4 /* falha ao escrever o XML (libxml2) */
-#define E_MALLOC  -101 /* falta de memória */
-
-/* Descrição do código de erro (texto estático, não deve ser liberado) */
-const char *nfe_strerror(int codigo);
-
-#endif
+const char *nfe_strerror(int codigo)
+{
+	switch (codigo) {
+	case 0:
+		return "sucesso";
+	case E_ISNULL:
+		return "ponteiro nulo";
+	case E_TAMANHO:
+		return "texto fora dos limites do campo";
+	case E_VALOR:
+		return "valor fora da faixa permitida";
+	case E_XML:
+		return "falha ao escrever o XML";
+	case E_MALLOC:
+		return "falta de memória";
+	default:
+		return "erro desconhecido";
+	}
+}

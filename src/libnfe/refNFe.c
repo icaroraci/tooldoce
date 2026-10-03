@@ -62,9 +62,7 @@ int xmlGenRefNFeNode(xmlTextWriterPtr writer, struct refNFe_s *nf)
   rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "refNFe","%s", 
                                                nf->refNFe);
     if (rc < 0) {
-        printf
-            ("refNFe: Erro em xmlTextWriterWriteFormatElement\n");
-        return -1;
+        return E_XML;
     }
   return 0;
 }

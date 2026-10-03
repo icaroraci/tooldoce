@@ -145,49 +145,41 @@ int xmlGenRefNFNode(xmlTextWriterPtr writer, struct refNF_s *nf)
   
   rc = xmlTextWriterStartElement(writer, BAD_CAST "refNF");
   if (rc < 0){
-    printf("refNF: Erro em xmlTextWriterStartElement\n");
-    return -1;
+    return E_XML;
   }
   rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "cUF",
                                        "%s", nf->cUF);
   if(rc < 0){
-    printf("cUF: Erro em xmlTextWriterWriteFormatElement\n");
-    return -1;
+    return E_XML;
   }
   rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "AAMM",
                                        "%s", nf->AAMM);
   if(rc < 0){
-    printf("AAMM: Erro em xmlTextWriterWriteFormatElement\n");
-    return -1;
+    return E_XML;
   }
   rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "CNPJ",
                                        "%s", nf->CNPJ);
   if(rc < 0){
-    printf("CNPJ: Erro em xmlTextWriterWriteFormatElement\n");
-    return -1;
+    return E_XML;
   }
   rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "mod",
                                        "%s", nf->mod);
   if(rc < 0){
-    printf("mod: Erro em xmlTextWriterWriteFormatElement\n");
-    return -1;
+    return E_XML;
   }
   rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "serie",
                                        "%s", nf->serie);
   if(rc < 0){
-    printf("serie: Erro em xmlTextWriterWriteFormatElement\n");
-    return -1;
+    return E_XML;
   }
   rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "nNF",
                                        "%s", nf->nNF);
   if(rc < 0){
-    printf("nNF: Erro em xmlTextWriterWriteFormatElement\n");
-    return -1;
+    return E_XML;
   }
   rc = xmlTextWriterEndElement(writer);
   if (rc < 0){
-    printf("refNF: Erro em xmlTextWriterEndElement\n");
-    return -1;
+    return E_XML;
   }
 
   return 0;

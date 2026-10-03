@@ -30,7 +30,7 @@
 #define NFE_INTERNO
 #endif
 
-NFE_INTERNO int nfe_error(const char *msg, int codErro);
+/* Retorna E_ISNULL se ptr for nulo, ou 0 */
 NFE_INTERNO int nfe_ptrnull(const void *ptr);
 
 /* Copia o texto src para dst (tam bytes, incluindo o terminador).

@@ -15,23 +15,16 @@
  * You should have received a copy of the GNU General Public License
  * along with tooldoce.  If not, see <http://www.gnu.org/licenses/>.
  * */
-#include<stdio.h>
-#include<errno.h>
 #include<string.h>
 
 #include <libnfe/utils.h>
 
-int nfe_error(const char *msg, int codErro){
-	fprintf(stderr, "%s: %s com erro: %d\n", msg, strerror(errno), codErro);
-	return codErro;
-};
 int nfe_ptrnull(const void *ptr){
 	if(ptr == NULL){
-		nfe_error("Ponteiro NULL",E_ISNULL);
 		return E_ISNULL;
 	}
 	return 0;
-};
+}
 
 int nfe_copia_texto(char *dst, size_t tam, const char *src,
                     size_t min, size_t max){

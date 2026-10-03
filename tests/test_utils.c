@@ -16,7 +16,7 @@
  * along with tooldoce.  If not, see <http://www.gnu.org/licenses/>.
  * */
 
-/* Testes de nfe_copia_texto (cópia de texto com limite) */
+/* Testes de nfe_copia_texto (cópia de texto com limite) e nfe_strerror */
 
 #include <libnfe/defs.h>
 #include <libnfe/erros.h>
@@ -58,6 +58,12 @@ int main(void)
 	VERIFICA_INT((long)strlen(grande), 120);
 	strcat(texto, "ç");
 	VERIFICA_INT(nfe_copia_texto(grande, sizeof grande, texto, 2, 60), E_TAMANHO);
+
+	/* Descrição dos códigos de erro */
+	VERIFICA_STR(nfe_strerror(0), "sucesso");
+	VERIFICA_STR(nfe_strerror(E_TAMANHO), "texto fora dos limites do campo");
+	VERIFICA_STR(nfe_strerror(E_XML), "falha ao escrever o XML");
+	VERIFICA_STR(nfe_strerror(12345), "erro desconhecido");
 
 	TESTE_FIM();
 }
