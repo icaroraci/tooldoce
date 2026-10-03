@@ -87,20 +87,31 @@ def tipo_c(f, tipo):
     return "const char *"
 
 
-def itens_com_contexto(grupo, escolha=None):
-    """(item, contexto) de cada elemento, atravessando grupos. O contexto é
-    "escolha" (dentro de um xs:choice), "grupo" (dentro de um grupo
-    opcional: obrigatório só quando o grupo for informado) ou None."""
+def itens_com_contexto(grupo, escolha=False, opcional=False):
+    """(item, (escolha, opcional)) de cada elemento, atravessando grupos:
+    escolha = dentro de um xs:choice (só um ramo pode ser informado);
+    opcional = dentro de um grupo opcional (obrigatório só quando o grupo for
+    informado)."""
+    escolha = escolha or grupo.tipo == "choice"
+    opcional = opcional or grupo.minimo == "0"
     for item in grupo.itens:
         if isinstance(item, gd.Grupo):
-            rotulo = escolha
-            if item.minimo == "0":
-                rotulo = "grupo"
-            elif item.tipo == "choice" and rotulo != "grupo":
-                rotulo = "escolha"
-            yield from itens_com_contexto(item, rotulo)
+            yield from itens_com_contexto(item, escolha, opcional)
         else:
-            yield item, escolha
+            yield item, (escolha, opcional)
+
+
+def obrigatoriedade(item, ctx):
+    escolha, opcional = ctx
+    if item.minimo == "0":
+        rotulo = "não"
+    elif opcional:
+        rotulo = "grupo"
+    else:
+        rotulo = "sim"
+    if escolha:
+        rotulo = "escolha" if rotulo == "sim" else f"{rotulo}, escolha"
+    return rotulo
 
 
 def escape_tabela(t):
@@ -166,10 +177,9 @@ def corpo_issue(locais, nomes, repo, pais):
     escolhas = False
     grupos = False
     for item, ctx in itens_com_contexto(e.conteudo):
-        escolhas = escolhas or ctx == "escolha"
-        grupos = grupos or ctx == "grupo"
-        obrig = "não" if item.minimo == "0" else {
-            "escolha": "escolha", "grupo": "grupo"}.get(ctx, "sim")
+        obrig = obrigatoriedade(item, ctx)
+        escolhas = escolhas or "escolha" in obrig
+        grupos = grupos or "grupo" in obrig
         ocorr = gd.ocorrencia(item.minimo, item.maximo) or "1"
         if item.estrutura:
             tipo = "estrutura"
