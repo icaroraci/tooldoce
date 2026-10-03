@@ -108,9 +108,9 @@ Compila e executa os testes de `tests/` com AddressSanitizer e UBSan (desative c
 * [Visão e requisitos do projeto](docs/VISAO.md)
 * [Diagramas das estruturas da NF-e](docs/diagramas/README.md), gerados do schema oficial, e a [lista do que falta implementar](TODO.md)
 * [Convenções de código](docs/CONVENCOES.md) — antes de enviar uma alteração, rode `make formatar` e `make test`
-* Veja como [contribuir](https://github.com/icaroraci/tooldoce/blob/master/CONTRIBUTING.md) e como manter um [fork](https://github.com/icaroraci/tooldoce/blob/master/CONTRIBUTING.md#mantendo-um-fork)
+* Veja como [contribuir](https://github.com/icaroraci/tooldoce/blob/master/CONTRIBUTING.md) e como manter um [fork](https://github.com/icaroraci/tooldoce/blob/master/CONTRIBUTING.md#fluxo-com-fork)
 * Wiki: [Code Style](https://github.com/icaroraci/tooldoce/wiki/Code-style) e [Como documentar](https://github.com/icaroraci/tooldoce/wiki/Como-documentar) (em caso de divergência, vale `docs/CONVENCOES.md`)
 
 ## Licença
 
-GPLv3 (ver [LICENSE](LICENSE)). Está em andamento a troca para LGPL, para permitir o uso em programas de qualquer licença — ver a issue [#59](https://github.com/icaroraci/tooldoce/issues/59).
+GNU LGPL versão 3 ou posterior (ver [COPYING.LESSER](COPYING.LESSER), que complementa a GPLv3 em [COPYING](COPYING)). A biblioteca pode ser usada em programas de qualquer licença, inclusive proprietários; alterações na própria biblioteca devem ser distribuídas sob a mesma licença.
