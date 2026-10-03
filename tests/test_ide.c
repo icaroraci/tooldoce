@@ -75,7 +75,7 @@ static int valida(const char *xml, int mostrar)
 /* Gera o XML do ide com o namespace da NF-e no elemento raiz (que a
  * biblioteca ainda não escreve, pois o grupo <NFe> não existe).
  * O resultado deve ser liberado com free(). */
-static char *gera(struct ide_s *ide)
+static char *gera(const nfe_ide *ide)
 {
 	xmlBufferPtr buf = xmlBufferCreate();
 	xmlTextWriterPtr w = xmlNewTextWriterMemory(buf, 0);
@@ -83,7 +83,7 @@ static char *gera(struct ide_s *ide)
 	char *xml = NULL;
 	int rc;
 
-	rc = xmlGenideNode(w, ide);
+	rc = nfe_ide_write_xml(w, ide);
 	xmlTextWriterEndDocument(w);
 	xmlFreeTextWriter(w);
 
@@ -100,21 +100,35 @@ static char *gera(struct ide_s *ide)
 	return xml;
 }
 
-static struct ide_s *novo(time_t dhsaient, nfe_emissao tpemis,
-                          struct Cont_s *cont, nfe_tzd tzd)
+/* Monta um ide completo; aborta o teste se algum setter falhar */
+static nfe_ide *novo(time_t dhsaient, nfe_emissao tpemis, nfe_tzd tzd)
 {
-	return ideNew(NULL, NFE_UF_SP, 12345678, "VENDA DE MERCADORIA",
-	              NFE_MODELO_NFE, 1, 42, T0, dhsaient, NFE_OPERACAO_SAIDA,
-	              NFE_DESTINO_INTERNO, 3550308, NFE_DANFE_NORMAL_RETRATO,
-	              tpemis, 7, NFE_AMBIENTE_HOMOLOGACAO, NFE_FINALIDADE_NORMAL,
-	              NFE_CONSUMIDOR_FINAL, NFE_PRESENCA_PRESENCIAL,
-	              NFE_PROCESSO_APP_CONTRIBUINTE, "tooldoce 0.1", cont, tzd);
+	nfe_ide *ide = nfe_ide_new();
+	int rc = 0;
+
+	if (!ide)
+		return NULL;
+	rc |= nfe_ide_set_cuf(ide, NFE_UF_SP);
+	rc |= nfe_ide_set_cnf(ide, 12345678);
+	rc |= nfe_ide_set_natop(ide, "VENDA DE MERCADORIA");
+	rc |= nfe_ide_set_serie(ide, 1);
+	rc |= nfe_ide_set_nnf(ide, 42);
+	rc |= nfe_ide_set_dhemi(ide, T0);
+	rc |= nfe_ide_set_dhsaient(ide, dhsaient);
+	rc |= nfe_ide_set_cmunfg(ide, 3550308);
+	rc |= nfe_ide_set_tpemis(ide, tpemis);
+	rc |= nfe_ide_set_cdv(ide, 7);
+	rc |= nfe_ide_set_indfinal(ide, NFE_CONSUMIDOR_FINAL);
+	rc |= nfe_ide_set_indpres(ide, NFE_PRESENCA_PRESENCIAL);
+	rc |= nfe_ide_set_verproc(ide, "tooldoce 0.1");
+	rc |= nfe_ide_set_tzd(ide, tzd);
+	VERIFICA_INT(rc, 0);
+	return ide;
 }
 
 static void teste_emissao_normal(void)
 {
-	struct ide_s *ide = novo(T0 + 3600, NFE_EMISSAO_NORMAL, NULL,
-	                         NFE_TZD_BRASILIA);
+	nfe_ide *ide = novo(T0 + 3600, NFE_EMISSAO_NORMAL, NFE_TZD_BRASILIA);
 	char *xml;
 
 	VERIFICA(ide != NULL);
@@ -134,7 +148,7 @@ static void teste_emissao_normal(void)
 		VERIFICA(strstr(xml, "NFref") == NULL);
 	}
 	free(xml);
-	ideDel(ide);
+	nfe_ide_free(ide);
 }
 
 static void teste_fusos(void)
@@ -150,8 +164,7 @@ static void teste_fusos(void)
 	size_t i;
 
 	for (i = 0; i < sizeof fusos / sizeof fusos[0]; i++) {
-		struct ide_s *ide = novo(NFE_SEM_DATA, NFE_EMISSAO_NORMAL, NULL,
-		                         fusos[i]);
+		nfe_ide *ide = novo(NFE_SEM_DATA, NFE_EMISSAO_NORMAL, fusos[i]);
 		char *xml = gera(ide);
 		VERIFICA(xml != NULL);
 		if (xml) {
@@ -161,22 +174,21 @@ static void teste_fusos(void)
 			VERIFICA_INT(valida(xml, 1), 0);
 		}
 		free(xml);
-		ideDel(ide);
+		nfe_ide_free(ide);
 	}
 }
 
 static void teste_contingencia_e_referencias(void)
 {
-	struct Cont_s *cont = ideContNew(NULL, T0, NFE_TZD_BRASILIA,
-	                                 "Falha de comunicacao com a SEFAZ");
-	struct ide_s *ide = novo(NFE_SEM_DATA, NFE_EMISSAO_CONTINGENCIA_SVC_AN,
-	                         cont, NFE_TZD_BRASILIA);
+	nfe_ide *ide = novo(NFE_SEM_DATA, NFE_EMISSAO_CONTINGENCIA_SVC_AN,
+	                    NFE_TZD_BRASILIA);
 	struct refNFe_s *r1 = RefNFeNew();
 	struct refNF_s *r2 = RefNFNew();
 	char *xml;
 
-	VERIFICA(cont != NULL);
 	VERIFICA(ide != NULL);
+	VERIFICA_INT(nfe_ide_set_contingencia(ide, T0,
+	             "Falha de comunicacao com a SEFAZ"), 0);
 	VERIFICA_INT(RefNFeSetrefNFe(r1, CHAVE), 0);
 	VERIFICA_INT(RefNFSetcUF(r2, NFE_UF_SP), 0);
 	VERIFICA_INT(RefNFSetAAMM(r2, 10, NFE_MES_AGOSTO), 0);
@@ -184,8 +196,8 @@ static void teste_contingencia_e_referencias(void)
 	VERIFICA_INT(RefNFSetmod(r2, "01"), 0);
 	VERIFICA_INT(RefNFSetSerie(r2, "1"), 0);
 	VERIFICA_INT(RefNFSetnNF(r2, "123"), 0);
-	VERIFICA_INT(ideAddRefNFe(ide, r1), 0);
-	VERIFICA_INT(ideAddRefNF(ide, r2), 0);
+	VERIFICA_INT(nfe_ide_add_refnfe(ide, r1), 0);
+	VERIFICA_INT(nfe_ide_add_refnf(ide, r2), 0);
 
 	xml = gera(ide);
 	VERIFICA(xml != NULL);
@@ -201,54 +213,94 @@ static void teste_contingencia_e_referencias(void)
 		VERIFICA(pj < p1 && p1 < p2);
 	}
 	free(xml);
-	ideDel(ide); /* libera também cont, r1 e r2 */
+	nfe_ide_free(ide); /* libera também r1 e r2 */
 }
 
 static void teste_limite_referencias(void)
 {
-	struct ide_s *ide = novo(NFE_SEM_DATA, NFE_EMISSAO_NORMAL, NULL,
-	                         NFE_TZD_BRASILIA);
+	nfe_ide *ide = novo(NFE_SEM_DATA, NFE_EMISSAO_NORMAL, NFE_TZD_BRASILIA);
 	struct refNFe_s *extra;
 	int i, aceitas = 0;
 
 	for (i = 0; i < NFE_MAX_NFREF; i++)
-		if (ideAddRefNFe(ide, RefNFeNew()) == 0)
+		if (nfe_ide_add_refnfe(ide, RefNFeNew()) == 0)
 			aceitas++;
 	VERIFICA_INT(aceitas, NFE_MAX_NFREF);
 
 	extra = RefNFeNew();
-	VERIFICA_INT(ideAddRefNFe(ide, extra), E_VALOR);
+	VERIFICA_INT(nfe_ide_add_refnfe(ide, extra), E_VALOR);
 	RefNFeDel(extra);
 
-	VERIFICA_INT(ideAddRefNFe(NULL, NULL), E_ISNULL);
-	VERIFICA_INT(ideAddRefNFe(ide, NULL), E_ISNULL);
-	ideDel(ide);
+	VERIFICA_INT(nfe_ide_add_refnfe(NULL, NULL), E_ISNULL);
+	VERIFICA_INT(nfe_ide_add_refnfe(ide, NULL), E_ISNULL);
+	nfe_ide_free(ide);
 }
 
 static void teste_valores_invalidos(void)
 {
-	/* Fuso inválido */
-	VERIFICA(novo(NFE_SEM_DATA, NFE_EMISSAO_NORMAL, NULL, (nfe_tzd)7) == NULL);
+	nfe_ide *ide = novo(NFE_SEM_DATA, NFE_EMISSAO_NORMAL, NFE_TZD_BRASILIA);
+	char *xml;
 
-	/* Justificativa com menos de 15 caracteres */
-	VERIFICA(ideContNew(NULL, T0, NFE_TZD_BRASILIA, "curta") == NULL);
+	/* Valores fora do domínio do leiaute são recusados (E_VALOR) */
+	VERIFICA_INT(nfe_ide_set_cuf(ide, (nfe_uf)18), E_VALOR);
+	VERIFICA_INT(nfe_ide_set_cnf(ide, 100000000u), E_VALOR);
+	VERIFICA_INT(nfe_ide_set_mod(ide, (nfe_modelo)56), E_VALOR);
+	VERIFICA_INT(nfe_ide_set_serie(ide, 1000), E_VALOR);
+	VERIFICA_INT(nfe_ide_set_nnf(ide, 0), E_VALOR);
+	VERIFICA_INT(nfe_ide_set_nnf(ide, 1000000000u), E_VALOR);
+	VERIFICA_INT(nfe_ide_set_dhemi(ide, NFE_SEM_DATA), E_VALOR);
+	VERIFICA_INT(nfe_ide_set_cmunfg(ide, 355030), E_VALOR);
+	VERIFICA_INT(nfe_ide_set_tpemis(ide, (nfe_emissao)8), E_VALOR);
+	VERIFICA_INT(nfe_ide_set_cdv(ide, 10), E_VALOR);
+	VERIFICA_INT(nfe_ide_set_indpres(ide, (nfe_presenca)6), E_VALOR);
+	VERIFICA_INT(nfe_ide_set_indpres(ide, NFE_PRESENCA_PRESENCIAL_FORA), 0);
+	VERIFICA_INT(nfe_ide_set_procemi(ide, (nfe_processo_emissao)4), E_VALOR);
+	VERIFICA_INT(nfe_ide_set_tzd(ide, (nfe_tzd)7), E_VALOR);
+	VERIFICA_INT(nfe_ide_set_cuf(NULL, NFE_UF_SP), E_ISNULL);
 
-	/* natOp com mais de 60 caracteres */
-	VERIFICA(ideNew(NULL, NFE_UF_SP, 1,
-	                "1234567890123456789012345678901234567890123456789012345678901",
-	                NFE_MODELO_NFE, 1, 1, T0, NFE_SEM_DATA, NFE_OPERACAO_SAIDA,
-	                NFE_DESTINO_INTERNO, 3550308, NFE_DANFE_NORMAL_RETRATO,
-	                NFE_EMISSAO_NORMAL, 0, NFE_AMBIENTE_HOMOLOGACAO,
-	                NFE_FINALIDADE_NORMAL, NFE_CONSUMIDOR_FINAL,
-	                NFE_PRESENCA_PRESENCIAL, NFE_PROCESSO_APP_CONTRIBUINTE,
-	                "v1", NULL, NFE_TZD_BRASILIA) == NULL);
+	/* Textos fora dos limites (E_TAMANHO) */
+	VERIFICA_INT(nfe_ide_set_natop(ide,
+	             "1234567890123456789012345678901234567890123456789012345678901"),
+	             E_TAMANHO);
+	VERIFICA_INT(nfe_ide_set_verproc(ide, ""), E_TAMANHO);
+	VERIFICA_INT(nfe_ide_set_contingencia(ide, T0, "curta"), E_TAMANHO);
+
+	/* Valores recusados não alteram o XML, que continua válido */
+	xml = gera(ide);
+	VERIFICA(xml != NULL);
+	if (xml) {
+		VERIFICA(strstr(xml, "<cUF>35</cUF>") != NULL);
+		VERIFICA(strstr(xml, "<nNF>42</nNF>") != NULL);
+		VERIFICA(strstr(xml, "<indPres>5</indPres>") != NULL);
+		VERIFICA(strstr(xml, "dhCont") == NULL);
+		VERIFICA_INT(valida(xml, 1), 0);
+	}
+	free(xml);
+	nfe_ide_free(ide);
+}
+
+/* Sem os campos obrigatórios, o XML não é gerado */
+static void teste_obrigatorios(void)
+{
+	nfe_ide *ide = nfe_ide_new();
+	xmlBufferPtr buf = xmlBufferCreate();
+	xmlTextWriterPtr w = xmlNewTextWriterMemory(buf, 0);
+
+	VERIFICA(ide != NULL);
+	VERIFICA_INT(nfe_ide_write_xml(w, ide), E_VALOR);
+	VERIFICA_INT(nfe_ide_write_xml(w, NULL), E_ISNULL);
+	VERIFICA_INT(nfe_ide_write_xml(NULL, ide), E_ISNULL);
+
+	xmlFreeTextWriter(w);
+	xmlBufferFree(buf);
+	nfe_ide_free(ide);
+	nfe_ide_free(NULL);
 }
 
 /* Garante que o validador recusa XML fora do leiaute */
 static void teste_validador(void)
 {
-	struct ide_s *ide = novo(NFE_SEM_DATA, NFE_EMISSAO_NORMAL, NULL,
-	                         NFE_TZD_BRASILIA);
+	nfe_ide *ide = novo(NFE_SEM_DATA, NFE_EMISSAO_NORMAL, NFE_TZD_BRASILIA);
 	char *xml = gera(ide);
 	char *p;
 
@@ -264,7 +316,7 @@ static void teste_validador(void)
 		}
 	}
 	free(xml);
-	ideDel(ide);
+	nfe_ide_free(ide);
 }
 
 int main(int argc, char **argv)
@@ -291,6 +343,7 @@ int main(int argc, char **argv)
 	teste_contingencia_e_referencias();
 	teste_limite_referencias();
 	teste_valores_invalidos();
+	teste_obrigatorios();
 	teste_validador();
 
 	xmlSchemaFree(schema);

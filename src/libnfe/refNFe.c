@@ -55,7 +55,7 @@ char *RefNFeGetrefNFe(struct refNFe_s *nf)
 }
 
 /* Escreve o elemento <refNFe>; o grupo <NFref> que o contém é aberto por
- * quem chama (xmlGenideNode) */
+ * quem chama (nfe_ide_write_xml) */
 int xmlGenRefNFeNode(xmlTextWriterPtr writer, struct refNFe_s *nf)
 {
   int rc;

@@ -138,7 +138,7 @@ char *RefNFGetnNF(struct refNF_s *nf)
 
 
 /* Escreve o grupo <refNF>; o grupo <NFref> que o contém é aberto por quem
- * chama (xmlGenideNode) */
+ * chama (nfe_ide_write_xml) */
 int xmlGenRefNFNode(xmlTextWriterPtr writer, struct refNF_s *nf)
 {
   int rc;

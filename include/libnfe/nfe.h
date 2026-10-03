@@ -153,6 +153,7 @@ typedef enum nfe_presenca {
 	NFE_PRESENCA_INTERNET = 2,
 	NFE_PRESENCA_TELEATENDIMENTO = 3,
 	NFE_PRESENCA_ENTREGA_DOMICILIO = 4, /* NFC-e */
+	NFE_PRESENCA_PRESENCIAL_FORA = 5, /* presencial, fora do estabelecimento */
 	NFE_PRESENCA_OUTROS = 9
 } nfe_presenca;
 

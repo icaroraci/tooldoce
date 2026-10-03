@@ -17,7 +17,6 @@
  * */
 
 
-
 #ifndef LIBNFE_IDE_H
 #define LIBNFE_IDE_H
 
@@ -29,108 +28,81 @@
 
 #include <libnfe/nfe.h>
 
-struct Cont_s;
-struct ide_s;
+/*
+ * Grupo ide: identificação da NF-e.
+ *
+ * Uso:
+ *   nfe_ide *ide = nfe_ide_new();
+ *   nfe_ide_set_cuf(ide, NFE_UF_SP);
+ *   nfe_ide_set_natop(ide, "VENDA");
+ *   ...
+ *   nfe_ide_write_xml(writer, ide);
+ *   nfe_ide_free(ide);
+ *
+ * Os setters validam o valor contra o leiaute 4.00 e retornam 0, E_ISNULL,
+ * E_VALOR (valor fora do domínio) ou E_TAMANHO (texto fora dos limites);
+ * em caso de erro o campo não é alterado.
+ */
+
+typedef struct nfe_ide nfe_ide;
+
 struct refNFe_s;
 struct refNF_s;
+
+/* Data/hora opcional não informada (ex.: dhSaiEnt) */
+#define NFE_SEM_DATA ((time_t)-1)
 
 /* Número máximo de documentos referenciados (grupo NFref: maxOccurs="999"
  * no leiauteNFe_v4.00.xsd) */
 #define NFE_MAX_NFREF 999
 
-/* Valor de data/hora opcional não informado (ex.: dhSaiEnt) */
-#define NFE_SEM_DATA ((time_t)-1)
+/* Cria um ide com os valores padrão: mod 55, tpNF saída, idDest interna,
+ * tpImp DANFE retrato, tpEmis normal, tpAmb HOMOLOGAÇÃO, finNFe normal,
+ * indFinal normal, indPres não se aplica, procEmi aplicativo do
+ * contribuinte, fuso de Brasília. Retorna NULL se faltar memória. */
+nfe_ide *nfe_ide_new(void);
 
+/* Libera o ide e as referências que ele possui; aceita NULL */
+void nfe_ide_free(nfe_ide *ide);
 
-/* this   = um objeto struct Cont_s a reaproveitar, ou NULL para alocar
- * dhcont = instante de entrada em contingência
- * tzd    = fuso horário em que a data será escrita (nfe_tzd)
- * xJust  = justificativa (até 256 caracteres)
- *
- * Retorna NULL se o fuso ou a justificativa (15 a 256 caracteres) forem
- * inválidos, ou se faltar memória.
-*/ 
+int nfe_ide_set_cuf(nfe_ide *ide, nfe_uf cuf);
+int nfe_ide_set_cnf(nfe_ide *ide, uint32_t cnf);          /* 0 a 99999999 */
+int nfe_ide_set_natop(nfe_ide *ide, const char *natop);   /* 1 a 60 caracteres */
+int nfe_ide_set_mod(nfe_ide *ide, nfe_modelo mod);
+int nfe_ide_set_serie(nfe_ide *ide, unsigned serie);      /* 0 a 999 */
+int nfe_ide_set_nnf(nfe_ide *ide, uint32_t nnf);          /* 1 a 999999999 */
+int nfe_ide_set_dhemi(nfe_ide *ide, time_t dhemi);
+int nfe_ide_set_dhsaient(nfe_ide *ide, time_t dhsaient);  /* aceita NFE_SEM_DATA */
+int nfe_ide_set_tpnf(nfe_ide *ide, nfe_tipo_operacao tpnf);
+int nfe_ide_set_iddest(nfe_ide *ide, nfe_destino iddest);
+int nfe_ide_set_cmunfg(nfe_ide *ide, uint32_t cmunfg);    /* 7 dígitos */
+int nfe_ide_set_tpimp(nfe_ide *ide, nfe_danfe tpimp);
+int nfe_ide_set_tpemis(nfe_ide *ide, nfe_emissao tpemis);
+int nfe_ide_set_cdv(nfe_ide *ide, unsigned cdv);          /* 0 a 9 */
+int nfe_ide_set_tpamb(nfe_ide *ide, nfe_ambiente tpamb);
+int nfe_ide_set_finnfe(nfe_ide *ide, nfe_finalidade finnfe);
+int nfe_ide_set_indfinal(nfe_ide *ide, nfe_consumidor indfinal);
+int nfe_ide_set_indpres(nfe_ide *ide, nfe_presenca indpres);
+int nfe_ide_set_procemi(nfe_ide *ide, nfe_processo_emissao procemi);
+int nfe_ide_set_verproc(nfe_ide *ide, const char *verproc); /* 1 a 20 caracteres */
 
-struct Cont_s *ideContNew(struct Cont_s *this,
-                          time_t dhcont,
-                          nfe_tzd tzd, 
-                          const char *xjust);
+/* Fuso horário em que as datas (dhEmi, dhSaiEnt, dhCont) são escritas */
+int nfe_ide_set_tzd(nfe_ide *ide, nfe_tzd tzd);
 
-void ideContDel(struct Cont_s *cont);
+/* Entrada em contingência: instante e justificativa (15 a 256 caracteres).
+ * Gera dhCont e xJust no XML. */
+int nfe_ide_set_contingencia(nfe_ide *ide, time_t dhcont, const char *xjust);
 
-/* Cria um objeto "ide" para identificação da NF-e
- *
- *            ** Parâmetros  **
- * cont     = ponteiro para struct Cont_s, default NULL;
- * cuf      = UF, código IBGE (nfe_uf)
- * cnf      = chave de acesso - 8 caracteres
- * natop    = Descrição natureza da operação: string 60 caracteres;
- * mod      = modelo do documento (nfe_modelo);
- * serie    = serie do documento fiscal - 3 algarismos
- * dhemi    = instante de emissão
- * dhsaient = instante da saída ou entrada da mercadoria/produto, ou
- *            NFE_SEM_DATA se não informado;
- * tpnf     = tipo de operação (nfe_tipo_operacao);
- * iddest   = destino da operação (nfe_destino);
- * cmunfg   = Municipio do fato gerador: Tabela IBGE Municipios :
- *            7 algarismos;
- * tpImp    = formato da DANFE (nfe_danfe);
- * tpemis   = tipo de emissão (nfe_emissao);
- * cdv      = digito verificador, calculado externamente;
- * tpamb    = ambiente (nfe_ambiente);
- * finnfe   = finalidade (nfe_finalidade);
- * indfinal = consumidor final (nfe_consumidor);
- * indpres  = presença do comprador (nfe_presenca);
- * procemi  = processo de emissão (nfe_processo_emissao);
- * verproc  = Versão do protocolo de emissao: 20 caracteres
- * tzd      = fuso horário em que as datas serão escritas (nfe_tzd);
- *
- * Retorna NULL se o fuso, natop (1 a 60 caracteres) ou verproc (1 a 20)
- * forem inválidos, ou se faltar memória.
- * 
-**/
-struct ide_s *ideNew(struct ide_s *this, 
-                     nfe_uf cuf, 
-                     uint32_t cnf, 
-                     char *natop, 
-                     nfe_modelo mod, 
-                     uint16_t serie, 
-                     uint32_t nnf, 
-                     time_t dhemi, 
-                     time_t dhsaient,
-                     nfe_tipo_operacao tpnf, 
-                     nfe_destino iddest,
-                     uint32_t cmunfg, 
-                     nfe_danfe tpimp,
-                     nfe_emissao tpemis, 
-                     uint8_t cdv,
-                     nfe_ambiente tpamb, 
-                     nfe_finalidade finnfe,
-                     nfe_consumidor indfinal, 
-                     nfe_presenca indpres,
-                     nfe_processo_emissao procemi, 
-                     char *verproc,
-                     struct Cont_s *cont,
-                     nfe_tzd tzd );
-void ideDel(struct ide_s *ide);
+/* Documentos fiscais referenciados (grupo NFref, até NFE_MAX_NFREF), gerados
+ * na ordem em que foram adicionados. Em caso de sucesso, o ide passa a ser
+ * dono da referência e a libera em nfe_ide_free. Retornam 0, E_ISNULL,
+ * E_VALOR (limite atingido) ou E_MALLOC. */
+int nfe_ide_add_refnfe(nfe_ide *ide, struct refNFe_s *ref);
+int nfe_ide_add_refnf(nfe_ide *ide, struct refNF_s *ref);
 
-/* Documentos fiscais referenciados (grupo NFref, até NFE_MAX_NFREF).
- * As referências são geradas no XML na ordem em que foram adicionadas.
- * Em caso de sucesso, o ide passa a ser dono da referência e a libera em
- * ideDel. Retornam 0, E_ISNULL, E_VALOR (limite atingido) ou E_MALLOC. */
-int ideAddRefNFe(struct ide_s *ide, struct refNFe_s *ref);
-int ideAddRefNF(struct ide_s *ide, struct refNF_s *ref);
-
-/*  Gera o Nó xml para o respectivo objeto
- *  
- *  xmlGenideNode(writer, ide) chama internamente
- *  xmlGenideContNode(writer, cont) se este for definido, que escreve
- *  dhCont e xJust diretamente dentro de <ide>, seguidos de um grupo
- *  <NFref> para cada documento referenciado.
- ***/
-
-int xmlGenideContNode(xmlTextWriterPtr writer,struct Cont_s *cont);
-
-int xmlGenideNode(xmlTextWriterPtr writer,struct ide_s *ide);
+/* Escreve o elemento <ide>. Retorna 0, E_ISNULL, E_VALOR (campo obrigatório
+ * sem valor padrão não informado: cUF, natOp, nNF, dhEmi, cMunFG ou verProc)
+ * ou E_XML. */
+int nfe_ide_write_xml(xmlTextWriterPtr writer, const nfe_ide *ide);
 
 #endif
