@@ -16,70 +16,100 @@
  ** along with tooldoce.  If not, see <http://www.gnu.org/licenses/>.
  ** */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include <libnfe/defs.h>
 #include <libnfe/erros.h>
-#include <libnfe/escrita.h>
+#include <libnfe/esquema.h>
 #include <libnfe/imposto.h>
-#include <libnfe/padroes.h>
-#include <libnfe/valida.h>
 
-typedef char decimal[NFE_TAM_ASCII(NFE_TAM_DEC)];
-
-enum tipo_icms_e { ICMS_NENHUM, ICMS_00, ICMS_SN102 };
-enum tipo_pc_e { PC_NENHUM, PC_ALIQ, PC_NT };
-
-/* Grupo do PIS ou da COFINS */
-struct pis_cofins_s {
-	enum tipo_pc_e tipo;
-	nfe_cst_pis_cofins CST;
-	decimal vBC, p, v;
+/* Os tributos ficam em um grupo genérico (esquema.h) com a estrutura de
+ * <imposto> do leiaute; os setters específicos são atalhos para ele. */
+struct nfe_imposto {
+	nfe_grupo *g;
 };
 
-struct nfe_imposto {
-	decimal vTotTrib; /* "": não informado */
-	enum tipo_icms_e tipoICMS;
-	nfe_origem orig;
-	int CST; /* CST (ICMS00) ou CSOSN (ICMSSN102) */
-	nfe_mod_bc modBC;
-	decimal vBC, pICMS, vICMS;
-	decimal pFCP, vFCP; /* "": não informados */
-	struct pis_cofins_s PIS, COFINS;
+/* Um campo a gravar: caminho e valor (NULL: pula) */
+struct campo_s {
+	const char *caminho;
+	const char *valor;
 };
 
 nfe_imposto *nfe_imposto_new(void)
 {
-	return (nfe_imposto *)calloc(1, sizeof(nfe_imposto));
+	nfe_imposto *imp = (nfe_imposto *)calloc(1, sizeof(nfe_imposto));
+
+	if (!imp)
+		return NULL;
+	imp->g = nfe_grupo_new(&nfe_esq_imposto);
+	if (!imp->g) {
+		free(imp);
+		return NULL;
+	}
+	return imp;
 }
 
 void nfe_imposto_free(nfe_imposto *imp)
 {
+	if (!imp)
+		return;
+	nfe_grupo_free(imp->g);
 	free(imp);
 }
 
-#define EXIGE_IMP(imp)                                                         \
-	do {                                                                   \
-		if (!(imp))                                                    \
-			return E_ISNULL;                                       \
-	} while (0)
-
-/* Copia um decimal já validado (o padrão limita o tamanho) */
-static void copia(decimal dst, const char *valor)
+int nfe_imposto_set(nfe_imposto *imp, const char *caminho, const char *valor)
 {
-	strcpy(dst, valor);
+	if (!imp)
+		return E_ISNULL;
+	return nfe_grupo_set(imp->g, caminho, valor);
+}
+
+const char *nfe_imposto_get(const nfe_imposto *imp, const char *caminho)
+{
+	if (!imp)
+		return NULL;
+	return nfe_grupo_get(imp->g, caminho);
+}
+
+int nfe_imposto_remove(nfe_imposto *imp, const char *caminho)
+{
+	if (!imp)
+		return E_ISNULL;
+	return nfe_grupo_limpa(imp->g, caminho);
+}
+
+/* Valida todos os campos; se todos forem aceitos, apaga o tributo e grava
+ * os campos. Assim o imposto não muda em caso de erro. */
+static int grava_grupo(nfe_imposto *imp, const char *tributo,
+                       const struct campo_s *campos, int n)
+{
+	int i, rc;
+
+	for (i = 0; i < n; i++) {
+		if (!campos[i].valor)
+			continue;
+		rc = nfe_grupo_valida(imp->g, campos[i].caminho,
+		                      campos[i].valor);
+		if (rc != 0)
+			return rc;
+	}
+	nfe_grupo_limpa(imp->g, tributo);
+	for (i = 0; i < n; i++) {
+		if (!campos[i].valor)
+			continue;
+		rc = nfe_grupo_set(imp->g, campos[i].caminho, campos[i].valor);
+		if (rc != 0) {
+			nfe_grupo_limpa(imp->g, tributo);
+			return rc;
+		}
+	}
+	return 0;
 }
 
 int nfe_imposto_set_vtottrib(nfe_imposto *imp, const char *vtottrib)
 {
-	EXIGE_IMP(imp);
-	if (!vtottrib) {
-		imp->vTotTrib[0] = '\0';
-		return 0;
-	}
-	return nfe_copia_padrao(imp->vTotTrib, sizeof imp->vTotTrib, vtottrib,
-	                        NFE_PADRAO_TDec_1302);
+	return nfe_imposto_set(imp, "vTotTrib", vtottrib);
 }
 
 int nfe_imposto_set_icms00(nfe_imposto *imp, nfe_origem orig, nfe_mod_bc modbc,
@@ -87,252 +117,149 @@ int nfe_imposto_set_icms00(nfe_imposto *imp, nfe_origem orig, nfe_mod_bc modbc,
                            const char *vicms, const char *pfcp,
                            const char *vfcp)
 {
-	int rc;
+	char o[4], m[4];
 
-	EXIGE_IMP(imp);
-	if (orig < NFE_ORIGEM_NACIONAL ||
-	    orig > NFE_ORIGEM_NACIONAL_IMPORTACAO_ACIMA_70 ||
-	    modbc < NFE_MOD_BC_MVA || modbc > NFE_MOD_BC_VALOR_OPERACAO ||
-	    (pfcp == NULL) != (vfcp == NULL))
+	if (!imp || !vbc || !picms || !vicms)
+		return E_ISNULL;
+	if ((int)orig < 0 || (int)orig > 99 || (int)modbc < 0 ||
+	    (int)modbc > 99 || (pfcp == NULL) != (vfcp == NULL))
 		return E_VALOR;
-	rc = nfe_valida_padrao(vbc, NFE_PADRAO_TDec_1302);
-	if (rc == 0)
-		rc = nfe_valida_padrao(picms, NFE_PADRAO_TDec_0302a04);
-	if (rc == 0)
-		rc = nfe_valida_padrao(vicms, NFE_PADRAO_TDec_1302);
-	if (rc == 0 && pfcp)
-		rc = nfe_valida_padrao(pfcp, NFE_PADRAO_TDec_0302a04Opc);
-	if (rc == 0 && vfcp)
-		rc = nfe_valida_padrao(vfcp, NFE_PADRAO_TDec_1302);
-	if (rc != 0)
-		return rc;
-
-	imp->tipoICMS = ICMS_00;
-	imp->orig = orig;
-	imp->CST = 0;
-	imp->modBC = modbc;
-	copia(imp->vBC, vbc);
-	copia(imp->pICMS, picms);
-	copia(imp->vICMS, vicms);
-	copia(imp->pFCP, pfcp ? pfcp : "");
-	copia(imp->vFCP, vfcp ? vfcp : "");
-	return 0;
+	snprintf(o, sizeof o, "%d", (int)orig);
+	snprintf(m, sizeof m, "%d", (int)modbc);
+	{
+		const struct campo_s c[] = {
+			{ "ICMS00/orig", o },      { "ICMS00/modBC", m },
+			{ "ICMS00/vBC", vbc },     { "ICMS00/pICMS", picms },
+			{ "ICMS00/vICMS", vicms }, { "ICMS00/pFCP", pfcp },
+			{ "ICMS00/vFCP", vfcp },
+		};
+		return grava_grupo(imp, "ICMS", c, 7);
+	}
 }
 
 int nfe_imposto_set_icmssn102(nfe_imposto *imp, nfe_origem orig,
                               nfe_csosn_102 csosn)
 {
-	EXIGE_IMP(imp);
-	if (orig < NFE_ORIGEM_NAO_INFORMADA ||
-	    orig > NFE_ORIGEM_NACIONAL_IMPORTACAO_ACIMA_70)
+	char o[4], c[8];
+
+	if (!imp)
+		return E_ISNULL;
+	if ((int)orig < NFE_ORIGEM_NAO_INFORMADA || (int)orig > 99 ||
+	    (int)csosn < 0 || (int)csosn > 999)
 		return E_VALOR;
-	switch (csosn) {
-	case NFE_CSOSN_102:
-	case NFE_CSOSN_103:
-	case NFE_CSOSN_300:
-	case NFE_CSOSN_400:
-		break;
-	default:
-		return E_VALOR;
+	snprintf(o, sizeof o, "%d", (int)orig);
+	snprintf(c, sizeof c, "%d", (int)csosn);
+	{
+		const struct campo_s campos[] = {
+			{ "ICMSSN102/orig",
+			  orig == NFE_ORIGEM_NAO_INFORMADA ? NULL : o },
+			{ "ICMSSN102/CSOSN", c },
+		};
+		return grava_grupo(imp, "ICMS", campos, 2);
 	}
-	imp->tipoICMS = ICMS_SN102;
-	imp->orig = orig;
-	imp->CST = (int)csosn;
-	return 0;
 }
 
-static int set_aliq(struct pis_cofins_s *pc, nfe_cst_pis_cofins cst,
-                    const char *vbc, const char *p, const char *v)
+/* PISAliq/COFINSAliq; tributo é "PIS" ou "COFINS" */
+static int set_aliq(nfe_imposto *imp, const char *tributo,
+                    nfe_cst_pis_cofins cst, const char *vbc, const char *p,
+                    const char *v)
 {
-	int rc;
+	char c[4], cam[4][32];
 
-	if (cst != NFE_CST_PC_ALIQUOTA_BASICA &&
-	    cst != NFE_CST_PC_ALIQUOTA_DIFERENCIADA)
+	if (!imp || !vbc || !p || !v)
+		return E_ISNULL;
+	if ((int)cst < 0 || (int)cst > 99)
 		return E_VALOR;
-	rc = nfe_valida_padrao(vbc, NFE_PADRAO_TDec_1302);
-	if (rc == 0)
-		rc = nfe_valida_padrao(p, NFE_PADRAO_TDec_0302a04);
-	if (rc == 0)
-		rc = nfe_valida_padrao(v, NFE_PADRAO_TDec_1302);
-	if (rc != 0)
-		return rc;
-	pc->tipo = PC_ALIQ;
-	pc->CST = cst;
-	copia(pc->vBC, vbc);
-	copia(pc->p, p);
-	copia(pc->v, v);
-	return 0;
+	snprintf(c, sizeof c, "%02d", (int)cst);
+	snprintf(cam[0], sizeof cam[0], "%sAliq/CST", tributo);
+	snprintf(cam[1], sizeof cam[1], "%sAliq/vBC", tributo);
+	snprintf(cam[2], sizeof cam[2], "%sAliq/p%s", tributo, tributo);
+	snprintf(cam[3], sizeof cam[3], "%sAliq/v%s", tributo, tributo);
+	{
+		const struct campo_s campos[] = {
+			{ cam[0], c },
+			{ cam[1], vbc },
+			{ cam[2], p },
+			{ cam[3], v },
+		};
+		return grava_grupo(imp, tributo, campos, 4);
+	}
 }
 
-static int set_nt(struct pis_cofins_s *pc, nfe_cst_pis_cofins cst)
+static int set_nt(nfe_imposto *imp, const char *tributo, nfe_cst_pis_cofins cst)
 {
-	if (cst < NFE_CST_PC_MONOFASICA_ZERO || cst > NFE_CST_PC_SEM_INCIDENCIA)
+	char c[4], cam[32];
+
+	if (!imp)
+		return E_ISNULL;
+	if ((int)cst < 0 || (int)cst > 99)
 		return E_VALOR;
-	pc->tipo = PC_NT;
-	pc->CST = cst;
-	return 0;
+	snprintf(c, sizeof c, "%02d", (int)cst);
+	snprintf(cam, sizeof cam, "%sNT/CST", tributo);
+	{
+		const struct campo_s campos[] = { { cam, c } };
+		return grava_grupo(imp, tributo, campos, 1);
+	}
 }
 
 int nfe_imposto_set_pisaliq(nfe_imposto *imp, nfe_cst_pis_cofins cst,
                             const char *vbc, const char *ppis, const char *vpis)
 {
-	EXIGE_IMP(imp);
-	return set_aliq(&imp->PIS, cst, vbc, ppis, vpis);
+	return set_aliq(imp, "PIS", cst, vbc, ppis, vpis);
 }
 
 int nfe_imposto_set_cofinsaliq(nfe_imposto *imp, nfe_cst_pis_cofins cst,
                                const char *vbc, const char *pcofins,
                                const char *vcofins)
 {
-	EXIGE_IMP(imp);
-	return set_aliq(&imp->COFINS, cst, vbc, pcofins, vcofins);
+	return set_aliq(imp, "COFINS", cst, vbc, pcofins, vcofins);
 }
 
 int nfe_imposto_set_pisnt(nfe_imposto *imp, nfe_cst_pis_cofins cst)
 {
-	EXIGE_IMP(imp);
-	return set_nt(&imp->PIS, cst);
+	return set_nt(imp, "PIS", cst);
 }
 
 int nfe_imposto_set_cofinsnt(nfe_imposto *imp, nfe_cst_pis_cofins cst)
 {
-	EXIGE_IMP(imp);
-	return set_nt(&imp->COFINS, cst);
+	return set_nt(imp, "COFINS", cst);
 }
 
 int nfe_imposto_remove_icms(nfe_imposto *imp)
 {
-	EXIGE_IMP(imp);
-	imp->tipoICMS = ICMS_NENHUM;
-	return 0;
+	return nfe_imposto_remove(imp, "ICMS");
 }
 
 int nfe_imposto_remove_pis(nfe_imposto *imp)
 {
-	EXIGE_IMP(imp);
-	imp->PIS.tipo = PC_NENHUM;
-	return 0;
+	return nfe_imposto_remove(imp, "PIS");
 }
 
 int nfe_imposto_remove_cofins(nfe_imposto *imp)
 {
-	EXIGE_IMP(imp);
-	imp->COFINS.tipo = PC_NENHUM;
-	return 0;
+	return nfe_imposto_remove(imp, "COFINS");
 }
 
 const char *nfe_imposto_valor(const nfe_imposto *imp,
                               enum nfe_imposto_valor_e campo)
 {
-	int icms00 = imp->tipoICMS == ICMS_00;
+	static const char *const caminhos[] = {
+		"ICMS/vBC",        "ICMS/vICMS", "ICMS/vFCP",    "PIS/vPIS",
+		"COFINS/vCOFINS",  "vTotTrib",   "ICMS/vICMSST", "ICMS/vFCPST",
+		"ICMS/vICMSDeson", "II/vII",     "IPI/vIPI",     "ICMS/vBCST",
+	};
+	const char *v;
 
-	switch (campo) {
-	case NFE_IMP_VBC:
-		return icms00 ? imp->vBC : "";
-	case NFE_IMP_VICMS:
-		return icms00 ? imp->vICMS : "";
-	case NFE_IMP_VFCP:
-		return icms00 ? imp->vFCP : "";
-	case NFE_IMP_VPIS:
-		return imp->PIS.tipo == PC_ALIQ ? imp->PIS.v : "";
-	case NFE_IMP_VCOFINS:
-		return imp->COFINS.tipo == PC_ALIQ ? imp->COFINS.v : "";
-	case NFE_IMP_VTOTTRIB:
-		return imp->vTotTrib;
-	}
-	return "";
-}
-
-static int escreve_icms(xmlTextWriterPtr writer, const nfe_imposto *imp)
-{
-	int rc;
-
-	rc = nfe_abre(writer, "ICMS");
-	if (rc != 0)
-		return rc;
-	if (imp->tipoICMS == ICMS_00) {
-		rc = nfe_abre(writer, "ICMS00");
-		if (rc != 0)
-			return rc;
-		NFE_ESCREVE("orig", "%d", (int)imp->orig);
-		NFE_ESCREVE("CST", "00");
-		NFE_ESCREVE("modBC", "%d", (int)imp->modBC);
-		NFE_ESCREVE("vBC", "%s", imp->vBC);
-		NFE_ESCREVE("pICMS", "%s", imp->pICMS);
-		NFE_ESCREVE("vICMS", "%s", imp->vICMS);
-		if (imp->pFCP[0] != '\0') {
-			NFE_ESCREVE("pFCP", "%s", imp->pFCP);
-			NFE_ESCREVE("vFCP", "%s", imp->vFCP);
-		}
-	} else {
-		rc = nfe_abre(writer, "ICMSSN102");
-		if (rc != 0)
-			return rc;
-		if (imp->orig != NFE_ORIGEM_NAO_INFORMADA)
-			NFE_ESCREVE("orig", "%d", (int)imp->orig);
-		NFE_ESCREVE("CSOSN", "%d", imp->CST);
-	}
-	rc = nfe_fecha(writer);
-	if (rc != 0)
-		return rc;
-	return nfe_fecha(writer);
-}
-
-/* Escreve <PIS> ou <COFINS>; tributo é "PIS" ou "COFINS" */
-static int escreve_pc(xmlTextWriterPtr writer, const struct pis_cofins_s *pc,
-                      const char *tributo)
-{
-	char tag[16];
-	int rc;
-
-	rc = nfe_abre(writer, tributo);
-	if (rc != 0)
-		return rc;
-	strcpy(tag, tributo);
-	strcat(tag, pc->tipo == PC_ALIQ ? "Aliq" : "NT");
-	rc = nfe_abre(writer, tag);
-	if (rc != 0)
-		return rc;
-	NFE_ESCREVE("CST", "%02d", (int)pc->CST);
-	if (pc->tipo == PC_ALIQ) {
-		NFE_ESCREVE("vBC", "%s", pc->vBC);
-		strcpy(tag, "p");
-		strcat(tag, tributo);
-		NFE_ESCREVE(tag, "%s", pc->p);
-		tag[0] = 'v';
-		NFE_ESCREVE(tag, "%s", pc->v);
-	}
-	rc = nfe_fecha(writer);
-	if (rc != 0)
-		return rc;
-	return nfe_fecha(writer);
+	if ((int)campo < 0 ||
+	    (int)campo >= (int)(sizeof caminhos / sizeof caminhos[0]))
+		return "";
+	v = nfe_grupo_get(imp->g, caminhos[campo]);
+	return v ? v : "";
 }
 
 int nfe_imposto_write_xml(xmlTextWriterPtr writer, const nfe_imposto *imp)
 {
-	int rc;
-
 	if (!writer || !imp)
 		return E_ISNULL;
-	rc = nfe_abre(writer, "imposto");
-	if (rc != 0)
-		return rc;
-	if (imp->vTotTrib[0] != '\0')
-		NFE_ESCREVE("vTotTrib", "%s", imp->vTotTrib);
-	if (imp->tipoICMS != ICMS_NENHUM) {
-		rc = escreve_icms(writer, imp);
-		if (rc != 0)
-			return rc;
-	}
-	if (imp->PIS.tipo != PC_NENHUM) {
-		rc = escreve_pc(writer, &imp->PIS, "PIS");
-		if (rc != 0)
-			return rc;
-	}
-	if (imp->COFINS.tipo != PC_NENHUM) {
-		rc = escreve_pc(writer, &imp->COFINS, "COFINS");
-		if (rc != 0)
-			return rc;
-	}
-	return nfe_fecha(writer);
+	return nfe_grupo_write_xml(writer, imp->g);
 }

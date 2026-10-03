@@ -40,6 +40,7 @@ jobs:
         if: matrix.cc == 'gcc'
         run: |
           python3 tools/gerar_padroes.py --verificar
+          python3 tools/gerar_esquemas.py --verificar
           python3 tools/gerar_diagramas.py --todo
           python3 tests/schemas/gerar_tipos_xsd.py
           git diff --exit-code -- docs/diagramas TODO.md tests/schemas || {

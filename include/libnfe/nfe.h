@@ -346,7 +346,8 @@ typedef enum nfe_cst_pis_cofins {
 	NFE_CST_PC_SUBSTITUICAO = 5,    /* substituição tributária */
 	NFE_CST_PC_ALIQUOTA_ZERO = 6,
 	NFE_CST_PC_ISENTA = 7,
-	NFE_CST_PC_SEM_INCIDENCIA = 8
+	NFE_CST_PC_SEM_INCIDENCIA = 8,
+	NFE_CST_PC_SUSPENSAO = 9
 } nfe_cst_pis_cofins;
 
 /* modFrete: modalidade do frete */

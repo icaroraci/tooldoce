@@ -19,5 +19,14 @@ caminho marcado como **provisório**.
    nota. Posso acrescentar uma função que some os itens e preencha o
    `ICMSTot`? **Provisório (feito):** sim, como função opcional
    (`nfe_nfe_calcular_totais`), sem mudar o comportamento atual.
-5. **Licença LGPL** (#59): continua esperando a autorização do Marcelo.
+5. **Motor genérico de grupos.** Para os grupos com muitos campos (todos os
+   de `<imposto>`: ICMS, IPI, II, PIS, COFINS, ICMSUFDest, IS e IBS/CBS),
+   em vez de um setter para cada campo, gerei do XSD uma tabela com a
+   estrutura de cada grupo (`tools/gerar_esquemas.py`) e um motor que
+   valida e escreve qualquer campo pelo caminho:
+   `nfe_imposto_set(imp, "ICMS10/vBC", "100.00")`. Os atalhos tipados
+   (`nfe_imposto_set_icms00` etc.) continuam. **Provisório (feito):** sigo
+   assim para os grupos grandes que faltam; se preferir setters tipados
+   para algum grupo, dá para acrescentar por cima do motor.
+6. **Licença LGPL** (#59): continua esperando a autorização do Marcelo.
    Não vou mexer.
