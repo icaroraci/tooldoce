@@ -34,7 +34,7 @@ jobs:
       - name: Instalar dependências
         run: |
           sudo apt-get update
-          sudo apt-get install -y libxml2-dev ${{ matrix.pacotes }}
+          sudo apt-get install -y libxml2-dev libxmlsec1-dev ${{ matrix.pacotes }}
 
       - name: Arquivos gerados atualizados
         if: matrix.cc == 'gcc'
@@ -59,6 +59,7 @@ jobs:
           make exemplos
           ./obj/gerar_ide > /dev/null
           ./obj/gerar_nfe > /dev/null
+          ./obj/assinar_nfe tests/certificados/teste.pfx teste > /dev/null
 
       - name: Instalação
         run: |

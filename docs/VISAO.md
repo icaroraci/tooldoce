@@ -61,8 +61,8 @@ A ordem a partir do item 2 é uma proposta e pode ser revista conforme a demanda
 | Dependência | Uso | Licença |
 |---|---|---|
 | [libxml2](https://gitlab.gnome.org/GNOME/libxml2) | Geração, leitura e validação de XML (XSD) | MIT |
-| [xmlsec1](https://www.aleksey.com/xmlsec/) (aprovado) | Assinatura XMLDSig | MIT |
-| [OpenSSL](https://www.openssl.org/) 3.x (aprovado) | Certificados e criptografia | Apache 2.0 |
+| [xmlsec1](https://www.aleksey.com/xmlsec/) | Assinatura XMLDSig | MIT |
+| [OpenSSL](https://www.openssl.org/) 3.x | Certificados e criptografia | Apache 2.0 |
 | [libcurl](https://curl.se/libcurl/) (previsto) | Comunicação HTTPS com os webservices | curl (estilo MIT) |
 
 ## 6. Licença

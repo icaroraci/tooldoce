@@ -34,4 +34,9 @@ caminho marcado como **provisório**.
 
 - **Assinatura digital (03/10):** pode usar xmlsec1 (licença MIT) e
   OpenSSL 3.x (Apache 2.0), ambas livres para programas fechados.
+  Implementada com certificado A1 (`assinatura.h`).
+- **Certificado A1 do Gabriel (03/10):** não precisa ser enviado; os testes
+  usam um certificado autoassinado (`tests/certificados`). Para conferir
+  com o certificado real, rode `./obj/assinar_nfe empresa.pfx senha` na
+  sua máquina e valide a nota num validador de assinatura de NF-e.
 - **DANFE (03/10):** fora da biblioteca; é um projeto à parte.
