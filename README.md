@@ -46,6 +46,8 @@ Os setters validam cada valor contra o leiaute e retornam um código de erro (`e
     $ ./obj/gerar_ide
     $ ./obj/gerar_nfe
 
+Para conferir a nota antes de assinar e transmitir, `validar.h` valida o XML contra os schemas oficiais, que `make install` instala em `$(PREFIX)/share/tooldoce/schemas`, e devolve a lista de erros com o campo e a linha de cada um.
+
 Para compilar um programa seu com a biblioteca instalada:
 
     $ cc meu_programa.c $(xml2-config --cflags) -lnfe $(xml2-config --libs)

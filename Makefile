@@ -43,6 +43,11 @@ REALNAME = $(LIBNAME).0.0
 PREFIX     ?= /usr/local
 LIBDIR     ?= $(PREFIX)/lib
 INCLUDEDIR ?= $(PREFIX)/include
+SCHEMADIR  ?= $(PREFIX)/share/tooldoce/schemas
+
+#Schemas oficiais instalados para a validação (nfe_validador_new)
+SCHEMAS = $(addprefix tests/schemas/nfe/,nfe_v4.00.xsd leiauteNFe_v4.00.xsd tiposBasico_v4.00.xsd DFeTiposBasicos_v1.00.xsd xmldsig-core-schema_v1.01.xsd)
+CFLAGS += -DNFE_DIR_SCHEMAS='"$(SCHEMADIR)"'
 
 
 #Nome de todas os arquivos fontes com path e extensão (*.c)
@@ -86,11 +91,15 @@ install: libnfe
 	ln -sf $(REALNAME) $(DESTDIR)$(LIBDIR)/$(SONAME)
 	ln -sf $(SONAME) $(DESTDIR)$(LIBDIR)/$(LIBNAME)
 	install -m 644 $(INCLUDE)/libnfe/*.h $(DESTDIR)$(INCLUDEDIR)/libnfe/
+	install -d $(DESTDIR)$(SCHEMADIR)
+	install -m 644 $(SCHEMAS) $(DESTDIR)$(SCHEMADIR)/
 
 
 uninstall:
 	rm -fv $(DESTDIR)$(LIBDIR)/$(LIBNAME) $(DESTDIR)$(LIBDIR)/$(SONAME) $(DESTDIR)$(LIBDIR)/$(REALNAME)
 	rm -rfv $(DESTDIR)$(INCLUDEDIR)/libnfe
+	rm -rfv $(DESTDIR)$(SCHEMADIR)
+	-rmdir $(DESTDIR)$(PREFIX)/share/tooldoce 2>/dev/null
 
 
 #Testes: cada tests/test_*.c vira um executável em obj/, compilado junto com
