@@ -254,8 +254,8 @@ int xmlGenideNode(xmlTextWriterPtr writer,struct ide_s *ide)
     return -1;
   }
   
-  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "cUF","%02u", 
-                                               ide->cUF);
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "cUF","%02d", 
+                                               (int)ide->cUF);
   if (rc < 0) {
     printf("ide->cUF: Erro em xmlTextWriterWriteFormatElement\n");
     return -1;
@@ -282,21 +282,21 @@ int xmlGenideNode(xmlTextWriterPtr writer,struct ide_s *ide)
     return -1;
   }
   
-  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "mod","%02u", 
-                                               ide->mod);
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "mod","%02d", 
+                                               (int)ide->mod);
   if (rc < 0) {
     printf("ide->mod: Erro em xmlTextWriterWriteFormatElement\n");
     return -1;
   }
   
-  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "serie","%3u", 
-                                               ide->serie);
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "serie","%u", 
+                                               (unsigned)ide->serie);
   if (rc < 0) {
     printf("ide->serie: Erro em xmlTextWriterWriteFormatElement\n");
     return -1;
   }
 
-  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "nNF","%9" PRIu32, 
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "nNF","%" PRIu32, 
                                                ide->nNF);
   if (rc < 0) {
     printf("ide->nNF: Erro em xmlTextWriterWriteFormatElement\n");
@@ -320,15 +320,15 @@ int xmlGenideNode(xmlTextWriterPtr writer,struct ide_s *ide)
     }
   }
 
-  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "tpNF","%1u", 
-                                               ide->tpNF);
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "tpNF","%d", 
+                                               (int)ide->tpNF);
   if (rc < 0) {
     printf("ide->tpNF: Erro em xmlTextWriterWriteFormatElement\n");
     return -1;
   }
 
-  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "idDest","%1u", 
-                                               ide->idDest);
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "idDest","%d", 
+                                               (int)ide->idDest);
   if (rc < 0) {
     printf("ide->idDest: Erro em xmlTextWriterWriteFormatElement\n");
     return -1;
@@ -341,57 +341,57 @@ int xmlGenideNode(xmlTextWriterPtr writer,struct ide_s *ide)
     return -1;
   }
 
-  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "tpImp","%u", 
-                                               ide->tpImp);
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "tpImp","%d", 
+                                               (int)ide->tpImp);
   if (rc < 0) {
     printf("ide->tpImp: Erro em xmlTextWriterWriteFormatElement\n");
     return -1;
   }
 
-  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "tpEmis","%u", 
-                                               ide->tpEmis);
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "tpEmis","%d", 
+                                               (int)ide->tpEmis);
   if (rc < 0) {
     printf("ide->tpEmis: Erro em xmlTextWriterWriteFormatElement\n");
     return -1;
   }
 
   rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "cDV","%u", 
-                                               ide->cDV);
+                                               (unsigned)ide->cDV);
   if (rc < 0) {
     printf("ide->cDV: Erro em xmlTextWriterWriteFormatElement\n");
     return -1;
   }
 
-  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "tpAmb","%u", 
-                                               ide->tpAmb);
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "tpAmb","%d", 
+                                               (int)ide->tpAmb);
   if (rc < 0) {
     printf("ide->tpAmb: Erro em xmlTextWriterWriteFormatElement\n");
     return -1;
   }
 
-  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "finNFe","%u", 
-                                               ide->finNFe);
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "finNFe","%d", 
+                                               (int)ide->finNFe);
   if (rc < 0) {
     printf("ide->finNFe: Erro em xmlTextWriterWriteFormatElement\n");
     return -1;
   }
 
-  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "indFinal","%u", 
-                                               ide->indFinal);
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "indFinal","%d", 
+                                               (int)ide->indFinal);
   if (rc < 0) {
     printf("ide->indFinal: Erro em xmlTextWriterWriteFormatElement\n");
     return -1;
   }
 
-  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "indPres","%u", 
-                                               ide->indPres);
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "indPres","%d", 
+                                               (int)ide->indPres);
   if (rc < 0) {
     printf("ide->indPres: Erro em xmlTextWriterWriteFormatElement\n");
     return -1;
   }
 
-  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "procEmis","%u", 
-                                               ide->procEmis);
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "procEmis","%d", 
+                                               (int)ide->procEmis);
   if (rc < 0) {
     printf("ide->procEmis: Erro em xmlTextWriterWriteFormatElement\n");
     return -1;
