@@ -33,9 +33,9 @@ void RefNFeDel(struct refNFe_s *nf);
 /* Funções de acesso aos dados  */
 /* ref: chave de acesso com 44 dígitos; retorna 0, E_ISNULL ou E_TAMANHO */
 int RefNFeSetrefNFe(struct refNFe_s *nf, const char *ref);
-char *RefNFeGetrefNFe(struct refNFe_s *nf);
+const char *RefNFeGetrefNFe(const struct refNFe_s *nf);
 
 /* Funções para tratamento do xml  */
 
-int xmlGenRefNFeNode(xmlTextWriterPtr writer, struct refNFe_s *nf);
+int xmlGenRefNFeNode(xmlTextWriterPtr writer, const struct refNFe_s *nf);
 #endif

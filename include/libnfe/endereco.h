@@ -33,12 +33,12 @@ typedef struct endereco_s Endereco;
 Endereco *  NewEndereco(void);
 void DelEndereco(Endereco* t);
 
-char* GetLgr(Endereco* end);
-char* GetNro(Endereco* end);
-char* GetCpl(Endereco* end);
-char* GetBairro(Endereco* end);
-uint32_t GetCEP(Endereco * end);
-uint64_t GetFone(Endereco* end);
+const char* GetLgr(const Endereco* end);
+const char* GetNro(const Endereco* end);
+const char* GetCpl(const Endereco* end);
+const char* GetBairro(const Endereco* end);
+uint32_t GetCEP(const Endereco * end);
+uint64_t GetFone(const Endereco* end);
 Municipio* GetMunicipio(Endereco* end);
 
 int SetLgr(Endereco* end, const char* xlgr);

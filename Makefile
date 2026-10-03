@@ -10,7 +10,7 @@ endif
 
 # Flags do compilador
 # -MMD -MP gera arquivos .d para recompilar quando um header muda
-CFLAGS := -Werror -Wall -Wextra -std=c99 -g -fPIC -MMD -MP $(shell $(XML2_CONFIG) --cflags 2>/dev/null)
+CFLAGS := -Werror -Wall -Wextra -Wwrite-strings -std=c99 -g -fPIC -MMD -MP $(shell $(XML2_CONFIG) --cflags 2>/dev/null)
 
 
 # Flags para adicionar libs

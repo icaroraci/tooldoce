@@ -49,16 +49,21 @@ int RefNFeSetrefNFe(struct refNFe_s *nf, const char *ref)
                          NFE_TAM_CHAVE, NFE_TAM_CHAVE);
 }
 
-char *RefNFeGetrefNFe(struct refNFe_s *nf)
+const char *RefNFeGetrefNFe(const struct refNFe_s *nf)
 {
+  if (!nf)
+    return NULL;
   return nf->refNFe;
 }
 
 /* Escreve o elemento <refNFe>; o grupo <NFref> que o contém é aberto por
  * quem chama (nfe_ide_write_xml) */
-int xmlGenRefNFeNode(xmlTextWriterPtr writer, struct refNFe_s *nf)
+int xmlGenRefNFeNode(xmlTextWriterPtr writer, const struct refNFe_s *nf)
 {
   int rc;
+
+  if (!writer || !nf)
+    return E_ISNULL;
   rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "refNFe","%s", 
                                                nf->refNFe);
     if (rc < 0) {

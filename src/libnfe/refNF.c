@@ -62,8 +62,10 @@ int RefNFSetcUF(struct refNF_s *nf, nfe_uf uf)
   return 0;
 }
 
-char *RefNFGetcUF(struct refNF_s *nf)
+const char *RefNFGetcUF(const struct refNF_s *nf)
 {
+  if (!nf)
+    return NULL;
   return nf->cUF;
 }
 
@@ -79,8 +81,10 @@ int RefNFSetAAMM(struct refNF_s *nf, const int ano, nfe_mes mes)
   return 0;
 }
 
-char *RefNFGetAAMM(struct refNF_s *nf)
+const char *RefNFGetAAMM(const struct refNF_s *nf)
 {
+  if (!nf)
+    return NULL;
   return nf->AAMM;
 }
 
@@ -92,8 +96,10 @@ int RefNFSetCNPJ(struct refNF_s *nf, const char *cnpj)
                          NFE_TAM_CNPJ, NFE_TAM_CNPJ);
 }
 
-char *RefNFGetCNPJ(struct refNF_s *nf)
+const char *RefNFGetCNPJ(const struct refNF_s *nf)
 {
+  if (!nf)
+    return NULL;
   return nf->CNPJ;
 }
 
@@ -105,8 +111,10 @@ int RefNFSetmod(struct refNF_s *nf, const char *mod)
                          NFE_TAM_MOD, NFE_TAM_MOD);
 }
 
-char *RefNFGetmod(struct refNF_s *nf)
+const char *RefNFGetmod(const struct refNF_s *nf)
 {
+  if (!nf)
+    return NULL;
   return nf->mod;
 }
 
@@ -118,8 +126,10 @@ int RefNFSetSerie(struct refNF_s *nf, const char *serie)
                          1, NFE_TAM_SERIE);
 }
 
-char *RefNFGetSerie(struct refNF_s *nf)
+const char *RefNFGetSerie(const struct refNF_s *nf)
 {
+  if (!nf)
+    return NULL;
   return nf->serie;
 }
 
@@ -131,17 +141,22 @@ int RefNFSetnNF(struct refNF_s *nf, const char *nnf)
                          1, NFE_TAM_NNF);
 }
 
-char *RefNFGetnNF(struct refNF_s *nf)
+const char *RefNFGetnNF(const struct refNF_s *nf)
 {
+  if (!nf)
+    return NULL;
   return nf->nNF;
 }
 
 
 /* Escreve o grupo <refNF>; o grupo <NFref> que o contém é aberto por quem
  * chama (nfe_ide_write_xml) */
-int xmlGenRefNFNode(xmlTextWriterPtr writer, struct refNF_s *nf)
+int xmlGenRefNFNode(xmlTextWriterPtr writer, const struct refNF_s *nf)
 {
   int rc;
+
+  if (!writer || !nf)
+    return E_ISNULL;
   
   rc = xmlTextWriterStartElement(writer, BAD_CAST "refNF");
   if (rc < 0){

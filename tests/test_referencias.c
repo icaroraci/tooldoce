@@ -65,6 +65,12 @@ int main(void)
 	VERIFICA_INT(RefNFeSetrefNFe(nfe, CHAVE "0"), E_TAMANHO);
 	VERIFICA_STR(RefNFeGetrefNFe(nfe), CHAVE);
 
+	/* Objetos nulos */
+	VERIFICA(RefNFGetcUF(NULL) == NULL);
+	VERIFICA(RefNFeGetrefNFe(NULL) == NULL);
+	VERIFICA_INT(xmlGenRefNFNode(NULL, nf), E_ISNULL);
+	VERIFICA_INT(xmlGenRefNFeNode(NULL, nfe), E_ISNULL);
+
 	RefNFDel(nf);
 	RefNFeDel(nfe);
 	TESTE_FIM();

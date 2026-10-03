@@ -193,7 +193,7 @@ void DelEndereco(Endereco* t){
 	}
 }
 
-uint32_t GetCEP(Endereco * end){
+uint32_t GetCEP(const Endereco * end){
 	int rc;
 	rc = nfe_ptrnull(end);
 	if (rc == 0){
@@ -226,7 +226,7 @@ int SetFone(Endereco* end, uint64_t fone){
 	}
 }
 
-uint64_t GetFone(Endereco* end){
+uint64_t GetFone(const Endereco* end){
 	int rc;
 	rc = nfe_ptrnull(end);
 	if (rc == 0){
@@ -236,28 +236,28 @@ uint64_t GetFone(Endereco* end){
 	}
 }
 
-char* GetLgr(Endereco* end){
+const char* GetLgr(const Endereco* end){
 	if(nfe_ptrnull(end) != 0){
 		return NULL;
 	}
 	return end->xLgr;
 }
 
-char* GetNro(Endereco* end){
+const char* GetNro(const Endereco* end){
 	if(nfe_ptrnull(end) != 0){
 		return NULL;
 	}
 	return end->nro;
 }
 
-char* GetCpl(Endereco* end){
+const char* GetCpl(const Endereco* end){
 	if(nfe_ptrnull(end) != 0){
 		return NULL;
 	}
 	return end->Cpl;
 }
 
-char* GetBairro(Endereco* end){
+const char* GetBairro(const Endereco* end){
 	if(nfe_ptrnull(end) != 0){
 		return NULL;
 	}
