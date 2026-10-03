@@ -26,7 +26,7 @@ SOURCE = ./src/libnfe
 
 
 #Objetos compilados para Library
-LOBJ = ./OBJ
+LOBJ = ./obj
 
 
 #Path da lib
@@ -37,7 +37,7 @@ LIB = ./lib
 C_SOURCE = $(wildcard $(SOURCE)/*.c)
 
 
-#Objetos com path ./OBJ/ e extensão (*.o)
+#Objetos com path ./obj/ e extensão (*.o)
 OBJ = $(addprefix $(LOBJ)/,$(notdir $(C_SOURCE:.c=.o)))
 
 

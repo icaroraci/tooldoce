@@ -23,6 +23,6 @@ Ferramenta para emissão de documentos eletrônicos
 
     $ make
 
-A biblioteca é gerada em `lib/` e os objetos intermediários em `OBJ/`. Para limpar, use `make clean`.
+A biblioteca é gerada em `lib/` e os objetos intermediários em `obj/`. Para limpar, use `make clean`.
 
 Se o `xml2-config` estiver fora do `PATH`, informe o caminho: `make XML2_CONFIG=/caminho/para/xml2-config`.
