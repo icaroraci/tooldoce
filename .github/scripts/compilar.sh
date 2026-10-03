@@ -97,7 +97,7 @@ fi
 
 # A biblioteca não pode imprimir nada (docs/CONVENCOES.md): falha se ela
 # usar funções de saída da libc
-impressao=$(nm -D --undefined-only lib/libnfe.so.0.0 |
+impressao=$(nm -D --undefined-only lib/libnfe.so |
 	awk '{print $NF}' | sed 's/@.*//' |
 	grep -E '^(printf|fprintf|vprintf|vfprintf|puts|fputs|putchar|perror|fwrite|__printf_chk|__fprintf_chk)$')
 if [ -n "$impressao" ]; then

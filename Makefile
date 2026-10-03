@@ -42,10 +42,17 @@ LOBJ = ./obj
 LIB = ./lib
 
 
-#Nomes da biblioteca compartilhada
+#Versão da biblioteca, lida de include/libnfe/versao.h
+versao = $(shell sed -n 's/^\#define NFE_VERSAO_$(1) *\([0-9]*\).*/\1/p' $(INCLUDE)/libnfe/versao.h)
+VERSAO_MAIOR   := $(call versao,MAIOR)
+VERSAO_MENOR   := $(call versao,MENOR)
+VERSAO_REVISAO := $(call versao,REVISAO)
+
+
+#Nomes da biblioteca compartilhada (o SONAME muda com a versão maior)
 LIBNAME  = libnfe.so
-SONAME   = $(LIBNAME).0
-REALNAME = $(LIBNAME).0.0
+SONAME   = $(LIBNAME).$(VERSAO_MAIOR)
+REALNAME = $(SONAME).$(VERSAO_MENOR).$(VERSAO_REVISAO)
 
 
 #Destino do `make install` (DESTDIR permite instalar em diretório temporário)
@@ -76,7 +83,7 @@ libnfe: $(LIB)/$(REALNAME) $(LIB)/$(SONAME) $(LIB)/$(LIBNAME)
 $(LIB)/$(REALNAME): $(OBJ) | $(LIB)
 	$(CC) -shared -Wl,-soname,$(SONAME) $^ -o $@ $(LIBS)
 
-#Links simbólicos: libnfe.so -> libnfe.so.0 -> libnfe.so.0.0
+#Links simbólicos: libnfe.so -> libnfe.so.1 -> libnfe.so.1.0.0
 $(LIB)/$(SONAME): $(LIB)/$(REALNAME)
 	ln -sf $(REALNAME) $@
 

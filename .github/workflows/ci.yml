@@ -67,10 +67,10 @@ jobs:
         run: |
           destino="$RUNNER_TEMP/destino"
           make install DESTDIR="$destino" PREFIX=/usr C_SOURCE="$(ls obj/*.o | sed 's|^obj/|src/libnfe/|; s|\.o$|.c|')"
-          test -f "$destino/usr/lib/libnfe.so.0.0"
-          test -L "$destino/usr/lib/libnfe.so.0"
+          test -f "$destino/usr/lib/libnfe.so.1.0.0"
+          test -L "$destino/usr/lib/libnfe.so.1"
           test -L "$destino/usr/lib/libnfe.so"
           test -f "$destino/usr/include/libnfe/nfe.h"
-          readelf -d "$destino/usr/lib/libnfe.so.0.0" | grep -q 'SONAME.*libnfe\.so\.0'
+          readelf -d "$destino/usr/lib/libnfe.so.1.0.0" | grep -q 'SONAME.*libnfe\.so\.1'
           make uninstall DESTDIR="$destino" PREFIX=/usr
           test -z "$(find "$destino" -type f -o -type l)"

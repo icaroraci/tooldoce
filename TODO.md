@@ -183,7 +183,7 @@ Marque `[x]` quando a estrutura tiver: criação/liberação, setters com valida
 - [x] Chave de acesso e dígito verificador (#54)
 - [x] CNPJ alfanumérico (#66)
 - [x] Assinatura digital XMLDSig (#56)
-- [ ] Transmissão aos webservices da SEFAZ e tratamento do retorno (#57)
+- [x] Transmissão aos webservices da SEFAZ e tratamento do retorno (#57)
 - [x] Atualizar os schemas para a Reforma Tributária (PL_010f, com IBS/CBS/IS)
 - [ ] NFC-e, NFS-e, CT-e, MDF-e (ver `docs/VISAO.md`)
 - [x] Troca da licença para LGPL (#59)
