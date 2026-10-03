@@ -126,7 +126,7 @@ CFLAGS_TESTE = $(filter-out -MMD -MP,$(CFLAGS)) $(SANITIZE)
 test: $(TESTES)
 	@for t in $(TESTES); do echo "== $$t"; $$t tests || exit 1; done
 
-$(LOBJ)/test_%: tests/test_%.c $(wildcard tests/*.h) $(C_SOURCE) $(wildcard $(INCLUDE)/libnfe/*.h) | $(LOBJ)
+$(LOBJ)/test_%: tests/test_%.c $(wildcard tests/*.h) $(C_SOURCE) $(wildcard $(INCLUDE)/libnfe/*.h) $(SOURCE)/enderecos_dados.h | $(LOBJ)
 	$(CC) $(CFLAGS_TESTE) -I$(INCLUDE) $< $(C_SOURCE) -o $@ $(LIBS)
 
 
