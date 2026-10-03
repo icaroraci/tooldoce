@@ -61,6 +61,7 @@ jobs:
           ./obj/gerar_ide > /dev/null
           ./obj/gerar_nfe > /dev/null
           ./obj/assinar_nfe tests/certificados/teste.pfx teste > /dev/null
+          ./obj/nfe_ibscbs tests/certificados/teste.pfx teste > /dev/null
 
       - name: Instalação
         run: |

@@ -479,19 +479,6 @@ static int chave_valida(const char *chave)
 	               : E_VALOR;
 }
 
-static int uf_valida(nfe_uf uf)
-{
-	static const int codigos[] = { 11, 12, 13, 14, 15, 16, 17, 21, 22,
-		                       23, 24, 25, 26, 27, 28, 29, 31, 32,
-		                       33, 35, 41, 42, 43, 50, 51, 52, 53 };
-	size_t i;
-
-	for (i = 0; i < sizeof codigos / sizeof codigos[0]; i++)
-		if ((int)uf == codigos[i])
-			return 1;
-	return 0;
-}
-
 static int amb_valido(nfe_ambiente amb)
 {
 	return amb == NFE_AMBIENTE_PRODUCAO || amb == NFE_AMBIENTE_HOMOLOGACAO;
@@ -516,7 +503,7 @@ int nfe_sefaz_msg_status(nfe_ambiente amb, nfe_uf uf, char **msg)
 
 	if (!msg)
 		return E_ISNULL;
-	if (!amb_valido(amb) || !uf_valida(uf))
+	if (!amb_valido(amb) || nfe_uf_valida((int)uf) != 0)
 		return E_VALOR;
 	snprintf(cuf, sizeof cuf, "%02d", (int)uf);
 	return msg_simples(msg,
@@ -643,13 +630,24 @@ int nfe_sefaz_cstat(const char *ret, size_t tam, int *cstat, char *xmotivo,
 			c = texto(raiz, "cStat");
 		}
 	}
-	if (!so_digitos(c, 3, 3)) {
+	if (!so_digitos(c, 3, 4)) { /* TStat: 3 ou 4 dígitos */
 		xmlFreeDoc(doc);
 		return E_XML;
 	}
 	*cstat = atoi(c);
-	if (xmotivo && tam_xmotivo > 0)
-		snprintf(xmotivo, tam_xmotivo, "%s", texto(raiz, "xMotivo"));
+	if (xmotivo && tam_xmotivo > 0) {
+		const char *m = texto(raiz, "xMotivo");
+		size_t n = strlen(m);
+
+		/* Truncado sem cortar um caractere UTF-8 ao meio */
+		if (n >= tam_xmotivo) {
+			n = tam_xmotivo - 1;
+			while (n > 0 && ((unsigned char)m[n] & 0xC0) == 0x80)
+				n--;
+		}
+		memcpy(xmotivo, m, n);
+		xmotivo[n] = '\0';
+	}
 	xmlFreeDoc(doc);
 	return 0;
 }
@@ -805,5 +803,72 @@ int nfe_sefaz_proc_evento(const char *evento, size_t tam_evento,
 	poe_n(&b, ret_ev, tam_ret_ev);
 	poe(&b, "</procEventoNFe>");
 	free(ret_ev);
+	return entrega(&b, proc, tam_proc);
+}
+
+/* retInutNFe em no ou nos descendentes */
+static xmlNodePtr acha_ret_inut(xmlNodePtr no)
+{
+	xmlNodePtr f, achado;
+
+	for (f = no; f; f = f->next) {
+		if (f->type != XML_ELEMENT_NODE)
+			continue;
+		if (xmlStrEqual(f->name, BAD_CAST "retInutNFe"))
+			return f;
+		achado = acha_ret_inut(f->children);
+		if (achado)
+			return achado;
+	}
+	return NULL;
+}
+
+int nfe_sefaz_proc_inutilizacao(const char *inut, size_t tam_inut,
+                                const char *ret, size_t tam_ret, char **proc,
+                                size_t *tam_proc)
+{
+	static const char *const campos[] = { "cUF",   "ano",    "CNPJ",  "mod",
+		                              "serie", "nNFIni", "nNFFin" };
+	struct buf b = { 0 };
+	const char *in, *v;
+	xmlDocPtr doc_in, doc_ret;
+	xmlNodePtr inf, r;
+	char *ret_inut = NULL;
+	size_t tam_ret_inut = 0, i;
+	int rc;
+
+	if (!inut || !ret || !proc)
+		return E_ISNULL;
+	in = pula_declaracao(inut, &tam_inut);
+	if (!comeca_com(in, tam_inut, "inutNFe"))
+		return E_XML;
+	doc_in = le_xml(in, tam_inut);
+	inf = doc_in ? filho(xmlDocGetRootElement(doc_in), "infInut") : NULL;
+	doc_ret = le_xml(ret, tam_ret);
+	if (!inf || !doc_ret) {
+		xmlFreeDoc(doc_in);
+		xmlFreeDoc(doc_ret);
+		return E_XML;
+	}
+	r = acha_ret_inut(xmlDocGetRootElement(doc_ret));
+	rc = r ? 0 : E_VALOR;
+	/* O retorno tem de ser da mesma faixa (os campos que ele trouxer) */
+	for (i = 0; rc == 0 && i < sizeof campos / sizeof campos[0]; i++) {
+		v = texto(filho(r, "infInut"), campos[i]);
+		if (*v && strcmp(v, texto(inf, campos[i])) != 0)
+			rc = E_VALOR;
+	}
+	if (rc == 0)
+		rc = serializa(r, &ret_inut, &tam_ret_inut);
+	xmlFreeDoc(doc_in);
+	xmlFreeDoc(doc_ret);
+	if (rc != 0)
+		return rc;
+	poe(&b, "<?xml version=\"1.0\" encoding=\"UTF-8\"?><ProcInutNFe "
+	        "xmlns=\"" NS_NFE "\" versao=\"4.00\">");
+	poe_n(&b, in, tam_inut);
+	poe_n(&b, ret_inut, tam_ret_inut);
+	poe(&b, "</ProcInutNFe>");
+	free(ret_inut);
 	return entrega(&b, proc, tam_proc);
 }

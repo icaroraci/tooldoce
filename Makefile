@@ -114,7 +114,13 @@ uninstall:
 #Testes: cada tests/test_*.c vira um executável em obj/, compilado junto com
 #os fontes da biblioteca e com sanitizers (desative com SANITIZE=)
 TESTES = $(addprefix $(LOBJ)/,$(basename $(notdir $(wildcard tests/test_*.c))))
-SANITIZE ?= -fsanitize=address,undefined -fno-omit-frame-pointer
+# O AddressSanitizer de compiladores mais antigos (ex.: GCC 12.2 do Debian 12)
+# entra em laço ("AddressSanitizer:DEADLYSIGNAL") em kernels com
+# vm.mmap_rnd_bits acima de 28, comum na WSL2; sem PIE os testes funcionam
+# (#254). Ao trocar SANITIZE, recompile os testes com make -B test.
+MMAP_RND_BITS := $(shell cat /proc/sys/vm/mmap_rnd_bits 2>/dev/null)
+SANITIZE_PIE := $(shell test "$(MMAP_RND_BITS)" -gt 28 2>/dev/null && echo "-fno-pie -no-pie")
+SANITIZE ?= -fsanitize=address,undefined -fno-omit-frame-pointer $(SANITIZE_PIE)
 CFLAGS_TESTE = $(filter-out -MMD -MP,$(CFLAGS)) $(SANITIZE)
 
 test: $(TESTES)

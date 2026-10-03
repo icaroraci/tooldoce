@@ -16,7 +16,7 @@ Biblioteca livre em C para emissão de documentos fiscais eletrônicos brasileir
 | Comunicação com a SEFAZ: status, envio do lote, consultas e nfeProc (`sefaz.h`) | Pronto, testado com um servidor falso; falta testar na homologação da SEFAZ |
 | Eventos: cancelamento, cancelamento por substituição e carta de correção (`evento.h`) | Prontos; validados contra os schemas oficiais |
 | Tabela de endereços por UF e ambiente (NF-e 55, emissão normal e SVC) | Pronta; ver [endereços e atualização](docs/WEBSERVICES.md) |
-| Inutilização (montagem da mensagem) | A fazer |
+| Inutilização de numeração (`inutilizacao.h`) | Pronta; validada contra o schema oficial |
 | Certificado A3 (token/cartão) | A fazer |
 | NFS-e, CT-e, MDF-e | Planejados (ver [visão do projeto](docs/VISAO.md)) |
 
@@ -57,7 +57,9 @@ Os setters validam cada valor contra o leiaute e retornam um código de erro (`e
 
     ./obj/status_sefaz empresa.pfx senha <endereço do NFeStatusServico4 da UF> 35
 
-A resposta esperada é `cStat 107: Servico em Operacao`.
+A resposta esperada é `cStat 107: Servico em Operacao`. Se a conexão falhar com "unable to get local issuer certificate", falta a autoridade certificadora da ICP-Brasil usada pelo servidor: veja [`docs/TLS.md`](docs/TLS.md).
+
+[`examples/nfe_ibscbs.c`](examples/nfe_ibscbs.c) monta uma NF-e de regime normal com os tributos da Reforma Tributária (IBS e CBS) no item e nos totais, exigidos pela SEFAZ desde 2026 (sem eles, a nota é rejeitada com o código 1115). `nfe_nfe_calcular_totais` soma os itens só no ICMSTot; o IBSCBSTot é preenchido por quem usa a biblioteca, como no exemplo.
 
 Para conferir a nota antes de assinar e transmitir, `validar.h` valida o XML contra os schemas oficiais, que `make install` instala em `$(PREFIX)/share/tooldoce/schemas`, e confere também regras da SEFAZ que o schema não cobre (chave de acesso coerente com os campos, totais iguais à soma dos itens, regras da NFC-e), devolvendo a lista de erros com o campo, a linha e, quando houver, o código de rejeição da SEFAZ.
 
@@ -99,7 +101,7 @@ Instala a biblioteca em `/usr/local/lib` e os headers em `/usr/local/include/lib
 
     $ make test
 
-Compila e executa os testes de `tests/` com AddressSanitizer e UBSan (desative com `make test SANITIZE=`). O XML gerado é validado contra os schemas oficiais da NF-e em `tests/schemas/`. Com clang, é necessário o runtime dos sanitizers (no Debian/Ubuntu, `libclang-rt-dev`).
+Compila e executa os testes de `tests/` com AddressSanitizer e UBSan (desative com `make test SANITIZE=`). O XML gerado é validado contra os schemas oficiais da NF-e em `tests/schemas/`. Com clang, é necessário o runtime dos sanitizers (no Debian/Ubuntu, `libclang-rt-dev`). Em kernels com `vm.mmap_rnd_bits` acima de 28 (comum na WSL2), o AddressSanitizer de compiladores mais antigos, como o GCC 12 do Debian 12, entra em laço (`AddressSanitizer:DEADLYSIGNAL`); nesse caso o Makefile compila os testes sem PIE (`-fno-pie -no-pie`), o que resolve. Depois de trocar `SANITIZE`, recompile com `make -B test`.
 
 ## Documentação e contribuição
 
