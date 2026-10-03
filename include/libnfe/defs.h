@@ -62,30 +62,40 @@
 #define NFE_TAM_QVOL      15 /* qVol: quantidade de volumes */
 
 /* Campos de texto livre (UTF-8) */
-#define NFE_TAM_XNOME     60  /* xNome: razão social ou nome (2 a 60) */
-#define NFE_TAM_XFANT     60  /* xFant: nome fantasia (1 a 60) */
-#define NFE_TAM_NATOP     60  /* natOp: natureza da operação (1 a 60) */
-#define NFE_TAM_VERPROC   20  /* verProc: versão do emissor (1 a 20) */
-#define NFE_TAM_XJUST     256 /* xJust: justificativa (15 a 256) */
-#define NFE_TAM_XLGR      60  /* xLgr: logradouro (2 a 60) */
-#define NFE_TAM_NRO       60  /* nro: número (1 a 60) */
-#define NFE_TAM_XCPL      60  /* xCpl: complemento (1 a 60) */
-#define NFE_TAM_XBAIRRO   60  /* xBairro: bairro (2 a 60) */
-#define NFE_TAM_XMUN      60  /* xMun: nome do município (2 a 60) */
-#define NFE_TAM_XPAIS     60  /* xPais: nome do país (2 a 60) */
-#define NFE_TAM_IM        15  /* IM: inscrição municipal (1 a 15) */
-#define NFE_TAM_EMAIL     60  /* email (1 a 60) */
-#define NFE_TAM_CPROD     60  /* cProd: código do produto (1 a 60) */
-#define NFE_TAM_CBARRA    30 /* cBarra/cBarraTrib: código de barras (3 a 30) */
-#define NFE_TAM_XPROD     120 /* xProd: descrição do produto (1 a 120) */
-#define NFE_TAM_CBENEF    10  /* cBenef: benefício fiscal (8 ou 10) */
-#define NFE_TAM_UNIDADE   6   /* uCom/uTrib: unidade (1 a 6) */
-#define NFE_TAM_XPED      15  /* xPed: número do pedido (1 a 15) */
-#define NFE_TAM_INFADPROD 500 /* infAdProd: informações adicionais do item */
-#define NFE_TAM_XPAG      60  /* xPag: descrição do meio de pagamento */
-#define NFE_TAM_CAUT      128 /* cAut: autorização do cartão */
-#define NFE_TAM_IDTERMPAG 40  /* idTermPag: terminal de pagamento */
-#define NFE_TAM_XENDER    60  /* xEnder: endereço completo (1 a 60) */
-#define NFE_TAM_VOL       60  /* esp, marca, nVol do volume (1 a 60) */
+#define NFE_TAM_XNOME      60  /* xNome: razão social ou nome (2 a 60) */
+#define NFE_TAM_XFANT      60  /* xFant: nome fantasia (1 a 60) */
+#define NFE_TAM_NATOP      60  /* natOp: natureza da operação (1 a 60) */
+#define NFE_TAM_VERPROC    20  /* verProc: versão do emissor (1 a 20) */
+#define NFE_TAM_XJUST      256 /* xJust: justificativa (15 a 256) */
+#define NFE_TAM_XLGR       60  /* xLgr: logradouro (2 a 60) */
+#define NFE_TAM_NRO        60  /* nro: número (1 a 60) */
+#define NFE_TAM_XCPL       60  /* xCpl: complemento (1 a 60) */
+#define NFE_TAM_XBAIRRO    60  /* xBairro: bairro (2 a 60) */
+#define NFE_TAM_XMUN       60  /* xMun: nome do município (2 a 60) */
+#define NFE_TAM_XPAIS      60  /* xPais: nome do país (2 a 60) */
+#define NFE_TAM_IM         15  /* IM: inscrição municipal (1 a 15) */
+#define NFE_TAM_EMAIL      60  /* email (1 a 60) */
+#define NFE_TAM_CPROD      60  /* cProd: código do produto (1 a 60) */
+#define NFE_TAM_CBARRA     30 /* cBarra/cBarraTrib: código de barras (3 a 30) */
+#define NFE_TAM_XPROD      120 /* xProd: descrição do produto (1 a 120) */
+#define NFE_TAM_CBENEF     10  /* cBenef: benefício fiscal (8 ou 10) */
+#define NFE_TAM_UNIDADE    6   /* uCom/uTrib: unidade (1 a 6) */
+#define NFE_TAM_XPED       15  /* xPed: número do pedido (1 a 15) */
+#define NFE_TAM_INFADPROD  500 /* infAdProd: informações adicionais do item */
+#define NFE_TAM_XPAG       60  /* xPag: descrição do meio de pagamento */
+#define NFE_TAM_CAUT       128 /* cAut: autorização do cartão */
+#define NFE_TAM_IDTERMPAG  40  /* idTermPag: terminal de pagamento */
+#define NFE_TAM_XENDER     60  /* xEnder: endereço completo (1 a 60) */
+#define NFE_TAM_VOL        60  /* esp, marca, nVol do volume (1 a 60) */
+#define NFE_TAM_INFADFISCO 2000 /* infAdFisco: informações ao fisco */
+#define NFE_TAM_INFCPL     5000 /* infCpl: informações complementares */
+#define NFE_TAM_XCAMPO     20   /* xCampo das observações (1 a 20) */
+#define NFE_TAM_XTEXTO     60   /* xTexto das observações (1 a 60) */
+#define NFE_TAM_NPROC      60   /* nProc: número do processo (1 a 60) */
+#define NFE_TAM_NFAT                                                           \
+	60                  /* nFat / nDup: número da fatura e da             \
+	                       duplicata (1 a 60) */
+#define NFE_TAM_XCONTATO 60 /* xContato do responsável técnico */
+#define NFE_TAM_IDCADINT 60 /* idCadIntTran do intermediador */
 
 #endif
