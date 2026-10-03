@@ -13,10 +13,10 @@ Biblioteca livre em C para emissão de documentos fiscais eletrônicos brasileir
 | Chave de acesso, totais automáticos (`nfe_nfe_calcular_totais`) | Prontos |
 | Validação contra o schema e regras da SEFAZ (`validar.h`) | Pronto |
 | Assinatura digital com certificado A1 (`assinatura.h`) | Pronto |
-| Comunicação com a SEFAZ: status, envio do lote, consultas e nfeProc (`sefaz.h`) | Pronto, testado com um servidor falso; falta testar na homologação da SEFAZ |
-| Eventos: cancelamento, cancelamento por substituição e carta de correção (`evento.h`) | Prontos; validados contra os schemas oficiais |
+| Comunicação com a SEFAZ: status, envio do lote, consultas e nfeProc (`sefaz.h`) | Pronto; testado na homologação da SEFAZ (ver [resultados](docs/HOMOLOGACAO.md)) |
+| Eventos: cancelamento, cancelamento por substituição e carta de correção (`evento.h`) | Prontos; validados contra os schemas oficiais; cancelamento e carta de correção testados na homologação |
 | Tabela de endereços por UF e ambiente (NF-e 55, emissão normal e SVC) | Pronta; ver [endereços e atualização](docs/WEBSERVICES.md) |
-| Inutilização de numeração (`inutilizacao.h`) | Pronta; validada contra o schema oficial |
+| Inutilização de numeração (`inutilizacao.h`) | Pronta; validada contra o schema oficial e testada na homologação |
 | Certificado A3 (token/cartão) | A fazer |
 | NFS-e, CT-e, MDF-e | Planejados (ver [visão do projeto](docs/VISAO.md)) |
 
