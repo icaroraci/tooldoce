@@ -47,8 +47,9 @@
  *   nfe_sefaz_free(s);
  *
  * Os endereços (url) de cada webservice, por UF e ambiente, são publicados
- * no Portal Nacional da NF-e (Relação de Serviços Web) e são informados por
- * quem usa a biblioteca.
+ * no Portal Nacional da NF-e (Relação de Serviços Web). Para NF-e modelo
+ * 55, nfe_sefaz_endereco consulta a tabela local por UF, ambiente e emissão.
+ * Também é possível informar uma URL manualmente.
  *
  * Fluxo da emissão: monte a nota (nfe_nfe.h), assine (assinatura.h), envie
  * o lote com nfe_sefaz_msg_lote ao serviço de autorização e, se a SEFAZ
@@ -74,6 +75,17 @@ typedef enum nfe_servico {
 	NFE_SERVICO_EVENTO,          /* NFeRecepcaoEvento4 */
 	NFE_SERVICO_INUTILIZACAO     /* NFeInutilizacao4 */
 } nfe_servico;
+
+/* Endereço de um serviço da NF-e modelo 55, sem acesso à rede. Aceita
+ * emissão normal ou contingência SVC-AN/SVC-RS compatível com a UF no
+ * ambiente escolhido. Não seleciona contingência automaticamente, nem
+ * verifica se ela está ativada. Não usar para NFC-e (modelo 65).
+ * Em sucesso, *url recebe texto estático (não libere nem altere).
+ * Retorna 0, E_ISNULL (url nulo) ou E_VALOR (parâmetro inválido,
+ * contingência incompatível ou serviço ausente na tabela). Em falha,
+ * *url permanece inalterado. Fontes e atualização: docs/WEBSERVICES.md. */
+int nfe_sefaz_endereco(nfe_uf uf, nfe_ambiente amb, nfe_emissao emissao,
+                       nfe_servico servico, const char **url);
 
 /* Cria a conexão com o certificado do emitente (que deve continuar
  * existindo enquanto a conexão for usada). Retorna NULL se cert for NULL

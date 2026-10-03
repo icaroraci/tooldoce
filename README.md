@@ -15,7 +15,8 @@ Biblioteca livre em C para emissão de documentos fiscais eletrônicos brasileir
 | Assinatura digital com certificado A1 (`assinatura.h`) | Pronto |
 | Comunicação com a SEFAZ: status, envio do lote, consultas e nfeProc (`sefaz.h`) | Pronto, testado com um servidor falso; falta testar na homologação da SEFAZ |
 | Eventos: cancelamento, cancelamento por substituição e carta de correção (`evento.h`) | Prontos; validados contra os schemas oficiais |
-| Inutilização, tabela de endereços por UF | A fazer |
+| Tabela de endereços por UF e ambiente (NF-e 55, emissão normal e SVC) | Pronta; ver [endereços e atualização](docs/WEBSERVICES.md) |
+| Inutilização (montagem da mensagem) | A fazer |
 | Certificado A3 (token/cartão) | A fazer |
 | NFS-e, CT-e, MDF-e | Planejados (ver [visão do projeto](docs/VISAO.md)) |
 
@@ -52,7 +53,7 @@ Os setters validam cada valor contra o leiaute e retornam um código de erro (`e
 
 `assinar_nfe` monta a mesma NFC-e e a assina com o certificado A1 indicado (arquivo .pfx e senha). O de `tests/certificados` é só de teste; para conferir com o seu certificado, rode o exemplo na sua máquina e valide a nota num validador de assinatura de NF-e. Nunca coloque um certificado real no repositório.
 
-`sefaz.h` conversa com os webservices da SEFAZ (SOAP sobre HTTPS, com o certificado A1): monta as mensagens (status do serviço, lote de notas, consulta do recibo e da nota), envia, lê o retorno (cStat, protocolo) e junta a nota autorizada ao protocolo (nfeProc). Para um primeiro teste com o seu certificado, em homologação:
+`sefaz.h` conversa com os webservices da SEFAZ (SOAP sobre HTTPS, com o certificado A1): monta as mensagens (status do serviço, lote de notas, consulta do recibo e da nota), envia, lê o retorno (cStat, protocolo) e junta a nota autorizada ao protocolo (nfeProc). Para consultar os endereços da NF-e modelo 55 por UF, ambiente e tipo de emissão, use `nfe_sefaz_endereco` (ver [fontes, exemplo e atualização](docs/WEBSERVICES.md)). A URL explícita continua disponível. Para um primeiro teste com o seu certificado, em homologação:
 
     ./obj/status_sefaz empresa.pfx senha <endereço do NFeStatusServico4 da UF> 35
 
