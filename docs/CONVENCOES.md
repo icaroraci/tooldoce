@@ -47,6 +47,13 @@ int      nfe_ide_write_xml(xmlTextWriterPtr writer, const nfe_ide *ide);
 - Para cada campo há uma macro `NFE_TAM_<CAMPO>` em `defs.h` com o limite em caracteres. O buffer usa `NFE_TAM_UTF8(n)` para texto livre e `NFE_TAM_ASCII(n)` para campos só com dígitos ou ASCII.
 - Cópias de texto sempre com limite de tamanho, nunca `strcpy`/`strcat`.
 
+## Validação
+
+- As regras de cada campo vêm do XSD oficial. `include/libnfe/padroes.h` é gerado por `tools/gerar_padroes.py` a partir dos tipos nomeados do XSD: `NFE_PADRAO_<tipo>` (expressão regular), `NFE_TAM_MIN_<tipo>`/`NFE_TAM_MAX_<tipo>` e `NFE_VALORES_<tipo>` (valores aceitos). Não edite à mão; o CI confere se está atualizado.
+- Use as funções de `valida.h` em vez de reescrever validações: `nfe_valida_padrao` (expressão regular na sintaxe do XML Schema, a mesma do leiaute), `nfe_valida_lista` (valores enumerados), `nfe_valida_texto` (campos `TString`: tamanho em caracteres e faixa de caracteres) e as versões que já copiam o valor (`nfe_copia_padrao`, `nfe_copia_texto_validado`).
+- Padrões de campos sem tipo nomeado (definidos dentro do próprio elemento no XSD) são escritos no código copiando o `xs:pattern` do leiaute, sem adaptar.
+- Valores decimais (`TDec_*`) são recebidos e guardados como texto já no formato do XML (ponto como separador, casas decimais exigidas pelo tipo).
+
 ## Headers
 
 - Headers públicos em `include/libnfe/`, incluídos como `<libnfe/arquivo.h>`.
