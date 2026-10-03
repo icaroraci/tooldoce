@@ -39,6 +39,7 @@
 
 #include "teste.h"
 #include "nota_teste.h"
+#include "teste_xml.h"
 
 /* Inicia o servidor falso; devolve o pid e a porta em *porta (0 se não
  * foi possível) */
@@ -80,7 +81,7 @@ static int contem(const char *s, const char *trecho)
 	return s && strstr(s, trecho) != NULL;
 }
 
-static void testa_mensagens(void)
+static void testa_mensagens(const char *dir)
 {
 	char *msg = NULL;
 	const char *um[1];
@@ -108,6 +109,9 @@ static void testa_mensagens(void)
 	VERIFICA_STR(msg, "<consReciNFe xmlns=\"http://www.portalfiscal.inf."
 	                  "br/nfe\" versao=\"4.00\"><tpAmb>1</tpAmb><nRec>"
 	                  "351000000000001</nRec></consReciNFe>");
+	VERIFICA_INT(
+	        teste_valida_xsd(dir, "nfe/tipos_v4.00.xsd", msg, strlen(msg)),
+	        0);
 	free(msg);
 	VERIFICA_INT(nfe_sefaz_msg_recibo(NFE_AMBIENTE_PRODUCAO, "3510", &msg),
 	             E_VALOR);
@@ -119,6 +123,9 @@ static void testa_mensagens(void)
 	             0);
 	VERIFICA(contem(msg, "<xServ>CONSULTAR</xServ><chNFe>352610123456780"
 	                     "00195650010000000011123456784</chNFe>"));
+	VERIFICA_INT(teste_valida_xsd(dir, "nfe/consSitNFe_v4.00.xsd", msg,
+	                              strlen(msg)),
+	             0);
 	free(msg);
 	/* CNPJ alfanumérico na chave */
 	{
@@ -202,7 +209,7 @@ int main(int argc, char **argv)
 		fprintf(stderr, "uso: %s <diretório tests>\n", argv[0]);
 		return 2;
 	}
-	testa_mensagens();
+	testa_mensagens(argv[1]);
 	testa_retorno();
 
 	snprintf(pfx, sizeof pfx, "%s/certificados/teste.pfx", argv[1]);
@@ -273,6 +280,9 @@ int main(int argc, char **argv)
 		free(msg);
 		lote[0] = xml;
 		VERIFICA_INT(nfe_sefaz_msg_lote("1", 1, lote, 1, &msg), 0);
+		VERIFICA_INT(teste_valida_xsd(argv[1], "nfe/tipos_v4.00.xsd",
+		                              msg, strlen(msg)),
+		             0);
 		rc = nfe_sefaz_enviar(s, url, NFE_SERVICO_AUTORIZACAO, msg,
 		                      &ret, &tam_ret);
 		VERIFICA_INT(rc, 0);
@@ -281,8 +291,13 @@ int main(int argc, char **argv)
 		VERIFICA_INT(nfe_sefaz_protocolo(ret, tam_ret, chave, &prot,
 		                                 &tam_prot),
 		             0);
+		/* cStat da nota, dentro de infProt */
 		VERIFICA_INT(nfe_sefaz_cstat(prot, tam_prot, &cstat, NULL, 0),
-		             E_XML); /* o cStat da nota fica em infProt */
+		             0);
+		VERIFICA_INT(cstat, 100);
+		VERIFICA_INT(teste_valida_xsd(argv[1], "nfe/tipos_v4.00.xsd",
+		                              prot, tam_prot),
+		             0);
 		VERIFICA(contem(prot, "<n:chNFe>"));
 		VERIFICA_INT(
 		        nfe_sefaz_protocolo(ret, tam_ret, "123", &proc, NULL),
@@ -291,6 +306,9 @@ int main(int argc, char **argv)
 		/* nfeProc: nota sem alterações + protocolo */
 		VERIFICA_INT(nfe_sefaz_proc(xml, tam, prot, tam_prot, &proc,
 		                            &tam_proc),
+		             0);
+		VERIFICA_INT(teste_valida_xsd(argv[1], "nfe/tipos_v4.00.xsd",
+		                              proc, tam_proc),
 		             0);
 		VERIFICA(contem(proc, "<nfeProc xmlns=\"http://www.portalfiscal"
 		                      ".inf.br/nfe\" versao=\"4.00\"><NFe"));

@@ -77,6 +77,34 @@ static inline int teste_valida(const char *xml)
 	return rc;
 }
 
+/* Valida o XML (len bytes) contra o schema <dir>/schemas/<xsd>, carregado
+ * na hora; retorna 0 se válido. Os erros são impressos, para ajudar a
+ * corrigir o teste. */
+static inline int teste_valida_xsd(const char *dir, const char *xsd,
+                                   const char *xml, size_t len)
+{
+	char caminho[1024];
+	xmlSchemaParserCtxtPtr pctx;
+	xmlSchemaValidCtxtPtr ctx;
+	xmlSchemaPtr schema;
+	xmlDocPtr doc;
+	int rc = -1;
+
+	snprintf(caminho, sizeof caminho, "%s/schemas/%s", dir, xsd);
+	pctx = xmlSchemaNewParserCtxt(caminho);
+	schema = xmlSchemaParse(pctx);
+	xmlSchemaFreeParserCtxt(pctx);
+	doc = xmlReadMemory(xml, (int)len, "teste.xml", NULL, 0);
+	if (schema && doc) {
+		ctx = xmlSchemaNewValidCtxt(schema);
+		rc = xmlSchemaValidateDoc(ctx, doc);
+		xmlSchemaFreeValidCtxt(ctx);
+	}
+	xmlFreeDoc(doc);
+	xmlSchemaFree(schema);
+	return rc;
+}
+
 /* Função que escreve um grupo no writer (ex.: nfe_emit_write_xml) */
 typedef int (*teste_escreve_fn)(xmlTextWriterPtr writer, const void *obj);
 

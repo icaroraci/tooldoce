@@ -21,7 +21,11 @@ DESTINO = os.path.join(DIR, "tipos_v4.00.xsd")
 LOCAIS = ("ide", "emit", "dest", "det", "prod", "imposto", "total", "transp", "pag", "infNFe", "infNFeSupl")
 
 # Tipos complexos do leiaute declarados como elementos globais
-TIPOS = (("enderEmit", "TEnderEmi"), ("enderDest", "TEndereco"))
+TIPOS = (("enderEmit", "TEnderEmi"), ("enderDest", "TEndereco"),
+         # Mensagens aos webservices cujo elemento não vem no pacote
+         ("enviNFe", "TEnviNFe"), ("retEnviNFe", "TRetEnviNFe"),
+         ("consReciNFe", "TConsReciNFe"), ("protNFe", "TProtNFe"),
+         ("nfeProc", "TNfeProc"))
 
 CABECALHO = """\
 <?xml version="1.0" encoding="UTF-8"?>

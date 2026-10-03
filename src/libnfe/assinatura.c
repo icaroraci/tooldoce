@@ -245,19 +245,34 @@ static xmlDocPtr le_documento(const char *xml, size_t tam)
 	                             XML_PARSE_NOWARNING);
 }
 
-/* <infNFe> da raiz <NFe>, com o seu Id registrado como ID (para a
- * referência "#Id" da assinatura); NULL se o documento não for uma NF-e */
+/* Documentos assinados: raiz e elemento referenciado pela assinatura */
+static const struct {
+	const char *raiz, *info;
+} assinaveis[] = {
+	{ "NFe", "infNFe" },       /* nota */
+	{ "evento", "infEvento" }, /* evento (cancelamento, CC-e...) */
+	{ "inutNFe", "infInut" },  /* inutilização de numeração */
+};
+
+/* Elemento assinado (<infNFe> da raiz <NFe>, <infEvento> de <evento>...),
+ * com o seu Id registrado como ID (para a referência "#Id" da assinatura);
+ * NULL se o documento não for de um dos tipos assinados */
 static xmlNodePtr infnfe(xmlDocPtr doc, xmlChar **id)
 {
-	xmlNodePtr raiz = xmlDocGetRootElement(doc), n;
+	xmlNodePtr raiz = xmlDocGetRootElement(doc), n = NULL;
 	xmlAttrPtr atr;
+	size_t i;
 
-	if (!raiz || !xmlStrEqual(raiz->name, BAD_CAST "NFe") || !raiz->ns ||
-	    !xmlStrEqual(raiz->ns->href, BAD_CAST NS_NFE))
+	if (!raiz || !raiz->ns || !xmlStrEqual(raiz->ns->href, BAD_CAST NS_NFE))
+		return NULL;
+	for (i = 0; i < sizeof assinaveis / sizeof assinaveis[0]; i++)
+		if (xmlStrEqual(raiz->name, BAD_CAST assinaveis[i].raiz))
+			break;
+	if (i == sizeof assinaveis / sizeof assinaveis[0])
 		return NULL;
 	for (n = raiz->children; n; n = n->next)
 		if (n->type == XML_ELEMENT_NODE &&
-		    xmlStrEqual(n->name, BAD_CAST "infNFe"))
+		    xmlStrEqual(n->name, BAD_CAST assinaveis[i].info))
 			break;
 	if (!n)
 		return NULL;
@@ -273,7 +288,7 @@ static xmlNodePtr infnfe(xmlDocPtr doc, xmlChar **id)
 	return n;
 }
 
-/* <Signature> filha de <NFe>, ou NULL */
+/* <Signature> filha da raiz, ou NULL */
 static xmlNodePtr assinatura(xmlDocPtr doc)
 {
 	xmlNodePtr n;

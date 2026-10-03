@@ -26,7 +26,9 @@
 
 /*
  * Assinatura digital da NF-e (XMLDSig enveloped, RSA-SHA1, canonicalização
- * C14N, referência ao Id de infNFe), como exige o leiaute.
+ * C14N, referência ao Id de infNFe), como exige o leiaute. Os eventos
+ * (<evento>, Id de infEvento; ver evento.h) e a inutilização (<inutNFe>,
+ * Id de infInut) são assinados da mesma forma.
  *
  * Por enquanto o certificado é o A1 (arquivo .pfx/.p12). O certificado é um
  * objeto à parte, para que o A3 (token/cartão) possa ser acrescentado depois
@@ -63,15 +65,17 @@ const char *nfe_certificado_titular(const nfe_certificado *cert);
 /* Fim da validade do certificado, ou (time_t)-1 se desconhecido */
 time_t nfe_certificado_validade(const nfe_certificado *cert);
 
-/* Assina o documento <NFe> (tam bytes) e devolve em *assinado um novo
- * documento, alocado e terminado em '\0' (libere com free()), com a
- * assinatura (<Signature>) ao fim de <NFe>; o tamanho vai em *tam_assinado,
- * se não for NULL. Retorna 0, E_ISNULL, E_XML (documento malformado, que
- * não é NF-e ou já assinado), E_VALOR (falha ao assinar) ou E_MALLOC. */
+/* Assina o documento <NFe>, <evento> ou <inutNFe> (tam bytes) e devolve em
+ * *assinado um novo documento, alocado e terminado em '\0' (libere com
+ * free()), com a assinatura (<Signature>) ao fim da raiz; o tamanho vai em
+ * *tam_assinado, se não for NULL. Retorna 0, E_ISNULL, E_XML (documento
+ * malformado, de outro tipo ou já assinado), E_VALOR (falha ao assinar) ou
+ * E_MALLOC. */
 int nfe_assinar_xml(const nfe_certificado *cert, const char *xml, size_t tam,
                     char **assinado, size_t *tam_assinado);
 
-/* Confere a assinatura de um documento <NFe> assinado, com o certificado
+/* Confere a assinatura de um documento <NFe>, <evento> ou <inutNFe>
+ * assinado, com o certificado
  * que vem dentro dele (sem conferir a cadeia ICP-Brasil nem se o
  * certificado foi revogado). Retorna 0 (assinatura correta), E_VALOR
  * (assinatura inválida ou documento alterado), E_XML (documento malformado
