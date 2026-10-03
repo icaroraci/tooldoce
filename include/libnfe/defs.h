@@ -46,6 +46,8 @@
 #define NFE_TAM_NECF      3 /* nECF: número de ordem do ECF */
 #define NFE_TAM_NCOO      6 /* nCOO: número do contador de ordem de operação */
 #define NFE_TAM_DATA_HORA 25 /* AAAA-MM-DDThh:mm:ss-03:00 */
+#define NFE_TAM_CEP       8  /* CEP */
+#define NFE_TAM_FONE      14 /* fone: DDD e número (6 a 14 dígitos) */
 
 /* Campos de texto livre (UTF-8) */
 #define NFE_TAM_XNOME   60  /* xNome: razão social ou nome (2 a 60) */
@@ -57,5 +59,7 @@
 #define NFE_TAM_NRO     60  /* nro: número (1 a 60) */
 #define NFE_TAM_XCPL    60  /* xCpl: complemento (1 a 60) */
 #define NFE_TAM_XBAIRRO 60  /* xBairro: bairro (2 a 60) */
+#define NFE_TAM_XMUN    60  /* xMun: nome do município (2 a 60) */
+#define NFE_TAM_XPAIS   60  /* xPais: nome do país (2 a 60) */
 
 #endif
