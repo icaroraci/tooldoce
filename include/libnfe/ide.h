@@ -133,9 +133,33 @@ int nfe_ide_gerar_chave(nfe_ide *ide, const char *cnpjcpf, char *chave,
 int nfe_ide_add_refnfe(nfe_ide *ide, struct refNFe_s *ref);
 int nfe_ide_add_refnf(nfe_ide *ide, struct refNF_s *ref);
 
+/* Número máximo de chaves em gCompraGov/refDFeAnt e em gPagAntecipado/refNFe
+ * (maxOccurs="99" no XSD) */
+#define NFE_MAX_REF_RTC 99
+
+/* gCompraGov: compra governamental. tpentegov NFE_ENTE_GOV_NAO_INFORMADO
+ * remove o grupo (e as chaves anteriores). predutor: percentual de redução
+ * de alíquota, como texto no formato do XML (tipo TDec_0302_04RTC: "0",
+ * "10.50", "100.0000"...). Retorna 0, E_ISNULL ou E_VALOR. */
+int nfe_ide_set_compragov(nfe_ide *ide, nfe_ente_gov tpentegov,
+                          const char *predutor, nfe_oper_gov tpopergov);
+/* refDFeAnt: chave de acesso de um documento anterior da compra
+ * governamental (44 posições, dígito verificador correto). Exigida para
+ * tpOperGov 2 (exatamente uma) e 3 (uma ou mais) e vedada para 1 e 4; a
+ * regra é conferida em nfe_ide_write_xml. Retorna 0, E_ISNULL, E_TAMANHO ou
+ * E_VALOR (chave inválida, grupo gCompraGov não informado ou limite
+ * NFE_MAX_REF_RTC atingido). */
+int nfe_ide_add_compragov_refdfeant(nfe_ide *ide, const char *chave);
+
+/* gPagAntecipado: chaves das NF-e de antecipação de pagamento que esta nota
+ * abate. Retorna 0, E_ISNULL, E_TAMANHO ou E_VALOR (chave inválida ou limite
+ * NFE_MAX_REF_RTC atingido). nfe_ide_remove_pagantecipado apaga todas. */
+int nfe_ide_add_pagantecipado(nfe_ide *ide, const char *refnfe);
+int nfe_ide_remove_pagantecipado(nfe_ide *ide);
+
 /* Escreve o elemento <ide>. Retorna 0, E_ISNULL, E_VALOR (campo obrigatório
- * sem valor padrão não informado: cUF, natOp, nNF, dhEmi, cMunFG ou verProc)
- * ou E_XML. */
+ * sem valor padrão não informado: cUF, natOp, nNF, dhEmi, cMunFG ou verProc;
+ * ou chaves anteriores de gCompraGov em desacordo com tpOperGov) ou E_XML. */
 int nfe_ide_write_xml(xmlTextWriterPtr writer, const nfe_ide *ide);
 
 #endif

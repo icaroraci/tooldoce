@@ -85,6 +85,15 @@ struct nfe_ide {
 	struct ref_s *refs; /* NFref, na ordem de inclusão */
 	struct ref_s *refsFim;
 	int nRefs;
+	/* gCompraGov: tpEnteGov 0 = grupo não informado */
+	nfe_ente_gov tpEnteGov;
+	char pRedutor[NFE_TAM_ASCII(8)]; /* até "100.0000" */
+	nfe_oper_gov tpOperGov;
+	char refDFeAnt[NFE_MAX_REF_RTC][NFE_TAM_ASCII(NFE_TAM_CHAVE)];
+	int nRefDFeAnt;
+	/* gPagAntecipado: nPagAntecipado 0 = grupo não informado */
+	char pagAntecipado[NFE_MAX_REF_RTC][NFE_TAM_ASCII(NFE_TAM_CHAVE)];
+	int nPagAntecipado;
 };
 
 /* Escreve em dst (tam bytes) o instante t no formato AAAA-MM-DDThh:mm:ssTZD,
@@ -540,6 +549,71 @@ int nfe_ide_add_refnf(nfe_ide *ide, struct refNF_s *ref)
 	return nfe_ide_add_ref(ide, REF_NF, ref);
 }
 
+int nfe_ide_set_compragov(nfe_ide *ide, nfe_ente_gov tpentegov,
+                          const char *predutor, nfe_oper_gov tpopergov)
+{
+	char red[sizeof ide->pRedutor];
+	int rc;
+
+	EXIGE_IDE(ide);
+	if (tpentegov == NFE_ENTE_GOV_NAO_INFORMADO) {
+		ide->tpEnteGov = NFE_ENTE_GOV_NAO_INFORMADO;
+		ide->nRefDFeAnt = 0;
+		return 0;
+	}
+	EXIGE(tpentegov >= NFE_ENTE_GOV_UNIAO &&
+	      tpentegov <= NFE_ENTE_GOV_COMITE_GESTOR_IBS);
+	EXIGE(tpopergov >= NFE_OPER_GOV_FORNECIMENTO_PAGAMENTO_POSTERIOR &&
+	      tpopergov <= NFE_OPER_GOV_PAGAMENTO_FORNECIMENTO_POSTERIOR);
+	/* o padrão limita o valor a 8 caracteres, que sempre cabem em red */
+	rc = nfe_copia_padrao(red, sizeof red, predutor,
+	                      NFE_PADRAO_TDec_0302_04RTC);
+	if (rc != 0)
+		return rc;
+	memcpy(ide->pRedutor, red, sizeof red);
+	ide->tpEnteGov = tpentegov;
+	ide->tpOperGov = tpopergov;
+	return 0;
+}
+
+/* Valida a chave e a copia para a próxima posição livre de lista */
+static int add_chave(char lista[][NFE_TAM_ASCII(NFE_TAM_CHAVE)], int *n,
+                     const char *chave)
+{
+	int rc;
+
+	if (!chave)
+		return E_ISNULL;
+	if (*n >= NFE_MAX_REF_RTC)
+		return E_VALOR;
+	rc = nfe_chave_validar(chave);
+	if (rc != 0)
+		return rc;
+	memcpy(lista[*n], chave, NFE_TAM_ASCII(NFE_TAM_CHAVE));
+	(*n)++;
+	return 0;
+}
+
+int nfe_ide_add_compragov_refdfeant(nfe_ide *ide, const char *chave)
+{
+	EXIGE_IDE(ide);
+	EXIGE(ide->tpEnteGov != NFE_ENTE_GOV_NAO_INFORMADO);
+	return add_chave(ide->refDFeAnt, &ide->nRefDFeAnt, chave);
+}
+
+int nfe_ide_add_pagantecipado(nfe_ide *ide, const char *refnfe)
+{
+	EXIGE_IDE(ide);
+	return add_chave(ide->pagAntecipado, &ide->nPagAntecipado, refnfe);
+}
+
+int nfe_ide_remove_pagantecipado(nfe_ide *ide)
+{
+	EXIGE_IDE(ide);
+	ide->nPagAntecipado = 0;
+	return 0;
+}
+
 /* Escreve <tag>valor</tag>; retorna 0 ou E_XML */
 static int escreve(xmlTextWriterPtr writer, const char *tag,
                    const char *formato, ...)
@@ -598,7 +672,7 @@ static int escreve_dia(xmlTextWriterPtr writer, const char *tag, time_t t,
 int nfe_ide_write_xml(xmlTextWriterPtr writer, const nfe_ide *ide)
 {
 	const struct ref_s *ref;
-	int rc;
+	int i, rc;
 
 	if (!writer || !ide)
 		return E_ISNULL;
@@ -608,6 +682,21 @@ int nfe_ide_write_xml(xmlTextWriterPtr writer, const nfe_ide *ide)
 	    ide->dhEmi == NFE_SEM_DATA || ide->cMunFG == 0 ||
 	    ide->verProc[0] == '\0')
 		return E_VALOR;
+
+	/* Chaves anteriores de gCompraGov: exatamente uma no tpOperGov 2, uma
+	 * ou mais no 3 e nenhuma no 1 e no 4 */
+	if (ide->tpEnteGov != NFE_ENTE_GOV_NAO_INFORMADO) {
+		switch (ide->tpOperGov) {
+		case NFE_OPER_GOV_PAGAMENTO_FORNECIMENTO_REALIZADO:
+			EXIGE(ide->nRefDFeAnt == 1);
+			break;
+		case NFE_OPER_GOV_FORNECIMENTO_PAGAMENTO_REALIZADO:
+			EXIGE(ide->nRefDFeAnt >= 1);
+			break;
+		default:
+			EXIGE(ide->nRefDFeAnt == 0);
+		}
+	}
 
 	if (xmlTextWriterStartElement(writer, BAD_CAST "ide") < 0)
 		return E_XML;
@@ -666,6 +755,29 @@ int nfe_ide_write_xml(xmlTextWriterPtr writer, const nfe_ide *ide)
 			rc = xmlGenRefNFNode(writer, ref->doc.nf);
 		if (rc < 0)
 			return rc;
+		if (xmlTextWriterEndElement(writer) < 0)
+			return E_XML;
+	}
+
+	if (ide->tpEnteGov != NFE_ENTE_GOV_NAO_INFORMADO) {
+		if (xmlTextWriterStartElement(writer, BAD_CAST "gCompraGov") <
+		    0)
+			return E_XML;
+		ESCREVE("tpEnteGov", "%d", (int)ide->tpEnteGov);
+		ESCREVE("pRedutor", "%s", ide->pRedutor);
+		ESCREVE("tpOperGov", "%d", (int)ide->tpOperGov);
+		for (i = 0; i < ide->nRefDFeAnt; i++)
+			ESCREVE("refDFeAnt", "%s", ide->refDFeAnt[i]);
+		if (xmlTextWriterEndElement(writer) < 0)
+			return E_XML;
+	}
+
+	if (ide->nPagAntecipado > 0) {
+		if (xmlTextWriterStartElement(writer,
+		                              BAD_CAST "gPagAntecipado") < 0)
+			return E_XML;
+		for (i = 0; i < ide->nPagAntecipado; i++)
+			ESCREVE("refNFe", "%s", ide->pagAntecipado[i]);
 		if (xmlTextWriterEndElement(writer) < 0)
 			return E_XML;
 	}

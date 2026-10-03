@@ -36,9 +36,12 @@
 
 #include "teste.h"
 
-#define NS    "http://www.portalfiscal.inf.br/nfe"
-#define CHAVE "35100812345678000195550010000000421123456781"
-#define T0    ((time_t)1282237215) /* 2010-08-19T17:00:15Z */
+#define NS     "http://www.portalfiscal.inf.br/nfe"
+#define CHAVE  "35100812345678000195550010000000421123456781"
+#define CHAVE2 "35250912345678000195550010000001001123456788"
+#define CHAVE3                                                                 \
+	"35250912ABC456780001550010000002001123456780" /* CNPJ alfanum. */
+#define T0 ((time_t)1282237215) /* 2010-08-19T17:00:15Z */
 
 static xmlSchemaPtr schema;
 
@@ -429,6 +432,132 @@ static void teste_campos_pl010f(void)
 	nfe_ide_free(ide);
 }
 
+/* Grupos gCompraGov e gPagAntecipado */
+static void teste_compragov_pagantecipado(void)
+{
+	nfe_ide *ide = novo(NFE_SEM_DATA, NFE_EMISSAO_NORMAL, NFE_TZD_BRASILIA);
+	char *xml;
+	int i, rc = 0;
+
+	VERIFICA(ide != NULL);
+	if (!ide)
+		return;
+
+	/* Valores recusados */
+	VERIFICA_INT(nfe_ide_set_compragov(
+	                     ide, (nfe_ente_gov)7, "10.00",
+	                     NFE_OPER_GOV_PAGAMENTO_FORNECIMENTO_POSTERIOR),
+	             E_VALOR);
+	VERIFICA_INT(nfe_ide_set_compragov(ide, NFE_ENTE_GOV_UNIAO, "10.00",
+	                                   (nfe_oper_gov)5),
+	             E_VALOR);
+	VERIFICA_INT(nfe_ide_set_compragov(
+	                     ide, NFE_ENTE_GOV_UNIAO, "10,00",
+	                     NFE_OPER_GOV_PAGAMENTO_FORNECIMENTO_POSTERIOR),
+	             E_VALOR);
+	VERIFICA_INT(nfe_ide_set_compragov(
+	                     ide, NFE_ENTE_GOV_UNIAO, "10.5",
+	                     NFE_OPER_GOV_PAGAMENTO_FORNECIMENTO_POSTERIOR),
+	             E_VALOR);
+	VERIFICA_INT(nfe_ide_set_compragov(
+	                     ide, NFE_ENTE_GOV_UNIAO, "1000",
+	                     NFE_OPER_GOV_PAGAMENTO_FORNECIMENTO_POSTERIOR),
+	             E_VALOR);
+	VERIFICA_INT(nfe_ide_set_compragov(
+	                     ide, NFE_ENTE_GOV_UNIAO, NULL,
+	                     NFE_OPER_GOV_PAGAMENTO_FORNECIMENTO_POSTERIOR),
+	             E_ISNULL);
+	/* refDFeAnt sem o grupo gCompraGov */
+	VERIFICA_INT(nfe_ide_add_compragov_refdfeant(ide, CHAVE), E_VALOR);
+	/* chave com dígito verificador errado ou curta */
+	VERIFICA_INT(
+	        nfe_ide_add_pagantecipado(
+	                ide, "35100812345678000195550010000000421123456782"),
+	        E_VALOR);
+	VERIFICA_INT(nfe_ide_add_pagantecipado(ide, "3510081234"), E_TAMANHO);
+	VERIFICA_INT(nfe_ide_add_pagantecipado(ide, NULL), E_ISNULL);
+
+	/* Fornecimento com pagamento já realizado: uma ou mais chaves */
+	VERIFICA_INT(nfe_ide_set_compragov(
+	                     ide, NFE_ENTE_GOV_MUNICIPIO, "12.50",
+	                     NFE_OPER_GOV_FORNECIMENTO_PAGAMENTO_REALIZADO),
+	             0);
+	xml = gera(ide); /* sem chave: recusado */
+	VERIFICA(xml == NULL);
+	free(xml);
+	VERIFICA_INT(nfe_ide_add_compragov_refdfeant(ide, CHAVE), 0);
+	VERIFICA_INT(nfe_ide_add_compragov_refdfeant(ide, CHAVE3), 0);
+	VERIFICA_INT(nfe_ide_add_pagantecipado(ide, CHAVE2), 0);
+	VERIFICA_INT(nfe_ide_add_pagantecipado(ide, CHAVE3), 0);
+	xml = gera(ide);
+	VERIFICA(xml != NULL);
+	if (xml) {
+		VERIFICA(strstr(xml,
+		                "<gCompraGov><tpEnteGov>4</tpEnteGov>"
+		                "<pRedutor>12.50</pRedutor>"
+		                "<tpOperGov>3</tpOperGov>"
+		                "<refDFeAnt>" CHAVE "</refDFeAnt>"
+		                "<refDFeAnt>" CHAVE3 "</refDFeAnt>"
+		                "</gCompraGov>"
+		                "<gPagAntecipado><refNFe>" CHAVE2 "</refNFe>"
+		                "<refNFe>" CHAVE3 "</refNFe>"
+		                "</gPagAntecipado></ide>") != NULL);
+		VERIFICA_INT(valida(xml, 1), 0);
+	}
+	free(xml);
+
+	/* Pagamento com fornecimento já realizado: exatamente uma chave */
+	VERIFICA_INT(nfe_ide_set_compragov(
+	                     ide, NFE_ENTE_GOV_MUNICIPIO, "12.50",
+	                     NFE_OPER_GOV_PAGAMENTO_FORNECIMENTO_REALIZADO),
+	             0);
+	xml = gera(ide);
+	VERIFICA(xml == NULL);
+	free(xml);
+
+	/* Tipos 1 e 4: nenhuma chave. Remover o grupo apaga as chaves */
+	VERIFICA_INT(nfe_ide_set_compragov(ide, NFE_ENTE_GOV_NAO_INFORMADO,
+	                                   NULL, (nfe_oper_gov)0),
+	             0);
+	VERIFICA_INT(nfe_ide_set_compragov(
+	                     ide, NFE_ENTE_GOV_COMITE_GESTOR_IBS, "100.0000",
+	                     NFE_OPER_GOV_FORNECIMENTO_PAGAMENTO_POSTERIOR),
+	             0);
+	VERIFICA_INT(nfe_ide_remove_pagantecipado(ide), 0);
+	xml = gera(ide);
+	VERIFICA(xml != NULL);
+	if (xml) {
+		VERIFICA(strstr(xml, "<pRedutor>100.0000</pRedutor>"
+		                     "<tpOperGov>1</tpOperGov></gCompraGov>") !=
+		         NULL);
+		VERIFICA(strstr(xml, "refDFeAnt") == NULL);
+		VERIFICA(strstr(xml, "gPagAntecipado") == NULL);
+		VERIFICA_INT(valida(xml, 1), 0);
+	}
+	free(xml);
+	VERIFICA_INT(nfe_ide_add_compragov_refdfeant(ide, CHAVE), 0);
+	xml = gera(ide);
+	VERIFICA(xml == NULL);
+	free(xml);
+
+	/* Limite de 99 chaves */
+	for (i = 0; i < NFE_MAX_REF_RTC; i++)
+		rc |= nfe_ide_add_pagantecipado(ide, CHAVE2);
+	VERIFICA_INT(rc, 0);
+	VERIFICA_INT(nfe_ide_add_pagantecipado(ide, CHAVE2), E_VALOR);
+	VERIFICA_INT(nfe_ide_set_compragov(ide, NFE_ENTE_GOV_NAO_INFORMADO,
+	                                   NULL, (nfe_oper_gov)0),
+	             0);
+	xml = gera(ide);
+	VERIFICA(xml != NULL);
+	if (xml) {
+		VERIFICA(strstr(xml, "gCompraGov") == NULL);
+		VERIFICA_INT(valida(xml, 1), 0);
+	}
+	free(xml);
+	nfe_ide_free(ide);
+}
+
 /* Sem os campos obrigatórios, o XML não é gerado */
 static void teste_obrigatorios(void)
 {
@@ -497,6 +626,7 @@ int main(int argc, char **argv)
 	teste_limite_referencias();
 	teste_valores_invalidos();
 	teste_campos_pl010f();
+	teste_compragov_pagantecipado();
 	teste_obrigatorios();
 	teste_validador();
 
