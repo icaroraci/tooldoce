@@ -186,6 +186,28 @@ typedef enum nfe_intermediador {
 	                                   (marketplace) */
 } nfe_intermediador;
 
+/* tpEnteGov: ente governamental da compra (grupo gCompraGov) */
+typedef enum nfe_ente_gov {
+	NFE_ENTE_GOV_NAO_INFORMADO = 0,
+	NFE_ENTE_GOV_UNIAO = 1,
+	NFE_ENTE_GOV_ESTADO = 2,
+	NFE_ENTE_GOV_DISTRITO_FEDERAL = 3,
+	NFE_ENTE_GOV_MUNICIPIO = 4,
+	NFE_ENTE_GOV_CONSORCIO_PUBLICO = 5,
+	NFE_ENTE_GOV_COMITE_GESTOR_IBS = 6
+} nfe_ente_gov;
+
+/* tpOperGov: tipo da operação com ente governamental (grupo gCompraGov) */
+typedef enum nfe_oper_gov {
+	NFE_OPER_GOV_FORNECIMENTO_PAGAMENTO_POSTERIOR = 1,
+	NFE_OPER_GOV_PAGAMENTO_FORNECIMENTO_REALIZADO = 2, /* exige uma chave
+	                                                      anterior */
+	NFE_OPER_GOV_FORNECIMENTO_PAGAMENTO_REALIZADO = 3, /* exige ao menos
+	                                                      uma chave
+	                                                      anterior */
+	NFE_OPER_GOV_PAGAMENTO_FORNECIMENTO_POSTERIOR = 4
+} nfe_oper_gov;
+
 /* indFinal: operação com consumidor final */
 typedef enum nfe_consumidor {
 	NFE_CONSUMIDOR_NORMAL = 0,
