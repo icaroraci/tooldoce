@@ -20,6 +20,7 @@
 #include <string.h>
 #include <stdlib.h>
 
+#include <libnfe/defs.h>
 #include <libnfe/erros.h>
 #include <libnfe/nfe.h>
 
@@ -81,16 +82,16 @@ struct municipio_s{
  * Endereço
  */
 struct endereco_s{
-	const char *xLgr;
-	const char* nro;
-	const char *Cpl;
-	const char *xBairro;
+	char xLgr[NFE_TAM_UTF8(NFE_TAM_XLGR)];
+	char nro[NFE_TAM_UTF8(NFE_TAM_NRO)];
+	char Cpl[NFE_TAM_UTF8(NFE_TAM_XCPL)];
+	char xBairro[NFE_TAM_UTF8(NFE_TAM_XBAIRRO)];
 	uint32_t CEP;
 	uint64_t fone;
 	Municipio *municipio;
 	} ;
 
-static Pais* _newPais(){
+static Pais* _newPais(void){
 	 Pais temp = {
 		.cPais = 1058,
 		.xPais = "BRASIL"
@@ -102,9 +103,9 @@ static Pais* _newPais(){
 		memcpy(ptr, &temp, sizeof(struct pais_s));
 	}
 	return ptr;
-};
+}
 
-static Uf* _newUf(){
+static Uf* _newUf(void){
 	Uf temp = {
 		.cUF = 0,
 		.pais = _newPais()
@@ -116,9 +117,9 @@ static Uf* _newUf(){
 		memcpy(ptr, &temp, sizeof(struct uf_s));
 	}
 	return ptr;
-};
+}
 
-static Municipio* _newMunicipio(){
+static Municipio* _newMunicipio(void){
 	Municipio temp = {
 		.cMun = 0,
 		.uf = _newUf()
@@ -130,10 +131,10 @@ static Municipio* _newMunicipio(){
 		memcpy(ptr, &temp, sizeof(struct municipio_s));
 	}
 	return ptr;
-};
+}
 
 
-Endereco * NewEndereco(){
+Endereco * NewEndereco(void){
 	Endereco temp = {
 		.CEP = 0,
 		.fone = 0,
@@ -147,34 +148,34 @@ Endereco * NewEndereco(){
 		memcpy(ptr, &temp, sizeof(struct endereco_s));
 	}
 	return ptr;	
-};
+}
 
 static 	void _delPais(Pais* t){
 	if(nfe_ptrnull(t) == 0){
 		free(t);
 	}
-};
+}
 
 static void _delUf(Uf* t){
 	if(nfe_ptrnull(t) == 0){
 		_delPais(t->pais);
 		free(t);
 	}
-};
+}
 
 static void _delMunicipio(Municipio * t){
 	if(nfe_ptrnull(t) == 0){
 		_delUf(t->uf);
 		free(t);
 	}
-};
+}
 
 void DelEndereco(Endereco* t){
 	if(nfe_ptrnull(t) == 0){
 		_delMunicipio(t->municipio);
 		free(t);
 	}
-};
+}
 
 uint32_t GetCEP(Endereco * end){
 	int rc;
@@ -185,7 +186,7 @@ uint32_t GetCEP(Endereco * end){
 		return 0;
 	}
 				
-};
+}
 
 int  SetCEP(Endereco * end, uint32_t cep){
 	int rc;
@@ -196,7 +197,7 @@ int  SetCEP(Endereco * end, uint32_t cep){
 	}else{
 		return rc;
 	}
-};
+}
 
 int SetFone(Endereco* end, uint64_t fone){
 	int rc;
@@ -207,7 +208,7 @@ int SetFone(Endereco* end, uint64_t fone){
 	}else{
 		return rc;
 	}
-};
+}
 
 uint64_t GetFone(Endereco* end){
 	int rc;
@@ -217,5 +218,102 @@ uint64_t GetFone(Endereco* end){
 	}else{
 		return 0 ;
 	}
-};
+}
 
+/* Copia src para dst (tam bytes, com o terminador), sem truncar */
+static int _copiaTexto(char *dst, size_t tam, const char *src){
+	size_t n;
+	if(nfe_ptrnull(src) != 0){
+		return E_ISNULL;
+	}
+	n = strlen(src);
+	if(n >= tam){
+		return E_TAMANHO;
+	}
+	memcpy(dst, src, n + 1);
+	return 0;
+}
+
+char* GetLgr(Endereco* end){
+	if(nfe_ptrnull(end) != 0){
+		return NULL;
+	}
+	return end->xLgr;
+}
+
+char* GetNro(Endereco* end){
+	if(nfe_ptrnull(end) != 0){
+		return NULL;
+	}
+	return end->nro;
+}
+
+char* GetCpl(Endereco* end){
+	if(nfe_ptrnull(end) != 0){
+		return NULL;
+	}
+	return end->Cpl;
+}
+
+char* GetBairro(Endereco* end){
+	if(nfe_ptrnull(end) != 0){
+		return NULL;
+	}
+	return end->xBairro;
+}
+
+Municipio* GetMunicipio(Endereco* end){
+	if(nfe_ptrnull(end) != 0){
+		return NULL;
+	}
+	return end->municipio;
+}
+
+int SetLgr(Endereco* end, const char* xlgr){
+	int rc = nfe_ptrnull(end);
+	if(rc != 0){
+		return rc;
+	}
+	return _copiaTexto(end->xLgr, sizeof end->xLgr, xlgr);
+}
+
+int SetNro(Endereco* end, const char* nro){
+	int rc = nfe_ptrnull(end);
+	if(rc != 0){
+		return rc;
+	}
+	return _copiaTexto(end->nro, sizeof end->nro, nro);
+}
+
+int SetCpl(Endereco* end, const char* cpl){
+	int rc = nfe_ptrnull(end);
+	if(rc != 0){
+		return rc;
+	}
+	return _copiaTexto(end->Cpl, sizeof end->Cpl, cpl);
+}
+
+int SetBairro(Endereco* end, const char* bairro){
+	int rc = nfe_ptrnull(end);
+	if(rc != 0){
+		return rc;
+	}
+	return _copiaTexto(end->xBairro, sizeof end->xBairro, bairro);
+}
+
+/* O endereço passa a ser dono de muni, e o município anterior é liberado */
+int SetMunicipio(Endereco* end, Municipio* muni){
+	int rc = nfe_ptrnull(end);
+	if(rc != 0){
+		return rc;
+	}
+	rc = nfe_ptrnull(muni);
+	if(rc != 0){
+		return rc;
+	}
+	if(end->municipio != muni){
+		_delMunicipio(end->municipio);
+		end->municipio = muni;
+	}
+	return 0;
+}
