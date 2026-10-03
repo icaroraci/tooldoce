@@ -42,6 +42,11 @@ jobs:
       - name: Testes
         run: make test
 
+      - name: Exemplos
+        run: |
+          make exemplos
+          ./obj/gerar_ide > /dev/null
+
       - name: Instalação
         run: |
           destino="$RUNNER_TEMP/destino"

@@ -53,7 +53,7 @@ C_SOURCE = $(wildcard $(SOURCE)/*.c)
 OBJ = $(addprefix $(LOBJ)/,$(notdir $(C_SOURCE:.c=.o)))
 
 
-.PHONY: all libnfe install uninstall test clean formatar verificar-formato
+.PHONY: all libnfe install uninstall test exemplos clean formatar verificar-formato
 
 all: libnfe
 
@@ -106,9 +106,18 @@ $(LOBJ)/test_%: tests/test_%.c tests/teste.h $(C_SOURCE) $(wildcard $(INCLUDE)/l
 	$(CC) $(CFLAGS_TESTE) -I$(INCLUDE) $< $(C_SOURCE) -o $@ $(LIBS)
 
 
+#Exemplos: ligados à biblioteca compartilhada, como um programa externo
+EXEMPLOS = $(addprefix $(LOBJ)/,$(basename $(notdir $(wildcard examples/*.c))))
+
+exemplos: $(EXEMPLOS)
+
+$(LOBJ)/%: examples/%.c $(LIB)/$(LIBNAME) | $(LOBJ)
+	$(CC) $(filter-out -MMD -MP -fPIC,$(CFLAGS)) -I$(INCLUDE) $< -L$(LIB) -lnfe -Wl,-rpath,$(abspath $(LIB)) -o $@ $(LIBS)
+
+
 #Formatação (.clang-format)
 CLANG_FORMAT ?= clang-format
-FONTES_C = $(wildcard $(SOURCE)/*.c $(INCLUDE)/libnfe/*.h tests/*.c tests/*.h)
+FONTES_C = $(wildcard $(SOURCE)/*.c $(INCLUDE)/libnfe/*.h tests/*.c tests/*.h examples/*.c)
 
 formatar:
 	$(CLANG_FORMAT) -i $(FONTES_C)
@@ -118,7 +127,7 @@ verificar-formato:
 
 
 clean:
-	rm -fv $(LOBJ)/*.o $(LOBJ)/*.d $(LIB)/libnfe.so* $(TESTES)
+	rm -fv $(LOBJ)/*.o $(LOBJ)/*.d $(LIB)/libnfe.so* $(TESTES) $(EXEMPLOS)
 
 
 -include $(OBJ:.o=.d)
