@@ -28,6 +28,8 @@
 #include <libnfe/erros.h>
 #include <libnfe/utils.h>
 #include <libnfe/ide.h>
+#include <libnfe/refNF.h>
+#include <libnfe/refNFe.h>
 
 
 struct Cont_s {
@@ -35,6 +37,21 @@ struct Cont_s {
   char xJust[NFE_TAM_UTF8(NFE_TAM_XJUST)];     // 256 caracteres
 };
 
+
+/* Documento referenciado: um item do grupo NFref */
+enum tipo_ref_e {
+  REF_NFE,  /* refNFe: NF-e ou NFC-e, pela chave de acesso */
+  REF_NF    /* refNF: nota fiscal modelo 1/1A */
+};
+
+struct ref_s {
+  enum tipo_ref_e tipo;
+  union {
+    struct refNFe_s *nfe;
+    struct refNF_s *nf;
+  } doc;
+  struct ref_s *prox;
+};
 
 struct ide_s{
   nfe_uf cUF;              // 2 caracteres
@@ -58,6 +75,9 @@ struct ide_s{
   nfe_processo_emissao procEmis;  // 1 caractere
   char verProc[NFE_TAM_UTF8(NFE_TAM_VERPROC)]; // 20 caracteres
   struct Cont_s *cont;             // Default NULL
+  struct ref_s *refs;              // NFref, na ordem de inclusão
+  struct ref_s *refsFim;
+  int nRefs;
 };
  
 /* Funções auxiliares  */
@@ -228,12 +248,74 @@ void ideDel(struct ide_s *ide)
   if (ide->cont)
     ideContDel(ide->cont);
 
+  while (ide->refs) {
+    struct ref_s *prox = ide->refs->prox;
+    if (ide->refs->tipo == REF_NFE)
+      RefNFeDel(ide->refs->doc.nfe);
+    else
+      RefNFDel(ide->refs->doc.nf);
+    free(ide->refs);
+    ide->refs = prox;
+  }
+
   free(ide); 
+}
+
+/* Acrescenta uma referência ao fim da lista */
+static int ideAddRef(struct ide_s *ide, struct ref_s *novo)
+{
+  if (ide->nRefs >= NFE_MAX_NFREF)
+    return E_VALOR;
+  novo->prox = NULL;
+  if (ide->refsFim)
+    ide->refsFim->prox = novo;
+  else
+    ide->refs = novo;
+  ide->refsFim = novo;
+  ide->nRefs++;
+  return 0;
+}
+
+int ideAddRefNFe(struct ide_s *ide, struct refNFe_s *ref)
+{
+  struct ref_s *novo;
+  int rc;
+
+  if (!ide || !ref)
+    return E_ISNULL;
+  novo = (struct ref_s *)malloc(sizeof(struct ref_s));
+  if (!novo)
+    return E_MALLOC;
+  novo->tipo = REF_NFE;
+  novo->doc.nfe = ref;
+  rc = ideAddRef(ide, novo);
+  if (rc != 0)
+    free(novo);
+  return rc;
+}
+
+int ideAddRefNF(struct ide_s *ide, struct refNF_s *ref)
+{
+  struct ref_s *novo;
+  int rc;
+
+  if (!ide || !ref)
+    return E_ISNULL;
+  novo = (struct ref_s *)malloc(sizeof(struct ref_s));
+  if (!novo)
+    return E_MALLOC;
+  novo->tipo = REF_NF;
+  novo->doc.nf = ref;
+  rc = ideAddRef(ide, novo);
+  if (rc != 0)
+    free(novo);
+  return rc;
 }
 
 int xmlGenideNode(xmlTextWriterPtr writer,struct ide_s *ide)
 {
   int rc;
+  struct ref_s *ref;
   rc = xmlTextWriterStartElement(writer, BAD_CAST "ide");
   if (rc < 0) {
     printf("ide-: Erro em xmlTextWriterStartElement\n");
@@ -387,6 +469,26 @@ int xmlGenideNode(xmlTextWriterPtr writer,struct ide_s *ide)
     rc = xmlGenideContNode(writer, ide->cont);
     if (rc < 0)
       return rc;
+  }
+
+  /* NFref: um grupo para cada documento referenciado */
+  for (ref = ide->refs; ref; ref = ref->prox) {
+    rc = xmlTextWriterStartElement(writer, BAD_CAST "NFref");
+    if (rc < 0) {
+      printf("ide->NFref: Erro em xmlTextWriterStartElement\n");
+      return -1;
+    }
+    if (ref->tipo == REF_NFE)
+      rc = xmlGenRefNFeNode(writer, ref->doc.nfe);
+    else
+      rc = xmlGenRefNFNode(writer, ref->doc.nf);
+    if (rc < 0)
+      return rc;
+    rc = xmlTextWriterEndElement(writer);
+    if (rc < 0) {
+      printf("ide->NFref: Erro em xmlTextWriterEndElement\n");
+      return -1;
+    }
   }
 
   rc = xmlTextWriterEndElement(writer);

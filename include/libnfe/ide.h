@@ -31,6 +31,12 @@
 
 struct Cont_s;
 struct ide_s;
+struct refNFe_s;
+struct refNF_s;
+
+/* Número máximo de documentos referenciados (grupo NFref: maxOccurs="999"
+ * no leiauteNFe_v4.00.xsd) */
+#define NFE_MAX_NFREF 999
 
 /* Valor de data/hora opcional não informado (ex.: dhSaiEnt) */
 #define NFE_SEM_DATA ((time_t)-1)
@@ -108,11 +114,19 @@ struct ide_s *ideNew(struct ide_s *this,
                      nfe_tzd tzd );
 void ideDel(struct ide_s *ide);
 
+/* Documentos fiscais referenciados (grupo NFref, até NFE_MAX_NFREF).
+ * As referências são geradas no XML na ordem em que foram adicionadas.
+ * Em caso de sucesso, o ide passa a ser dono da referência e a libera em
+ * ideDel. Retornam 0, E_ISNULL, E_VALOR (limite atingido) ou E_MALLOC. */
+int ideAddRefNFe(struct ide_s *ide, struct refNFe_s *ref);
+int ideAddRefNF(struct ide_s *ide, struct refNF_s *ref);
+
 /*  Gera o Nó xml para o respectivo objeto
  *  
  *  xmlGenideNode(writer, ide) chama internamente
  *  xmlGenideContNode(writer, cont) se este for definido, que escreve
- *  dhCont e xJust diretamente dentro de <ide>.
+ *  dhCont e xJust diretamente dentro de <ide>, seguidos de um grupo
+ *  <NFref> para cada documento referenciado.
  ***/
 
 int xmlGenideContNode(xmlTextWriterPtr writer,struct Cont_s *cont);

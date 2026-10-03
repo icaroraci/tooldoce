@@ -137,15 +137,12 @@ char *RefNFGetnNF(struct refNF_s *nf)
 }
 
 
+/* Escreve o grupo <refNF>; o grupo <NFref> que o contém é aberto por quem
+ * chama (xmlGenideNode) */
 int xmlGenRefNFNode(xmlTextWriterPtr writer, struct refNF_s *nf)
 {
   int rc;
   
-  rc = xmlTextWriterStartElement(writer, BAD_CAST "NFref");
-  if (rc < 0){
-    printf("NFref: Erro em xmlTextWriterStartElement\n");
-    return -1;
-  }
   rc = xmlTextWriterStartElement(writer, BAD_CAST "refNF");
   if (rc < 0){
     printf("refNF: Erro em xmlTextWriterStartElement\n");
@@ -190,11 +187,6 @@ int xmlGenRefNFNode(xmlTextWriterPtr writer, struct refNF_s *nf)
   rc = xmlTextWriterEndElement(writer);
   if (rc < 0){
     printf("refNF: Erro em xmlTextWriterEndElement\n");
-    return -1;
-  }
-  rc = xmlTextWriterEndElement(writer);
-  if (rc < 0){
-    printf("NFref: Erro em xmlTextWriterEndElement\n");
     return -1;
   }
 
