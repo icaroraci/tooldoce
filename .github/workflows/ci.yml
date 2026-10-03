@@ -57,6 +57,7 @@ jobs:
         run: |
           make exemplos
           ./obj/gerar_ide > /dev/null
+          ./obj/gerar_nfe > /dev/null
 
       - name: Instalação
         run: |

@@ -40,10 +40,11 @@ if (rc != 0)
 nfe_ide_free(ide);
 ```
 
-Os setters validam cada valor contra o leiaute e retornam um código de erro (`erros.h`) quando ele é inválido; a biblioteca não imprime nada. O programa completo está em [`examples/gerar_ide.c`](examples/gerar_ide.c):
+Os setters validam cada valor contra o leiaute e retornam um código de erro (`erros.h`) quando ele é inválido; a biblioteca não imprime nada. O programa completo está em [`examples/gerar_ide.c`](examples/gerar_ide.c), e [`examples/gerar_nfe.c`](examples/gerar_nfe.c) monta uma NFC-e completa (ainda sem a assinatura digital):
 
     $ make exemplos
     $ ./obj/gerar_ide
+    $ ./obj/gerar_nfe
 
 Para compilar um programa seu com a biblioteca instalada:
 

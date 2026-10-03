@@ -1,0 +1,316 @@
+/* Copyright (c) 2017, 2018 Gabriel Lampa da Cunha <gabriellampa@gmail.com>
+ **
+ ** This file is part of tooldoce.
+ **
+ ** tooldoce is free software: you can redistribute it and/or modify
+ ** it under the terms of the GNU General Public License as published by
+ ** the Free Software Foundation, either version 3 of the License, or
+ ** (at your option) any later version.
+ **
+ ** tooldoce is distributed in the hope that it will be useful,
+ ** but WITHOUT ANY WARRANTY; without even the implied warranty of
+ ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ ** GNU General Public License for more details.
+ **
+ ** You should have received a copy of the GNU General Public License
+ ** along with tooldoce.  If not, see <http://www.gnu.org/licenses/>.
+ ** */
+
+/* Testes da nota completa (nfe_nfe): NF-e (modelo 55) e NFC-e (modelo 65).
+ * O <infNFe> gerado é validado contra o XSD oficial; o <NFe> inteiro ainda
+ * não, porque falta a assinatura digital (ds:Signature).
+ *
+ * Uso: test_nfe <diretório tests> */
+
+#include <time.h>
+
+#include <libnfe/erros.h>
+#include <libnfe/nfe_nfe.h>
+
+#include "teste.h"
+#include "teste_xml.h"
+
+#define T0 ((time_t)1791014400) /* 2026-10-03T08:00:00Z */
+
+/* Valida o elemento <infNFe> do documento */
+static int valida_infnfe(const char *xml)
+{
+	xmlDocPtr doc =
+	        xmlReadMemory(xml, (int)strlen(xml), "nfe.xml", NULL, 0);
+	xmlSchemaValidCtxtPtr ctx;
+	xmlNodePtr no;
+	int rc = -1;
+
+	if (!doc)
+		return -1;
+	no = xmlDocGetRootElement(doc);
+	no = no ? xmlFirstElementChild(no) : NULL;
+	if (no && xmlStrEqual(no->name, BAD_CAST "infNFe")) {
+		ctx = xmlSchemaNewValidCtxt(teste_schema);
+		rc = xmlSchemaValidateOneElement(ctx, no);
+		xmlSchemaFreeValidCtxt(ctx);
+	}
+	xmlFreeDoc(doc);
+	return rc;
+}
+
+static nfe_ide *ide(nfe_modelo mod)
+{
+	nfe_ide *ide = nfe_ide_new();
+	int rc = 0;
+
+	rc |= nfe_ide_set_cuf(ide, NFE_UF_SP);
+	rc |= nfe_ide_set_cnf(ide, 12345678);
+	rc |= nfe_ide_set_natop(ide, "VENDA");
+	rc |= nfe_ide_set_mod(ide, mod);
+	rc |= nfe_ide_set_serie(ide, 1);
+	rc |= nfe_ide_set_nnf(ide, 1);
+	rc |= nfe_ide_set_dhemi(ide, T0);
+	rc |= nfe_ide_set_cmunfg(ide, 3550308);
+	rc |= nfe_ide_set_verproc(ide, "tooldoce");
+	if (mod == NFE_MODELO_NFCE) {
+		rc |= nfe_ide_set_tpimp(ide, NFE_DANFE_NFCE);
+		rc |= nfe_ide_set_indfinal(ide, NFE_CONSUMIDOR_FINAL);
+		rc |= nfe_ide_set_indpres(ide, NFE_PRESENCA_PRESENCIAL);
+	}
+	VERIFICA_INT(rc, 0);
+	return ide;
+}
+
+static nfe_emit *emit(void)
+{
+	nfe_emit *emit = nfe_emit_new();
+	nfe_endereco *end = nfe_endereco_new();
+	int rc = 0;
+
+	rc |= nfe_endereco_set_xlgr(end, "RUA DAS FLORES");
+	rc |= nfe_endereco_set_nro(end, "123");
+	rc |= nfe_endereco_set_xbairro(end, "CENTRO");
+	rc |= nfe_endereco_set_cmun(end, 3550308);
+	rc |= nfe_endereco_set_xmun(end, "SAO PAULO");
+	rc |= nfe_endereco_set_uf(end, "SP");
+	rc |= nfe_endereco_set_cep(end, "01001000");
+	rc |= nfe_emit_set_cnpj(emit, "12345678000195");
+	rc |= nfe_emit_set_xnome(emit, "EMPRESA EXEMPLO LTDA");
+	rc |= nfe_emit_set_endereco(emit, end);
+	rc |= nfe_emit_set_ie(emit, "123456789012");
+	rc |= nfe_emit_set_crt(emit, NFE_CRT_SIMPLES_NACIONAL);
+	VERIFICA_INT(rc, 0);
+	return emit;
+}
+
+static nfe_det *item(const char *cprod)
+{
+	nfe_det *det = nfe_det_new();
+	nfe_prod *prod = nfe_prod_new();
+	nfe_imposto *imp = nfe_imposto_new();
+	int rc = 0;
+
+	rc |= nfe_prod_set_cprod(prod, cprod);
+	rc |= nfe_prod_set_xprod(prod, "CANETA AZUL");
+	rc |= nfe_prod_set_ncm(prod, "96081000");
+	rc |= nfe_prod_set_cfop(prod, 5102);
+	rc |= nfe_prod_set_comercial(prod, "UN", "10", "1.50", "15.00");
+	rc |= nfe_prod_set_tributavel(prod, "UN", "10", "1.50");
+	rc |= nfe_imposto_set_icmssn102(imp, NFE_ORIGEM_NACIONAL,
+	                                NFE_CSOSN_102);
+	rc |= nfe_imposto_set_pisnt(imp, NFE_CST_PC_SEM_INCIDENCIA);
+	rc |= nfe_imposto_set_cofinsnt(imp, NFE_CST_PC_SEM_INCIDENCIA);
+	rc |= nfe_det_set_prod(det, prod);
+	rc |= nfe_det_set_imposto(det, imp);
+	VERIFICA_INT(rc, 0);
+	return det;
+}
+
+/* Nota completa com dois itens, sem destinatário */
+static nfe_nfe *nota(nfe_modelo mod)
+{
+	nfe_nfe *nfe = nfe_nfe_new();
+	nfe_total *tot = nfe_total_new();
+	nfe_pag *pag = nfe_pag_new();
+	nfe_detpag *dp = nfe_detpag_new();
+	int rc = 0;
+
+	rc |= nfe_total_set_icmstot(tot, NFE_TOT_VPROD, "30.00");
+	rc |= nfe_total_set_icmstot(tot, NFE_TOT_VNF, "30.00");
+	rc |= nfe_detpag_set_tpag(dp, NFE_MEIO_DINHEIRO);
+	rc |= nfe_detpag_set_vpag(dp, "30.00");
+	rc |= nfe_pag_add_detpag(pag, dp);
+	rc |= nfe_nfe_set_ide(nfe, ide(mod));
+	rc |= nfe_nfe_set_emit(nfe, emit());
+	rc |= nfe_nfe_add_det(nfe, item("001"));
+	rc |= nfe_nfe_add_det(nfe, item("002"));
+	rc |= nfe_nfe_set_total(nfe, tot);
+	rc |= nfe_nfe_set_transp(nfe, nfe_transp_new());
+	rc |= nfe_nfe_set_pag(nfe, pag);
+	VERIFICA_INT(rc, 0);
+	return nfe;
+}
+
+static void teste_nfce(void)
+{
+	nfe_nfe *nfe = nota(NFE_MODELO_NFCE);
+	char chave[45];
+	char *xml = NULL;
+	size_t tam = 0;
+
+	VERIFICA_INT(nfe_nfe_chave(nfe, chave, sizeof chave), 0);
+	VERIFICA_INT(strlen(chave), 44);
+	VERIFICA(strncmp(chave + 20, "65001000000001", 14) == 0);
+
+	VERIFICA_INT(nfe_nfe_xml(nfe, &xml, &tam), 0);
+	VERIFICA(xml != NULL);
+	if (xml) {
+		char id[128];
+
+		snprintf(id, sizeof id, "<infNFe versao=\"4.00\" Id=\"NFe%s\">",
+		         chave);
+		VERIFICA_INT(tam, strlen(xml));
+		VERIFICA(strncmp(xml,
+		                 "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+		                 "<NFe xmlns=\"" TESTE_NS "\">",
+		                 38 + 47) == 0);
+		VERIFICA(strstr(xml, id) != NULL);
+		VERIFICA(strstr(xml, "<mod>65</mod>") != NULL);
+		/* cDV igual ao último dígito da chave */
+		{
+			char cdv[16];
+			snprintf(cdv, sizeof cdv, "<cDV>%c</cDV>", chave[43]);
+			VERIFICA(strstr(xml, cdv) != NULL);
+		}
+		VERIFICA(strstr(xml, "<det nItem=\"1\"><prod><cProd>001") !=
+		         NULL);
+		VERIFICA(strstr(xml, "<det nItem=\"2\"><prod><cProd>002") !=
+		         NULL);
+		VERIFICA(strstr(xml, "</emit><det") != NULL); /* sem dest */
+		VERIFICA(strstr(xml, "</det><total>") != NULL);
+		VERIFICA(strstr(xml, "</total><transp>") != NULL);
+		VERIFICA(strstr(xml, "</transp><pag>") != NULL);
+		VERIFICA(strstr(xml, "</pag></infNFe></NFe>") != NULL);
+		VERIFICA(xml[tam - 1] == '>'); /* sem quebra de linha no fim */
+		VERIFICA(strchr(xml, '\n') == NULL);
+		VERIFICA_INT(valida_infnfe(xml), 0);
+	}
+	free(xml);
+	nfe_nfe_free(nfe);
+}
+
+static void teste_nfe_com_destinatario(void)
+{
+	nfe_nfe *nfe = nota(NFE_MODELO_NFE);
+	nfe_dest *dest = nfe_dest_new();
+	char *xml = NULL;
+	int rc = 0;
+
+	rc |= nfe_dest_set_cnpj(dest, "12ABC34501DE35");
+	rc |= nfe_dest_set_xnome(dest, "CLIENTE S.A.");
+	rc |= nfe_dest_set_indiedest(dest, NFE_IE_DEST_NAO_CONTRIBUINTE);
+	rc |= nfe_nfe_set_dest(nfe, dest);
+	VERIFICA_INT(rc, 0);
+	VERIFICA_INT(nfe_nfe_xml(nfe, &xml, NULL), 0);
+	VERIFICA(xml != NULL);
+	if (xml) {
+		VERIFICA(strstr(xml, "<mod>55</mod>") != NULL);
+		VERIFICA(strstr(xml,
+		                "</emit><dest><CNPJ>12ABC34501DE35</CNPJ>") !=
+		         NULL);
+		VERIFICA(strstr(xml, "</dest><det nItem=\"1\">") != NULL);
+		VERIFICA_INT(valida_infnfe(xml), 0);
+	}
+	free(xml);
+
+	/* Removendo o destinatário */
+	VERIFICA_INT(nfe_nfe_set_dest(nfe, NULL), 0);
+	xml = NULL;
+	VERIFICA_INT(nfe_nfe_xml(nfe, &xml, NULL), 0);
+	if (xml)
+		VERIFICA(strstr(xml, "<dest>") == NULL);
+	free(xml);
+	nfe_nfe_free(nfe);
+}
+
+static void teste_salvar(const char *dir)
+{
+	nfe_nfe *nfe = nota(NFE_MODELO_NFE);
+	char caminho[1024], *xml = NULL, lido[16384];
+	size_t tam = 0, n;
+	FILE *f;
+
+	snprintf(caminho, sizeof caminho, "%s/../obj/test_nfe.xml", dir);
+	VERIFICA_INT(nfe_nfe_salvar(nfe, caminho), 0);
+	VERIFICA_INT(nfe_nfe_xml(nfe, &xml, &tam), 0);
+	f = fopen(caminho, "rb");
+	VERIFICA(f != NULL);
+	if (f && xml) {
+		n = fread(lido, 1, sizeof lido, f);
+		VERIFICA_INT(n, tam);
+		VERIFICA(memcmp(lido, xml, tam) == 0);
+	}
+	if (f)
+		fclose(f);
+	remove(caminho);
+	free(xml);
+
+	/* Diretório inexistente */
+	VERIFICA_INT(nfe_nfe_salvar(nfe, "/nao/existe/nota.xml"), E_ARQUIVO);
+	nfe_nfe_free(nfe);
+}
+
+static void teste_obrigatorios(void)
+{
+	nfe_nfe *nfe = nfe_nfe_new();
+	char chave[45], *xml = NULL;
+	int i, rc = 0;
+
+	/* Vazia: falta tudo */
+	VERIFICA_INT(nfe_nfe_xml(nfe, &xml, NULL), E_VALOR);
+	VERIFICA(xml == NULL);
+	VERIFICA_INT(nfe_nfe_chave(nfe, chave, sizeof chave), E_VALOR);
+	nfe_nfe_free(nfe);
+
+	/* Sem pag */
+	nfe = nota(NFE_MODELO_NFCE);
+	VERIFICA_INT(nfe_nfe_set_pag(nfe, NULL), E_ISNULL);
+	nfe_nfe_free(nfe);
+
+	/* Item incompleto: o erro do grupo é repassado */
+	nfe = nota(NFE_MODELO_NFCE);
+	VERIFICA_INT(nfe_nfe_add_det(nfe, nfe_det_new()), 0);
+	VERIFICA_INT(nfe_nfe_xml(nfe, &xml, NULL), E_VALOR);
+	nfe_nfe_free(nfe);
+
+	/* Limite de itens */
+	nfe = nfe_nfe_new();
+	for (i = 0; i < NFE_MAX_ITENS; i++)
+		rc |= nfe_nfe_add_det(nfe, nfe_det_new());
+	VERIFICA_INT(rc, 0);
+	{
+		nfe_det *det = nfe_det_new();
+		VERIFICA_INT(nfe_nfe_add_det(nfe, det), E_VALOR);
+		nfe_det_free(det);
+	}
+	nfe_nfe_free(nfe);
+
+	VERIFICA_INT(nfe_nfe_xml(NULL, &xml, NULL), E_ISNULL);
+	VERIFICA_INT(nfe_nfe_add_det(NULL, NULL), E_ISNULL);
+	VERIFICA_INT(nfe_nfe_salvar(NULL, "x.xml"), E_ISNULL);
+	nfe_nfe_free(NULL);
+}
+
+int main(int argc, char **argv)
+{
+	if (argc < 2) {
+		fprintf(stderr, "uso: %s <diretório tests>\n", argv[0]);
+		return 2;
+	}
+	if (teste_carrega_schema(argv[1]) != 0)
+		return 2;
+
+	teste_nfce();
+	teste_nfe_com_destinatario();
+	teste_salvar(argv[1]);
+	teste_obrigatorios();
+
+	teste_libera_schema();
+	TESTE_FIM();
+}

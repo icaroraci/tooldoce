@@ -174,6 +174,13 @@ int nfe_emit_set_isufemit(nfe_emit *emit, const char *isufemit)
 	                      "[0-9]{8,9}");
 }
 
+const char *nfe_emit_documento(const nfe_emit *emit)
+{
+	if (!emit || emit->tipoDoc == DOC_NENHUM)
+		return NULL;
+	return emit->doc;
+}
+
 int nfe_emit_write_xml(xmlTextWriterPtr writer, const nfe_emit *emit)
 {
 	int rc;

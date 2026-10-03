@@ -66,6 +66,7 @@ int main(void)
 	VERIFICA_STR(nfe_strerror(E_TAMANHO),
 	             "texto fora dos limites do campo");
 	VERIFICA_STR(nfe_strerror(E_XML), "falha ao escrever o XML");
+	VERIFICA_STR(nfe_strerror(E_ARQUIVO), "falha ao gravar o arquivo");
 	VERIFICA_STR(nfe_strerror(12345), "erro desconhecido");
 
 	TESTE_FIM();
