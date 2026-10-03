@@ -1,0 +1,2 @@
+# Schemas oficiais: manter os bytes exatamente como publicados
+tests/schemas/**/*.xsd -text

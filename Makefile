@@ -93,13 +93,21 @@ uninstall:
 	rm -rfv $(DESTDIR)$(INCLUDEDIR)/libnfe
 
 
-#Testes automatizados ainda não existem (ver issue #47)
-test:
-	@echo "Nenhum teste definido ainda."
+#Testes: cada tests/test_*.c vira um executável em obj/, compilado junto com
+#os fontes da biblioteca e com sanitizers (desative com SANITIZE=)
+TESTES = $(addprefix $(LOBJ)/,$(basename $(notdir $(wildcard tests/test_*.c))))
+SANITIZE ?= -fsanitize=address,undefined -fno-omit-frame-pointer
+CFLAGS_TESTE = $(filter-out -MMD -MP,$(CFLAGS)) $(SANITIZE)
+
+test: $(TESTES)
+	@for t in $(TESTES); do echo "== $$t"; $$t tests || exit 1; done
+
+$(LOBJ)/test_%: tests/test_%.c tests/teste.h $(C_SOURCE) $(wildcard $(INCLUDE)/libnfe/*.h) | $(LOBJ)
+	$(CC) $(CFLAGS_TESTE) -I$(INCLUDE) $< $(C_SOURCE) -o $@ $(LIBS)
 
 
 clean:
-	rm -fv $(LOBJ)/*.o $(LOBJ)/*.d $(LIB)/libnfe.so*
+	rm -fv $(LOBJ)/*.o $(LOBJ)/*.d $(LIB)/libnfe.so* $(TESTES)
 
 
 -include $(OBJ:.o=.d)
