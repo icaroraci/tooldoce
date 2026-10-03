@@ -97,18 +97,18 @@ static char *DHSet(nfe_tzd tzd, const char *str)
 struct Cont_s *ideContNew(const struct Cont_s *this,
                           nfe_tzd tzd, 
                           const char *str, 
-                          const char *xjust);
+                          const char *xjust)
 {
   if(!this) 
   { 
-    strcpy(this->dhCont, DHSet(tzd, str);
+    strcpy(this->dhCont, DHSet(tzd, str));
     strcpy(this->xJust, xjust);
     return this;
   }
   else
   {
-    struct Const_s *cont = (struct Cont_s *)malloc(sizeof(struct Const_s));
-    strcpy(cont->dhCont, DHSet(tzd, str);
+    struct Cont_s *cont = (struct Cont_s *)malloc(sizeof(struct Cont_s));
+    strcpy(cont->dhCont, DHSet(tzd, str));
     strcpy(cont->xJust, xjust);
     return cont;
   }
@@ -190,7 +190,7 @@ struct ide_s *ideNew(struct ide_s *this,
     this->serir = serie;
     this->nNF = nnf;
     strcpy(this->dhEmi, DHSet(tzd, str)); // precisa rever isso
-    strcpy(this->dhSaiEnt, DHSet(tzd, str);
+    strcpy(this->dhSaiEnt, DHSet(tzd, str));
     this->tpNF = tpnf;
     this->ideDest = idedest;
     this->cMunFG = cmunfg;
@@ -217,7 +217,7 @@ struct ide_s *ideNew(struct ide_s *this,
     ide->serir = serie;
     ide->nNF = nnf;
     strcpy(ide->dhEmi, DHSet(tzd, str)); // precisa rever isso
-    strcpy(ide->dhSaiEnt, DHSet(tzd, str);
+    strcpy(ide->dhSaiEnt, DHSet(tzd, str));
     ide->tpNF = tpnf;
     ide->ideDest = idedest;
     ide->cMunFG = cmunfg;

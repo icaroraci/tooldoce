@@ -22,9 +22,8 @@ jobs:
       #   ide.c   -> #26, #27
       #   refNF.c -> #28, #29
       KNOWN_BROKEN: "ide.c refNF.c"
-      # Headers que ainda não compilam sozinhos.
-      #   ide.h -> #26
-      KNOWN_BROKEN_HEADERS: "ide.h"
+      # Headers que ainda não compilam sozinhos (nenhum no momento).
+      KNOWN_BROKEN_HEADERS: ""
     steps:
       - uses: actions/checkout@v4
 

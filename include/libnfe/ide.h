@@ -100,7 +100,6 @@ struct ide_s *ideNew(struct ide_s *this,
                      struct Cont_s *cont,
                      nfe_tzd tzd, 
                      const char *str );
-{
 void ideDel(struct ide_s *ide);
 
 /*  Gera o Nó xml para o respectivo objeto
