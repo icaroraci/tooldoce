@@ -722,6 +722,1239 @@ de recepção da NF-e indicada pelo destinatário</xs:documentation>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+	<xs:element name="prod">
+		<xs:annotation>
+			<xs:documentation>Dados dos produtos e serviços da NF-e</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="cProd">
+					<xs:annotation>
+						<xs:documentation>Código do produto ou serviço. Preencher com CFOP caso se trate de itens não relacionados com mercadorias/produto e que o contribuinte não possua codificação própria
+Formato ”CFOP9999”.</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="TString">
+							<xs:maxLength value="60"/>
+							<xs:minLength value="1"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="cEAN">
+					<xs:annotation>
+						<xs:documentation>GTIN (Global Trade Item Number) do produto, antigo código EAN ou código de barras</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:whiteSpace value="preserve"/>
+							<xs:pattern value="SEM GTIN|[0-9]{0}|[0-9]{8}|[0-9]{12,14}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="cBarra" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Codigo de barras diferente do padrão GTIN</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="TString">
+							<xs:maxLength value="30"/>
+							<xs:minLength value="3"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="xProd">
+					<xs:annotation>
+						<xs:documentation>Descrição do produto ou serviço</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="TString">
+							<xs:maxLength value="120"/>
+							<xs:minLength value="1"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="NCM">
+					<xs:annotation>
+						<xs:documentation>Código NCM (8 posições), será permitida a informação do gênero (posição do capítulo do NCM) quando a operação não for de comércio exterior (importação/exportação) ou o produto não seja tributado pelo IPI. Em caso de item de serviço ou item que não tenham produto (Ex. transferência de crédito, crédito do ativo imobilizado, etc.), informar o código 00 (zeros) (v2.0)</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:whiteSpace value="preserve"/>
+							<xs:pattern value="[0-9]{2}|[0-9]{8}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="NVE" minOccurs="0" maxOccurs="8">
+					<xs:annotation>
+						<xs:documentation>Nomenclatura de Valor aduaneio e Estatístico</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:whiteSpace value="preserve"/>
+							<xs:pattern value="[A-Z]{2}[0-9]{4}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:sequence minOccurs="0">
+					<xs:element name="CEST">
+						<xs:annotation>
+							<xs:documentation>Codigo especificador da Substuicao Tributaria - CEST, que identifica a mercadoria sujeita aos regimes de  substituicao tributária e de antecipação do recolhimento  do imposto</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:whiteSpace value="preserve"/>
+								<xs:pattern value="[0-9]{7}"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="indEscala" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:enumeration value="S"/>
+								<xs:enumeration value="N"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="CNPJFab" type="TCnpj" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>CNPJ do Fabricante da Mercadoria, obrigatório para produto em escala NÃO relevante.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+				<xs:element name="cBenef" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:whiteSpace value="preserve"/>
+							<xs:pattern value="([!-ÿ]{8}|[!-ÿ]{10}|SEM CBENEF)?"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="gCred" minOccurs="0" maxOccurs="4">
+					<xs:annotation>
+						<xs:documentation>Grupo de informações sobre o CréditoPresumido </xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="cCredPresumido">
+								<xs:annotation>
+									<xs:documentation>Código de Benefício Fiscal de Crédito Presumido na UF aplicado ao item</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:whiteSpace value="preserve"/>
+										<xs:pattern value="[!-ÿ]{8}|[!-ÿ]{10}"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="pCredPresumido" type="TDec_0302a04">
+								<xs:annotation>
+									<xs:documentation>Percentual do Crédito Presumido</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="vCredPresumido" type="TDec_1302">
+								<xs:annotation>
+									<xs:documentation>Valor do Crédito Presumido</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="tpCredPresIBSZFM" type="TTpCredPresIBSZFM" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Classificação para subapuração do IBS na ZFM</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="EXTIPI" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Código EX TIPI (3 posições)</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:whiteSpace value="preserve"/>
+							<xs:pattern value="[0-9]{2,3}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="CFOP">
+					<xs:annotation>
+						<xs:documentation>Cfop</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:whiteSpace value="preserve"/>
+							<xs:pattern value="[1,2,3,5,6,7]{1}[0-9]{3}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="uCom">
+					<xs:annotation>
+						<xs:documentation>Unidade comercial</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="TString">
+							<xs:maxLength value="6"/>
+							<xs:minLength value="1"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="qCom" type="TDec_1104v">
+					<xs:annotation>
+						<xs:documentation>Quantidade Comercial  do produto, alterado para aceitar de 0 a 4 casas decimais e 11 inteiros.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="vUnCom" type="TDec_1110v">
+					<xs:annotation>
+						<xs:documentation>Valor unitário de comercialização  - alterado para aceitar 0 a 10 casas decimais e 11 inteiros</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="vProd" type="TDec_1302">
+					<xs:annotation>
+						<xs:documentation>Valor bruto do produto ou serviço.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="cEANTrib">
+					<xs:annotation>
+						<xs:documentation>GTIN (Global Trade Item Number) da unidade tributável, antigo código EAN ou código de barras</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:whiteSpace value="preserve"/>
+							<xs:pattern value="SEM GTIN|[0-9]{0}|[0-9]{8}|[0-9]{12,14}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="cBarraTrib" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Código de barras da unidade tributável diferente do padrão GTIN</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="TString">
+							<xs:maxLength value="30"/>
+							<xs:minLength value="3"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="uTrib">
+					<xs:annotation>
+						<xs:documentation>Unidade Tributável</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="TString">
+							<xs:maxLength value="6"/>
+							<xs:minLength value="1"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="qTrib" type="TDec_1104v">
+					<xs:annotation>
+						<xs:documentation>Quantidade Tributável - alterado para aceitar de 0 a 4 casas decimais e 11 inteiros</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="vUnTrib" type="TDec_1110v">
+					<xs:annotation>
+						<xs:documentation>Valor unitário de tributação - alterado para aceitar 0 a 10 casas decimais e 11 inteiros</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="vFrete" type="TDec_1302Opc" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Valor Total do Frete</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="vSeg" type="TDec_1302Opc" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Valor Total do Seguro</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="vDesc" type="TDec_1302Opc" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Valor do Desconto</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="vOutro" type="TDec_1302Opc" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Outras despesas acessórias</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="indTot">
+					<xs:annotation>
+						<xs:documentation>Este campo deverá ser preenchido com:
+ 0 – o valor do item (vProd) não compõe o valor total da NF-e (vProd)
+ 1  – o valor do item (vProd) compõe o valor total da NF-e (vProd)</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:whiteSpace value="preserve"/>
+							<xs:enumeration value="0"/>
+							<xs:enumeration value="1"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="indBemMovelUsado" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Indicador de fornecimento de bem móvel usado: 1-Bem Móvel Usado</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:whiteSpace value="preserve"/>
+							<xs:enumeration value="1"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="DI" minOccurs="0" maxOccurs="100">
+					<xs:annotation>
+						<xs:documentation>Declaração de Importação (NT 2011/004)</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="nDI">
+								<xs:annotation>
+									<xs:documentation>Número do Documento de Importação (DI, DSI, DIRE, DUImp) (NT2011/004)</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TString">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="15"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="dDI" type="TData">
+								<xs:annotation>
+									<xs:documentation>Data de registro da DI/DSI/DA (AAAA-MM-DD)</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="xLocDesemb">
+								<xs:annotation>
+									<xs:documentation>Local do desembaraço aduaneiro</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TString">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="60"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="UFDesemb" type="TUfEmi">
+								<xs:annotation>
+									<xs:documentation>UF onde ocorreu o desembaraço aduaneiro</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="dDesemb" type="TData">
+								<xs:annotation>
+									<xs:documentation>Data do desembaraço aduaneiro (AAAA-MM-DD)</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="tpViaTransp">
+								<xs:annotation>
+									<xs:documentation>Via de transporte internacional informada na DI ou na Declaração Única de Importação (DUImp):
+									1-Maritima;2-Fluvial;3-Lacustre;4-Aerea;5-Postal;6-Ferroviaria;7-Rodoviaria;8-Conduto;9-Meios Proprios;10-Entrada/Saida Ficta;
+									11-Courier;12-Em maos;13-Por reboque.</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:whiteSpace value="preserve"/>
+										<xs:enumeration value="1"/>
+										<xs:enumeration value="2"/>
+										<xs:enumeration value="3"/>
+										<xs:enumeration value="4"/>
+										<xs:enumeration value="5"/>
+										<xs:enumeration value="6"/>
+										<xs:enumeration value="7"/>
+										<xs:enumeration value="8"/>
+										<xs:enumeration value="9"/>
+										<xs:enumeration value="10"/>
+										<xs:enumeration value="11"/>
+										<xs:enumeration value="12"/>
+										<xs:enumeration value="13"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="vAFRMM" type="TDec_1302" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Valor Adicional ao frete para renovação de marinha mercante</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="tpIntermedio">
+								<xs:annotation>
+									<xs:documentation>Forma de Importação quanto a intermediação 
+									1-por conta propria;2-por conta e ordem;3-encomenda</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:whiteSpace value="preserve"/>
+										<xs:enumeration value="1"/>
+										<xs:enumeration value="2"/>
+										<xs:enumeration value="3"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:choice minOccurs="0">
+								<xs:element name="CNPJ" type="TCnpj">
+									<xs:annotation>
+										<xs:documentation>CNPJ do adquirente ou do encomendante</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="CPF" type="TCpf">
+									<xs:annotation>
+										<xs:documentation>CPF do adquirente ou do encomendante</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:choice>
+							<xs:element name="UFTerceiro" type="TUfEmi" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Sigla da UF do adquirente ou do encomendante</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="cExportador">
+								<xs:annotation>
+									<xs:documentation>Código do exportador (usado nos sistemas internos de informação do emitente da NF-e)</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TString">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="60"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="adi" maxOccurs="999">
+								<xs:annotation>
+									<xs:documentation>Adições (NT 2011/004)</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="nAdicao" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Número da Adição</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:whiteSpace value="preserve"/>
+													<xs:pattern value="[1-9]{1}[0-9]{0,2}"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="nSeqAdic">
+											<xs:annotation>
+												<xs:documentation>Número seqüencial do item</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:whiteSpace value="preserve"/>
+													<xs:pattern value="[1-9]{1}[0-9]{0,4}"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="cFabricante">
+											<xs:annotation>
+												<xs:documentation>Código do fabricante estrangeiro (usado nos sistemas internos de informação do emitente da NF-e)</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="TString">
+													<xs:minLength value="1"/>
+													<xs:maxLength value="60"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="vDescDI" type="TDec_1302Opc" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Valor do desconto do item</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="nDraw" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Número do ato concessório de Drawback</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="TString">
+													<xs:minLength value="1"/>
+													<xs:maxLength value="20"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="detExport" minOccurs="0" maxOccurs="500">
+					<xs:annotation>
+						<xs:documentation>Detalhe da exportação</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="nDraw" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Número do ato concessório de Drawback</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TString">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="20"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="exportInd" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Exportação indireta</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="nRE">
+											<xs:annotation>
+												<xs:documentation>Registro de exportação</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:whiteSpace value="preserve"/>
+													<xs:pattern value="[0-9]{0,12}"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="chNFe" type="TChNFe">
+											<xs:annotation>
+												<xs:documentation>Chave de acesso da NF-e recebida para exportação</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="qExport" type="TDec_1104v">
+											<xs:annotation>
+												<xs:documentation>Quantidade do item efetivamente exportado</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="xPed" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>pedido de compra - Informação de interesse do emissor para controle do B2B.</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="TString">
+							<xs:minLength value="1"/>
+							<xs:maxLength value="15"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="nItemPed" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Número do Item do Pedido de Compra - Identificação do número do item do pedido de Compra</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:whiteSpace value="preserve"/>
+							<xs:pattern value="[0-9]{1,6}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="nFCI" type="TGuid" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Número de controle da FCI - Ficha de Conteúdo de Importação.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="rastro" minOccurs="0" maxOccurs="500">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="nLote">
+								<xs:annotation>
+									<xs:documentation>Número do lote do produto.</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TString">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="20"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="qLote" type="TDec_0803v">
+								<xs:annotation>
+									<xs:documentation>Quantidade de produto no lote.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="dFab" type="TData">
+								<xs:annotation>
+									<xs:documentation>Data de fabricação/produção. Formato &quot;AAAA-MM-DD&quot;.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="dVal" type="TData">
+								<xs:annotation>
+									<xs:documentation>Data de validade. Informar o último dia do mês caso a validade não especifique o dia. Formato &quot;AAAA-MM-DD&quot;.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="cAgreg" minOccurs="0">
+								<xs:simpleType>
+									<xs:restriction base="TString">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="20"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="infProdNFF" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Informações mais detalhadas do produto (usada na NFF)</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="cProdFisco">
+								<xs:annotation>
+									<xs:documentation>Código Fiscal do Produto</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TString">
+										<xs:length value="14"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="cOperNFF">
+								<xs:annotation>
+									<xs:documentation>Código da operação selecionada na NFF e relacionada ao item</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:whiteSpace value="preserve"/>
+										<xs:pattern value="[0-9]{1,5}"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="infProdEmb" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Informações mais detalhadas do produto (usada na NFF)</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="xEmb">
+								<xs:annotation>
+									<xs:documentation>Embalagem do produto</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TString">
+										<xs:maxLength value="8"/>
+										<xs:minLength value="1"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="qVolEmb" type="TDec_0803v">
+								<xs:annotation>
+									<xs:documentation>Volume do produto na embalagem</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="uEmb">
+								<xs:annotation>
+									<xs:documentation>Unidade de Medida da Embalagem</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TString">
+										<xs:maxLength value="8"/>
+										<xs:minLength value="1"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:choice minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Informações específicas de produtos e serviços</xs:documentation>
+					</xs:annotation>
+					<xs:element name="veicProd">
+						<xs:annotation>
+							<xs:documentation>Veículos novos</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="tpOp">
+									<xs:annotation>
+										<xs:documentation>Tipo da Operação (1 - Venda concessionária; 2 - Faturamento direto; 3 - Venda direta; 0 - Outros)</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="xs:string">
+											<xs:whiteSpace value="preserve"/>
+											<xs:enumeration value="0"/>
+											<xs:enumeration value="1"/>
+											<xs:enumeration value="2"/>
+											<xs:enumeration value="3"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="chassi">
+									<xs:annotation>
+										<xs:documentation>Chassi do veículo - VIN (código-identificação-veículo)</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="xs:string">
+											<xs:length value="17"/>
+											<xs:whiteSpace value="preserve"/>
+											<xs:pattern value="[A-Z0-9]+"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="cCor">
+									<xs:annotation>
+										<xs:documentation>Cor do veículo (código de cada montadora)</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="TString">
+											<xs:minLength value="1"/>
+											<xs:maxLength value="4"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="xCor">
+									<xs:annotation>
+										<xs:documentation>Descrição da cor</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="TString">
+											<xs:minLength value="1"/>
+											<xs:maxLength value="40"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="pot">
+									<xs:annotation>
+										<xs:documentation>Potência máxima do motor do veículo em cavalo vapor (CV). (potência-veículo)</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="TString">
+											<xs:minLength value="1"/>
+											<xs:maxLength value="4"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="cilin">
+									<xs:annotation>
+										<xs:documentation>Capacidade voluntária do motor expressa em centímetros cúbicos (CC). (cilindradas)</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="TString">
+											<xs:minLength value="1"/>
+											<xs:maxLength value="4"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="pesoL">
+									<xs:annotation>
+										<xs:documentation>Peso líquido</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="TString">
+											<xs:minLength value="1"/>
+											<xs:maxLength value="9"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="pesoB">
+									<xs:annotation>
+										<xs:documentation>Peso bruto</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="TString">
+											<xs:minLength value="1"/>
+											<xs:maxLength value="9"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="nSerie">
+									<xs:annotation>
+										<xs:documentation>Serial (série)</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="TString">
+											<xs:minLength value="1"/>
+											<xs:maxLength value="9"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="tpComb">
+									<xs:annotation>
+										<xs:documentation>Tipo de combustível-Tabela RENAVAM: 01-Álcool; 02-Gasolina; 03-Diesel; 16-Álcool/Gas.; 17-Gas./Álcool/GNV; 18-Gasolina/Elétrico</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="TString">
+											<xs:minLength value="1"/>
+											<xs:maxLength value="2"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="nMotor">
+									<xs:annotation>
+										<xs:documentation>Número do motor</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="TString">
+											<xs:minLength value="1"/>
+											<xs:maxLength value="21"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="CMT">
+									<xs:annotation>
+										<xs:documentation>CMT-Capacidade Máxima de Tração - em Toneladas 4 casas decimais</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="TString">
+											<xs:minLength value="1"/>
+											<xs:maxLength value="9"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="dist">
+									<xs:annotation>
+										<xs:documentation>Distância entre eixos</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="TString">
+											<xs:minLength value="1"/>
+											<xs:maxLength value="4"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="anoMod">
+									<xs:annotation>
+										<xs:documentation>Ano Modelo de Fabricação</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="xs:string">
+											<xs:whiteSpace value="preserve"/>
+											<xs:pattern value="[0-9]{4}"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="anoFab">
+									<xs:annotation>
+										<xs:documentation>Ano de Fabricação</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="xs:string">
+											<xs:whiteSpace value="preserve"/>
+											<xs:pattern value="[0-9]{4}"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="tpPint">
+									<xs:annotation>
+										<xs:documentation>Tipo de pintura</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="TString">
+											<xs:length value="1"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="tpVeic">
+									<xs:annotation>
+										<xs:documentation>Tipo de veículo (utilizar tabela RENAVAM)</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="xs:string">
+											<xs:whiteSpace value="preserve"/>
+											<xs:pattern value="[0-9]{1,2}"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="espVeic">
+									<xs:annotation>
+										<xs:documentation>Espécie de veículo (utilizar tabela RENAVAM)</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="xs:string">
+											<xs:whiteSpace value="preserve"/>
+											<xs:pattern value="[0-9]{1}"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="VIN">
+									<xs:annotation>
+										<xs:documentation>Informa-se o veículo tem VIN (chassi) remarcado.
+R-Remarcado
+N-NormalVIN</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="TString">
+											<xs:length value="1"/>
+											<xs:enumeration value="R"/>
+											<xs:enumeration value="N"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="condVeic">
+									<xs:annotation>
+										<xs:documentation>Condição do veículo (1 - acabado; 2 - inacabado; 3 - semi-acabado)</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="xs:string">
+											<xs:whiteSpace value="preserve"/>
+											<xs:enumeration value="1"/>
+											<xs:enumeration value="2"/>
+											<xs:enumeration value="3"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="cMod">
+									<xs:annotation>
+										<xs:documentation>Código Marca Modelo (utilizar tabela RENAVAM)</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="xs:string">
+											<xs:whiteSpace value="preserve"/>
+											<xs:pattern value="[0-9]{1,6}"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="cCorDENATRAN">
+									<xs:annotation>
+										<xs:documentation>Código da Cor Segundo as regras de pré-cadastro do DENATRAN: 01-AMARELO;02-AZUL;03-BEGE;04-BRANCA;05-CINZA;06-DOURADA;07-GRENA 
+08-LARANJA;09-MARROM;10-PRATA;11-PRETA;12-ROSA;13-ROXA;14-VERDE;15-VERMELHA;16-FANTASIA</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="xs:string">
+											<xs:whiteSpace value="preserve"/>
+											<xs:minLength value="1"/>
+											<xs:maxLength value="2"/>
+											<xs:pattern value="[0-9]{1,2}"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="lota">
+									<xs:annotation>
+										<xs:documentation>Quantidade máxima de permitida de passageiros sentados, inclusive motorista.</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="xs:string">
+											<xs:minLength value="1"/>
+											<xs:maxLength value="3"/>
+											<xs:whiteSpace value="preserve"/>
+											<xs:pattern value="[0-9]{1,3}"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="tpRest">
+									<xs:annotation>
+										<xs:documentation>Restrição
+0 - Não há;
+1 - Alienação Fiduciária;
+2 - Arrendamento Mercantil;
+3 - Reserva de Domínio;
+4 - Penhor de Veículos;
+9 - outras.</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="xs:string">
+											<xs:whiteSpace value="preserve"/>
+											<xs:enumeration value="0"/>
+											<xs:enumeration value="1"/>
+											<xs:enumeration value="2"/>
+											<xs:enumeration value="3"/>
+											<xs:enumeration value="4"/>
+											<xs:enumeration value="9"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="med">
+						<xs:annotation>
+							<xs:documentation>grupo do detalhamento de Medicamentos e de matérias-primas farmacêuticas</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="cProdANVISA">
+									<xs:annotation>
+										<xs:documentation>Utilizar o número do registro ANVISA  ou preencher com o literal “ISENTO”, no caso de medicamento isento de registro na ANVISA.</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="TString">
+											<xs:pattern value="[0-9]{11}|[0-9]{13}|ISENTO"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="xMotivoIsencao" minOccurs="0">
+									<xs:annotation>
+										<xs:documentation>Obs.: Para medicamento isento de registro na ANVISA, informar o número da decisão que o isenta, como por exemplo o número da Resolução da Diretoria Colegiada da ANVISA (RDC).</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="TString">
+											<xs:minLength value="1"/>
+											<xs:maxLength value="255"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="vPMC" type="TDec_1302">
+									<xs:annotation>
+										<xs:documentation>Preço Máximo ao Consumidor.</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="arma" maxOccurs="500">
+						<xs:annotation>
+							<xs:documentation>Armamentos</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="tpArma">
+									<xs:annotation>
+										<xs:documentation>Indicador do tipo de arma de fogo (0 - Uso permitido; 1 - Uso restrito)</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="xs:string">
+											<xs:whiteSpace value="preserve"/>
+											<xs:enumeration value="0"/>
+											<xs:enumeration value="1"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="nSerie">
+									<xs:annotation>
+										<xs:documentation>Número de série da arma</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="TString">
+											<xs:minLength value="1"/>
+											<xs:maxLength value="15"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="nCano">
+									<xs:annotation>
+										<xs:documentation>Número de série do cano</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="TString">
+											<xs:minLength value="1"/>
+											<xs:maxLength value="15"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="descr">
+									<xs:annotation>
+										<xs:documentation>Descrição completa da arma, compreendendo: calibre, marca, capacidade, tipo de funcionamento, comprimento e demais elementos que permitam a sua perfeita identificação.</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="TString">
+											<xs:minLength value="1"/>
+											<xs:maxLength value="256"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="comb">
+						<xs:annotation>
+							<xs:documentation>Informar apenas para operações com combustíveis líquidos</xs:documentation>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="cProdANP">
+									<xs:annotation>
+										<xs:documentation>Código de produto da ANP. codificação de produtos do SIMP (http://www.anp.gov.br)</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="xs:string">
+											<xs:whiteSpace value="preserve"/>
+											<xs:pattern value="[0-9]{9}"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="descANP">
+									<xs:annotation>
+										<xs:documentation>Descrição do Produto conforme ANP. Utilizar a descrição de produtos do Sistema de Informações de Movimentação de Produtos - SIMP (http://www.anp.gov.br/simp/).</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="TString">
+											<xs:minLength value="2"/>
+											<xs:maxLength value="95"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="pGLP" type="TDec_0302a04Max100" minOccurs="0">
+									<xs:annotation>
+										<xs:documentation>Percentual do GLP derivado do petróleo no produto GLP (cProdANP=210203001). Informar em número decimal o percentual do GLP derivado de petróleo no produto GLP. Valores 0 a 100.</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="pGNn" type="TDec_0302a04Max100" minOccurs="0">
+									<xs:annotation>
+										<xs:documentation>Percentual de gás natural nacional - GLGNn para o produto GLP (cProdANP=210203001). Informar em número decimal o percentual do Gás Natural Nacional - GLGNn para o produto GLP. Valores de 0 a 100.</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="pGNi" type="TDec_0302a04Max100" minOccurs="0">
+									<xs:annotation>
+										<xs:documentation>Percentual de gás natural importado GLGNi para o produto GLP (cProdANP=210203001). Informar em número deciaml o percentual do Gás Natural Importado - GLGNi para o produto GLP. Valores de 0 a 100.</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="vPart" type="TDec_1302" minOccurs="0">
+									<xs:annotation>
+										<xs:documentation>Valor de partida (cProdANP=210203001). Deve ser informado neste campo o valor por quilograma sem ICMS.</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="CODIF" minOccurs="0">
+									<xs:annotation>
+										<xs:documentation>Código de autorização / registro do CODIF. Informar apenas quando a UF utilizar o CODIF (Sistema de Controle do 			Diferimento do Imposto nas Operações com AEAC - Álcool Etílico Anidro Combustível).</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+										<xs:restriction base="xs:string">
+											<xs:whiteSpace value="preserve"/>
+											<xs:pattern value="[0-9]{1,21}"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="qTemp" type="TDec_1204temperatura" minOccurs="0">
+									<xs:annotation>
+										<xs:documentation>Quantidade de combustível
+faturada à temperatura ambiente.
+Informar quando a quantidade
+faturada informada no campo
+qCom (I10) tiver sido ajustada para
+uma temperatura diferente da
+ambiente.</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="UFCons" type="TUf">
+									<xs:annotation>
+										<xs:documentation>Sigla da UF de Consumo</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="CIDE" minOccurs="0">
+									<xs:annotation>
+										<xs:documentation>CIDE Combustíveis</xs:documentation>
+									</xs:annotation>
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element name="qBCProd" type="TDec_1204v">
+												<xs:annotation>
+													<xs:documentation>BC do CIDE ( Quantidade comercializada)</xs:documentation>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="vAliqProd" type="TDec_1104">
+												<xs:annotation>
+													<xs:documentation>Alíquota do CIDE  (em reais)</xs:documentation>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="vCIDE" type="TDec_1302">
+												<xs:annotation>
+													<xs:documentation>Valor do CIDE</xs:documentation>
+												</xs:annotation>
+											</xs:element>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+								<xs:element name="encerrante" minOccurs="0">
+									<xs:annotation>
+										<xs:documentation>Informações do grupo de &quot;encerrante&quot;</xs:documentation>
+									</xs:annotation>
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element name="nBico">
+												<xs:annotation>
+													<xs:documentation>Numero de identificação do Bico utilizado no abastecimento</xs:documentation>
+												</xs:annotation>
+												<xs:simpleType>
+													<xs:restriction base="xs:string">
+														<xs:whiteSpace value="preserve"/>
+														<xs:pattern value="[0-9]{1,3}"/>
+													</xs:restriction>
+												</xs:simpleType>
+											</xs:element>
+											<xs:element name="nBomba" minOccurs="0">
+												<xs:annotation>
+													<xs:documentation>Numero de identificação da bomba ao qual o bico está interligado</xs:documentation>
+												</xs:annotation>
+												<xs:simpleType>
+													<xs:restriction base="xs:string">
+														<xs:whiteSpace value="preserve"/>
+														<xs:pattern value="[0-9]{1,3}"/>
+													</xs:restriction>
+												</xs:simpleType>
+											</xs:element>
+											<xs:element name="nTanque">
+												<xs:annotation>
+													<xs:documentation>Numero de identificação do tanque ao qual o bico está interligado</xs:documentation>
+												</xs:annotation>
+												<xs:simpleType>
+													<xs:restriction base="xs:string">
+														<xs:whiteSpace value="preserve"/>
+														<xs:pattern value="[0-9]{1,3}"/>
+													</xs:restriction>
+												</xs:simpleType>
+											</xs:element>
+											<xs:element name="vEncIni" type="TDec_1203">
+												<xs:annotation>
+													<xs:documentation>Valor do Encerrante no ínicio do abastecimento</xs:documentation>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="vEncFin" type="TDec_1203">
+												<xs:annotation>
+													<xs:documentation>Valor do Encerrante no final do abastecimento</xs:documentation>
+												</xs:annotation>
+											</xs:element>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+								<xs:element name="pBio" type="TDec_03v00a04Max100Opc" minOccurs="0">
+									<xs:annotation>
+										<xs:documentation>Percentual do índice de mistura do Biodiesel (B100) no Óleo Diesel B instituído pelo órgão regulamentador</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="origComb" minOccurs="0" maxOccurs="30">
+									<xs:annotation>
+										<xs:documentation>Grupo indicador da origem do combustível</xs:documentation>
+									</xs:annotation>
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element name="indImport">
+												<xs:annotation>
+													<xs:documentation>Indicador de importação 0=Nacional; 1=Importado;</xs:documentation>
+												</xs:annotation>
+												<xs:simpleType>
+													<xs:restriction base="xs:string">
+														<xs:whiteSpace value="preserve"/>
+														<xs:enumeration value="0"/>
+														<xs:enumeration value="1"/>
+													</xs:restriction>
+												</xs:simpleType>
+											</xs:element>
+											<xs:element name="cUFOrig" type="TCodUfIBGE">
+												<xs:annotation>
+													<xs:documentation>UF de origem do produtor ou do importado</xs:documentation>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="pOrig" type="TDec_03v00a04Max100Opc">
+												<xs:annotation>
+													<xs:documentation>Percentual originário para a UF</xs:documentation>
+												</xs:annotation>
+											</xs:element>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="nRECOPI">
+						<xs:annotation>
+							<xs:documentation>Número do RECOPI</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:whiteSpace value="preserve"/>
+								<xs:maxLength value="20"/>
+								<xs:pattern value="[0-9]{20}"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+				</xs:choice>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
 	<xs:element name="enderEmit" type="TEnderEmi"/>
 	<xs:element name="enderDest" type="TEndereco"/>
 </xs:schema>

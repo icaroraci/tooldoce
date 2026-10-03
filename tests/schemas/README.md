@@ -8,7 +8,7 @@
 - `DFeTiposBasicos_v1.00.xsd`
 - `xmldsig-core-schema_v1.01.xsd`
 
-`nfe/tipos_v4.00.xsd` **não é oficial**: é gerado por `gerar_tipos_xsd.py` a partir de `leiauteNFe_v4.00.xsd`. Ele inclui o leiaute e declara como elementos globais os grupos que a biblioteca já gera sozinhos (`ide`, `emit`, `dest`, `enderEmit`, `enderDest`), para validá-los nos testes enquanto a biblioteca ainda não gera a nota completa. O CI confere se ele está atualizado.
+`nfe/tipos_v4.00.xsd` **não é oficial**: é gerado por `gerar_tipos_xsd.py` a partir de `leiauteNFe_v4.00.xsd`. Ele inclui o leiaute e declara como elementos globais os grupos que a biblioteca já gera sozinhos (`ide`, `emit`, `dest`, `prod`, `enderEmit`, `enderDest`), para validá-los nos testes enquanto a biblioteca ainda não gera a nota completa. O CI confere se ele está atualizado.
 
 Os diagramas de `docs/diagramas/` e o `TODO.md` também são gerados a partir destes schemas (`tools/gerar_diagramas.py`).
 
