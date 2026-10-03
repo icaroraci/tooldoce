@@ -48,6 +48,8 @@
 #define NFE_TAM_DATA_HORA 25 /* AAAA-MM-DDThh:mm:ss-03:00 */
 #define NFE_TAM_CEP       8  /* CEP */
 #define NFE_TAM_FONE      14 /* fone: DDD e número (6 a 14 dígitos) */
+#define NFE_TAM_CNAE      7  /* CNAE fiscal */
+#define NFE_TAM_ISUF      9  /* inscrição na SUFRAMA (8 ou 9 dígitos) */
 
 /* Campos de texto livre (UTF-8) */
 #define NFE_TAM_XNOME   60  /* xNome: razão social ou nome (2 a 60) */
@@ -61,5 +63,7 @@
 #define NFE_TAM_XBAIRRO 60  /* xBairro: bairro (2 a 60) */
 #define NFE_TAM_XMUN    60  /* xMun: nome do município (2 a 60) */
 #define NFE_TAM_XPAIS   60  /* xPais: nome do país (2 a 60) */
+#define NFE_TAM_IM      15  /* IM: inscrição municipal (1 a 15) */
+#define NFE_TAM_EMAIL   60  /* email (1 a 60) */
 
 #endif
