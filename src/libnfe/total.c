@@ -100,6 +100,11 @@ int nfe_total_set_vnftot(nfe_total *tot, const char *vnftot)
 	                        NFE_PADRAO_TDec_1302);
 }
 
+const char *nfe_total_valor(const nfe_total *tot, nfe_campo_icmstot campo)
+{
+	return tot->icmstot[campo];
+}
+
 int nfe_total_write_xml(xmlTextWriterPtr writer, const nfe_total *tot)
 {
 	int i, rc;

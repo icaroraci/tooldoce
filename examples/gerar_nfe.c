@@ -42,14 +42,13 @@ int main(void)
 	nfe_det *det = nfe_det_new();
 	nfe_prod *prod = nfe_prod_new();
 	nfe_imposto *imp = nfe_imposto_new();
-	nfe_total *total = nfe_total_new();
 	nfe_pag *pag = nfe_pag_new();
 	nfe_detpag *dinheiro = nfe_detpag_new();
 	char *xml = NULL;
 	int rc = 0;
 
-	if (!nota || !ide || !emit || !end || !det || !prod || !imp || !total ||
-	    !pag || !dinheiro) {
+	if (!nota || !ide || !emit || !end || !det || !prod || !imp || !pag ||
+	    !dinheiro) {
 		fprintf(stderr, "erro: %s\n", nfe_strerror(E_MALLOC));
 		return 1;
 	}
@@ -96,9 +95,7 @@ int main(void)
 	rc |= nfe_det_set_prod(det, prod);
 	rc |= nfe_det_set_imposto(det, imp);
 
-	/* Totais e pagamento: R$ 20,00 em dinheiro, R$ 5,00 de troco */
-	rc |= nfe_total_set_icmstot(total, NFE_TOT_VPROD, "15.00");
-	rc |= nfe_total_set_icmstot(total, NFE_TOT_VNF, "15.00");
+	/* Pagamento: R$ 20,00 em dinheiro, R$ 5,00 de troco */
 	rc |= nfe_detpag_set_tpag(dinheiro, NFE_MEIO_DINHEIRO);
 	rc |= nfe_detpag_set_vpag(dinheiro, "20.00");
 	rc |= nfe_pag_add_detpag(pag, dinheiro);
@@ -108,9 +105,9 @@ int main(void)
 	rc |= nfe_nfe_set_ide(nota, ide);
 	rc |= nfe_nfe_set_emit(nota, emit);
 	rc |= nfe_nfe_add_det(nota, det);
-	rc |= nfe_nfe_set_total(nota, total);
 	rc |= nfe_nfe_set_transp(nota, nfe_transp_new()); /* sem transporte */
 	rc |= nfe_nfe_set_pag(nota, pag);
+	rc |= nfe_nfe_calcular_totais(nota); /* soma os itens no ICMSTot */
 	if (rc != 0) {
 		/* Em um programa real, confira cada retorno para saber qual
 		 * campo foi recusado */

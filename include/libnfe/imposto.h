@@ -23,6 +23,7 @@
 #include <libxml/xmlwriter.h>
 
 #include <libnfe/nfe.h>
+#include <libnfe/utils.h>
 
 /*
  * Tributos de um item da nota (grupo det/imposto).
@@ -98,5 +99,18 @@ int nfe_imposto_remove_cofins(nfe_imposto *imp);
 
 /* Escreve o elemento <imposto>. Retorna 0, E_ISNULL ou E_XML. */
 int nfe_imposto_write_xml(xmlTextWriterPtr writer, const nfe_imposto *imp);
+
+/* Uso interno (cálculo dos totais) */
+enum nfe_imposto_valor_e {
+	NFE_IMP_VBC, /* base do ICMS */
+	NFE_IMP_VICMS,
+	NFE_IMP_VFCP,
+	NFE_IMP_VPIS,
+	NFE_IMP_VCOFINS,
+	NFE_IMP_VTOTTRIB
+};
+/* Valor do campo ("" se não informado ou se o grupo não o tem) */
+NFE_INTERNO const char *nfe_imposto_valor(const nfe_imposto *imp,
+                                          enum nfe_imposto_valor_e campo);
 
 #endif

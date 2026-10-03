@@ -72,4 +72,8 @@ int nfe_det_set_vitem(nfe_det *det, const char *vitem);
  * E_XML. */
 int nfe_det_write_xml(xmlTextWriterPtr writer, const nfe_det *det);
 
+/* Uso interno: produto e imposto do item (NULL se não informados) */
+NFE_INTERNO const nfe_prod *nfe_det_prod(const nfe_det *det);
+NFE_INTERNO const nfe_imposto *nfe_det_imposto(const nfe_det *det);
+
 #endif

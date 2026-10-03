@@ -221,6 +221,28 @@ int nfe_imposto_remove_cofins(nfe_imposto *imp)
 	return 0;
 }
 
+const char *nfe_imposto_valor(const nfe_imposto *imp,
+                              enum nfe_imposto_valor_e campo)
+{
+	int icms00 = imp->tipoICMS == ICMS_00;
+
+	switch (campo) {
+	case NFE_IMP_VBC:
+		return icms00 ? imp->vBC : "";
+	case NFE_IMP_VICMS:
+		return icms00 ? imp->vICMS : "";
+	case NFE_IMP_VFCP:
+		return icms00 ? imp->vFCP : "";
+	case NFE_IMP_VPIS:
+		return imp->PIS.tipo == PC_ALIQ ? imp->PIS.v : "";
+	case NFE_IMP_VCOFINS:
+		return imp->COFINS.tipo == PC_ALIQ ? imp->COFINS.v : "";
+	case NFE_IMP_VTOTTRIB:
+		return imp->vTotTrib;
+	}
+	return "";
+}
+
 static int escreve_icms(xmlTextWriterPtr writer, const nfe_imposto *imp)
 {
 	int rc;

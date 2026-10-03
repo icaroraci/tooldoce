@@ -25,6 +25,7 @@
 #include <string.h>
 #include <unistd.h>
 
+#include <libnfe/decimal.h>
 #include <libnfe/defs.h>
 #include <libnfe/erros.h>
 #include <libnfe/escrita.h>
@@ -121,6 +122,126 @@ int nfe_nfe_add_det(nfe_nfe *nfe, nfe_det *det)
 	if (rc != 0)
 		return rc;
 	nfe->det[nfe->nDet++] = det;
+	return 0;
+}
+
+/* Soma valor (centavos) em *total; "" vale zero */
+static int soma(long long *total, const char *valor)
+{
+	long long v;
+	int rc = nfe_dec2_ler(valor, &v);
+
+	if (rc == 0)
+		*total += v;
+	return rc;
+}
+
+/* Grava centavos no campo do total */
+static int grava(nfe_total *tot, nfe_campo_icmstot campo, long long centavos)
+{
+	char texto[32];
+	int rc = nfe_dec2_escreve(centavos, texto, sizeof texto);
+
+	return rc ? rc : nfe_total_set_icmstot(tot, campo, texto);
+}
+
+int nfe_nfe_calcular_totais(nfe_nfe *nfe)
+{
+	/* Campos somados a partir dos itens */
+	enum {
+		VBC,
+		VICMS,
+		VFCP,
+		VPROD,
+		VFRETE,
+		VSEG,
+		VDESC,
+		VOUTRO,
+		VPIS,
+		VCOFINS,
+		VTOTTRIB,
+		N
+	};
+	static const nfe_campo_icmstot destino[N] = {
+		NFE_TOT_VBC,     NFE_TOT_VICMS,    NFE_TOT_VFCP,
+		NFE_TOT_VPROD,   NFE_TOT_VFRETE,   NFE_TOT_VSEG,
+		NFE_TOT_VDESC,   NFE_TOT_VOUTRO,   NFE_TOT_VPIS,
+		NFE_TOT_VCOFINS, NFE_TOT_VTOTTRIB,
+	};
+	/* Campos do total que entram no vNF além dos somados */
+	static const nfe_campo_icmstot extras[] = {
+		NFE_TOT_VST,  NFE_TOT_VFCPST,    NFE_TOT_VII,
+		NFE_TOT_VIPI, NFE_TOT_VIPIDEVOL,
+	};
+	long long v[N] = { 0 }, vnf, x;
+	int temTotTrib = 0, i, rc = 0;
+	nfe_total *tot;
+
+	if (!nfe)
+		return E_ISNULL;
+	if (nfe->nDet == 0)
+		return E_VALOR;
+	for (i = 0; i < nfe->nDet; i++) {
+		const nfe_prod *p = nfe_det_prod(nfe->det[i]);
+		const nfe_imposto *imp = nfe_det_imposto(nfe->det[i]);
+
+		if (!p)
+			return E_VALOR;
+		if (nfe_prod_indtot(p))
+			rc |= soma(&v[VPROD],
+			           nfe_prod_valor(p, NFE_PROD_VPROD));
+		rc |= soma(&v[VFRETE], nfe_prod_valor(p, NFE_PROD_VFRETE));
+		rc |= soma(&v[VSEG], nfe_prod_valor(p, NFE_PROD_VSEG));
+		rc |= soma(&v[VDESC], nfe_prod_valor(p, NFE_PROD_VDESC));
+		rc |= soma(&v[VOUTRO], nfe_prod_valor(p, NFE_PROD_VOUTRO));
+		if (imp) {
+			const char *tt =
+			        nfe_imposto_valor(imp, NFE_IMP_VTOTTRIB);
+
+			rc |= soma(&v[VBC],
+			           nfe_imposto_valor(imp, NFE_IMP_VBC));
+			rc |= soma(&v[VICMS],
+			           nfe_imposto_valor(imp, NFE_IMP_VICMS));
+			rc |= soma(&v[VFCP],
+			           nfe_imposto_valor(imp, NFE_IMP_VFCP));
+			rc |= soma(&v[VPIS],
+			           nfe_imposto_valor(imp, NFE_IMP_VPIS));
+			rc |= soma(&v[VCOFINS],
+			           nfe_imposto_valor(imp, NFE_IMP_VCOFINS));
+			rc |= soma(&v[VTOTTRIB], tt);
+			temTotTrib |= tt[0] != '\0';
+		}
+	}
+	if (rc != 0)
+		return E_VALOR;
+
+	tot = nfe->total ? nfe->total : nfe_total_new();
+	if (!tot)
+		return E_MALLOC;
+
+	vnf = v[VPROD] - v[VDESC] + v[VFRETE] + v[VSEG] + v[VOUTRO];
+	for (i = 0; i < (int)(sizeof extras / sizeof extras[0]); i++) {
+		rc = nfe_dec2_ler(nfe_total_valor(tot, extras[i]), &x);
+		if (rc != 0)
+			break;
+		vnf += x;
+	}
+	if (rc == 0 && vnf < 0)
+		rc = E_VALOR;
+	for (i = 0; rc == 0 && i < N; i++) {
+		if (i == VTOTTRIB && !temTotTrib)
+			rc = nfe_total_set_icmstot(tot, destino[i], NULL);
+		else
+			rc = grava(tot, destino[i], v[i]);
+	}
+	if (rc == 0)
+		rc = grava(tot, NFE_TOT_VNF, vnf);
+	if (rc != 0) {
+		if (tot != nfe->total)
+			nfe_total_free(tot);
+		return rc;
+	}
+	nfe->total = tot;
 	return 0;
 }
 

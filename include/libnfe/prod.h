@@ -23,6 +23,7 @@
 #include <libxml/xmlwriter.h>
 
 #include <libnfe/nfe.h>
+#include <libnfe/utils.h>
 
 /*
  * Produto ou serviço de um item da nota (grupo det/prod).
@@ -123,5 +124,18 @@ int nfe_prod_set_nfci(nfe_prod *prod, const char *nfci);
  * xProd, NCM, CFOP ou os dados comercial/tributável; ou indEscala/CNPJFab
  * sem CEST) ou E_XML. */
 int nfe_prod_write_xml(xmlTextWriterPtr writer, const nfe_prod *prod);
+
+/* Uso interno (cálculo dos totais) */
+enum nfe_prod_valor_e {
+	NFE_PROD_VPROD,
+	NFE_PROD_VFRETE,
+	NFE_PROD_VSEG,
+	NFE_PROD_VDESC,
+	NFE_PROD_VOUTRO
+};
+/* Valor do campo ("" se não informado) */
+NFE_INTERNO const char *nfe_prod_valor(const nfe_prod *prod,
+                                       enum nfe_prod_valor_e campo);
+NFE_INTERNO int nfe_prod_indtot(const nfe_prod *prod);
 
 #endif
