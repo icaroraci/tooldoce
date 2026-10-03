@@ -27,8 +27,8 @@ caminho marcado como **provisório**.
    usados continuam. **Provisório (feito):** uso o motor nos tributos, no
    produto, no transporte, nos totais e nos demais grupos grandes; se
    preferir setters tipados para algum grupo, dá para acrescentar por cima.
-4. **Licença LGPL** (#59): continua esperando a autorização do Marcelo.
-   Não vou mexer.
+4. **Licença LGPL** (#59): resolvida. O código de terceiros foi reescrito
+   (#263) e a licença passou a ser LGPLv3 ou posterior.
 5. **Schemas (03/10).** Recebidos e guardados em `tests/schemas`: PL_010d
    (consultas, inutilização, eventos genéricos, consulta cadastro),
    cancelamento, cancelamento por substituição e carta de correção. Eles
