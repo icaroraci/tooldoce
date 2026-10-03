@@ -29,11 +29,14 @@
 #include <libxml/valid.h>
 
 #include <openssl/asn1.h>
+#include <openssl/err.h>
+#include <openssl/ssl.h>
 #include <openssl/x509.h>
 
 #include <xmlsec/base64.h>
 #include <xmlsec/crypto.h>
 #include <xmlsec/errors.h>
+#include <xmlsec/openssl/evp.h>
 #include <xmlsec/openssl/x509.h>
 #include <xmlsec/templates.h>
 #include <xmlsec/xmldsig.h>
@@ -479,4 +482,33 @@ fim:
 		xmlSecKeysMngrDestroy(mngr);
 	xmlFreeDoc(doc);
 	return rc;
+}
+
+int nfe_certificado_ssl_ctx(const nfe_certificado *cert, void *ssl_ctx)
+{
+	SSL_CTX *ctx = (SSL_CTX *)ssl_ctx;
+	xmlSecKeyDataPtr dados;
+	EVP_PKEY *pk;
+	X509 *x, *outro;
+	xmlSecSize i, n;
+
+	if (!cert || !ctx)
+		return E_VALOR;
+	pk = xmlSecOpenSSLEvpKeyDataGetEvp(xmlSecKeyGetValue(cert->chave));
+	dados = xmlSecKeyGetData(cert->chave, xmlSecOpenSSLKeyDataX509Id);
+	x = dados ? xmlSecOpenSSLKeyDataX509GetKeyCert(dados) : NULL;
+	if (!pk || !x || SSL_CTX_use_certificate(ctx, x) != 1 ||
+	    SSL_CTX_use_PrivateKey(ctx, pk) != 1) {
+		ERR_clear_error();
+		return E_VALOR;
+	}
+	/* Demais certificados do .pfx: cadeia (autoridades intermediárias) */
+	n = xmlSecOpenSSLKeyDataX509GetCertsSize(dados);
+	for (i = 0; i < n; i++) {
+		outro = xmlSecOpenSSLKeyDataX509GetCert(dados, i);
+		if (outro && X509_cmp(outro, x) != 0)
+			SSL_CTX_add1_chain_cert(ctx, outro);
+	}
+	ERR_clear_error();
+	return 0;
 }

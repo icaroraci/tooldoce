@@ -5,16 +5,18 @@ Biblioteca livre em C para emissão de documentos fiscais eletrônicos brasileir
 
 ## Situação
 
-**Em desenvolvimento — ainda não emite notas.** O que existe hoje:
+**Em desenvolvimento.** O que existe hoje:
 
 | Parte | Situação |
 |---|---|
-| Grupo `ide` (identificação da NF-e), com contingência e notas referenciadas | Pronto; o XML gerado valida contra o XSD oficial do leiaute 4.00 |
-| Endereço, notas referenciadas (`refNF`, `refNFe`) | Prontos |
-| Demais grupos da NF-e (emitente, destinatário, produtos, impostos, totais, transporte, pagamento) | A fazer |
-| Chave de acesso e dígito verificador (`nfe_ide_gerar_chave`) | Pronto |
-| Assinatura digital, transmissão à SEFAZ | A fazer |
-| NFC-e, NFS-e, CT-e, MDF-e | Planejados (ver [visão do projeto](docs/VISAO.md)) |
+| Todos os grupos da NF-e/NFC-e do leiaute 4.00 (PL_010f, com a Reforma Tributária) | Prontos; o XML gerado valida contra o XSD oficial |
+| Chave de acesso, totais automáticos (`nfe_nfe_calcular_totais`) | Prontos |
+| Validação contra o schema e regras da SEFAZ (`validar.h`) | Pronto |
+| Assinatura digital com certificado A1 (`assinatura.h`) | Pronto |
+| Comunicação com a SEFAZ: status, envio do lote, consultas e nfeProc (`sefaz.h`) | Pronto, testado com um servidor falso; falta testar na homologação da SEFAZ |
+| Eventos (cancelamento, carta de correção), inutilização, tabela de endereços por UF | A fazer |
+| Certificado A3 (token/cartão) | A fazer |
+| NFS-e, CT-e, MDF-e | Planejados (ver [visão do projeto](docs/VISAO.md)) |
 
 O roteiro detalhado está nas [issues](https://github.com/icaroraci/tooldoce/issues).
 
@@ -49,6 +51,12 @@ Os setters validam cada valor contra o leiaute e retornam um código de erro (`e
 
 `assinar_nfe` monta a mesma NFC-e e a assina com o certificado A1 indicado (arquivo .pfx e senha). O de `tests/certificados` é só de teste; para conferir com o seu certificado, rode o exemplo na sua máquina e valide a nota num validador de assinatura de NF-e. Nunca coloque um certificado real no repositório.
 
+`sefaz.h` conversa com os webservices da SEFAZ (SOAP sobre HTTPS, com o certificado A1): monta as mensagens (status do serviço, lote de notas, consulta do recibo e da nota), envia, lê o retorno (cStat, protocolo) e junta a nota autorizada ao protocolo (nfeProc). Para um primeiro teste com o seu certificado, em homologação:
+
+    ./obj/status_sefaz empresa.pfx senha <endereço do NFeStatusServico4 da UF> 35
+
+A resposta esperada é `cStat 107: Servico em Operacao`.
+
 Para conferir a nota antes de assinar e transmitir, `validar.h` valida o XML contra os schemas oficiais, que `make install` instala em `$(PREFIX)/share/tooldoce/schemas`, e confere também regras da SEFAZ que o schema não cobre (chave de acesso coerente com os campos, totais iguais à soma dos itens, regras da NFC-e), devolvendo a lista de erros com o campo, a linha e, quando houver, o código de rejeição da SEFAZ.
 
 Para compilar um programa seu com a biblioteca instalada:
@@ -62,11 +70,12 @@ Para compilar um programa seu com a biblioteca instalada:
 * Compilador C99 (gcc ou clang) e GNU make
 * [libxml2](http://xmlsoft.org/) com os arquivos de desenvolvimento (fornece o `xml2-config`)
 * [xmlsec1](https://www.aleksey.com/xmlsec/) com OpenSSL, para a assinatura digital (licenças MIT e Apache 2.0)
+* [libcurl](https://curl.se/libcurl/) com OpenSSL, para a comunicação com a SEFAZ (licença curl, no estilo MIT)
 
 | Distribuição | Comando |
 |---|---|
-| Debian / Ubuntu | `sudo apt install build-essential libxml2-dev libxmlsec1-dev` |
-| Fedora / RHEL | `sudo dnf install gcc make libxml2-devel xmlsec1-devel xmlsec1-openssl-devel` |
+| Debian / Ubuntu | `sudo apt install build-essential libxml2-dev libxmlsec1-dev libcurl4-openssl-dev` |
+| Fedora / RHEL | `sudo dnf install gcc make libxml2-devel xmlsec1-devel xmlsec1-openssl-devel libcurl-devel` |
 | Arch Linux | `sudo pacman -S base-devel libxml2` |
 | macOS (Homebrew) | `brew install libxml2` |
 

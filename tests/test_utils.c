@@ -104,6 +104,7 @@ int main(void)
 	             "texto fora dos limites do campo");
 	VERIFICA_STR(nfe_strerror(E_XML), "falha ao escrever o XML");
 	VERIFICA_STR(nfe_strerror(E_ARQUIVO), "falha ao gravar o arquivo");
+	VERIFICA_STR(nfe_strerror(E_REDE), "falha na comunicação com a SEFAZ");
 	VERIFICA_STR(nfe_strerror(12345), "erro desconhecido");
 
 	teste_decimal();

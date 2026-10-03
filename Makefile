@@ -1,5 +1,6 @@
-# Dependências: libxml2 (pacote libxml2-dev / libxml2-devel) e xmlsec1 com
-# OpenSSL (libxmlsec1-dev / xmlsec1-devel e xmlsec1-openssl-devel)
+# Dependências: libxml2 (pacote libxml2-dev / libxml2-devel), xmlsec1 com
+# OpenSSL (libxmlsec1-dev / xmlsec1-devel e xmlsec1-openssl-devel) e libcurl
+# com OpenSSL (libcurl4-openssl-dev / libcurl-devel)
 XML2_CONFIG ?= xml2-config
 PKG_CONFIG  ?= pkg-config
 
@@ -10,16 +11,19 @@ endif
 ifneq ($(shell $(PKG_CONFIG) --exists xmlsec1-openssl 2>/dev/null && echo ok),ok)
 $(error xmlsec1-openssl não encontrado. Instale a xmlsec1 de desenvolvimento (ex.: apt install libxmlsec1-dev ou dnf install xmlsec1-devel xmlsec1-openssl-devel))
 endif
+ifneq ($(shell $(PKG_CONFIG) --exists libcurl 2>/dev/null && echo ok),ok)
+$(error libcurl não encontrada. Instale a libcurl de desenvolvimento com OpenSSL (ex.: apt install libcurl4-openssl-dev ou dnf install libcurl-devel))
+endif
 endif
 
 
 # Flags do compilador
 # -MMD -MP gera arquivos .d para recompilar quando um header muda
-CFLAGS := -Werror -Wall -Wextra -Wwrite-strings -std=c99 -g -fPIC -MMD -MP $(shell $(XML2_CONFIG) --cflags 2>/dev/null) $(shell $(PKG_CONFIG) --cflags xmlsec1-openssl 2>/dev/null)
+CFLAGS := -Werror -Wall -Wextra -Wwrite-strings -std=c99 -g -fPIC -MMD -MP $(shell $(XML2_CONFIG) --cflags 2>/dev/null) $(shell $(PKG_CONFIG) --cflags xmlsec1-openssl libcurl 2>/dev/null)
 
 
 # Flags para adicionar libs
-LIBS := $(shell $(XML2_CONFIG) --libs 2>/dev/null) $(shell $(PKG_CONFIG) --libs xmlsec1-openssl 2>/dev/null)
+LIBS := $(shell $(XML2_CONFIG) --libs 2>/dev/null) $(shell $(PKG_CONFIG) --libs xmlsec1-openssl libcurl 2>/dev/null)
 
 
 #-I includes

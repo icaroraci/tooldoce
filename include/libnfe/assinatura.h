@@ -22,6 +22,8 @@
 #include <stddef.h>
 #include <time.h>
 
+#include <libnfe/utils.h>
+
 /*
  * Assinatura digital da NF-e (XMLDSig enveloped, RSA-SHA1, canonicalização
  * C14N, referência ao Id de infNFe), como exige o leiaute.
@@ -75,5 +77,10 @@ int nfe_assinar_xml(const nfe_certificado *cert, const char *xml, size_t tam,
  * (assinatura inválida ou documento alterado), E_XML (documento malformado
  * ou sem assinatura), E_ISNULL ou E_MALLOC. */
 int nfe_verificar_assinatura(const char *xml, size_t tam);
+
+/* Uso interno (sefaz.c): põe o certificado, a chave e a cadeia no SSL_CTX
+ * da OpenSSL (ssl_ctx). Retorna 0 ou E_VALOR. */
+NFE_INTERNO int nfe_certificado_ssl_ctx(const nfe_certificado *cert,
+                                        void *ssl_ctx);
 
 #endif
