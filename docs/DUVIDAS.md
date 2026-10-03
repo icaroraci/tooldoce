@@ -17,7 +17,7 @@ caminho marcado como **provisório**.
    fora da biblioteca? **Provisório:** fora; não vou mexer nisso.
 4. **Totais automáticos.** Hoje quem usa a biblioteca informa os totais da
    nota. Posso acrescentar uma função que some os itens e preencha o
-   `ICMSTot`? **Provisório:** sim, como função opcional
+   `ICMSTot`? **Provisório (feito):** sim, como função opcional
    (`nfe_nfe_calcular_totais`), sem mudar o comportamento atual.
 5. **Licença LGPL** (#59): continua esperando a autorização do Marcelo.
    Não vou mexer.

@@ -16,13 +16,50 @@
  * along with tooldoce.  If not, see <http://www.gnu.org/licenses/>.
  * */
 
-/* Testes de nfe_copia_texto (cópia de texto com limite) e nfe_strerror */
+/* Testes de nfe_copia_texto (cópia de texto com limite), nfe_strerror e
+ * das contas com decimais (decimal.h) */
 
+#include <libnfe/decimal.h>
 #include <libnfe/defs.h>
 #include <libnfe/erros.h>
 #include <libnfe/utils.h>
 
 #include "teste.h"
+
+/* Conversão de valores monetários para centavos e de volta */
+static void teste_decimal(void)
+{
+	long long c = -1;
+	char txt[32];
+
+	VERIFICA_INT(nfe_dec2_ler("15", &c), 0);
+	VERIFICA(c == 1500);
+	VERIFICA_INT(nfe_dec2_ler("15.5", &c), 0);
+	VERIFICA(c == 1550);
+	VERIFICA_INT(nfe_dec2_ler("0.07", &c), 0);
+	VERIFICA(c == 7);
+	VERIFICA_INT(nfe_dec2_ler("", &c), 0);
+	VERIFICA(c == 0);
+	VERIFICA_INT(nfe_dec2_ler("9999999999999.99", &c), 0);
+	VERIFICA(c == 999999999999999LL);
+	VERIFICA_INT(nfe_dec2_ler("10000000000000.00", &c), E_VALOR);
+	VERIFICA_INT(nfe_dec2_ler("1.234", &c), E_VALOR);
+	VERIFICA_INT(nfe_dec2_ler("1,50", &c), E_VALOR);
+	VERIFICA_INT(nfe_dec2_ler("15.", &c), E_VALOR);
+	VERIFICA_INT(nfe_dec2_ler(".5", &c), E_VALOR);
+	VERIFICA_INT(nfe_dec2_ler("1.2.3", &c), E_VALOR);
+	VERIFICA_INT(nfe_dec2_ler("-1", &c), E_VALOR);
+	VERIFICA_INT(nfe_dec2_ler(NULL, &c), E_ISNULL);
+
+	VERIFICA_INT(nfe_dec2_escreve(1550, txt, sizeof txt), 0);
+	VERIFICA_STR(txt, "15.50");
+	VERIFICA_INT(nfe_dec2_escreve(7, txt, sizeof txt), 0);
+	VERIFICA_STR(txt, "0.07");
+	VERIFICA_INT(nfe_dec2_escreve(0, txt, sizeof txt), 0);
+	VERIFICA_STR(txt, "0.00");
+	VERIFICA_INT(nfe_dec2_escreve(-1, txt, sizeof txt), E_VALOR);
+	VERIFICA_INT(nfe_dec2_escreve(1550, txt, 5), E_TAMANHO);
+}
 
 int main(void)
 {
@@ -69,5 +106,6 @@ int main(void)
 	VERIFICA_STR(nfe_strerror(E_ARQUIVO), "falha ao gravar o arquivo");
 	VERIFICA_STR(nfe_strerror(12345), "erro desconhecido");
 
+	teste_decimal();
 	TESTE_FIM();
 }

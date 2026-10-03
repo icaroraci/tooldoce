@@ -359,6 +359,28 @@ int nfe_prod_set_nfci(nfe_prod *prod, const char *nfci)
 	return padrao(prod->nFCI, sizeof prod->nFCI, nfci, NFE_PADRAO_TGuid, 1);
 }
 
+const char *nfe_prod_valor(const nfe_prod *prod, enum nfe_prod_valor_e campo)
+{
+	switch (campo) {
+	case NFE_PROD_VPROD:
+		return prod->vProd;
+	case NFE_PROD_VFRETE:
+		return prod->vFrete;
+	case NFE_PROD_VSEG:
+		return prod->vSeg;
+	case NFE_PROD_VDESC:
+		return prod->vDesc;
+	case NFE_PROD_VOUTRO:
+		return prod->vOutro;
+	}
+	return "";
+}
+
+int nfe_prod_indtot(const nfe_prod *prod)
+{
+	return prod->indTot;
+}
+
 /* Escreve <tag>valor</tag> se valor não for vazio */
 static int opcional(xmlTextWriterPtr writer, const char *tag, const char *valor)
 {

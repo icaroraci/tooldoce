@@ -108,6 +108,16 @@ int nfe_det_set_vitem(nfe_det *det, const char *vitem)
 	                        NFE_PADRAO_TDec_1302);
 }
 
+const nfe_prod *nfe_det_prod(const nfe_det *det)
+{
+	return det->prod;
+}
+
+const nfe_imposto *nfe_det_imposto(const nfe_det *det)
+{
+	return det->imposto;
+}
+
 int nfe_det_write_xml(xmlTextWriterPtr writer, const nfe_det *det)
 {
 	int rc;

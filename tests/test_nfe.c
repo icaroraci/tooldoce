@@ -256,6 +256,95 @@ static void teste_salvar(const char *dir)
 	nfe_nfe_free(nfe);
 }
 
+/* Totais calculados a partir dos itens */
+static void teste_calcular_totais(void)
+{
+	nfe_nfe *nfe = nota(NFE_MODELO_NFE);
+	nfe_det *det = nfe_det_new();
+	nfe_prod *prod = nfe_prod_new();
+	nfe_imposto *imp = nfe_imposto_new();
+	char *xml = NULL;
+	int rc = 0;
+
+	/* Terceiro item: regime normal, com frete, desconto e tributos */
+	rc |= nfe_prod_set_cprod(prod, "003");
+	rc |= nfe_prod_set_xprod(prod, "CADERNO");
+	rc |= nfe_prod_set_ncm(prod, "48202000");
+	rc |= nfe_prod_set_cfop(prod, 5102);
+	rc |= nfe_prod_set_comercial(prod, "UN", "1", "100", "100.00");
+	rc |= nfe_prod_set_tributavel(prod, "UN", "1", "100");
+	rc |= nfe_prod_set_vfrete(prod, "10.00");
+	rc |= nfe_prod_set_vdesc(prod, "5.50");
+	rc |= nfe_imposto_set_vtottrib(imp, "31.45");
+	rc |= nfe_imposto_set_icms00(imp, NFE_ORIGEM_NACIONAL,
+	                             NFE_MOD_BC_VALOR_OPERACAO, "104.50",
+	                             "18.00", "18.81", "2.00", "2.09");
+	rc |= nfe_imposto_set_pisaliq(imp, NFE_CST_PC_ALIQUOTA_BASICA, "100.00",
+	                              "1.65", "1.65");
+	rc |= nfe_imposto_set_cofinsaliq(imp, NFE_CST_PC_ALIQUOTA_BASICA,
+	                                 "100.00", "7.60", "7.60");
+	rc |= nfe_det_set_prod(det, prod);
+	rc |= nfe_det_set_imposto(det, imp);
+	rc |= nfe_nfe_add_det(nfe, det);
+	VERIFICA_INT(rc, 0);
+
+	VERIFICA_INT(nfe_nfe_calcular_totais(nfe), 0);
+	VERIFICA_INT(nfe_nfe_xml(nfe, &xml, NULL), 0);
+	VERIFICA(xml != NULL);
+	if (xml) {
+		/* vProd = 15 + 15 + 100; vNF = 130 - 5.50 + 10 */
+		VERIFICA(strstr(xml, "<ICMSTot><vBC>104.50</vBC>"
+		                     "<vICMS>18.81</vICMS>"
+		                     "<vICMSDeson>0.00</vICMSDeson>"
+		                     "<vFCP>2.09</vFCP>") != NULL);
+		VERIFICA(strstr(xml,
+		                "<vProd>130.00</vProd>"
+		                "<vFrete>10.00</vFrete><vSeg>0.00</vSeg>"
+		                "<vDesc>5.50</vDesc><vII>0.00</vII>"
+		                "<vIPI>0.00</vIPI><vIPIDevol>0.00</vIPIDevol>"
+		                "<vPIS>1.65</vPIS><vCOFINS>7.60</vCOFINS>"
+		                "<vOutro>0.00</vOutro><vNF>134.50</vNF>"
+		                "<vTotTrib>31.45</vTotTrib>"
+		                "</ICMSTot>") != NULL);
+		VERIFICA_INT(valida_infnfe(xml), 0);
+	}
+	free(xml);
+
+	/* indTot 0: o item não entra em vProd; vST informado entra em vNF */
+	VERIFICA_INT(nfe_prod_set_indtot(prod, 0), 0);
+	VERIFICA_INT(nfe_imposto_set_vtottrib(imp, NULL), 0);
+	{
+		nfe_total *tot = nfe_total_new();
+		VERIFICA_INT(nfe_total_set_icmstot(tot, NFE_TOT_VST, "3.00"),
+		             0);
+		VERIFICA_INT(nfe_nfe_set_total(nfe, tot), 0);
+	}
+	VERIFICA_INT(nfe_nfe_calcular_totais(nfe), 0);
+	xml = NULL;
+	VERIFICA_INT(nfe_nfe_xml(nfe, &xml, NULL), 0);
+	if (xml) {
+		VERIFICA(strstr(xml, "<vProd>30.00</vProd>") != NULL);
+		VERIFICA(strstr(xml, "<vST>3.00</vST>") != NULL);
+		/* 30 - 5.50 + 3 + 10 */
+		VERIFICA(strstr(xml, "<vNF>37.50</vNF></ICMSTot>") != NULL);
+		VERIFICA_INT(valida_infnfe(xml), 0);
+	}
+	free(xml);
+
+	/* Desconto maior que o total: vNF negativo é recusado */
+	VERIFICA_INT(nfe_prod_set_vdesc(prod, "99.00"), 0);
+	VERIFICA_INT(nfe_nfe_calcular_totais(nfe), E_VALOR);
+	nfe_nfe_free(nfe);
+
+	/* Sem itens, ou item sem produto */
+	nfe = nfe_nfe_new();
+	VERIFICA_INT(nfe_nfe_calcular_totais(nfe), E_VALOR);
+	VERIFICA_INT(nfe_nfe_add_det(nfe, nfe_det_new()), 0);
+	VERIFICA_INT(nfe_nfe_calcular_totais(nfe), E_VALOR);
+	nfe_nfe_free(nfe);
+	VERIFICA_INT(nfe_nfe_calcular_totais(NULL), E_ISNULL);
+}
+
 static void teste_obrigatorios(void)
 {
 	nfe_nfe *nfe = nfe_nfe_new();
@@ -309,6 +398,7 @@ int main(int argc, char **argv)
 	teste_nfce();
 	teste_nfe_com_destinatario();
 	teste_salvar(argv[1]);
+	teste_calcular_totais();
 	teste_obrigatorios();
 
 	teste_libera_schema();
