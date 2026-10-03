@@ -21,6 +21,7 @@
 
 #define E_ISNULL -1
 #define E_TAMANHO -2 /* texto maior que o campo */
+#define E_VALOR   -3 /* valor fora da faixa permitida */
 #define E_MALLOC -101
 #define E_REALLOC -102
 #define E_CALLOC -103

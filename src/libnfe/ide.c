@@ -16,12 +16,16 @@
  * along with tooldoce.  If not, see <http://www.gnu.org/licenses/>.
  * */
 
+/* gmtime_r (POSIX) */
+#define _POSIX_C_SOURCE 200809L
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
 #include <inttypes.h>
 #include <string.h>
 #include <libnfe/defs.h>
+#include <libnfe/erros.h>
 #include <libnfe/ide.h>
 
 
@@ -59,52 +63,65 @@ struct ide_s{
 /* Funções auxiliares  */
 
 
-/*Data e hora do evento no formato AAAA-MM-DDThh:mm:ssTZD (UTC - 
- * Universal Coordinated Time), onde TZD pode ser 
- * -02:00 (Fernando de Noronha), 
- * -03:00 (Brasília), 
- * -04:00 (Manaus) ou 
- * -05:00 (Acre). Ex.:
- * 2010-08-19T13:00:15-03:00.
+/* Escreve em dst (tam bytes) o instante t no formato AAAA-MM-DDThh:mm:ssTZD,
+ * no fuso tzd. Ex.: 2010-08-19T13:00:15-03:00.
  * Não há horário de verão no Brasil desde 2019.
+ * Com t == NFE_SEM_DATA, grava texto vazio.
+ * Retorna 0, E_VALOR (fuso inválido) ou E_TAMANHO (buffer pequeno).
  * */
-static char *DHSet(nfe_tzd tzd, char *str)
+static int DHSet(char *dst, size_t tam, time_t t, nfe_tzd tzd)
 {
-  char *aux;
+  struct tm tm;
+  time_t local;
+  size_t n;
+  int r;
+
   switch (tzd){
-    case NFE_TZD_FERNANDO_NORONHA: 
-      aux = "-02:00";
-      break;
+    case NFE_TZD_FERNANDO_NORONHA:
     case NFE_TZD_BRASILIA:
-    default:    
-      aux = "-03:00";
-      break;
     case NFE_TZD_MANAUS:
-      aux = "-04:00";
-      break;
     case NFE_TZD_ACRE:
-      aux = "-05:00";
       break;
+    default:
+      return E_VALOR;
   }
-  strcat(str,NFE_FORMATO_DATA_HORA); // Vc alocou espaço para *str?
-  return strcat(str,aux);
+
+  if (t == NFE_SEM_DATA){
+    dst[0] = '\0';
+    return 0;
+  }
+
+  /* Hora local = UTC deslocado pelo fuso; gmtime_r não depende do fuso
+   * configurado na máquina */
+  local = t + (time_t)tzd * 3600;
+  if (!gmtime_r(&local, &tm))
+    return E_VALOR;
+
+  n = strftime(dst, tam, NFE_FORMATO_DATA_HORA, &tm);
+  if (n == 0)
+    return E_TAMANHO;
+
+  r = snprintf(dst + n, tam - n, "-%02d:00", -(int)tzd);
+  if (r < 0 || (size_t)r >= tam - n)
+    return E_TAMANHO;
+
+  return 0;
 }
-/* tzd = fuso horário (nfe_tzd)
- * str = endereço de uma string
- * xJust = justificativa (até 256 caracteres)
- * newcont = rerencia 
-*/
 
 struct Cont_s *ideContNew(struct Cont_s *this,
+                          time_t dhcont,
                           nfe_tzd tzd, 
-                          char *str, 
                           const char *xjust)
 {
   /* Reaproveita o objeto informado; se for NULL, aloca um novo */
   struct Cont_s *cont = this;
   if (!cont)
     cont = (struct Cont_s *)malloc(sizeof(struct Cont_s));
-  strcpy(cont->dhCont, DHSet(tzd, str));
+  if (DHSet(cont->dhCont, sizeof cont->dhCont, dhcont, tzd) != 0){
+    if (!this)
+      free(cont);
+    return NULL;
+  }
   strcpy(cont->xJust, xjust);
   return cont;
 }
@@ -157,8 +174,8 @@ struct ide_s *ideNew(struct ide_s *this,
                      nfe_modelo mod, 
                      uint16_t serie, 
                      uint32_t nnf, 
-                     char *dhemi, 
-                     char *dhsaient,
+                     time_t dhemi, 
+                     time_t dhsaient,
                      nfe_tipo_operacao tpnf, 
                      nfe_destino iddest,
                      uint32_t cmunfg, 
@@ -172,8 +189,7 @@ struct ide_s *ideNew(struct ide_s *this,
                      nfe_processo_emissao procemis, 
                      char *verproc,
                      struct Cont_s *cont,
-                     nfe_tzd tzd, 
-                     char *str )
+                     nfe_tzd tzd )
 {
   /* Reaproveita o objeto informado; se for NULL, aloca um novo */
   struct ide_s *ide = this;
@@ -186,8 +202,12 @@ struct ide_s *ideNew(struct ide_s *this,
   ide->mod = mod;
   ide->serie = serie;
   ide->nNF = nnf;
-  strcpy(ide->dhEmi, DHSet(tzd, str)); // precisa rever isso
-  strcpy(ide->dhSaiEnt, DHSet(tzd, str));
+  if (DHSet(ide->dhEmi, sizeof ide->dhEmi, dhemi, tzd) != 0 ||
+      DHSet(ide->dhSaiEnt, sizeof ide->dhSaiEnt, dhsaient, tzd) != 0){
+    if (!this)
+      free(ide);
+    return NULL;
+  }
   ide->tpNF = tpnf;
   ide->idDest = iddest;
   ide->cMunFG = cmunfg;
@@ -280,11 +300,14 @@ int xmlGenideNode(xmlTextWriterPtr writer,struct ide_s *ide)
     return -1;
   }
 
-  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "dhSaiEnt","%s", 
-                                               ide->dhSaiEnt);
-  if (rc < 0) {
-    printf("ide->dhSaiEnt: Erro em xmlTextWriterWriteFormatElement\n");
-    return -1;
+  /* dhSaiEnt é opcional */
+  if (ide->dhSaiEnt[0] != '\0') {
+    rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "dhSaiEnt","%s", 
+                                                 ide->dhSaiEnt);
+    if (rc < 0) {
+      printf("ide->dhSaiEnt: Erro em xmlTextWriterWriteFormatElement\n");
+      return -1;
+    }
   }
 
   rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "tpNF","%1u", 

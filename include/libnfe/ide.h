@@ -22,6 +22,7 @@
 #define LIBNFE_IDE_H
 
 #include <stdint.h>
+#include <time.h>
 
 #include <libxml/encoding.h>
 #include <libxml/xmlwriter.h>
@@ -31,17 +32,21 @@
 struct Cont_s;
 struct ide_s;
 
+/* Valor de data/hora opcional não informado (ex.: dhSaiEnt) */
+#define NFE_SEM_DATA ((time_t)-1)
 
-/* this = um objeto struct Cont_s
- * tzd = fuso horário (nfe_tzd)
- * str = endereço de uma string
- * xJust = justificativa (até 256 caracteres)
- *  
+
+/* this   = um objeto struct Cont_s a reaproveitar, ou NULL para alocar
+ * dhcont = instante de entrada em contingência
+ * tzd    = fuso horário em que a data será escrita (nfe_tzd)
+ * xJust  = justificativa (até 256 caracteres)
+ *
+ * Retorna NULL se o fuso for inválido.
 */ 
 
 struct Cont_s *ideContNew(struct Cont_s *this,
+                          time_t dhcont,
                           nfe_tzd tzd, 
-                          char *str, 
                           const char *xjust);
 
 void ideContDel(struct Cont_s *cont);
@@ -56,8 +61,9 @@ void ideContDel(struct Cont_s *cont);
  * indpag   = forma de pagamento (nfe_forma_pagamento);
  * mod      = modelo do documento (nfe_modelo);
  * serie    = serie do documento fiscal - 3 algarismos
- * dhemi    = data e hora de emissao
- * dhSaiEnt = data e hora da saída ou entrada da mercadoria/produto;
+ * dhemi    = instante de emissão
+ * dhsaient = instante da saída ou entrada da mercadoria/produto, ou
+ *            NFE_SEM_DATA se não informado;
  * tpnf     = tipo de operação (nfe_tipo_operacao);
  * iddest   = destino da operação (nfe_destino);
  * cmunfg   = Municipio do fato gerador: Tabela IBGE Municipios :
@@ -71,8 +77,9 @@ void ideContDel(struct Cont_s *cont);
  * indpres  = presença do comprador (nfe_presenca);
  * procemis = processo de emissão (nfe_processo_emissao);
  * verproc  = Versão do protocolo de emissao: 20 caracteres
- * tzd      = fuso horário (nfe_tzd);
- * str      = string indicativa da hora
+ * tzd      = fuso horário em que as datas serão escritas (nfe_tzd);
+ *
+ * Retorna NULL se o fuso for inválido.
  * 
 **/
 struct ide_s *ideNew(struct ide_s *this, 
@@ -83,8 +90,8 @@ struct ide_s *ideNew(struct ide_s *this,
                      nfe_modelo mod, 
                      uint16_t serie, 
                      uint32_t nnf, 
-                     char *dhemi, 
-                     char *dhsaient,
+                     time_t dhemi, 
+                     time_t dhsaient,
                      nfe_tipo_operacao tpnf, 
                      nfe_destino iddest,
                      uint32_t cmunfg, 
@@ -98,8 +105,7 @@ struct ide_s *ideNew(struct ide_s *this,
                      nfe_processo_emissao procemis, 
                      char *verproc,
                      struct Cont_s *cont,
-                     nfe_tzd tzd, 
-                     char *str );
+                     nfe_tzd tzd );
 void ideDel(struct ide_s *ide);
 
 /*  Gera o Nó xml para o respectivo objeto
