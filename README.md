@@ -12,7 +12,8 @@ Biblioteca livre em C para emissão de documentos fiscais eletrônicos brasileir
 | Grupo `ide` (identificação da NF-e), com contingência e notas referenciadas | Pronto; o XML gerado valida contra o XSD oficial do leiaute 4.00 |
 | Endereço, notas referenciadas (`refNF`, `refNFe`) | Prontos |
 | Demais grupos da NF-e (emitente, destinatário, produtos, impostos, totais, transporte, pagamento) | A fazer |
-| Chave de acesso, assinatura digital, transmissão à SEFAZ | A fazer |
+| Chave de acesso e dígito verificador (`nfe_ide_gerar_chave`) | Pronto |
+| Assinatura digital, transmissão à SEFAZ | A fazer |
 | NFC-e, NFS-e, CT-e, MDF-e | Planejados (ver [visão do projeto](docs/VISAO.md)) |
 
 O roteiro detalhado está nas [issues](https://github.com/icaroraci/tooldoce/issues).

@@ -37,7 +37,7 @@
 #include "teste.h"
 
 #define NS    "http://www.portalfiscal.inf.br/nfe"
-#define CHAVE "35100812345678000199550010000000421123456787"
+#define CHAVE "35100812345678000199550010000000421123456789"
 #define T0    ((time_t)1282237215) /* 2010-08-19T17:00:15Z */
 
 static xmlSchemaPtr schema;

@@ -72,7 +72,7 @@ int main(void)
 	/* Uma NF-e referenciada, pela chave de acesso */
 	ref = RefNFeNew();
 	rc = RefNFeSetrefNFe(ref,
-	                     "35100812345678000199550010000000421123456787");
+	                     "35100812345678000199550010000000421123456789");
 	if (rc == 0)
 		rc = nfe_ide_add_refnfe(ide,
 		                        ref); /* o ide passa a ser o dono */
