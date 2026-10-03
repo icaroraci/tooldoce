@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
-"""Gera PL_009_V4/ide_v4.00.xsd a partir do leiauteNFe_v4.00.xsd oficial.
+"""Gera nfe/ide_v4.00.xsd a partir do leiauteNFe_v4.00.xsd oficial.
 
 No leiaute, <ide> é um elemento local dentro do tipo TNFe e não pode ser
 validado sozinho. Este script copia a definição de <ide> e os tipos simples
 de nível superior do leiaute para um schema próprio, que os testes usam para
 validar o XML gerado pela biblioteca enquanto a nota completa não existe.
 
-Rode de novo sempre que os schemas em PL_009_V4/ forem atualizados:
+Rode de novo sempre que os schemas em nfe/ forem atualizados:
     python3 tests/schemas/gerar_ide_xsd.py
 """
 import os
 import re
 
-DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "PL_009_V4")
+DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "nfe")
 ORIGEM = os.path.join(DIR, "leiauteNFe_v4.00.xsd")
 DESTINO = os.path.join(DIR, "ide_v4.00.xsd")
 

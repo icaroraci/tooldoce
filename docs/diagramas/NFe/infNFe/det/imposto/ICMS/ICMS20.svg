@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<svg xmlns='http://www.w3.org/2000/svg' width='814' height='1410' viewBox='0 0 814 1410'>
+<svg xmlns='http://www.w3.org/2000/svg' width='814' height='1436' viewBox='0 0 814 1436'>
 <rect width='100%' height='100%' fill='#ffffff'/>
 <text x='20' y='26' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='15' font-weight='bold' fill='#1a1a1a'>NFe › infNFe › det › imposto › ICMS › ICMS20</text><text x='20' y='42' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>Gerado de leiauteNFe_v4.00.xsd por tools/gerar_diagramas.py — caixa tracejada: opcional; ⊞: estrutura com diagrama próprio</text>
 
@@ -126,53 +126,55 @@
 <text x='472' y='1141' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Valor do ICMS de desoneração</text>
 
 
-<rect x='464' y='1166' width='330' height='92' rx='3' fill='#ffffff' stroke='#1f4e79' stroke-width='1.3'/>
+<rect x='464' y='1166' width='330' height='118' rx='3' fill='#ffffff' stroke='#1f4e79' stroke-width='1.3'/>
 <rect x='464' y='1166' width='330' height='22' rx='3' fill='#dce9f5' stroke='#1f4e79' stroke-width='1.3'/>
 <text x='472' y='1182' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#1a1a1a'>motDesICMS</text>
 <text x='472' y='1200' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>tipo</text>
 <text x='538' y='1200' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>string</title>string</text>
 <text x='472' y='1215' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>valores</text>
-<text x='538' y='1215' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>3, 9, 12</title>3, 9, 12</text>
+<text x='538' y='1215' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>3, 9, 10, 11, 12</title>3, 9, 10, 11, 12</text>
 <text x='472' y='1234' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Motivo da desoneração do ICMS:3-Uso na</text>
-<text x='472' y='1247' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>agropecuária;9-Outros;12-Fomento agropecuário</text>
+<text x='472' y='1247' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>agropecuária;9-Outros; 10=Deficiente Condutor</text>
+<text x='472' y='1260' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>(Convênio ICMS 38/12); 11=Deficiente Não Condutor</text>
+<text x='472' y='1273' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>(Convênio ICMS 38/12); 12-Fomento agropecuário</text>
 
 
-<rect x='464' y='1272' width='330' height='118' rx='3' fill='#ffffff' stroke='#1f4e79' stroke-width='1.3' stroke-dasharray='5,3'/>
-<rect x='464' y='1272' width='330' height='22' rx='3' fill='#dce9f5' stroke='#1f4e79' stroke-width='1.3' stroke-dasharray='5,3'/>
-<text x='472' y='1288' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#1a1a1a'>indDeduzDeson</text>
-<text x='786' y='1288' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' text-anchor='end' fill='#1f4e79'>0..1</text>
-<text x='472' y='1306' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>tipo</text>
-<text x='538' y='1306' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>string</title>string</text>
-<text x='472' y='1321' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>valores</text>
-<text x='538' y='1321' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>0, 1</title>0, 1</text>
-<text x='472' y='1340' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Indica se o valor do ICMS desonerado (vICMSDeson)</text>
-<text x='472' y='1353' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>deduz do valor do item (vProd): 0=Valor do ICMS</text>
-<text x='472' y='1366' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>desonerado (vICMSDeson) não deduz do valor do item</text>
-<text x='472' y='1379' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>(vProd) / total da NF-e; 1=Valor do ICMS desonerado…</text>
+<rect x='464' y='1298' width='330' height='118' rx='3' fill='#ffffff' stroke='#1f4e79' stroke-width='1.3' stroke-dasharray='5,3'/>
+<rect x='464' y='1298' width='330' height='22' rx='3' fill='#dce9f5' stroke='#1f4e79' stroke-width='1.3' stroke-dasharray='5,3'/>
+<text x='472' y='1314' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#1a1a1a'>indDeduzDeson</text>
+<text x='786' y='1314' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' text-anchor='end' fill='#1f4e79'>0..1</text>
+<text x='472' y='1332' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>tipo</text>
+<text x='538' y='1332' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>string</title>string</text>
+<text x='472' y='1347' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>valores</text>
+<text x='538' y='1347' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>0, 1</title>0, 1</text>
+<text x='472' y='1366' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Indica se o valor do ICMS desonerado (vICMSDeson)</text>
+<text x='472' y='1379' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>deduz do valor do item (vProd): 0=Valor do ICMS</text>
+<text x='472' y='1392' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>desonerado (vICMSDeson) não deduz do valor do item</text>
+<text x='472' y='1405' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>(vProd) / total da NF-e; 1=Valor do ICMS desonerado…</text>
 
-<rect x='374' y='1170.5' width='56' height='26' rx='13' fill='#f3f6f9' stroke='#7a8a99' stroke-dasharray='4,3'/>
-<text x='402.0' y='1187.5' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' text-anchor='middle' fill='#1a1a1a'>seq.</text>
-<text x='402.0' y='1208.5' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10' text-anchor='middle' fill='#1f4e79'>0..1</text>
-<path d='M430,1183.5 H447.0 V1084 H464' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<path d='M430,1183.5 H447.0 V1177 H464' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<path d='M430,1183.5 H447.0 V1283 H464' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<rect x='284' y='610.25' width='56' height='26' rx='13' fill='#f3f6f9' stroke='#7a8a99'/>
-<text x='312.0' y='627.25' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' text-anchor='middle' fill='#1a1a1a'>seq.</text>
-<path d='M340,623.25 H357.0 V63 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<path d='M340,623.25 H357.0 V182 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<path d='M340,623.25 H357.0 V288 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<path d='M340,623.25 H357.0 V407 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<path d='M340,623.25 H357.0 V500 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<path d='M340,623.25 H357.0 V593 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<path d='M340,623.25 H357.0 V686 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<path d='M340,623.25 H357.0 V878.5 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<path d='M340,623.25 H357.0 V1183.5 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<rect x='374' y='1183.5' width='56' height='26' rx='13' fill='#f3f6f9' stroke='#7a8a99' stroke-dasharray='4,3'/>
+<text x='402.0' y='1200.5' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' text-anchor='middle' fill='#1a1a1a'>seq.</text>
+<text x='402.0' y='1221.5' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10' text-anchor='middle' fill='#1f4e79'>0..1</text>
+<path d='M430,1196.5 H447.0 V1084 H464' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M430,1196.5 H447.0 V1177 H464' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M430,1196.5 H447.0 V1309 H464' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<rect x='284' y='616.75' width='56' height='26' rx='13' fill='#f3f6f9' stroke='#7a8a99'/>
+<text x='312.0' y='633.75' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' text-anchor='middle' fill='#1a1a1a'>seq.</text>
+<path d='M340,629.75 H357.0 V63 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,629.75 H357.0 V182 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,629.75 H357.0 V288 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,629.75 H357.0 V407 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,629.75 H357.0 V500 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,629.75 H357.0 V593 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,629.75 H357.0 V686 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,629.75 H357.0 V878.5 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,629.75 H357.0 V1196.5 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
 
-<rect x='20' y='612.25' width='230' height='62' rx='3' fill='#ffffff' stroke='#1f4e79' stroke-width='1.3'/>
-<rect x='20' y='612.25' width='230' height='22' rx='3' fill='#dce9f5' stroke='#1f4e79' stroke-width='1.3'/>
-<text x='28' y='628.25' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#1a1a1a'>ICMS20</text>
-<text x='28' y='650.25' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Tributção pelo ICMS 20 - Com</text>
-<text x='28' y='663.25' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>redução de base de cálculo</text>
+<rect x='20' y='618.75' width='230' height='62' rx='3' fill='#ffffff' stroke='#1f4e79' stroke-width='1.3'/>
+<rect x='20' y='618.75' width='230' height='22' rx='3' fill='#dce9f5' stroke='#1f4e79' stroke-width='1.3'/>
+<text x='28' y='634.75' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#1a1a1a'>ICMS20</text>
+<text x='28' y='656.75' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Tributção pelo ICMS 20 - Com</text>
+<text x='28' y='669.75' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>redução de base de cálculo</text>
 
-<path d='M250,623.25 H267.0 V623.25 H284' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M250,629.75 H267.0 V629.75 H284' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
 </svg>

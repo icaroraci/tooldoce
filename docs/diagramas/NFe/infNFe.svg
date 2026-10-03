@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<svg xmlns='http://www.w3.org/2000/svg' width='724' height='1618' viewBox='0 0 724 1618'>
+<svg xmlns='http://www.w3.org/2000/svg' width='724' height='1800' viewBox='0 0 724 1800'>
 <rect width='100%' height='100%' fill='#ffffff'/>
 <text x='20' y='26' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='15' font-weight='bold' fill='#1a1a1a'>NFe › infNFe</text><text x='20' y='42' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>Gerado de leiauteNFe_v4.00.xsd por tools/gerar_diagramas.py — caixa tracejada: opcional; ⊞: estrutura com diagrama próprio</text>
 <a href='infNFe/ide.svg'>
@@ -174,35 +174,57 @@
 <text x='448' y='1568' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>ver diagrama próprio</title>ver diagrama próprio</text>
 <text x='382' y='1587' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Grupo para informações da solicitação da NFF</text>
 </a>
-<rect x='284' y='791.0' width='56' height='26' rx='13' fill='#f3f6f9' stroke='#7a8a99'/>
-<text x='312.0' y='808.0' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' text-anchor='middle' fill='#1a1a1a'>seq.</text>
-<path d='M340,804.0 H357.0 V63 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<path d='M340,804.0 H357.0 V141 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<path d='M340,804.0 H357.0 V219 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<path d='M340,804.0 H357.0 V310 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<path d='M340,804.0 H357.0 V388 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<path d='M340,804.0 H357.0 V479 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<path d='M340,804.0 H357.0 V570 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<path d='M340,804.0 H357.0 V648 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<path d='M340,804.0 H357.0 V726 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<path d='M340,804.0 H357.0 V804 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<path d='M340,804.0 H357.0 V882 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<path d='M340,804.0 H357.0 V960 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<path d='M340,804.0 H357.0 V1051 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<path d='M340,804.0 H357.0 V1129 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<path d='M340,804.0 H357.0 V1207 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<path d='M340,804.0 H357.0 V1285 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<path d='M340,804.0 H357.0 V1376 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<path d='M340,804.0 H357.0 V1454 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<path d='M340,804.0 H357.0 V1545 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<a href='infNFe/agropecuario.svg'>
+<rect x='374' y='1612' width='330' height='77' rx='3' fill='#fff2cc' stroke='#1f4e79' stroke-width='1.3' stroke-dasharray='5,3'/>
+<rect x='374' y='1612' width='330' height='22' rx='3' fill='#dce9f5' stroke='#1f4e79' stroke-width='1.3' stroke-dasharray='5,3'/>
+<text x='382' y='1628' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#1a1a1a'>agropecuario ⊞</text>
+<text x='696' y='1628' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' text-anchor='end' fill='#1f4e79'>0..1</text>
+<text x='382' y='1646' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>estrutura</text>
+<text x='448' y='1646' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>ver diagrama próprio</title>ver diagrama próprio</text>
+<text x='382' y='1665' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Produtos Agropecurários Animais, Vegetais e</text>
+<text x='382' y='1678' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Florestais</text>
+</a>
+<a href='infNFe/infPAA.svg'>
+<rect x='374' y='1703' width='330' height='77' rx='3' fill='#fff2cc' stroke='#1f4e79' stroke-width='1.3' stroke-dasharray='5,3'/>
+<rect x='374' y='1703' width='330' height='22' rx='3' fill='#dce9f5' stroke='#1f4e79' stroke-width='1.3' stroke-dasharray='5,3'/>
+<text x='382' y='1719' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#1a1a1a'>infPAA ⊞</text>
+<text x='696' y='1719' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' text-anchor='end' fill='#1f4e79'>0..1</text>
+<text x='382' y='1737' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>estrutura</text>
+<text x='448' y='1737' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>ver diagrama próprio</title>ver diagrama próprio</text>
+<text x='382' y='1756' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Grupo de Informação do Provedor de Assinatura e</text>
+<text x='382' y='1769' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Autorização</text>
+</a>
+<rect x='284' y='875.5' width='56' height='26' rx='13' fill='#f3f6f9' stroke='#7a8a99'/>
+<text x='312.0' y='892.5' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' text-anchor='middle' fill='#1a1a1a'>seq.</text>
+<path d='M340,888.5 H357.0 V63 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,888.5 H357.0 V141 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,888.5 H357.0 V219 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,888.5 H357.0 V310 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,888.5 H357.0 V388 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,888.5 H357.0 V479 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,888.5 H357.0 V570 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,888.5 H357.0 V648 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,888.5 H357.0 V726 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,888.5 H357.0 V804 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,888.5 H357.0 V882 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,888.5 H357.0 V960 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,888.5 H357.0 V1051 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,888.5 H357.0 V1129 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,888.5 H357.0 V1207 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,888.5 H357.0 V1285 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,888.5 H357.0 V1376 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,888.5 H357.0 V1454 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,888.5 H357.0 V1545 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,888.5 H357.0 V1623 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,888.5 H357.0 V1714 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
 
-<rect x='20' y='793.0' width='230' height='62' rx='3' fill='#ffffff' stroke='#1f4e79' stroke-width='1.3'/>
-<rect x='20' y='793.0' width='230' height='22' rx='3' fill='#dce9f5' stroke='#1f4e79' stroke-width='1.3'/>
-<text x='28' y='809.0' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#1a1a1a'>infNFe</text>
-<text x='28' y='831.0' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Informações da Nota Fiscal</text>
-<text x='28' y='844.0' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>eletrônica</text>
+<rect x='20' y='877.5' width='230' height='62' rx='3' fill='#ffffff' stroke='#1f4e79' stroke-width='1.3'/>
+<rect x='20' y='877.5' width='230' height='22' rx='3' fill='#dce9f5' stroke='#1f4e79' stroke-width='1.3'/>
+<text x='28' y='893.5' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#1a1a1a'>infNFe</text>
+<text x='28' y='915.5' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Informações da Nota Fiscal</text>
+<text x='28' y='928.5' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>eletrônica</text>
 
-<text x='28' y='866.0' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>TVerNFe 4\.00</title>@versao <tspan fill='#5f6b76'>obrigatório</tspan></text>
-<text x='28' y='881.0' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>ID NFe[0-9]{44}</title>@Id <tspan fill='#5f6b76'>obrigatório</tspan></text>
-<path d='M250,804.0 H267.0 V804.0 H284' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<text x='28' y='950.5' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>TVerNFe 4\.00</title>@versao <tspan fill='#5f6b76'>obrigatório</tspan></text>
+<text x='28' y='965.5' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>ID NFe[0-9]{6}[0-9A-Z]{12}[0-9]{26}</title>@Id <tspan fill='#5f6b76'>obrigatório</tspan></text>
+<path d='M250,888.5 H267.0 V888.5 H284' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
 </svg>

@@ -133,7 +133,7 @@
 <text x='382' y='1202' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>tamanho</text>
 <text x='448' y='1202' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>1 a 20</title>1 a 20</text>
 <text x='382' y='1217' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>padrão</text>
-<text x='448' y='1217' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>[!-ÿ]{1}[ -ÿ]*[!-ÿ]{1}|[!-ÿ]{1}</title>[!-ÿ]{1}[ -ÿ]*[!-ÿ]{1}|[!-ÿ]{1}</text>
+<text x='448' y='1217' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}</title>[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}</text>
 <text x='382' y='1236' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Código do serviço prestado dentro do município</text>
 
 
@@ -168,7 +168,7 @@
 <text x='382' y='1496' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>tamanho</text>
 <text x='448' y='1496' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>1 a 30</title>1 a 30</text>
 <text x='382' y='1511' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>padrão</text>
-<text x='448' y='1511' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>[!-ÿ]{1}[ -ÿ]*[!-ÿ]{1}|[!-ÿ]{1}</title>[!-ÿ]{1}[ -ÿ]*[!-ÿ]{1}|[!-ÿ]{1}</text>
+<text x='448' y='1511' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}</title>[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}</text>
 <text x='382' y='1530' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Número do Processo administrativo ou judicial de</text>
 <text x='382' y='1543' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>suspenção do processo</text>
 

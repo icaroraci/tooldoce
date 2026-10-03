@@ -11,7 +11,7 @@
 <text x='382' y='101' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>tamanho</text>
 <text x='448' y='101' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>0 a 14</title>0 a 14</text>
 <text x='382' y='116' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>padrão</text>
-<text x='448' y='116' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>[0-9]{14}</title>[0-9]{14}</text>
+<text x='448' y='116' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>[0-9A-Z]{12}[0-9]{2}</title>[0-9A-Z]{12}[0-9]{2}</text>
 <text x='382' y='135' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>CNPJ do Órgão emissor</text>
 
 
@@ -23,7 +23,7 @@
 <text x='382' y='209' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>tamanho</text>
 <text x='448' y='209' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>1 a 60</title>1 a 60</text>
 <text x='382' y='224' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>padrão</text>
-<text x='448' y='224' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>[!-ÿ]{1}[ -ÿ]*[!-ÿ]{1}|[!-ÿ]{1}</title>[!-ÿ]{1}[ -ÿ]*[!-ÿ]{1}|[!-ÿ]{1}</text>
+<text x='448' y='224' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}</title>[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}</text>
 <text x='382' y='243' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Órgão emitente</text>
 
 
@@ -35,7 +35,7 @@
 <text x='382' y='317' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>tamanho</text>
 <text x='448' y='317' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>1 a 60</title>1 a 60</text>
 <text x='382' y='332' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>padrão</text>
-<text x='448' y='332' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>[!-ÿ]{1}[ -ÿ]*[!-ÿ]{1}|[!-ÿ]{1}</title>[!-ÿ]{1}[ -ÿ]*[!-ÿ]{1}|[!-ÿ]{1}</text>
+<text x='448' y='332' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}</title>[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}</text>
 <text x='382' y='351' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Matrícula do agente</text>
 
 
@@ -47,7 +47,7 @@
 <text x='382' y='425' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>tamanho</text>
 <text x='448' y='425' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>1 a 60</title>1 a 60</text>
 <text x='382' y='440' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>padrão</text>
-<text x='448' y='440' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>[!-ÿ]{1}[ -ÿ]*[!-ÿ]{1}|[!-ÿ]{1}</title>[!-ÿ]{1}[ -ÿ]*[!-ÿ]{1}|[!-ÿ]{1}</text>
+<text x='448' y='440' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}</title>[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}</text>
 <text x='382' y='459' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Nome do agente</text>
 
 
@@ -81,7 +81,7 @@
 <text x='382' y='719' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>tamanho</text>
 <text x='448' y='719' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>1 a 60</title>1 a 60</text>
 <text x='382' y='734' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>padrão</text>
-<text x='448' y='734' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>[!-ÿ]{1}[ -ÿ]*[!-ÿ]{1}|[!-ÿ]{1}</title>[!-ÿ]{1}[ -ÿ]*[!-ÿ]{1}|[!-ÿ]{1}</text>
+<text x='448' y='734' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}</title>[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}</text>
 <text x='382' y='753' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Número do Documento de Arrecadação de Receita</text>
 
 
@@ -115,7 +115,7 @@
 <text x='382' y='1013' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>tamanho</text>
 <text x='448' y='1013' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>1 a 60</title>1 a 60</text>
 <text x='382' y='1028' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>padrão</text>
-<text x='448' y='1028' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>[!-ÿ]{1}[ -ÿ]*[!-ÿ]{1}|[!-ÿ]{1}</title>[!-ÿ]{1}[ -ÿ]*[!-ÿ]{1}|[!-ÿ]{1}</text>
+<text x='448' y='1028' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}</title>[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}</text>
 <text x='382' y='1047' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Repartição Fiscal emitente</text>
 
 

@@ -19,7 +19,7 @@
 /* Testes do grupo ide, com validação do XML contra o XSD oficial.
  *
  * Uso: test_ide <diretório tests>
- * O schema usado é <diretório>/schemas/PL_009_V4/ide_v4.00.xsd. */
+ * O schema usado é <diretório>/schemas/nfe/ide_v4.00.xsd. */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -224,6 +224,37 @@ static void teste_contingencia_e_referencias(void)
 	nfe_ide_free(ide); /* libera também r1 e r2 */
 }
 
+/* CNPJ alfanumérico nas referências: aceito pelo schema PL_010 */
+static void teste_cnpj_alfanumerico(void)
+{
+	nfe_ide *ide = novo(NFE_SEM_DATA, NFE_EMISSAO_NORMAL, NFE_TZD_BRASILIA);
+	struct refNFe_s *r1 = RefNFeNew();
+	struct refNF_s *r2 = RefNFNew();
+	char *xml;
+
+	VERIFICA_INT(
+	        RefNFeSetrefNFe(r1,
+	                        "35260912ABC34501DE35550010000001231123456784"),
+	        0);
+	VERIFICA_INT(RefNFSetcUF(r2, NFE_UF_SP), 0);
+	VERIFICA_INT(RefNFSetAAMM(r2, 26, NFE_MES_SETEMBRO), 0);
+	VERIFICA_INT(RefNFSetCNPJ(r2, "12ABC34501DE35"), 0);
+	VERIFICA_INT(RefNFSetmod(r2, "01"), 0);
+	VERIFICA_INT(RefNFSetSerie(r2, "1"), 0);
+	VERIFICA_INT(RefNFSetnNF(r2, "123"), 0);
+	VERIFICA_INT(nfe_ide_add_refnfe(ide, r1), 0);
+	VERIFICA_INT(nfe_ide_add_refnf(ide, r2), 0);
+
+	xml = gera(ide);
+	VERIFICA(xml != NULL);
+	if (xml) {
+		VERIFICA(strstr(xml, "<CNPJ>12ABC34501DE35</CNPJ>") != NULL);
+		VERIFICA_INT(valida(xml, 1), 0);
+	}
+	free(xml);
+	nfe_ide_free(ide);
+}
+
 static void teste_limite_referencias(void)
 {
 	nfe_ide *ide = novo(NFE_SEM_DATA, NFE_EMISSAO_NORMAL, NFE_TZD_BRASILIA);
@@ -338,7 +369,7 @@ int main(int argc, char **argv)
 		fprintf(stderr, "uso: %s <diretório tests>\n", argv[0]);
 		return 2;
 	}
-	snprintf(caminho, sizeof caminho, "%s/schemas/PL_009_V4/ide_v4.00.xsd",
+	snprintf(caminho, sizeof caminho, "%s/schemas/nfe/ide_v4.00.xsd",
 	         argv[1]);
 	pctx = xmlSchemaNewParserCtxt(caminho);
 	schema = xmlSchemaParse(pctx);
@@ -352,6 +383,7 @@ int main(int argc, char **argv)
 	teste_emissao_normal();
 	teste_fusos();
 	teste_contingencia_e_referencias();
+	teste_cnpj_alfanumerico();
 	teste_limite_referencias();
 	teste_valores_invalidos();
 	teste_obrigatorios();

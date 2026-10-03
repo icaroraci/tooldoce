@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<svg xmlns='http://www.w3.org/2000/svg' width='904' height='957' viewBox='0 0 904 957'>
+<svg xmlns='http://www.w3.org/2000/svg' width='904' height='1126' viewBox='0 0 904 1126'>
 <rect width='100%' height='100%' fill='#ffffff'/>
 <text x='20' y='26' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='15' font-weight='bold' fill='#1a1a1a'>NFe › infNFe › det › imposto</text><text x='20' y='42' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>Gerado de leiauteNFe_v4.00.xsd por tools/gerar_diagramas.py — caixa tracejada: opcional; ⊞: estrutura com diagrama próprio</text>
 
@@ -66,8 +66,9 @@
 <text x='492.0' y='446.0' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' text-anchor='middle' fill='#1a1a1a'>seq.</text>
 <path d='M520,442.0 H537.0 V403 H554' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
 <path d='M520,442.0 H537.0 V481 H554' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<rect x='374' y='331.5' width='56' height='26' rx='13' fill='#f3f6f9' stroke='#7a8a99'/>
+<rect x='374' y='331.5' width='56' height='26' rx='13' fill='#f3f6f9' stroke='#7a8a99' stroke-dasharray='4,3'/>
 <text x='402.0' y='348.5' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' text-anchor='middle' fill='#1a1a1a'>escolha</text>
+<text x='402.0' y='369.5' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10' text-anchor='middle' fill='#1f4e79'>0..1</text>
 <path d='M430,344.5 H447.0 V247.0 H464' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
 <path d='M430,344.5 H447.0 V442.0 H464' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
 <a href='imposto/PIS.svg'>
@@ -116,21 +117,42 @@
 <text x='382' y='913' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Grupo a ser informado nas vendas interestarduais</text>
 <text x='382' y='926' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>para consumidor final, não contribuinte de ICMS</text>
 </a>
-<rect x='284' y='454.0' width='56' height='26' rx='13' fill='#f3f6f9' stroke='#7a8a99'/>
-<text x='312.0' y='471.0' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' text-anchor='middle' fill='#1a1a1a'>seq.</text>
-<path d='M340,467.0 H357.0 V63 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<path d='M340,467.0 H357.0 V344.5 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<path d='M340,467.0 H357.0 V559 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<path d='M340,467.0 H357.0 V637 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<path d='M340,467.0 H357.0 V715 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<path d='M340,467.0 H357.0 V793 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
-<path d='M340,467.0 H357.0 V871 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<a href='imposto/IS.svg'>
+<rect x='374' y='951' width='330' height='64' rx='3' fill='#fff2cc' stroke='#1f4e79' stroke-width='1.3' stroke-dasharray='5,3'/>
+<rect x='374' y='951' width='330' height='22' rx='3' fill='#dce9f5' stroke='#1f4e79' stroke-width='1.3' stroke-dasharray='5,3'/>
+<text x='382' y='967' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#1a1a1a'>IS ⊞</text>
+<text x='696' y='967' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' text-anchor='end' fill='#1f4e79'>0..1</text>
+<text x='382' y='985' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>estrutura</text>
+<text x='448' y='985' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>TIS — ver diagrama próprio</title>TIS — ver diagrama próprio</text>
+<text x='382' y='1004' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Grupo de informações do Imposto Seletivo</text>
+</a>
+<a href='imposto/IBSCBS.svg'>
+<rect x='374' y='1029' width='330' height='77' rx='3' fill='#fff2cc' stroke='#1f4e79' stroke-width='1.3' stroke-dasharray='5,3'/>
+<rect x='374' y='1029' width='330' height='22' rx='3' fill='#dce9f5' stroke='#1f4e79' stroke-width='1.3' stroke-dasharray='5,3'/>
+<text x='382' y='1045' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#1a1a1a'>IBSCBS ⊞</text>
+<text x='696' y='1045' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' text-anchor='end' fill='#1f4e79'>0..1</text>
+<text x='382' y='1063' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>estrutura</text>
+<text x='448' y='1063' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>TTribNFe — ver diagrama próprio</title>TTribNFe — ver diagrama próprio</text>
+<text x='382' y='1082' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Grupo de informações dos tributos IBS, CBS e Imposto</text>
+<text x='382' y='1095' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Seletivo</text>
+</a>
+<rect x='284' y='538.5' width='56' height='26' rx='13' fill='#f3f6f9' stroke='#7a8a99'/>
+<text x='312.0' y='555.5' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' text-anchor='middle' fill='#1a1a1a'>seq.</text>
+<path d='M340,551.5 H357.0 V63 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,551.5 H357.0 V344.5 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,551.5 H357.0 V559 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,551.5 H357.0 V637 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,551.5 H357.0 V715 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,551.5 H357.0 V793 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,551.5 H357.0 V871 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,551.5 H357.0 V962 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,551.5 H357.0 V1040 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
 
-<rect x='20' y='456.0' width='230' height='62' rx='3' fill='#ffffff' stroke='#1f4e79' stroke-width='1.3'/>
-<rect x='20' y='456.0' width='230' height='22' rx='3' fill='#dce9f5' stroke='#1f4e79' stroke-width='1.3'/>
-<text x='28' y='472.0' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#1a1a1a'>imposto</text>
-<text x='28' y='494.0' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Tributos incidentes nos produtos ou</text>
-<text x='28' y='507.0' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>serviços da NF-e</text>
+<rect x='20' y='540.5' width='230' height='62' rx='3' fill='#ffffff' stroke='#1f4e79' stroke-width='1.3'/>
+<rect x='20' y='540.5' width='230' height='22' rx='3' fill='#dce9f5' stroke='#1f4e79' stroke-width='1.3'/>
+<text x='28' y='556.5' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#1a1a1a'>imposto</text>
+<text x='28' y='578.5' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Tributos incidentes nos produtos ou</text>
+<text x='28' y='591.5' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>serviços da NF-e</text>
 
-<path d='M250,467.0 H267.0 V467.0 H284' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M250,551.5 H267.0 V551.5 H284' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
 </svg>

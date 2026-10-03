@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Gera diagramas SVG das estruturas da NF-e a partir dos schemas oficiais.
 
-Lê tests/schemas/PL_009_V4/leiauteNFe_v4.00.xsd (e tiposBasico_v4.00.xsd)
+Lê tests/schemas/nfe/leiauteNFe_v4.00.xsd (e os tipos que ele inclui)
 e produz, em docs/diagramas/:
 
   - um SVG por estrutura (elemento com filhos), em pastas que seguem a
@@ -27,9 +27,10 @@ import textwrap
 import xml.etree.ElementTree as ET
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SCHEMAS = os.path.join(RAIZ, "tests", "schemas", "PL_009_V4")
+SCHEMAS = os.path.join(RAIZ, "tests", "schemas", "nfe")
 LEIAUTE = os.path.join(SCHEMAS, "leiauteNFe_v4.00.xsd")
 TIPOS = os.path.join(SCHEMAS, "tiposBasico_v4.00.xsd")
+TIPOS_DFE = os.path.join(SCHEMAS, "DFeTiposBasicos_v1.00.xsd")
 SAIDA = os.path.join(RAIZ, "docs", "diagramas")
 TODO = os.path.join(RAIZ, "TODO.md")
 
@@ -81,7 +82,7 @@ class Leiaute:
     def __init__(self):
         self.simples = {}
         self.complexos = {}
-        for arquivo in (TIPOS, LEIAUTE):
+        for arquivo in (TIPOS, TIPOS_DFE, LEIAUTE):
             raiz = ET.parse(arquivo).getroot()
             for t in raiz.findall(XS + "simpleType"):
                 self.simples[t.get("name")] = t
@@ -448,7 +449,7 @@ def indice(raiz):
         "# Diagramas das estruturas da NF-e (leiaute 4.00)",
         "",
         "Gerados automaticamente a partir do schema oficial "
-        "(`tests/schemas/PL_009_V4/leiauteNFe_v4.00.xsd`) por "
+        "(`tests/schemas/nfe/leiauteNFe_v4.00.xsd`) por "
         "`tools/gerar_diagramas.py`. **Não edite os SVGs**: atualize o "
         "schema e rode `python3 tools/gerar_diagramas.py`.",
         "",

@@ -13,6 +13,8 @@ Marque `[x]` quando a estrutura tiver: criação/liberação, setters com valida
         - [x] [**refNF**](docs/diagramas/NFe/infNFe/ide/NFref/refNF.svg)
         - [ ] [**refNFP**](docs/diagramas/NFe/infNFe/ide/NFref/refNFP.svg)
         - [ ] [**refECF**](docs/diagramas/NFe/infNFe/ide/NFref/refECF.svg)
+      - [ ] [**gCompraGov**](docs/diagramas/NFe/infNFe/ide/gCompraGov.svg) `0..1` _(opcional)_
+      - [ ] [**gPagAntecipado**](docs/diagramas/NFe/infNFe/ide/gPagAntecipado.svg) `0..1` _(opcional)_
     - [ ] [**emit**](docs/diagramas/NFe/infNFe/emit.svg)
       - [ ] [**enderEmit**](docs/diagramas/NFe/infNFe/emit/enderEmit.svg)
     - [ ] [**avulsa**](docs/diagramas/NFe/infNFe/avulsa.svg) `0..1` _(opcional)_
@@ -79,15 +81,70 @@ Marque `[x]` quando a estrutura tiver: criação/liberação, setters com valida
           - [ ] [**COFINSOutr**](docs/diagramas/NFe/infNFe/det/imposto/COFINS/COFINSOutr.svg)
         - [ ] [**COFINSST**](docs/diagramas/NFe/infNFe/det/imposto/COFINSST.svg) `0..1` _(opcional)_
         - [ ] [**ICMSUFDest**](docs/diagramas/NFe/infNFe/det/imposto/ICMSUFDest.svg) `0..1` _(opcional)_
+        - [ ] [**IS**](docs/diagramas/NFe/infNFe/det/imposto/IS.svg) `0..1` _(opcional)_
+        - [ ] [**IBSCBS**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS.svg) `0..1` _(opcional)_
+          - [ ] [**gIBSCBS**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBS.svg)
+            - [ ] [**gIBSUF**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSUF.svg)
+              - [ ] [**gDif**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSUF/gDif.svg) `0..1` _(opcional)_
+              - [ ] [**gDevTrib**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSUF/gDevTrib.svg) `0..1` _(opcional)_
+              - [ ] [**gRed**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSUF/gRed.svg) `0..1` _(opcional)_
+            - [ ] [**gIBSMun**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSMun.svg)
+              - [ ] [**gDif**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSMun/gDif.svg) `0..1` _(opcional)_
+              - [ ] [**gDevTrib**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSMun/gDevTrib.svg) `0..1` _(opcional)_
+              - [ ] [**gRed**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSMun/gRed.svg) `0..1` _(opcional)_
+            - [ ] [**gCBS**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gCBS.svg)
+              - [ ] [**gDif**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gCBS/gDif.svg) `0..1` _(opcional)_
+              - [ ] [**gDevTrib**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gCBS/gDevTrib.svg) `0..1` _(opcional)_
+              - [ ] [**gRed**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gCBS/gRed.svg) `0..1` _(opcional)_
+              - [ ] [**gALCZFMCBS**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gCBS/gALCZFMCBS.svg) `0..1` _(opcional)_
+            - [ ] [**gTribRegular**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gTribRegular.svg) `0..1` _(opcional)_
+            - [ ] [**gTribCompraGov**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gTribCompraGov.svg) `0..1` _(opcional)_
+          - [ ] [**gIBSCBSMono**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono.svg)
+            - [ ] [**gIBSMonoAdRem**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdRem.svg) `0..1` _(opcional)_
+              - [ ] [**gMonoPadrao**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdRem/gMonoPadrao.svg) `0..1` _(opcional)_
+              - [ ] [**gMonoReten**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdRem/gMonoReten.svg) `0..1` _(opcional)_
+              - [ ] [**gMonoRet**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdRem/gMonoRet.svg) `0..1` _(opcional)_
+              - [ ] [**gpBioDiferenca**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdRem/gpBioDiferenca.svg) `0..1` _(opcional)_
+            - [ ] [**gIBSMonoAdValorem**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdValorem.svg) `0..1` _(opcional)_
+              - [ ] [**gMonoPadrao**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdValorem/gMonoPadrao.svg) `0..1` _(opcional)_
+              - [ ] [**gMonoReten**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdValorem/gMonoReten.svg) `0..1` _(opcional)_
+              - [ ] [**gMonoRet**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdValorem/gMonoRet.svg) `0..1` _(opcional)_
+              - [ ] [**gpBioDiferenca**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdValorem/gpBioDiferenca.svg) `0..1` _(opcional)_
+            - [ ] [**gCBSMonoAdRem**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdRem.svg) `0..1` _(opcional)_
+              - [ ] [**gMonoPadrao**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdRem/gMonoPadrao.svg) `0..1` _(opcional)_
+              - [ ] [**gMonoReten**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdRem/gMonoReten.svg) `0..1` _(opcional)_
+              - [ ] [**gMonoRet**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdRem/gMonoRet.svg) `0..1` _(opcional)_
+              - [ ] [**gpBioDiferenca**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdRem/gpBioDiferenca.svg) `0..1` _(opcional)_
+            - [ ] [**gCBSMonoAdValorem**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdValorem.svg) `0..1` _(opcional)_
+              - [ ] [**gMonoPadrao**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdValorem/gMonoPadrao.svg) `0..1` _(opcional)_
+              - [ ] [**gMonoReten**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdValorem/gMonoReten.svg) `0..1` _(opcional)_
+              - [ ] [**gMonoRet**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdValorem/gMonoRet.svg) `0..1` _(opcional)_
+              - [ ] [**gpBioDiferenca**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdValorem/gpBioDiferenca.svg) `0..1` _(opcional)_
+          - [ ] [**gTransfCred**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gTransfCred.svg)
+          - [ ] [**gAjusteCompet**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gAjusteCompet.svg)
+          - [ ] [**gEstornoCred**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gEstornoCred.svg) `0..1` _(opcional)_
+          - [ ] [**gCredPresOper**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gCredPresOper.svg)
+            - [ ] [**gIBSCredPres**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gCredPresOper/gIBSCredPres.svg) `0..1` _(opcional)_
+            - [ ] [**gCBSCredPres**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gCredPresOper/gCBSCredPres.svg) `0..1` _(opcional)_
+          - [ ] [**gCredPresIBSZFM**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gCredPresIBSZFM.svg)
       - [ ] [**impostoDevol**](docs/diagramas/NFe/infNFe/det/impostoDevol.svg) `0..1` _(opcional)_
         - [ ] [**IPI**](docs/diagramas/NFe/infNFe/det/impostoDevol/IPI.svg)
       - [ ] [**obsItem**](docs/diagramas/NFe/infNFe/det/obsItem.svg) `0..1` _(opcional)_
         - [ ] [**obsCont**](docs/diagramas/NFe/infNFe/det/obsItem/obsCont.svg) `0..1` _(opcional)_
         - [ ] [**obsFisco**](docs/diagramas/NFe/infNFe/det/obsItem/obsFisco.svg) `0..1` _(opcional)_
+      - [ ] [**DFeReferenciado**](docs/diagramas/NFe/infNFe/det/DFeReferenciado.svg) `0..1` _(opcional)_
     - [ ] [**total**](docs/diagramas/NFe/infNFe/total.svg)
       - [ ] [**ICMSTot**](docs/diagramas/NFe/infNFe/total/ICMSTot.svg)
       - [ ] [**ISSQNtot**](docs/diagramas/NFe/infNFe/total/ISSQNtot.svg) `0..1` _(opcional)_
       - [ ] [**retTrib**](docs/diagramas/NFe/infNFe/total/retTrib.svg) `0..1` _(opcional)_
+      - [ ] [**ISTot**](docs/diagramas/NFe/infNFe/total/ISTot.svg) `0..1` _(opcional)_
+      - [ ] [**IBSCBSTot**](docs/diagramas/NFe/infNFe/total/IBSCBSTot.svg) `0..1` _(opcional)_
+        - [ ] [**gIBS**](docs/diagramas/NFe/infNFe/total/IBSCBSTot/gIBS.svg) `0..1` _(opcional)_
+          - [ ] [**gIBSUF**](docs/diagramas/NFe/infNFe/total/IBSCBSTot/gIBS/gIBSUF.svg)
+          - [ ] [**gIBSMun**](docs/diagramas/NFe/infNFe/total/IBSCBSTot/gIBS/gIBSMun.svg)
+        - [ ] [**gCBS**](docs/diagramas/NFe/infNFe/total/IBSCBSTot/gCBS.svg) `0..1` _(opcional)_
+        - [ ] [**gMono**](docs/diagramas/NFe/infNFe/total/IBSCBSTot/gMono.svg) `0..1` _(opcional)_
+        - [ ] [**gEstornoCred**](docs/diagramas/NFe/infNFe/total/IBSCBSTot/gEstornoCred.svg) `0..1` _(opcional)_
     - [ ] [**transp**](docs/diagramas/NFe/infNFe/transp.svg)
       - [ ] [**transporta**](docs/diagramas/NFe/infNFe/transp/transporta.svg) `0..1` _(opcional)_
       - [ ] [**retTransp**](docs/diagramas/NFe/infNFe/transp/retTransp.svg) `0..1` _(opcional)_
@@ -113,14 +170,20 @@ Marque `[x]` quando a estrutura tiver: criação/liberação, setters com valida
       - [ ] [**deduc**](docs/diagramas/NFe/infNFe/cana/deduc.svg) `0..10` _(opcional)_
     - [ ] [**infRespTec**](docs/diagramas/NFe/infNFe/infRespTec.svg) `0..1` _(opcional)_
     - [ ] [**infSolicNFF**](docs/diagramas/NFe/infNFe/infSolicNFF.svg) `0..1` _(opcional)_
+    - [ ] [**agropecuario**](docs/diagramas/NFe/infNFe/agropecuario.svg) `0..1` _(opcional)_
+      - [ ] [**defensivo**](docs/diagramas/NFe/infNFe/agropecuario/defensivo.svg) `1..20`
+      - [ ] [**guiaTransito**](docs/diagramas/NFe/infNFe/agropecuario/guiaTransito.svg)
+    - [ ] [**infPAA**](docs/diagramas/NFe/infNFe/infPAA.svg) `0..1` _(opcional)_
+      - [ ] [**PAASignature**](docs/diagramas/NFe/infNFe/infPAA/PAASignature.svg)
+        - [ ] [**RSAKeyValue**](docs/diagramas/NFe/infNFe/infPAA/PAASignature/RSAKeyValue.svg)
   - [ ] [**infNFeSupl**](docs/diagramas/NFe/infNFeSupl.svg) `0..1` _(opcional)_
 
 ## Além do leiaute
 
 - [x] Chave de acesso e dígito verificador (#54)
-- [ ] CNPJ alfanumérico (#66)
+- [x] CNPJ alfanumérico (#66)
 - [ ] Assinatura digital XMLDSig (#56)
 - [ ] Transmissão aos webservices da SEFAZ e tratamento do retorno (#57)
-- [ ] Atualizar os schemas para a Reforma Tributária (grupos de IBS/CBS); o leiaute em `tests/schemas/` vai até a NT 2024.003
+- [x] Atualizar os schemas para a Reforma Tributária (PL_010f, com IBS/CBS/IS)
 - [ ] NFC-e, NFS-e, CT-e, MDF-e (ver `docs/VISAO.md`)
 - [ ] Troca da licença para LGPL (#59)

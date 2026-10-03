@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<svg xmlns='http://www.w3.org/2000/svg' width='814' height='686' viewBox='0 0 814 686'>
+<rect width='100%' height='100%' fill='#ffffff'/>
+<text x='20' y='26' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='15' font-weight='bold' fill='#1a1a1a'>NFe › infNFe › det › imposto › IBSCBS › gIBSCBS</text><text x='20' y='42' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>Gerado de leiauteNFe_v4.00.xsd por tools/gerar_diagramas.py — caixa tracejada: opcional; ⊞: estrutura com diagrama próprio</text>
+
+<rect x='374' y='52' width='330' height='79' rx='3' fill='#ffffff' stroke='#1f4e79' stroke-width='1.3'/>
+<rect x='374' y='52' width='330' height='22' rx='3' fill='#dce9f5' stroke='#1f4e79' stroke-width='1.3'/>
+<text x='382' y='68' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#1a1a1a'>vBC</text>
+<text x='382' y='86' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>tipo</text>
+<text x='448' y='86' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>TDec1302RTC</title>TDec1302RTC</text>
+<text x='382' y='101' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>padrão</text>
+<text x='448' y='101' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>0|0\.[0-9]{2}|[1-9]{1}[0-9]{0,12}(\.[0-9]{2})?</title>0|0\.[0-9]{2}|[1-9]{1}[0-9]{0,12}(\.[0-9]…</text>
+<text x='382' y='120' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Valor do BC</text>
+
+<a href='gIBSCBS/gIBSUF.svg'>
+<rect x='464' y='145' width='330' height='64' rx='3' fill='#fff2cc' stroke='#1f4e79' stroke-width='1.3'/>
+<rect x='464' y='145' width='330' height='22' rx='3' fill='#dce9f5' stroke='#1f4e79' stroke-width='1.3'/>
+<text x='472' y='161' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#1a1a1a'>gIBSUF ⊞</text>
+<text x='472' y='179' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>estrutura</text>
+<text x='538' y='179' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>ver diagrama próprio</title>ver diagrama próprio</text>
+<text x='472' y='198' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Grupo de informações do IBS na UF</text>
+</a>
+<a href='gIBSCBS/gIBSMun.svg'>
+<rect x='464' y='223' width='330' height='64' rx='3' fill='#fff2cc' stroke='#1f4e79' stroke-width='1.3'/>
+<rect x='464' y='223' width='330' height='22' rx='3' fill='#dce9f5' stroke='#1f4e79' stroke-width='1.3'/>
+<text x='472' y='239' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#1a1a1a'>gIBSMun ⊞</text>
+<text x='472' y='257' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>estrutura</text>
+<text x='538' y='257' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>ver diagrama próprio</title>ver diagrama próprio</text>
+<text x='472' y='276' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Grupo de Informações do IBS no Município</text>
+</a>
+
+<rect x='464' y='301' width='330' height='79' rx='3' fill='#ffffff' stroke='#1f4e79' stroke-width='1.3'/>
+<rect x='464' y='301' width='330' height='22' rx='3' fill='#dce9f5' stroke='#1f4e79' stroke-width='1.3'/>
+<text x='472' y='317' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#1a1a1a'>vIBS</text>
+<text x='472' y='335' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>tipo</text>
+<text x='538' y='335' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>TDec1302RTC</title>TDec1302RTC</text>
+<text x='472' y='350' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>padrão</text>
+<text x='538' y='350' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>0|0\.[0-9]{2}|[1-9]{1}[0-9]{0,12}(\.[0-9]{2})?</title>0|0\.[0-9]{2}|[1-9]{1}[0-9]{0,12}(\.[0-9]…</text>
+<text x='472' y='369' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Valor do IBS</text>
+
+<rect x='374' y='221.0' width='56' height='26' rx='13' fill='#f3f6f9' stroke='#7a8a99'/>
+<text x='402.0' y='238.0' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' text-anchor='middle' fill='#1a1a1a'>seq.</text>
+<path d='M430,234.0 H447.0 V156 H464' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M430,234.0 H447.0 V234 H464' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M430,234.0 H447.0 V312 H464' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<a href='gIBSCBS/gCBS.svg'>
+<rect x='374' y='394' width='330' height='64' rx='3' fill='#fff2cc' stroke='#1f4e79' stroke-width='1.3'/>
+<rect x='374' y='394' width='330' height='22' rx='3' fill='#dce9f5' stroke='#1f4e79' stroke-width='1.3'/>
+<text x='382' y='410' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#1a1a1a'>gCBS ⊞</text>
+<text x='382' y='428' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>estrutura</text>
+<text x='448' y='428' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>ver diagrama próprio</title>ver diagrama próprio</text>
+<text x='382' y='447' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Grupo de Tributação da CBS</text>
+</a>
+<a href='gIBSCBS/gTribRegular.svg'>
+<rect x='374' y='472' width='330' height='103' rx='3' fill='#fff2cc' stroke='#1f4e79' stroke-width='1.3' stroke-dasharray='5,3'/>
+<rect x='374' y='472' width='330' height='22' rx='3' fill='#dce9f5' stroke='#1f4e79' stroke-width='1.3' stroke-dasharray='5,3'/>
+<text x='382' y='488' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#1a1a1a'>gTribRegular ⊞</text>
+<text x='696' y='488' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' text-anchor='end' fill='#1f4e79'>0..1</text>
+<text x='382' y='506' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>estrutura</text>
+<text x='448' y='506' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>TTribRegular — ver diagrama próprio</title>TTribRegular — ver diagrama próprio</text>
+<text x='382' y='525' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Grupo de informações da Tributação Regular. Informar</text>
+<text x='382' y='538' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>como seria a tributação caso não cumprida a condição</text>
+<text x='382' y='551' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>resolutória/suspensiva. Exemplo 1: Art. 442, §4.</text>
+<text x='382' y='564' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Operações com ZFM e ALC. Exemplo 2: Operações com …</text>
+</a>
+<a href='gIBSCBS/gTribCompraGov.svg'>
+<rect x='374' y='589' width='330' height='77' rx='3' fill='#fff2cc' stroke='#1f4e79' stroke-width='1.3' stroke-dasharray='5,3'/>
+<rect x='374' y='589' width='330' height='22' rx='3' fill='#dce9f5' stroke='#1f4e79' stroke-width='1.3' stroke-dasharray='5,3'/>
+<text x='382' y='605' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#1a1a1a'>gTribCompraGov ⊞</text>
+<text x='696' y='605' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' text-anchor='end' fill='#1f4e79'>0..1</text>
+<text x='382' y='623' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>estrutura</text>
+<text x='448' y='623' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>TTribCompraGov — ver diagrama próprio</title>TTribCompraGov — ver diagrama próprio</text>
+<text x='382' y='642' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Grupo de informações da composição do valor do IBS e</text>
+<text x='382' y='655' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>da CBS em compras governamental</text>
+</a>
+<rect x='284' y='318.5' width='56' height='26' rx='13' fill='#f3f6f9' stroke='#7a8a99'/>
+<text x='312.0' y='335.5' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' text-anchor='middle' fill='#1a1a1a'>seq.</text>
+<path d='M340,331.5 H357.0 V63 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,331.5 H357.0 V234.0 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,331.5 H357.0 V405 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,331.5 H357.0 V483 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+<path d='M340,331.5 H357.0 V600 H374' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+
+<rect x='20' y='320.5' width='230' height='49' rx='3' fill='#ffffff' stroke='#1f4e79' stroke-width='1.3'/>
+<rect x='20' y='320.5' width='230' height='22' rx='3' fill='#dce9f5' stroke='#1f4e79' stroke-width='1.3'/>
+<text x='28' y='336.5' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='13' font-weight='bold' fill='#1a1a1a'>gIBSCBS</text>
+<text x='28' y='358.5' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Tipo CBS IBS Completo NFe</text>
+
+<path d='M250,331.5 H267.0 V331.5 H284' fill='none' stroke='#7a8a99' stroke-width='1.2'/>
+</svg>

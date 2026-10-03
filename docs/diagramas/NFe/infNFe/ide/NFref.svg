@@ -11,7 +11,7 @@
 <text x='382' y='101' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>tamanho</text>
 <text x='448' y='101' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>0 a 44</title>0 a 44</text>
 <text x='382' y='116' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>padrão</text>
-<text x='448' y='116' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>[0-9]{44}</title>[0-9]{44}</text>
+<text x='448' y='116' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>[0-9]{6}[0-9A-Z]{12}[0-9]{26}</title>[0-9]{6}[0-9A-Z]{12}[0-9]{26}</text>
 <text x='382' y='135' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Chave de acesso das NF-e referenciadas. Chave de</text>
 <text x='382' y='148' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>acesso compostas por Código da UF (tabela do IBGE) +</text>
 <text x='382' y='161' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>AAMM da emissão + CNPJ do Emitente + modelo, série e</text>
@@ -26,7 +26,7 @@
 <text x='382' y='248' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>tamanho</text>
 <text x='448' y='248' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>0 a 44</title>0 a 44</text>
 <text x='382' y='263' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>padrão</text>
-<text x='448' y='263' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>[0-9]{44}</title>[0-9]{44}</text>
+<text x='448' y='263' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>[0-9]{6}[0-9A-Z]{12}[0-9]{26}</title>[0-9]{6}[0-9A-Z]{12}[0-9]{26}</text>
 <text x='382' y='282' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Referencia uma NF-e (modelo 55) emitida</text>
 <text x='382' y='295' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>anteriormente pela sua Chave de Acesso com código</text>
 <text x='382' y='308' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>numérico zerado, permitindo manter o sigilo da NF-e</text>
@@ -58,7 +58,7 @@
 <text x='382' y='564' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>tamanho</text>
 <text x='448' y='564' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>0 a 44</title>0 a 44</text>
 <text x='382' y='579' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#5f6b76'>padrão</text>
-<text x='448' y='579' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>[0-9]{44}</title>[0-9]{44}</text>
+<text x='448' y='579' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='11' fill='#1a1a1a'><title>[0-9]{6}[0-9A-Z]{12}[0-9]{26}</title>[0-9]{6}[0-9A-Z]{12}[0-9]{26}</text>
 <text x='382' y='598' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>Utilizar esta TAG para referenciar um CT-e emitido</text>
 <text x='382' y='611' font-family='Segoe UI, Helvetica, Arial, sans-serif' font-size='10.5' font-style='italic' fill='#5f6b76'>anteriormente, vinculada a NF-e atual</text>
 
