@@ -21,13 +21,13 @@
 
 #include <libnfe/utils.h>
 
-int error(char* msg, int codErro){
+int nfe_error(const char *msg, int codErro){
 	fprintf(stderr, "%s: %s com erro: %d\n", msg, strerror(errno), codErro);
 	return codErro;
 };
-int ptrnull(void * ptr){
+int nfe_ptrnull(const void *ptr){
 	if(ptr == NULL){
-		error("Ponteiro NULL",E_ISNULL);
+		nfe_error("Ponteiro NULL",E_ISNULL);
 		return E_ISNULL;
 	}
 	return 0;

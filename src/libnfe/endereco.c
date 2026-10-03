@@ -97,7 +97,7 @@ static Pais* _newPais(){
 	};
 	Pais * ptr = (Pais *) malloc( sizeof (struct pais_s));
 	if(ptr == NULL){
-		error("Erro ao alocar pais_s",E_NEWPAIS);
+		nfe_error("Erro ao alocar pais_s",E_NEWPAIS);
 	}else{
 		memcpy(ptr, &temp, sizeof(struct pais_s));
 	}
@@ -111,7 +111,7 @@ static Uf* _newUf(){
 	};
 	Uf* ptr = (Uf *) malloc(sizeof (struct uf_s));
 	if(ptr == NULL){
-		error("Erro ao alocar uf_s", E_NEWUF);
+		nfe_error("Erro ao alocar uf_s", E_NEWUF);
 	}else{
 		memcpy(ptr, &temp, sizeof(struct uf_s));
 	}
@@ -125,7 +125,7 @@ static Municipio* _newMunicipio(){
 	};
 	Municipio* ptr = (Municipio *) malloc(sizeof(struct municipio_s));
 	if(ptr == NULL){
-		error("Erro ao alocar municipio_s", E_NEWMUNICIPIO);
+		nfe_error("Erro ao alocar municipio_s", E_NEWMUNICIPIO);
 	}else{
 		memcpy(ptr, &temp, sizeof(struct municipio_s));
 	}
@@ -142,7 +142,7 @@ Endereco * NewEndereco(){
 
 	Endereco * ptr = (Endereco *) malloc(sizeof(struct endereco_s));
 	if(ptr == NULL){
-		error("Erro ao alocar endereco_s", E_NEWENDERECO);
+		nfe_error("Erro ao alocar endereco_s", E_NEWENDERECO);
 	}else{
 		memcpy(ptr, &temp, sizeof(struct endereco_s));
 	}
@@ -150,27 +150,27 @@ Endereco * NewEndereco(){
 };
 
 static 	void _delPais(Pais* t){
-	if(ptrnull(t) == 0){
+	if(nfe_ptrnull(t) == 0){
 		free(t);
 	}
 };
 
 static void _delUf(Uf* t){
-	if(ptrnull(t) == 0){
+	if(nfe_ptrnull(t) == 0){
 		_delPais(t->pais);
 		free(t);
 	}
 };
 
 static void _delMunicipio(Municipio * t){
-	if(ptrnull(t) == 0){
+	if(nfe_ptrnull(t) == 0){
 		_delUf(t->uf);
 		free(t);
 	}
 };
 
 void DelEndereco(Endereco* t){
-	if(ptrnull(t) == 0){
+	if(nfe_ptrnull(t) == 0){
 		_delMunicipio(t->municipio);
 		free(t);
 	}
@@ -178,7 +178,7 @@ void DelEndereco(Endereco* t){
 
 uint32_t GetCEP(Endereco * end){
 	int rc;
-	rc = ptrnull(end);
+	rc = nfe_ptrnull(end);
 	if (rc == 0){
 		return end->CEP;
 	}else{
@@ -189,7 +189,7 @@ uint32_t GetCEP(Endereco * end){
 
 int  SetCEP(Endereco * end, uint32_t cep){
 	int rc;
-	rc = ptrnull(end);
+	rc = nfe_ptrnull(end);
 	if (rc == 0){
 		end->CEP = cep;
 		return 0;
@@ -200,7 +200,7 @@ int  SetCEP(Endereco * end, uint32_t cep){
 
 int SetFone(Endereco* end, uint64_t fone){
 	int rc;
-	rc = ptrnull(end);
+	rc = nfe_ptrnull(end);
 	if (rc == 0){
 		end->fone = fone;
 		return 0;
@@ -211,7 +211,7 @@ int SetFone(Endereco* end, uint64_t fone){
 
 uint64_t GetFone(Endereco* end){
 	int rc;
-	rc = ptrnull(end);
+	rc = nfe_ptrnull(end);
 	if (rc == 0){
 	 	return	end->fone ;
 	}else{
