@@ -26,7 +26,7 @@
 
 
 struct Cont_s {
-  char *dhCont;                    // Data
+  char dhCont[NFE_TAM_ASCII(NFE_TAM_DATA_HORA)];   // Data e hora
   char xJust[NFE_TAM_UTF8(NFE_TAM_XJUST)];     // 256 caracteres
 };
 
@@ -39,8 +39,8 @@ struct ide_s{
   nfe_modelo mod;             // 2 caracteres
   uint16_t serie;                  // 3 caracteres
   uint32_t nNF;                    // 9 caracteres
-  char *dhEmi;                     // Data
-  char *dhSaiEnt;                  // Data
+  char dhEmi[NFE_TAM_ASCII(NFE_TAM_DATA_HORA)];    // Data e hora
+  char dhSaiEnt[NFE_TAM_ASCII(NFE_TAM_DATA_HORA)]; // Data e hora
   nfe_tipo_operacao tpNF;             // 1 caractere
   nfe_destino idDest;      // 1 caractere
   uint32_t cMunFG;                 // 7 caracteres
