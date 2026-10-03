@@ -75,13 +75,45 @@ typedef enum nfe_mes {
 	NFE_MES_DEZEMBRO = 12
 } nfe_mes;
 
-/* indPag: forma de pagamento. No leiaute 4.00 fica no grupo pag/detPag (ainda
- * não implementado), e não mais em ide. */
+/* indPag: forma de pagamento (grupo pag/detPag) */
 typedef enum nfe_forma_pagamento {
+	NFE_PAGAMENTO_NAO_INFORMADO = -1,
 	NFE_PAGAMENTO_AVISTA = 0,
-	NFE_PAGAMENTO_PRAZO = 1,
-	NFE_PAGAMENTO_OUTROS = 2
+	NFE_PAGAMENTO_PRAZO = 1
 } nfe_forma_pagamento;
+
+/* tPag: meio de pagamento. O leiaute aceita qualquer código de 2 dígitos;
+ * estes são os da tabela do MOC. */
+typedef enum nfe_meio_pagamento {
+	NFE_MEIO_DINHEIRO = 1,
+	NFE_MEIO_CHEQUE = 2,
+	NFE_MEIO_CARTAO_CREDITO = 3,
+	NFE_MEIO_CARTAO_DEBITO = 4,
+	NFE_MEIO_CREDITO_LOJA = 5, /* cartão da loja (private label) */
+	NFE_MEIO_VALE_ALIMENTACAO = 10,
+	NFE_MEIO_VALE_REFEICAO = 11,
+	NFE_MEIO_VALE_PRESENTE = 12,
+	NFE_MEIO_VALE_COMBUSTIVEL = 13,
+	NFE_MEIO_BOLETO = 15,
+	NFE_MEIO_DEPOSITO = 16,
+	NFE_MEIO_PIX_DINAMICO = 17,
+	NFE_MEIO_TRANSFERENCIA = 18, /* transferência bancária, carteira
+	                                digital */
+	NFE_MEIO_FIDELIDADE = 19,    /* programa de fidelidade, cashback,
+	                                crédito virtual */
+	NFE_MEIO_PIX_ESTATICO = 20,
+	NFE_MEIO_CREDITO_EM_LOJA = 21, /* crédito em loja (devolução etc.) */
+	NFE_MEIO_ELETRONICO_FALHA = 22, /* pagamento eletrônico não informado
+	                                   (falha de hardware) */
+	NFE_MEIO_SEM_PAGAMENTO = 90,
+	NFE_MEIO_OUTROS = 99 /* descreva em xPag */
+} nfe_meio_pagamento;
+
+/* tpIntegra: integração do pagamento com o sistema de automação */
+typedef enum nfe_integracao {
+	NFE_INTEGRACAO_TEF = 1, /* integrado (TEF, e-commerce) */
+	NFE_INTEGRACAO_POS = 2  /* não integrado (POS) */
+} nfe_integracao;
 
 /* mod: modelo do documento fiscal */
 typedef enum nfe_modelo {
@@ -316,6 +348,20 @@ typedef enum nfe_cst_pis_cofins {
 	NFE_CST_PC_ISENTA = 7,
 	NFE_CST_PC_SEM_INCIDENCIA = 8
 } nfe_cst_pis_cofins;
+
+/* modFrete: modalidade do frete */
+typedef enum nfe_mod_frete {
+	NFE_FRETE_REMETENTE = 0,    /* contratação por conta do remetente
+	                               (CIF) */
+	NFE_FRETE_DESTINATARIO = 1, /* contratação por conta do
+	                               destinatário (FOB) */
+	NFE_FRETE_TERCEIROS = 2,    /* contratação por conta de terceiros */
+	NFE_FRETE_PROPRIO_REMETENTE = 3,    /* transporte próprio do
+	                                       remetente */
+	NFE_FRETE_PROPRIO_DESTINATARIO = 4, /* transporte próprio do
+	                                       destinatário */
+	NFE_FRETE_SEM_TRANSPORTE = 9        /* sem ocorrência de transporte */
+} nfe_mod_frete;
 
 /**
  * nfe_tzd:

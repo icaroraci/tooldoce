@@ -58,6 +58,8 @@
 #define NFE_TAM_NITEMPED  6  /* nItemPed */
 #define NFE_TAM_GUID      36 /* nFCI: GUID com hífens */
 #define NFE_TAM_DEC       24 /* valor decimal como texto (TDec_*) */
+#define NFE_TAM_DATA      10 /* data AAAA-MM-DD */
+#define NFE_TAM_QVOL      15 /* qVol: quantidade de volumes */
 
 /* Campos de texto livre (UTF-8) */
 #define NFE_TAM_XNOME     60  /* xNome: razão social ou nome (2 a 60) */
@@ -80,5 +82,10 @@
 #define NFE_TAM_UNIDADE   6   /* uCom/uTrib: unidade (1 a 6) */
 #define NFE_TAM_XPED      15  /* xPed: número do pedido (1 a 15) */
 #define NFE_TAM_INFADPROD 500 /* infAdProd: informações adicionais do item */
+#define NFE_TAM_XPAG      60  /* xPag: descrição do meio de pagamento */
+#define NFE_TAM_CAUT      128 /* cAut: autorização do cartão */
+#define NFE_TAM_IDTERMPAG 40  /* idTermPag: terminal de pagamento */
+#define NFE_TAM_XENDER    60  /* xEnder: endereço completo (1 a 60) */
+#define NFE_TAM_VOL       60  /* esp, marca, nVol do volume (1 a 60) */
 
 #endif
