@@ -44,6 +44,19 @@ static int tem_erro_no_campo(const nfe_erros *erros, const char *campo)
 	return 0;
 }
 
+/* Algum erro tem o código (de rejeição da SEFAZ) e o campo */
+static int tem_regra(const nfe_erros *erros, int codigo, const char *campo)
+{
+	int i;
+
+	for (i = 0; i < nfe_erros_qtd(erros); i++)
+		if (nfe_erros_codigo(erros, i) == codigo &&
+		    strcmp(nfe_erros_campo(erros, i), campo) == 0 &&
+		    nfe_erros_linha(erros, i) > 0)
+			return 1;
+	return 0;
+}
+
 /* Troca a primeira ocorrência de de por para em xml (alocado) */
 static char *troca(const char *xml, const char *de, const char *para)
 {
@@ -59,6 +72,23 @@ static char *troca(const char *xml, const char *de, const char *para)
 		return NULL;
 	sprintf(novo, "%.*s%s%s", (int)(p - xml), xml, para, p + strlen(de));
 	return novo;
+}
+
+/* Troca de por para em xml e confere que a regra (código e campo) falha,
+ * com qtd problemas no total */
+static void regra(nfe_validador *v, nfe_erros *erros, const char *xml,
+                  const char *de, const char *para, int codigo,
+                  const char *campo, int qtd)
+{
+	char *ruim = troca(xml, de, para);
+
+	VERIFICA(ruim != NULL);
+	if (!ruim)
+		return;
+	VERIFICA_INT(nfe_validar_xml(v, ruim, strlen(ruim), erros), E_VALOR);
+	VERIFICA_INT(nfe_erros_qtd(erros), qtd);
+	VERIFICA(tem_regra(erros, codigo, campo));
+	free(ruim);
 }
 
 int main(int argc, char **argv)
@@ -113,6 +143,44 @@ int main(int argc, char **argv)
 		VERIFICA(tem_erro_no_campo(erros, "cMunFG"));
 	}
 	free(ruim);
+
+	/* Regras da SEFAZ além do schema */
+	VERIFICA_INT(nfe_erros_codigo(erros, 0), 0);
+	/* Chave: dígito verificador errado (e cDV diferente) */
+	regra(v, erros, xml, "123456784\"", "123456785\"", 236, "infNFe", 2);
+	VERIFICA(tem_regra(erros, 502, "infNFe"));
+	/* Chave não corresponde ao número da nota */
+	regra(v, erros, xml, "<nNF>1</nNF>", "<nNF>2</nNF>", 502, "infNFe", 1);
+	/* Totais diferentes da soma dos itens */
+	{
+		char *t = troca(xml, "<vProd>30.00</vProd>",
+		                "<vProd>31.00</vProd>");
+
+		VERIFICA(t != NULL);
+		if (t)
+			regra(v, erros, t, "<vNF>30.00</vNF>",
+			      "<vNF>31.00</vNF>", 564, "vProd", 1);
+		free(t);
+	}
+	regra(v, erros, xml, "<vNF>30.00</vNF>", "<vNF>29.00</vNF>", 610, "vNF",
+	      1);
+	regra(v, erros, xml, "<vBC>0.00</vBC>", "<vBC>1.00</vBC>", 531, "vBC",
+	      1);
+	regra(v, erros, xml, "<vST>0.00</vST>", "<vST>1.00</vST>", 534, "vST",
+	      2); /* vST também entra em vNF */
+	VERIFICA(tem_regra(erros, 610, "vNF"));
+	/* UF e municípios fora de cUF */
+	regra(v, erros, xml, "<UF>SP</UF>", "<UF>RJ</UF>", 0, "UF", 1);
+	regra(v, erros, xml, "<cMunFG>3550308</cMunFG>",
+	      "<cMunFG>3304557</cMunFG>", 0, "cMunFG", 1);
+	/* NFC-e */
+	regra(v, erros, xml, "<tpImp>4</tpImp>", "<tpImp>1</tpImp>", 0, "tpImp",
+	      1);
+	regra(v, erros, xml, "<indFinal>1</indFinal>", "<indFinal>0</indFinal>",
+	      0, "indFinal", 1);
+	regra(v, erros, xml, "<idDest>1</idDest>", "<idDest>2</idDest>", 0,
+	      "idDest", 1);
+	VERIFICA_INT(nfe_erros_codigo(NULL, 0), 0);
 
 	/* XML malformado e documento que não é NF-e */
 	VERIFICA_INT(nfe_validar_xml(v, "<NFe>", 5, erros), E_XML);
