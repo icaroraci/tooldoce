@@ -297,7 +297,7 @@ int xmlGenideNode(xmlTextWriterPtr writer,struct ide_s *ide)
   }
 
   rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "nNF","%9" PRIu32, 
-                                               ide->cNF);
+                                               ide->nNF);
   if (rc < 0) {
     printf("ide->nNF: Erro em xmlTextWriterWriteFormatElement\n");
     return -1;
