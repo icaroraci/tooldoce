@@ -88,6 +88,14 @@ def tipo_c(f, tipo):
 
 
 def itens_com_contexto(grupo, escolha=False, opcional=False):
+    vistos = set()  # o mesmo elemento pode aparecer em ramos diferentes
+    for item, ctx in _itens(grupo, escolha, opcional):
+        if item.nome not in vistos:
+            vistos.add(item.nome)
+            yield item, ctx
+
+
+def _itens(grupo, escolha=False, opcional=False):
     """(item, (escolha, opcional)) de cada elemento, atravessando grupos:
     escolha = dentro de um xs:choice (só um ramo pode ser informado);
     opcional = dentro de um grupo opcional (obrigatório só quando o grupo for
@@ -96,7 +104,7 @@ def itens_com_contexto(grupo, escolha=False, opcional=False):
     opcional = opcional or grupo.minimo == "0"
     for item in grupo.itens:
         if isinstance(item, gd.Grupo):
-            yield from itens_com_contexto(item, escolha, opcional)
+            yield from _itens(item, escolha, opcional)
         else:
             yield item, (escolha, opcional)
 
