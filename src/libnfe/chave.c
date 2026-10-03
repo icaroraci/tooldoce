@@ -22,6 +22,9 @@
 #include <libnfe/defs.h>
 #include <libnfe/erros.h>
 
+/* Posição (a partir de 0) do CNPJ/CPF na chave: após cUF(2) e AAMM(4) */
+#define CHAVE_INICIO_CNPJ 6
+
 int nfe_chave_dv(const char *chave)
 {
 	int soma = 0, peso = 2, i, resto;
@@ -32,11 +35,17 @@ int nfe_chave_dv(const char *chave)
 		if (chave[i] == '\0')
 			return E_TAMANHO;
 
-	/* Pesos 2, 3, ..., 9, 2, 3, ... da direita para a esquerda */
+	/* Pesos 2, 3, ..., 9, 2, 3, ... da direita para a esquerda; cada
+	 * caractere vale ASCII - 48. Letras só nas posições do CNPJ */
 	for (i = NFE_TAM_CHAVE - 2; i >= 0; i--) {
-		if (chave[i] < '0' || chave[i] > '9')
+		int letra_ok = i >= CHAVE_INICIO_CNPJ &&
+		               i < CHAVE_INICIO_CNPJ + NFE_TAM_CNPJ - 2;
+		char c = chave[i];
+
+		if (!(c >= '0' && c <= '9') &&
+		    !(letra_ok && c >= 'A' && c <= 'Z'))
 			return E_VALOR;
-		soma += (chave[i] - '0') * peso;
+		soma += (c - '0') * peso;
 		peso = peso == 9 ? 2 : peso + 1;
 	}
 

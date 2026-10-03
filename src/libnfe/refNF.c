@@ -21,6 +21,7 @@
 #include <string.h>
 
 #include <libnfe/refNF.h>
+#include <libnfe/cnpjcpf.h>
 
 #include <libnfe/defs.h>
 #include <libnfe/erros.h>
@@ -86,8 +87,13 @@ const char *RefNFGetAAMM(const struct refNF_s *nf)
 
 int RefNFSetCNPJ(struct refNF_s *nf, const char *cnpj)
 {
+	int rc;
+
 	if (!nf)
 		return E_ISNULL;
+	rc = nfe_cnpj_validar(cnpj);
+	if (rc != 0)
+		return rc;
 	return nfe_copia_texto(nf->CNPJ, sizeof nf->CNPJ, cnpj, NFE_TAM_CNPJ,
 	                       NFE_TAM_CNPJ);
 }

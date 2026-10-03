@@ -27,6 +27,7 @@
 #include <string.h>
 
 #include <libnfe/chave.h>
+#include <libnfe/cnpjcpf.h>
 #include <libnfe/defs.h>
 #include <libnfe/erros.h>
 #include <libnfe/ide.h>
@@ -395,8 +396,8 @@ int nfe_ide_gerar_chave(nfe_ide *ide, const char *cnpjcpf, char *chave,
 	char doc[NFE_TAM_ASCII(NFE_TAM_CNPJ)];
 	struct tm tm;
 	time_t local;
-	size_t n, i;
-	int dv;
+	size_t n;
+	int dv, rc;
 
 	if (!ide || !cnpjcpf || !chave)
 		return E_ISNULL;
@@ -405,13 +406,17 @@ int nfe_ide_gerar_chave(nfe_ide *ide, const char *cnpjcpf, char *chave,
 	if (ide->cUF == 0 || ide->nNF == 0 || ide->dhEmi == NFE_SEM_DATA)
 		return E_VALOR;
 
-	/* CNPJ com 14 dígitos; CPF com 11, completado com zeros à esquerda */
+	/* CNPJ (numérico ou alfanumérico) com 14 posições; CPF com 11 dígitos,
+	 * completado com zeros à esquerda */
 	n = strlen(cnpjcpf);
-	if (n != NFE_TAM_CNPJ && n != NFE_TAM_CPF)
+	if (n == NFE_TAM_CNPJ)
+		rc = nfe_cnpj_validar(cnpjcpf);
+	else if (n == NFE_TAM_CPF)
+		rc = nfe_cpf_validar(cnpjcpf);
+	else
 		return E_TAMANHO;
-	for (i = 0; i < n; i++)
-		if (cnpjcpf[i] < '0' || cnpjcpf[i] > '9')
-			return E_VALOR;
+	if (rc != 0)
+		return rc;
 	memset(doc, '0', NFE_TAM_CNPJ);
 	memcpy(doc + NFE_TAM_CNPJ - n, cnpjcpf, n);
 	doc[NFE_TAM_CNPJ] = '\0';
