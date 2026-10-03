@@ -62,8 +62,9 @@ def nomes_unicos(estruturas):
     return nomes
 
 
-def descreve_validacao(f, tipo):
-    """Texto da validação de um campo simples, a partir das facetas."""
+def descreve_validacao(f, tipo, comuns=None):
+    """Texto da validação de um campo simples, a partir das facetas; padrões
+    em `comuns` (padrão -> nome) são citados pelo nome."""
     v = []
     if "enumeration" in f:
         v.append("valores: " + ", ".join(f"`{x}`" for x in f["enumeration"]))
@@ -73,7 +74,10 @@ def descreve_validacao(f, tipo):
         v.append(f"tamanho {f.get('minLength', '0')} a "
                  f"{f.get('maxLength', '?')} caracteres")
     if "pattern" in f:
-        v.append(f"padrão `{f['pattern']}`")
+        if comuns and f["pattern"] in comuns:
+            v.append(f"padrão **{comuns[f['pattern']]}**")
+        else:
+            v.append(f"padrão `{f['pattern']}`")
     if not v and tipo:
         v.append(f"tipo `{tipo}`")
     return "; ".join(v)
@@ -174,6 +178,22 @@ def corpo_issue(locais, nomes, repo, pais):
     # campos
     linhas.append("## Campos")
     linhas.append("")
+    # padrões longos repetidos: listados uma vez, citados pelo nome
+    contagem = {}
+    for item, _ in itens_com_contexto(e.conteudo):
+        pad = item.facetas.get("pattern") if not item.estrutura else None
+        if pad and len(pad) > 20:
+            contagem.setdefault(pad, []).append(item.tipo or item.nome)
+    comuns = {p: t[0] for p, t in contagem.items() if len(t) >= 3}
+    if len(set(comuns.values())) < len(comuns):  # nomes repetidos: numera
+        comuns = {p: f"{t} ({i})" for i, (p, t) in
+                  enumerate(comuns.items(), 1)}
+    if comuns:
+        linhas.append("Padrões usados em vários campos:")
+        linhas.append("")
+        for pad, rot in comuns.items():
+            linhas.append(f"- **{rot}**: `{pad}`")
+        linhas.append("")
     linhas.append("| Campo | Obrig. | Ocorr. | Tipo | Validação | Descrição |")
     linhas.append("|---|---|---|---|---|---|")
     for at in e.atributos:
@@ -197,7 +217,7 @@ def corpo_issue(locais, nomes, repo, pais):
             val = "gerado pela assinatura digital (#56), não por setter"
         else:
             tipo = item.tipo
-            val = descreve_validacao(item.facetas, item.tipo)
+            val = descreve_validacao(item.facetas, item.tipo, comuns)
         linhas.append(f"| `{item.nome}` | {obrig} | {ocorr} | "
                       f"{escape_tabela(tipo)} | {escape_tabela(val)} | "
                       f"{escape_tabela(item.doc)} |")
