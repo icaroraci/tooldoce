@@ -41,7 +41,8 @@ struct ide_s;
  * tzd    = fuso horário em que a data será escrita (nfe_tzd)
  * xJust  = justificativa (até 256 caracteres)
  *
- * Retorna NULL se o fuso for inválido.
+ * Retorna NULL se o fuso ou a justificativa (15 a 256 caracteres) forem
+ * inválidos, ou se faltar memória.
 */ 
 
 struct Cont_s *ideContNew(struct Cont_s *this,
@@ -79,7 +80,8 @@ void ideContDel(struct Cont_s *cont);
  * verproc  = Versão do protocolo de emissao: 20 caracteres
  * tzd      = fuso horário em que as datas serão escritas (nfe_tzd);
  *
- * Retorna NULL se o fuso for inválido.
+ * Retorna NULL se o fuso, natop (1 a 60 caracteres) ou verproc (1 a 20)
+ * forem inválidos, ou se faltar memória.
  * 
 **/
 struct ide_s *ideNew(struct ide_s *this, 
