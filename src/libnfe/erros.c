@@ -30,7 +30,7 @@ const char *nfe_strerror(int codigo)
 	case E_VALOR:
 		return "valor fora da faixa permitida";
 	case E_XML:
-		return "falha ao escrever o XML";
+		return "XML malformado ou falha ao gerar o XML";
 	case E_ARQUIVO:
 		return "falha ao gravar o arquivo";
 	case E_REDE:

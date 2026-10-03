@@ -82,8 +82,9 @@ nfe_sefaz *nfe_sefaz_new(const nfe_certificado *cert);
 void nfe_sefaz_free(nfe_sefaz *s);
 
 /* Arquivo PEM com as autoridades certificadoras em que confiar para
- * conferir o certificado do servidor da SEFAZ (por exemplo, a cadeia
- * ICP-Brasil); NULL volta às autoridades do sistema. Retorna 0, E_ISNULL
+ * conferir o certificado do servidor da SEFAZ (por exemplo, a raiz
+ * ICP-Brasil v10, que o Linux não traz; ver docs/TLS.md); NULL volta às
+ * autoridades do sistema. Retorna 0, E_ISNULL
  * ou E_MALLOC. */
 int nfe_sefaz_set_ca(nfe_sefaz *s, const char *arquivo_pem);
 
@@ -130,11 +131,11 @@ int nfe_sefaz_msg_evento(const char *id_lote, const char *const *eventos, int n,
 
 /* ---- Leitura do retorno ---- */
 
-/* cStat e xMotivo do elemento de retorno: os do lote ou do serviço (no
- * retorno completo) ou os da nota ou do evento (num <protNFe> ou
- * <retEvento>). xmotivo (pode ser NULL) recebe o texto truncado em
- * tam_xmotivo. Retorna 0, E_ISNULL ou E_XML (retorno malformado ou sem
- * cStat). */
+/* cStat (3 ou 4 dígitos, como 100 ou 1115) e xMotivo do elemento de
+ * retorno: os do lote ou do serviço (no retorno completo) ou os da nota ou
+ * do evento (num <protNFe> ou <retEvento>). xmotivo (pode ser NULL)
+ * recebe o texto em UTF-8, truncado em tam_xmotivo sem cortar caracteres.
+ * Retorna 0, E_ISNULL ou E_XML (retorno malformado ou sem cStat). */
 int nfe_sefaz_cstat(const char *ret, size_t tam, int *cstat, char *xmotivo,
                     size_t tam_xmotivo);
 
