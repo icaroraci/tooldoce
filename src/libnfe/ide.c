@@ -393,8 +393,11 @@ int xmlGenideNode(xmlTextWriterPtr writer,struct ide_s *ide)
     return -1;
   }
 
-  if(ide->cont)
-     rc = xmlGenideContNode(writer, ide->cont);
+  if(ide->cont){
+    rc = xmlGenideContNode(writer, ide->cont);
+    if (rc < 0)
+      return rc;
+  }
 
   rc = xmlTextWriterEndElement(writer);
   if (rc < 0) {
