@@ -15,7 +15,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        cc: [gcc, clang]
+        include:
+          - cc: gcc
+            pacotes: gcc
+          # libclang-rt-dev traz o runtime dos sanitizers usados em `make test`
+          - cc: clang
+            pacotes: clang libclang-rt-dev
     env:
       CC: ${{ matrix.cc }}
       # Fontes que ainda não compilam (nenhum no momento). Cada entrada deve
@@ -29,13 +34,18 @@ jobs:
       - name: Instalar dependências
         run: |
           sudo apt-get update
-          sudo apt-get install -y libxml2-dev ${{ matrix.cc }}
+          sudo apt-get install -y libxml2-dev ${{ matrix.pacotes }}
 
       - name: Compilar
         run: sh .github/scripts/compilar.sh
 
       - name: Testes
         run: make test
+
+      - name: Exemplos
+        run: |
+          make exemplos
+          ./obj/gerar_ide > /dev/null
 
       - name: Instalação
         run: |

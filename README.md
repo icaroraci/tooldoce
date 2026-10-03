@@ -3,12 +3,51 @@
 
 Biblioteca livre em C para emissão de documentos fiscais eletrônicos brasileiros (NF-e, NFC-e, NFS-e, CT-e, MDF-e...), feita para ser usada por ERPs e outros sistemas. A plataforma nativa é Linux.
 
-* [Visão e requisitos do projeto](docs/VISAO.md)
-* [Convenções de código](docs/CONVENCOES.md)
-* Veja como [contribuir](https://github.com/icaroraci/tooldoce/blob/master/CONTRIBUTING.md)
-* Como manter um [fork](https://github.com/icaroraci/tooldoce/blob/master/CONTRIBUTING.md#mantendo-um-fork)
-* [Code Style](https://github.com/icaroraci/tooldoce/wiki/Code-style)
-* [Como documentar](https://github.com/icaroraci/tooldoce/wiki/Como-documentar)
+## Situação
+
+**Em desenvolvimento — ainda não emite notas.** O que existe hoje:
+
+| Parte | Situação |
+|---|---|
+| Grupo `ide` (identificação da NF-e), com contingência e notas referenciadas | Pronto; o XML gerado valida contra o XSD oficial do leiaute 4.00 |
+| Endereço, notas referenciadas (`refNF`, `refNFe`) | Prontos |
+| Demais grupos da NF-e (emitente, destinatário, produtos, impostos, totais, transporte, pagamento) | A fazer |
+| Chave de acesso, assinatura digital, transmissão à SEFAZ | A fazer |
+| NFC-e, NFS-e, CT-e, MDF-e | Planejados (ver [visão do projeto](docs/VISAO.md)) |
+
+O roteiro detalhado está nas [issues](https://github.com/icaroraci/tooldoce/issues).
+
+## Exemplo
+
+```c
+#include <time.h>
+#include <libxml/xmlwriter.h>
+#include <libnfe/erros.h>
+#include <libnfe/ide.h>
+
+nfe_ide *ide = nfe_ide_new();          /* ambiente padrão: homologação */
+nfe_ide_set_cuf(ide, NFE_UF_SP);
+nfe_ide_set_natop(ide, "VENDA DE MERCADORIA");
+nfe_ide_set_nnf(ide, 1);
+nfe_ide_set_dhemi(ide, time(NULL));
+nfe_ide_set_cmunfg(ide, 3550308);
+nfe_ide_set_verproc(ide, "meu ERP 1.0");
+
+int rc = nfe_ide_write_xml(writer, ide); /* writer: xmlTextWriterPtr */
+if (rc != 0)
+        fprintf(stderr, "erro: %s\n", nfe_strerror(rc));
+nfe_ide_free(ide);
+```
+
+Os setters validam cada valor contra o leiaute e retornam um código de erro (`erros.h`) quando ele é inválido; a biblioteca não imprime nada. O programa completo está em [`examples/gerar_ide.c`](examples/gerar_ide.c):
+
+    $ make exemplos
+    $ ./obj/gerar_ide
+
+Para compilar um programa seu com a biblioteca instalada:
+
+    $ cc meu_programa.c $(xml2-config --cflags) -lnfe $(xml2-config --libs)
+
 
 ## Como compilar
 
@@ -36,3 +75,20 @@ Se o `xml2-config` estiver fora do `PATH`, informe o caminho: `make XML2_CONFIG=
     $ sudo make install
 
 Instala a biblioteca em `/usr/local/lib` e os headers em `/usr/local/include/libnfe`. O destino pode ser alterado com `PREFIX` (ex.: `make install PREFIX=/usr`) e `DESTDIR` (útil para empacotamento). Para remover, use `make uninstall` com os mesmos parâmetros.
+
+### Testes
+
+    $ make test
+
+Compila e executa os testes de `tests/` com AddressSanitizer e UBSan (desative com `make test SANITIZE=`). O XML gerado é validado contra os schemas oficiais da NF-e em `tests/schemas/`. Com clang, é necessário o runtime dos sanitizers (no Debian/Ubuntu, `libclang-rt-dev`).
+
+## Documentação e contribuição
+
+* [Visão e requisitos do projeto](docs/VISAO.md)
+* [Convenções de código](docs/CONVENCOES.md) — antes de enviar uma alteração, rode `make formatar` e `make test`
+* Veja como [contribuir](https://github.com/icaroraci/tooldoce/blob/master/CONTRIBUTING.md) e como manter um [fork](https://github.com/icaroraci/tooldoce/blob/master/CONTRIBUTING.md#mantendo-um-fork)
+* Wiki: [Code Style](https://github.com/icaroraci/tooldoce/wiki/Code-style) e [Como documentar](https://github.com/icaroraci/tooldoce/wiki/Como-documentar) (em caso de divergência, vale `docs/CONVENCOES.md`)
+
+## Licença
+
+GPLv3 (ver [LICENSE](LICENSE)). Está em andamento a troca para LGPL, para permitir o uso em programas de qualquer licença — ver a issue [#59](https://github.com/icaroraci/tooldoce/issues/59).

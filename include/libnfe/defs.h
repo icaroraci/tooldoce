@@ -16,7 +16,6 @@
  * along with tooldoce.  If not, see <http://www.gnu.org/licenses/>.
  * */
 
-
 #ifndef LIBNFE_DEFS_H
 #define LIBNFE_DEFS_H
 
@@ -35,28 +34,28 @@
 #define NFE_TAM_UTF8(n)  ((n) * 4 + 1)
 
 /* Campos numéricos / ASCII */
-#define NFE_TAM_CHAVE    44  /* chave de acesso */
+#define NFE_TAM_CHAVE     44 /* chave de acesso */
 #define NFE_TAM_CUF       2  /* cUF: código IBGE da UF */
 #define NFE_TAM_AAMM      4  /* AAMM: ano e mês de emissão */
-#define NFE_TAM_CNPJ     14  /* CNPJ */
-#define NFE_TAM_CPF      11  /* CPF */
-#define NFE_TAM_IE       14  /* IE: inscrição estadual (dígitos ou "ISENTO") */
-#define NFE_TAM_MOD       2  /* mod: modelo do documento fiscal */
-#define NFE_TAM_SERIE     3  /* serie */
-#define NFE_TAM_NNF       9  /* nNF: número do documento fiscal */
-#define NFE_TAM_NECF      3  /* nECF: número de ordem do ECF */
-#define NFE_TAM_NCOO      6  /* nCOO: número do contador de ordem de operação */
-#define NFE_TAM_DATA_HORA 25 /* data e hora com fuso: AAAA-MM-DDThh:mm:ss-03:00 */
+#define NFE_TAM_CNPJ      14 /* CNPJ */
+#define NFE_TAM_CPF       11 /* CPF */
+#define NFE_TAM_IE        14 /* IE: inscrição estadual (dígitos ou "ISENTO") */
+#define NFE_TAM_MOD       2 /* mod: modelo do documento fiscal */
+#define NFE_TAM_SERIE     3 /* serie */
+#define NFE_TAM_NNF       9 /* nNF: número do documento fiscal */
+#define NFE_TAM_NECF      3 /* nECF: número de ordem do ECF */
+#define NFE_TAM_NCOO      6 /* nCOO: número do contador de ordem de operação */
+#define NFE_TAM_DATA_HORA 25 /* AAAA-MM-DDThh:mm:ss-03:00 */
 
 /* Campos de texto livre (UTF-8) */
-#define NFE_TAM_XNOME    60  /* xNome: razão social ou nome (2 a 60) */
-#define NFE_TAM_XFANT    60  /* xFant: nome fantasia (1 a 60) */
-#define NFE_TAM_NATOP    60  /* natOp: natureza da operação (1 a 60) */
-#define NFE_TAM_VERPROC  20  /* verProc: versão do aplicativo emissor (1 a 20) */
-#define NFE_TAM_XJUST   256  /* xJust: justificativa da contingência (15 a 256) */
-#define NFE_TAM_XLGR     60  /* xLgr: logradouro (2 a 60) */
-#define NFE_TAM_NRO      60  /* nro: número (1 a 60) */
-#define NFE_TAM_XCPL     60  /* xCpl: complemento (1 a 60) */
-#define NFE_TAM_XBAIRRO  60  /* xBairro: bairro (2 a 60) */
+#define NFE_TAM_XNOME   60  /* xNome: razão social ou nome (2 a 60) */
+#define NFE_TAM_XFANT   60  /* xFant: nome fantasia (1 a 60) */
+#define NFE_TAM_NATOP   60  /* natOp: natureza da operação (1 a 60) */
+#define NFE_TAM_VERPROC 20  /* verProc: versão do emissor (1 a 20) */
+#define NFE_TAM_XJUST   256 /* xJust: justificativa (15 a 256) */
+#define NFE_TAM_XLGR    60  /* xLgr: logradouro (2 a 60) */
+#define NFE_TAM_NRO     60  /* nro: número (1 a 60) */
+#define NFE_TAM_XCPL    60  /* xCpl: complemento (1 a 60) */
+#define NFE_TAM_XBAIRRO 60  /* xBairro: bairro (2 a 60) */
 
 #endif

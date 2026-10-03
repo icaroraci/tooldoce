@@ -90,7 +90,18 @@ fi
 
 # Gera a biblioteca com o que compila; sem falhas conhecidas, build completo
 if [ -z "${KNOWN_BROKEN:-}" ]; then
-	make
+	make || exit 1
 else
-	make C_SOURCE="$compilados"
+	make C_SOURCE="$compilados" || exit 1
 fi
+
+# A biblioteca não pode imprimir nada (docs/CONVENCOES.md): falha se ela
+# usar funções de saída da libc
+impressao=$(nm -D --undefined-only lib/libnfe.so.0.0 |
+	awk '{print $NF}' | sed 's/@.*//' |
+	grep -E '^(printf|fprintf|vprintf|vfprintf|puts|fputs|putchar|perror|fwrite|__printf_chk|__fprintf_chk)$')
+if [ -n "$impressao" ]; then
+	echo "::error::a biblioteca usa funções de impressão: $(echo $impressao)"
+	exit 1
+fi
+echo "ok: a biblioteca não usa funções de impressão"

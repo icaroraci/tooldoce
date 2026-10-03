@@ -24,47 +24,50 @@
 #include <libnfe/erros.h>
 #include <libnfe/utils.h>
 
-
-struct refNFe_s{
-  char refNFe[NFE_TAM_ASCII(NFE_TAM_CHAVE)];
+struct refNFe_s {
+	char refNFe[NFE_TAM_ASCII(NFE_TAM_CHAVE)];
 };
 
 struct refNFe_s *RefNFeNew(void)
 {
-  /* calloc: campos começam vazios; NULL se faltar memória */
-  struct refNFe_s *nf = (struct refNFe_s *)calloc(1, sizeof(struct refNFe_s));
-  return nf;
+	/* calloc: campos começam vazios; NULL se faltar memória */
+	struct refNFe_s *nf =
+	        (struct refNFe_s *)calloc(1, sizeof(struct refNFe_s));
+	return nf;
 }
 
 void RefNFeDel(struct refNFe_s *nf)
 {
-  free(nf);
+	free(nf);
 }
 
 int RefNFeSetrefNFe(struct refNFe_s *nf, const char *ref)
 {
-  if (!nf)
-    return E_ISNULL;
-  return nfe_copia_texto(nf->refNFe, sizeof nf->refNFe, ref,
-                         NFE_TAM_CHAVE, NFE_TAM_CHAVE);
+	if (!nf)
+		return E_ISNULL;
+	return nfe_copia_texto(nf->refNFe, sizeof nf->refNFe, ref,
+	                       NFE_TAM_CHAVE, NFE_TAM_CHAVE);
 }
 
-char *RefNFeGetrefNFe(struct refNFe_s *nf)
+const char *RefNFeGetrefNFe(const struct refNFe_s *nf)
 {
-  return nf->refNFe;
+	if (!nf)
+		return NULL;
+	return nf->refNFe;
 }
 
 /* Escreve o elemento <refNFe>; o grupo <NFref> que o contém é aberto por
- * quem chama (xmlGenideNode) */
-int xmlGenRefNFeNode(xmlTextWriterPtr writer, struct refNFe_s *nf)
+ * quem chama (nfe_ide_write_xml) */
+int xmlGenRefNFeNode(xmlTextWriterPtr writer, const struct refNFe_s *nf)
 {
-  int rc;
-  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "refNFe","%s", 
-                                               nf->refNFe);
-    if (rc < 0) {
-        printf
-            ("refNFe: Erro em xmlTextWriterWriteFormatElement\n");
-        return -1;
-    }
-  return 0;
+	int rc;
+
+	if (!writer || !nf)
+		return E_ISNULL;
+	rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "refNFe", "%s",
+	                                     nf->refNFe);
+	if (rc < 0) {
+		return E_XML;
+	}
+	return 0;
 }

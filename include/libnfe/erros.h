@@ -19,19 +19,16 @@
 #ifndef LIBNFE_ERROS_H
 #define LIBNFE_ERROS_H
 
-#define E_ISNULL -1
-#define E_TAMANHO -2 /* texto maior que o campo */
-#define E_VALOR   -3 /* valor fora da faixa permitida */
-#define E_MALLOC -101
-#define E_REALLOC -102
-#define E_CALLOC -103
-#define E_FREE -104
+/* Códigos de erro devolvidos pelas funções da biblioteca (sempre negativos;
+ * 0 indica sucesso). A biblioteca não imprime mensagens: use nfe_strerror()
+ * para obter a descrição de um código. */
+#define E_ISNULL  -1   /* ponteiro nulo recebido */
+#define E_TAMANHO -2   /* texto fora dos limites do campo */
+#define E_VALOR   -3   /* valor fora da faixa permitida */
+#define E_XML     -4   /* falha ao escrever o XML (libxml2) */
+#define E_MALLOC  -101 /* falta de memória */
 
-#define E_NEWPAIS -1001
-#define E_NEWUF   -1002
-#define E_NEWMUNICIPIO -1003
-#define E_NEWENDERECO  -1004
-
-
+/* Descrição do código de erro (texto estático, não deve ser liberado) */
+const char *nfe_strerror(int codigo);
 
 #endif

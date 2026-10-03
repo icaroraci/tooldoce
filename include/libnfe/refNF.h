@@ -24,7 +24,6 @@
 
 #include <libnfe/nfe.h>
 
-
 struct refNF_s;
 
 /* Alocação de memória para os dados */
@@ -35,25 +34,25 @@ void RefNFDel(struct refNF_s *nf);
  * Os setters retornam 0, E_ISNULL, E_TAMANHO ou E_VALOR; em caso de erro
  * o campo não é alterado. */
 int RefNFSetcUF(struct refNF_s *nf, nfe_uf uf);
-char *RefNFGetcUF(struct refNF_s *nf);
+const char *RefNFGetcUF(const struct refNF_s *nf);
 
 int RefNFSetAAMM(struct refNF_s *nf, const int ano, nfe_mes mes);
-char *RefNFGetAAMM(struct refNF_s *nf);
+const char *RefNFGetAAMM(const struct refNF_s *nf);
 
 int RefNFSetCNPJ(struct refNF_s *nf, const char *cnpj);
-char *RefNFGetCNPJ(struct refNF_s *nf);
+const char *RefNFGetCNPJ(const struct refNF_s *nf);
 
 int RefNFSetmod(struct refNF_s *nf, const char *mod);
-char *RefNFGetmod(struct refNF_s *nf);
+const char *RefNFGetmod(const struct refNF_s *nf);
 
 int RefNFSetSerie(struct refNF_s *nf, const char *serie);
-char *RefNFGetSerie(struct refNF_s *nf);
+const char *RefNFGetSerie(const struct refNF_s *nf);
 
 int RefNFSetnNF(struct refNF_s *nf, const char *nnf);
-char *RefNFGetnNF(struct refNF_s *nf);
+const char *RefNFGetnNF(const struct refNF_s *nf);
 
 /* Funções de manipulação do xml  */
 
-int xmlGenRefNFNode(xmlTextWriterPtr writer, struct refNF_s *nf);
+int xmlGenRefNFNode(xmlTextWriterPtr writer, const struct refNF_s *nf);
 
 #endif
