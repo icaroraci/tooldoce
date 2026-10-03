@@ -293,8 +293,10 @@ static void teste_valores_invalidos(void)
 	VERIFICA_INT(nfe_ide_set_cdv(ide, 10), E_VALOR);
 	VERIFICA_INT(nfe_ide_set_indpres(ide, (nfe_presenca)6), E_VALOR);
 	VERIFICA_INT(nfe_ide_set_indpres(ide, NFE_PRESENCA_PRESENCIAL_FORA), 0);
-	VERIFICA_INT(nfe_ide_set_procemi(ide, (nfe_processo_emissao)4),
+	VERIFICA_INT(nfe_ide_set_procemi(ide, (nfe_processo_emissao)5),
 	             E_VALOR);
+	VERIFICA_INT(nfe_ide_set_tpimp(ide, (nfe_danfe)7), E_VALOR);
+	VERIFICA_INT(nfe_ide_set_finnfe(ide, (nfe_finalidade)7), E_VALOR);
 	VERIFICA_INT(nfe_ide_set_tzd(ide, (nfe_tzd)7), E_VALOR);
 	VERIFICA_INT(nfe_ide_set_cuf(NULL, NFE_UF_SP), E_ISNULL);
 
@@ -303,6 +305,12 @@ static void teste_valores_invalidos(void)
 	                                    "567890123456789012345678901"),
 	             E_TAMANHO);
 	VERIFICA_INT(nfe_ide_set_verproc(ide, ""), E_TAMANHO);
+
+	/* Textos com caracteres ou espaços que o leiaute não aceita (E_VALOR)
+	 */
+	VERIFICA_INT(nfe_ide_set_natop(ide, " VENDA"), E_VALOR);
+	VERIFICA_INT(nfe_ide_set_natop(ide, "VENDA "), E_VALOR);
+	VERIFICA_INT(nfe_ide_set_verproc(ide, "versao\t1"), E_VALOR);
 	VERIFICA_INT(nfe_ide_set_contingencia(ide, T0, "curta"), E_TAMANHO);
 
 	/* Valores recusados não alteram o XML, que continua válido */
@@ -313,6 +321,108 @@ static void teste_valores_invalidos(void)
 		VERIFICA(strstr(xml, "<nNF>42</nNF>") != NULL);
 		VERIFICA(strstr(xml, "<indPres>5</indPres>") != NULL);
 		VERIFICA(strstr(xml, "dhCont") == NULL);
+		VERIFICA_INT(valida(xml, 1), 0);
+	}
+	free(xml);
+	nfe_ide_free(ide);
+}
+
+/* Campos opcionais do PL_010f (Reforma Tributária) e da NT 2020.006 */
+static void teste_campos_pl010f(void)
+{
+	nfe_ide *ide = novo(NFE_SEM_DATA, NFE_EMISSAO_NORMAL, NFE_TZD_BRASILIA);
+	char *xml;
+
+	VERIFICA(ide != NULL);
+	if (!ide)
+		return;
+
+	/* Valores fora do domínio são recusados */
+	VERIFICA_INT(nfe_ide_set_cmunfgibs(ide, 355030), E_VALOR);
+	VERIFICA_INT(nfe_ide_set_tpnfdebito(ide, (nfe_tipo_debito)9), E_VALOR);
+	VERIFICA_INT(nfe_ide_set_tpnfcredito(ide, (nfe_tipo_credito)7),
+	             E_VALOR);
+	VERIFICA_INT(nfe_ide_set_indintermed(ide, (nfe_intermediador)2),
+	             E_VALOR);
+	VERIFICA_INT(nfe_ide_set_cindop(ide, "12345"), E_VALOR);
+	VERIFICA_INT(nfe_ide_set_cindop(ide, "12345A"), E_VALOR);
+	VERIFICA_INT(nfe_ide_set_cindop(NULL, "123456"), E_ISNULL);
+
+	/* Sem os campos novos, nenhum deles aparece no XML */
+	xml = gera(ide);
+	VERIFICA(xml != NULL);
+	if (xml) {
+		VERIFICA(strstr(xml, "dPrevEntrega") == NULL);
+		VERIFICA(strstr(xml, "cMunFGIBS") == NULL);
+		VERIFICA(strstr(xml, "tpNFDebito") == NULL);
+		VERIFICA(strstr(xml, "tpNFCredito") == NULL);
+		VERIFICA(strstr(xml, "indIntermed") == NULL);
+		VERIFICA(strstr(xml, "cIndOp") == NULL);
+	}
+	free(xml);
+
+	/* 2010-08-20T01:00:15Z ainda é dia 19 em Brasília */
+	VERIFICA_INT(nfe_ide_set_dpreventrega(ide, T0 + 8 * 3600), 0);
+	VERIFICA_INT(nfe_ide_set_cmunfgibs(ide, 3550308), 0);
+	VERIFICA_INT(nfe_ide_set_finnfe(ide, NFE_FINALIDADE_DEBITO), 0);
+	VERIFICA_INT(nfe_ide_set_tpnfdebito(ide, NFE_DEBITO_MULTA_JUROS), 0);
+	VERIFICA_INT(nfe_ide_set_indintermed(ide, NFE_INTERMEDIADOR_TERCEIROS),
+	             0);
+	VERIFICA_INT(nfe_ide_set_cindop(ide, "012345"), 0);
+	VERIFICA_INT(nfe_ide_set_tpimp(ide, NFE_DANFE_SIMPLIFICADA_TIPO2), 0);
+	VERIFICA_INT(nfe_ide_set_procemi(ide, NFE_PROCESSO_PAA), 0);
+
+	xml = gera(ide);
+	VERIFICA(xml != NULL);
+	if (xml) {
+		VERIFICA(strstr(xml, "<dPrevEntrega>2010-08-19</dPrevEntrega>"
+		                     "<tpNF>") != NULL);
+		VERIFICA(strstr(xml, "<cMunFG>3550308</cMunFG>"
+		                     "<cMunFGIBS>3550308</cMunFGIBS>") != NULL);
+		VERIFICA(strstr(xml, "<finNFe>6</finNFe>"
+		                     "<tpNFDebito>04</tpNFDebito>") != NULL);
+		VERIFICA(strstr(xml, "<indIntermed>1</indIntermed>"
+		                     "<cIndOp>012345</cIndOp>") != NULL);
+		VERIFICA(strstr(xml, "<tpImp>6</tpImp>") != NULL);
+		VERIFICA(strstr(xml, "<procEmi>4</procEmi>") != NULL);
+		VERIFICA_INT(valida(xml, 1), 0);
+	}
+	free(xml);
+
+	/* Nota de crédito, sem intermediador */
+	VERIFICA_INT(nfe_ide_set_finnfe(ide, NFE_FINALIDADE_CREDITO), 0);
+	VERIFICA_INT(nfe_ide_set_tpnfdebito(ide, NFE_DEBITO_NAO_INFORMADO), 0);
+	VERIFICA_INT(nfe_ide_set_tpnfcredito(
+	                     ide, NFE_CREDITO_RETORNO_RECUSA_PARCIAL),
+	             0);
+	VERIFICA_INT(nfe_ide_set_indintermed(ide, NFE_INTERMEDIADOR_SEM), 0);
+	xml = gera(ide);
+	VERIFICA(xml != NULL);
+	if (xml) {
+		VERIFICA(strstr(xml, "tpNFDebito") == NULL);
+		VERIFICA(strstr(xml, "<tpNFCredito>06</tpNFCredito>") != NULL);
+		VERIFICA(strstr(xml, "<indIntermed>0</indIntermed>") != NULL);
+		VERIFICA_INT(valida(xml, 1), 0);
+	}
+	free(xml);
+
+	/* Removendo os campos, eles somem do XML */
+	VERIFICA_INT(nfe_ide_set_dpreventrega(ide, NFE_SEM_DATA), 0);
+	VERIFICA_INT(nfe_ide_set_cmunfgibs(ide, 0), 0);
+	VERIFICA_INT(nfe_ide_set_tpnfcredito(ide, NFE_CREDITO_NAO_INFORMADO),
+	             0);
+	VERIFICA_INT(
+	        nfe_ide_set_indintermed(ide, NFE_INTERMEDIADOR_NAO_INFORMADO),
+	        0);
+	VERIFICA_INT(nfe_ide_set_cindop(ide, NULL), 0);
+	xml = gera(ide);
+	VERIFICA(xml != NULL);
+	if (xml) {
+		VERIFICA(strstr(xml, "dPrevEntrega") == NULL);
+		VERIFICA(strstr(xml, "cMunFGIBS") == NULL);
+		VERIFICA(strstr(xml, "tpNFCredito") == NULL);
+		VERIFICA(strstr(xml, "indIntermed") == NULL);
+		VERIFICA(strstr(xml, "cIndOp") == NULL);
 		VERIFICA_INT(valida(xml, 1), 0);
 	}
 	free(xml);
@@ -386,6 +496,7 @@ int main(int argc, char **argv)
 	teste_cnpj_alfanumerico();
 	teste_limite_referencias();
 	teste_valores_invalidos();
+	teste_campos_pl010f();
 	teste_obrigatorios();
 	teste_validador();
 
