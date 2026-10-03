@@ -225,11 +225,21 @@ def corpo_issue(locais, nomes, repo, pais):
                 linhas.append(
                     f"- [ ] `int nfe_{nome}_set_{campo}(nfe_{nome} *obj, "
                     f"{tipo_c(item.facetas, item.tipo)}valor)`")
-    linhas.append(f"- [ ] `int nfe_{nome}_write_xml(xmlTextWriterPtr writer, "
-                  f"const nfe_{nome} *obj)` — escreve `<{e.nome}>` na ordem "
-                  "do leiaute; recusa (`E_VALOR`) se faltar campo "
-                  "obrigatório ou se mais de um ramo de uma escolha estiver "
-                  "preenchido")
+    tags = sorted({x.nome for x in locais})
+    if len(tags) > 1:  # tipo compartilhado: o pai informa a tag
+        lista = ", ".join(f"`<{t}>`" for t in tags)
+        linhas.append(f"- [ ] `int nfe_{nome}_write_xml(xmlTextWriterPtr "
+                      f"writer, const char *tag, const nfe_{nome} *obj)` — "
+                      f"escreve o elemento `tag` ({lista}) na ordem do "
+                      "leiaute; recusa (`E_VALOR`) se faltar campo "
+                      "obrigatório ou se mais de um ramo de uma escolha "
+                      "estiver preenchido")
+    else:
+        linhas.append(f"- [ ] `int nfe_{nome}_write_xml(xmlTextWriterPtr "
+                      f"writer, const nfe_{nome} *obj)` — escreve "
+                      f"`<{e.nome}>` na ordem do leiaute; recusa (`E_VALOR`) "
+                      "se faltar campo obrigatório ou se mais de um ramo de "
+                      "uma escolha estiver preenchido")
     linhas.append("")
     linhas.append("Cada setter valida o valor conforme a coluna *Validação* "
                   "da tabela; "

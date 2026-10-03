@@ -8,7 +8,7 @@ Marque `[x]` quando a estrutura tiver: criação/liberação, setters com valida
 
 - [ ] [**NFe**](docs/diagramas/NFe.svg)
   - [ ] [**infNFe**](docs/diagramas/NFe/infNFe.svg)
-    - [x] [**ide**](docs/diagramas/NFe/infNFe/ide.svg)
+    - [ ] [**ide**](docs/diagramas/NFe/infNFe/ide.svg)
       - [ ] [**NFref**](docs/diagramas/NFe/infNFe/ide/NFref.svg) `0..999` _(opcional)_
         - [x] [**refNF**](docs/diagramas/NFe/infNFe/ide/NFref/refNF.svg)
         - [ ] [**refNFP**](docs/diagramas/NFe/infNFe/ide/NFref/refNFP.svg)
