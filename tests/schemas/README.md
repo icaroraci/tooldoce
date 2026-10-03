@@ -1,15 +1,21 @@
-# Schemas da NF-e usados nos testes
+# Schemas da NF-e usados nos testes e nos diagramas
 
-`PL_009_V4/` contém os schemas oficiais do leiaute 4.00 da NF-e, publicados no [Portal Nacional da NF-e](https://www.nfe.fazenda.gov.br/) (pacote de liberação PL_009, com as alterações listadas no cabeçalho de `leiauteNFe_v4.00.xsd`, até a NT 2024.003). Os arquivos foram obtidos do espelho mantido pelo projeto [sped-nfe](https://github.com/nfephp-org/sped-nfe/tree/master/schemes/PL_009_V4) e são mantidos sem alteração:
+`nfe/` contém os schemas oficiais do leiaute 4.00 da NF-e/NFC-e, do **Pacote de Liberação nº 010f (PL_010f, v1.04, de 31/08/2026)**, publicado no [Portal Nacional da NF-e](https://www.nfe.fazenda.gov.br/portal/listaConteudo.aspx?tipoConteudo=BMPFMBoln3w=). Inclui a NT 2025.002 (IBS/CBS/IS da Reforma Tributária) e o CNPJ alfanumérico. Os arquivos são mantidos sem alteração:
 
 - `leiauteNFe_v4.00.xsd`
+- `nfe_v4.00.xsd`
 - `tiposBasico_v4.00.xsd`
+- `DFeTiposBasicos_v1.00.xsd`
 - `xmldsig-core-schema_v1.01.xsd`
 
-`PL_009_V4/ide_v4.00.xsd` **não é oficial**: é gerado por `gerar_ide_xsd.py` a partir de `leiauteNFe_v4.00.xsd`, para validar o grupo `<ide>` isoladamente enquanto a biblioteca ainda não gera a nota completa.
+`nfe/ide_v4.00.xsd` **não é oficial**: é gerado por `gerar_ide_xsd.py` a partir de `leiauteNFe_v4.00.xsd`, para validar o grupo `<ide>` isoladamente enquanto a biblioteca ainda não gera a nota completa.
+
+Os diagramas de `docs/diagramas/` e o `TODO.md` também são gerados a partir destes schemas (`tools/gerar_diagramas.py`).
 
 ## Atualizar
 
-1. Substitua os arquivos oficiais em `PL_009_V4/` pela versão nova.
-2. Rode `python3 tests/schemas/gerar_ide_xsd.py`.
-3. Rode `make test`.
+1. Baixe o pacote novo no Portal Nacional da NF-e (Documentos › Esquemas XML).
+2. Substitua os arquivos oficiais em `nfe/` e atualize a versão do pacote acima.
+3. Rode `python3 tests/schemas/gerar_ide_xsd.py`.
+4. Rode `python3 tools/gerar_diagramas.py --todo`.
+5. Rode `make test`.

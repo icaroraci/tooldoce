@@ -1,6 +1,6 @@
 # Diagramas das estruturas da NF-e (leiaute 4.00)
 
-Gerados automaticamente a partir do schema oficial (`tests/schemas/PL_009_V4/leiauteNFe_v4.00.xsd`) por `tools/gerar_diagramas.py`. **Não edite os SVGs**: atualize o schema e rode `python3 tools/gerar_diagramas.py`.
+Gerados automaticamente a partir do schema oficial (`tests/schemas/nfe/leiauteNFe_v4.00.xsd`) por `tools/gerar_diagramas.py`. **Não edite os SVGs**: atualize o schema e rode `python3 tools/gerar_diagramas.py`.
 
 Em cada diagrama: caixa tracejada = opcional; `0..1`, `1..∞` = ocorrências; **seq.** = os filhos aparecem nessa ordem; **escolha** = apenas um dos filhos; caixas amarelas (⊞) são estruturas com diagrama próprio, listadas abaixo.
 
@@ -11,6 +11,8 @@ Em cada diagrama: caixa tracejada = opcional; `0..1`, `1..∞` = ocorrências; *
         - [refNF](NFe/infNFe/ide/NFref/refNF.svg) — Dados da NF modelo 1/1A referenciada ou NF modelo 2 referenciada
         - [refNFP](NFe/infNFe/ide/NFref/refNFP.svg) — Grupo com as informações NF de produtor referenciada
         - [refECF](NFe/infNFe/ide/NFref/refECF.svg) — Grupo do Cupom Fiscal vinculado à NF-e
+      - [gCompraGov](NFe/infNFe/ide/gCompraGov.svg) `0..1` — Grupo de Compras Governamentais
+      - [gPagAntecipado](NFe/infNFe/ide/gPagAntecipado.svg) `0..1` — Informado para abater as parcelas de antecipação de pagamento, conforme Art. 10. § 4º
     - [emit](NFe/infNFe/emit.svg) — Identificação do emitente
       - [enderEmit](NFe/infNFe/emit/enderEmit.svg) — Endereço do emitente
     - [avulsa](NFe/infNFe/avulsa.svg) `0..1` — Emissão de avulsa, informar os dados do Fisco emitente
@@ -22,7 +24,7 @@ Em cada diagrama: caixa tracejada = opcional; `0..1`, `1..∞` = ocorrências; *
     - [det](NFe/infNFe/det.svg) `1..990` — Dados dos detalhes da NF-e
       - [prod](NFe/infNFe/det/prod.svg) — Dados dos produtos e serviços da NF-e
         - [gCred](NFe/infNFe/det/prod/gCred.svg) `0..4` — Grupo de informações sobre o CréditoPresumido
-        - [DI](NFe/infNFe/det/prod/DI.svg) `0..100` — Delcaração de Importação (NT 2011/004)
+        - [DI](NFe/infNFe/det/prod/DI.svg) `0..100` — Declaração de Importação (NT 2011/004)
           - [adi](NFe/infNFe/det/prod/DI/adi.svg) `1..999` — Adições (NT 2011/004)
         - [detExport](NFe/infNFe/det/prod/detExport.svg) `0..500` — Detalhe da exportação
           - [exportInd](NFe/infNFe/det/prod/detExport/exportInd.svg) `0..1` — Exportação indireta
@@ -77,15 +79,70 @@ Em cada diagrama: caixa tracejada = opcional; `0..1`, `1..∞` = ocorrências; *
           - [COFINSOutr](NFe/infNFe/det/imposto/COFINS/COFINSOutr.svg) — Código de Situação Tributária do COFINS: 49 - Outras Operações de Saída 50 - Operação com Direito a Crédit…
         - [COFINSST](NFe/infNFe/det/imposto/COFINSST.svg) `0..1` — Dados do COFINS da Substituição Tributaria;
         - [ICMSUFDest](NFe/infNFe/det/imposto/ICMSUFDest.svg) `0..1` — Grupo a ser informado nas vendas interestarduais para consumidor final, não contribuinte de ICMS
+        - [IS](NFe/infNFe/det/imposto/IS.svg) `0..1` — Grupo de informações do Imposto Seletivo
+        - [IBSCBS](NFe/infNFe/det/imposto/IBSCBS.svg) `0..1` — Grupo de informações dos tributos IBS, CBS e Imposto Seletivo
+          - [gIBSCBS](NFe/infNFe/det/imposto/IBSCBS/gIBSCBS.svg) — Tipo CBS IBS Completo NFe
+            - [gIBSUF](NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSUF.svg) — Grupo de informações do IBS na UF
+              - [gDif](NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSUF/gDif.svg) `0..1` — Grupo de campos do Diferimento
+              - [gDevTrib](NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSUF/gDevTrib.svg) `0..1` — Grupo de Informações da devolução de tributos
+              - [gRed](NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSUF/gRed.svg) `0..1` — Grupo de campos da redução de aliquota
+            - [gIBSMun](NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSMun.svg) — Grupo de Informações do IBS no Município
+              - [gDif](NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSMun/gDif.svg) `0..1` — Grupo de campos do Diferimento
+              - [gDevTrib](NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSMun/gDevTrib.svg) `0..1` — Grupo de Informações da devolução de tributos
+              - [gRed](NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSMun/gRed.svg) `0..1` — Grupo de campos da redução de aliquota
+            - [gCBS](NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gCBS.svg) — Grupo de Tributação da CBS
+              - [gDif](NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gCBS/gDif.svg) `0..1` — Grupo de campos do Diferimento
+              - [gDevTrib](NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gCBS/gDevTrib.svg) `0..1` — Grupo de Informações da devolução de tributos
+              - [gRed](NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gCBS/gRed.svg) `0..1` — Grupo de campos da redução de aliquota
+              - [gALCZFMCBS](NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gCBS/gALCZFMCBS.svg) `0..1` — Grupo de operações em áreas incentivadas (ALC/ZFM) - CBS (alíquota zero)
+            - [gTribRegular](NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gTribRegular.svg) `0..1` — Grupo de informações da Tributação Regular. Informar como seria a tributação caso não cumprida a condição …
+            - [gTribCompraGov](NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gTribCompraGov.svg) `0..1` — Grupo de informações da composição do valor do IBS e da CBS em compras governamental
+          - [gIBSCBSMono](NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono.svg) — Grupo de Informações do IBS e CBS em operações com imposto monofásico (CST 620)
+            - [gIBSMonoAdRem](NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdRem.svg) `0..1` — Grupo de informações da Tributação Monofásica Ad Rem do IBS
+              - [gMonoPadrao](NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdRem/gMonoPadrao.svg) `0..1` — Grupo de informações da Tributação Monofásica Padrão
+              - [gMonoReten](NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdRem/gMonoReten.svg) `0..1` — Grupo de informações da Tributação Monofásica Sujeita à Retenção
+              - [gMonoRet](NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdRem/gMonoRet.svg) `0..1` — Grupo de informações da Tributação Monofásica Retida Anteriormente
+              - [gpBioDiferenca](NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdRem/gpBioDiferenca.svg) `0..1` — Grupo de informações sobre mistura de EAC com gasolina A em percentual inferior ou superior ao obrigatório
+            - [gIBSMonoAdValorem](NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdValorem.svg) `0..1` — Grupo de informações da Tributação Monofásica Ad Valorem do IBS
+              - [gMonoPadrao](NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdValorem/gMonoPadrao.svg) `0..1` — Grupo de informações da Tributação Monofásica Padrão
+              - [gMonoReten](NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdValorem/gMonoReten.svg) `0..1` — Grupo de informações da Tributação Monofásica Sujeita à Retenção
+              - [gMonoRet](NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdValorem/gMonoRet.svg) `0..1` — Grupo de informações da Tributação Monofásica Retida Anteriormente
+              - [gpBioDiferenca](NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdValorem/gpBioDiferenca.svg) `0..1` — Grupo de informações sobre mistura de EAC com gasolina A em percentual inferior ou superior ao obrigatório
+            - [gCBSMonoAdRem](NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdRem.svg) `0..1` — Grupo de informações da Tributação Monofásica Ad Rem da CBS
+              - [gMonoPadrao](NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdRem/gMonoPadrao.svg) `0..1` — Grupo de informações da Tributação Monofásica Padrão
+              - [gMonoReten](NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdRem/gMonoReten.svg) `0..1` — Grupo de informações da Tributação Monofásica Sujeita à Retenção
+              - [gMonoRet](NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdRem/gMonoRet.svg) `0..1` — Grupo de informações da Tributação Monofásica Retida Anteriormente
+              - [gpBioDiferenca](NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdRem/gpBioDiferenca.svg) `0..1` — Grupo de informações sobre mistura de EAC com gasolina A em percentual inferior ou superior ao obrigatório
+            - [gCBSMonoAdValorem](NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdValorem.svg) `0..1` — Grupo de informações da Tributação Monofásica Ad Valorem da CBS
+              - [gMonoPadrao](NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdValorem/gMonoPadrao.svg) `0..1` — Grupo de informações da Tributação Monofásica Padrão
+              - [gMonoReten](NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdValorem/gMonoReten.svg) `0..1` — Grupo de informações da Tributação Monofásica Sujeita à Retenção
+              - [gMonoRet](NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdValorem/gMonoRet.svg) `0..1` — Grupo de informações da Tributação Monofásica Retida Anteriormente
+              - [gpBioDiferenca](NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdValorem/gpBioDiferenca.svg) `0..1` — Grupo de informações sobre mistura de EAC com gasolina A em percentual inferior ou superior ao obrigatório
+          - [gTransfCred](NFe/infNFe/det/imposto/IBSCBS/gTransfCred.svg) — Informar essa opção da Choice para o CST 800
+          - [gAjusteCompet](NFe/infNFe/det/imposto/IBSCBS/gAjusteCompet.svg) — Informar essa opção da Choice para o CST 811
+          - [gEstornoCred](NFe/infNFe/det/imposto/IBSCBS/gEstornoCred.svg) `0..1` — Informado conforme indicador no cClassTrib
+          - [gCredPresOper](NFe/infNFe/det/imposto/IBSCBS/gCredPresOper.svg) — Crédito Presumido da Operação. Informado conforme indicador no cClassTrib.
+            - [gIBSCredPres](NFe/infNFe/det/imposto/IBSCBS/gCredPresOper/gIBSCredPres.svg) `0..1` — Grupo de Informações do Crédito Presumido referente ao IBS, quando aproveitado pelo emitente do documento.
+            - [gCBSCredPres](NFe/infNFe/det/imposto/IBSCBS/gCredPresOper/gCBSCredPres.svg) `0..1` — Grupo de Informações do Crédito Presumido referente a CBS, quando aproveitado pelo emitente do documento.
+          - [gCredPresIBSZFM](NFe/infNFe/det/imposto/IBSCBS/gCredPresIBSZFM.svg) — Classificação de acordo com o art. 450, § 1º, da LC 214/25 para o cálculo do crédito presumido na ZFM. Inf…
       - [impostoDevol](NFe/infNFe/det/impostoDevol.svg) `0..1`
         - [IPI](NFe/infNFe/det/impostoDevol/IPI.svg) — Informação de IPI devolvido
       - [obsItem](NFe/infNFe/det/obsItem.svg) `0..1` — Grupo de observações de uso livre (para o item da NF-e)
         - [obsCont](NFe/infNFe/det/obsItem/obsCont.svg) `0..1` — Grupo de observações de uso livre (para o item da NF-e)
         - [obsFisco](NFe/infNFe/det/obsItem/obsFisco.svg) `0..1` — Grupo de observações de uso livre (para o item da NF-e)
+      - [DFeReferenciado](NFe/infNFe/det/DFeReferenciado.svg) `0..1` — Referenciamento de item de outros DFe
     - [total](NFe/infNFe/total.svg) — Dados dos totais da NF-e
       - [ICMSTot](NFe/infNFe/total/ICMSTot.svg) — Totais referentes ao ICMS
       - [ISSQNtot](NFe/infNFe/total/ISSQNtot.svg) `0..1` — Totais referentes ao ISSQN
       - [retTrib](NFe/infNFe/total/retTrib.svg) `0..1` — Retenção de Tributos Federais
+      - [ISTot](NFe/infNFe/total/ISTot.svg) `0..1` — Valores totais da NF com Imposto Seletivo
+      - [IBSCBSTot](NFe/infNFe/total/IBSCBSTot.svg) `0..1` — Valores totais da NF com IBS / CBS
+        - [gIBS](NFe/infNFe/total/IBSCBSTot/gIBS.svg) `0..1` — Totalização do IBS
+          - [gIBSUF](NFe/infNFe/total/IBSCBSTot/gIBS/gIBSUF.svg) — Totalização do IBS de competência da UF
+          - [gIBSMun](NFe/infNFe/total/IBSCBSTot/gIBS/gIBSMun.svg) — Totalização do IBS de competência Municipal
+        - [gCBS](NFe/infNFe/total/IBSCBSTot/gCBS.svg) `0..1` — Totalização da CBS
+        - [gMono](NFe/infNFe/total/IBSCBSTot/gMono.svg) `0..1` — Totais da Monofasia
+        - [gEstornoCred](NFe/infNFe/total/IBSCBSTot/gEstornoCred.svg) `0..1` — Totalização do estorno de crédito
     - [transp](NFe/infNFe/transp.svg) — Dados dos transportes da NF-e
       - [transporta](NFe/infNFe/transp/transporta.svg) `0..1` — Dados do transportador
       - [retTransp](NFe/infNFe/transp/retTransp.svg) `0..1` — Dados da retenção ICMS do Transporte
@@ -111,4 +168,10 @@ Em cada diagrama: caixa tracejada = opcional; `0..1`, `1..∞` = ocorrências; *
       - [deduc](NFe/infNFe/cana/deduc.svg) `0..10` — Deduções - Taxas e Contribuições
     - [infRespTec](NFe/infNFe/infRespTec.svg) `0..1` — Informações do Responsável Técnico pela emissão do DF-e
     - [infSolicNFF](NFe/infNFe/infSolicNFF.svg) `0..1` — Grupo para informações da solicitação da NFF
+    - [agropecuario](NFe/infNFe/agropecuario.svg) `0..1` — Produtos Agropecurários Animais, Vegetais e Florestais
+      - [defensivo](NFe/infNFe/agropecuario/defensivo.svg) `1..20` — Defensivo Agrícola / Agrotóxico
+      - [guiaTransito](NFe/infNFe/agropecuario/guiaTransito.svg) — Guias De Trânsito de produtos agropecurários animais, vegetais e de origem florestal.
+    - [infPAA](NFe/infNFe/infPAA.svg) `0..1` — Grupo de Informação do Provedor de Assinatura e Autorização
+      - [PAASignature](NFe/infNFe/infPAA/PAASignature.svg) — Assinatura RSA do Emitente para DFe gerados por PAA
+        - [RSAKeyValue](NFe/infNFe/infPAA/PAASignature/RSAKeyValue.svg) — Chave Publica no padrão XML RSA Key
   - [infNFeSupl](NFe/infNFeSupl.svg) `0..1` — Informações suplementares Nota Fiscal
