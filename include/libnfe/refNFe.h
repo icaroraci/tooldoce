@@ -30,7 +30,9 @@ struct refNFe_s *RefNFeNew(void);
 void RefNFeDel(struct refNFe_s *nf);
 
 /* Funções de acesso aos dados  */
-/* ref: chave de acesso com 44 dígitos; retorna 0, E_ISNULL ou E_TAMANHO */
+/* ref: chave de acesso com 44 dígitos e dígito verificador correto;
+ * retorna 0, E_ISNULL, E_TAMANHO ou E_VALOR (dígito verificador errado ou
+ * caractere que não é dígito) */
 int RefNFeSetrefNFe(struct refNFe_s *nf, const char *ref);
 const char *RefNFeGetrefNFe(const struct refNFe_s *nf);
 

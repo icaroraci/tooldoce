@@ -24,7 +24,7 @@
 
 #include "teste.h"
 
-#define CHAVE "35100812345678000199550010000000421123456787"
+#define CHAVE "35100812345678000199550010000000421123456789"
 
 int main(void)
 {
@@ -62,6 +62,11 @@ int main(void)
 	VERIFICA_INT(RefNFeSetrefNFe(nfe, CHAVE), 0);
 	VERIFICA_STR(RefNFeGetrefNFe(nfe), CHAVE);
 	VERIFICA_INT(RefNFeSetrefNFe(nfe, "351"), E_TAMANHO);
+	/* dígito verificador errado */
+	VERIFICA_INT(
+	        RefNFeSetrefNFe(nfe,
+	                        "35100812345678000199550010000000421123456787"),
+	        E_VALOR);
 	VERIFICA_INT(RefNFeSetrefNFe(nfe, CHAVE "0"), E_TAMANHO);
 	VERIFICA_STR(RefNFeGetrefNFe(nfe), CHAVE);
 

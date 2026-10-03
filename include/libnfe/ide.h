@@ -19,6 +19,7 @@
 #ifndef LIBNFE_IDE_H
 #define LIBNFE_IDE_H
 
+#include <stddef.h>
 #include <stdint.h>
 #include <time.h>
 
@@ -93,6 +94,16 @@ int nfe_ide_set_tzd(nfe_ide *ide, nfe_tzd tzd);
 /* Entrada em contingência: instante e justificativa (15 a 256 caracteres).
  * Gera dhCont e xJust no XML. */
 int nfe_ide_set_contingencia(nfe_ide *ide, time_t dhcont, const char *xjust);
+
+/* Gera a chave de acesso da nota em chave (tam >= 45 bytes) a partir de
+ * cUF, dhEmi (ano e mês no fuso do ide), mod, serie, nNF, tpEmis e cNF do
+ * ide, e do CNPJ (14 dígitos) ou CPF (11 dígitos) do emitente. Calcula o
+ * dígito verificador e o grava em cDV. Defina todos esses campos antes:
+ * alterá-los depois invalida a chave. Retorna 0, E_ISNULL, E_TAMANHO
+ * (buffer pequeno ou CNPJ/CPF com tamanho errado) ou E_VALOR (cUF, nNF ou
+ * dhEmi não informados, ou CNPJ/CPF com caractere que não é dígito). */
+int nfe_ide_gerar_chave(nfe_ide *ide, const char *cnpjcpf, char *chave,
+                        size_t tam);
 
 /* Documentos fiscais referenciados (grupo NFref, até NFE_MAX_NFREF), gerados
  * na ordem em que foram adicionados. Em caso de sucesso, o ide passa a ser

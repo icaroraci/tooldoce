@@ -26,6 +26,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <libnfe/chave.h>
 #include <libnfe/defs.h>
 #include <libnfe/erros.h>
 #include <libnfe/ide.h>
@@ -385,6 +386,52 @@ int nfe_ide_set_contingencia(nfe_ide *ide, time_t dhcont, const char *xjust)
 		return rc;
 	ide->dhCont = dhcont;
 	ide->contingencia = 1;
+	return 0;
+}
+
+int nfe_ide_gerar_chave(nfe_ide *ide, const char *cnpjcpf, char *chave,
+                        size_t tam)
+{
+	char doc[NFE_TAM_ASCII(NFE_TAM_CNPJ)];
+	struct tm tm;
+	time_t local;
+	size_t n, i;
+	int dv;
+
+	if (!ide || !cnpjcpf || !chave)
+		return E_ISNULL;
+	if (tam < NFE_TAM_ASCII(NFE_TAM_CHAVE))
+		return E_TAMANHO;
+	if (ide->cUF == 0 || ide->nNF == 0 || ide->dhEmi == NFE_SEM_DATA)
+		return E_VALOR;
+
+	/* CNPJ com 14 dígitos; CPF com 11, completado com zeros à esquerda */
+	n = strlen(cnpjcpf);
+	if (n != NFE_TAM_CNPJ && n != NFE_TAM_CPF)
+		return E_TAMANHO;
+	for (i = 0; i < n; i++)
+		if (cnpjcpf[i] < '0' || cnpjcpf[i] > '9')
+			return E_VALOR;
+	memset(doc, '0', NFE_TAM_CNPJ);
+	memcpy(doc + NFE_TAM_CNPJ - n, cnpjcpf, n);
+	doc[NFE_TAM_CNPJ] = '\0';
+
+	/* AAMM: ano e mês da emissão, no fuso do ide */
+	local = ide->dhEmi + (time_t)ide->tzd * 3600;
+	if (!gmtime_r(&local, &tm))
+		return E_VALOR;
+
+	/* 43 dígitos; o 44º é o verificador */
+	snprintf(chave, tam, "%02d%02d%02d%s%02d%03u%09" PRIu32 "%d%08" PRIu32,
+	         (int)ide->cUF, tm.tm_year % 100, tm.tm_mon + 1, doc,
+	         (int)ide->mod, ide->serie, ide->nNF, (int)ide->tpEmis,
+	         ide->cNF);
+	dv = nfe_chave_dv(chave);
+	if (dv < 0)
+		return dv;
+	chave[NFE_TAM_CHAVE - 1] = (char)('0' + dv);
+	chave[NFE_TAM_CHAVE] = '\0';
+	ide->cDV = (unsigned)dv;
 	return 0;
 }
 

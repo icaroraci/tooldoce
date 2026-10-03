@@ -20,6 +20,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <libnfe/refNFe.h>
+#include <libnfe/chave.h>
 #include <libnfe/defs.h>
 #include <libnfe/erros.h>
 #include <libnfe/utils.h>
@@ -43,8 +44,13 @@ void RefNFeDel(struct refNFe_s *nf)
 
 int RefNFeSetrefNFe(struct refNFe_s *nf, const char *ref)
 {
+	int rc;
+
 	if (!nf)
 		return E_ISNULL;
+	rc = nfe_chave_validar(ref);
+	if (rc != 0)
+		return rc;
 	return nfe_copia_texto(nf->refNFe, sizeof nf->refNFe, ref,
 	                       NFE_TAM_CHAVE, NFE_TAM_CHAVE);
 }
