@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Gera nfe/tipos_v4.00.xsd a partir do leiauteNFe_v4.00.xsd oficial.
 
-No leiaute, grupos como <ide>, <emit>, <dest>, <prod> e <imposto> são elementos locais dentro
+No leiaute, grupos como <ide>, <emit>, <dest>, <det>, <prod> e <imposto> são elementos locais dentro
 do tipo TNFe, e tipos como TEnderEmi não têm elemento próprio: nenhum deles
 pode ser validado sozinho. Este script gera um schema que inclui o leiaute e
 declara esses grupos como elementos globais, para que os testes validem o
@@ -18,7 +18,7 @@ ORIGEM = os.path.join(DIR, "leiauteNFe_v4.00.xsd")
 DESTINO = os.path.join(DIR, "tipos_v4.00.xsd")
 
 # Elementos locais de TNFe/infNFe (e de det) copiados como globais
-LOCAIS = ("ide", "emit", "dest", "prod", "imposto")
+LOCAIS = ("ide", "emit", "dest", "det", "prod", "imposto")
 
 # Tipos complexos do leiaute declarados como elementos globais
 TIPOS = (("enderEmit", "TEnderEmi"), ("enderDest", "TEndereco"))
