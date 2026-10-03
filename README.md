@@ -1,4 +1,6 @@
 # tooldoce
+[![CI](https://github.com/icaroraci/tooldoce/actions/workflows/ci.yml/badge.svg)](https://github.com/icaroraci/tooldoce/actions/workflows/ci.yml)
+
 Ferramenta para emissão de documentos eletrônicos
 
 * Veja como [contribuir](https://github.com/icaroraci/tooldoce/blob/master/CONTRIBUTING.md)
