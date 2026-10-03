@@ -16,26 +16,26 @@
  * along with tooldoce.  If not, see <http://www.gnu.org/licenses/>.
  * */
 
-#ifndef LIBNFE_NFREF_H
-#define LIBNFE_NFREF_H
+#ifndef LIBNFE_REFNFE_H
+#define LIBNFE_REFNFE_H
 
 #include <libxml/encoding.h>
 #include <libxml/xmlwriter.h>
 
-struct NFref_s;
+struct refNFe_s;
 
 
 /* Funções de alocação de memória */
 
-struct NFref_s *NFrefNew();
-void NFrefDel(struct NFref_s *nf);
+struct refNFe_s *RefNFeNew(void);
+void RefNFeDel(struct refNFe_s *nf);
 
 /* Funções de acesso aos dados  */
 /* ref: chave de acesso com 44 dígitos; retorna 0, E_ISNULL ou E_TAMANHO */
-int NFrefSetrefNFe(struct NFref_s *nf, const char *ref);
-char *NFrefGetrefNFe(struct NFref_s *nf);
+int RefNFeSetrefNFe(struct refNFe_s *nf, const char *ref);
+char *RefNFeGetrefNFe(struct refNFe_s *nf);
 
 /* Funções para tratamento do xml  */
 
-int xmlGenNFrefNode(xmlTextWriterPtr writer, struct NFref_s *nf);
+int xmlGenRefNFeNode(xmlTextWriterPtr writer, struct refNFe_s *nf);
 #endif

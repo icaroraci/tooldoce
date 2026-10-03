@@ -31,6 +31,12 @@
 
 struct Cont_s;
 struct ide_s;
+struct refNFe_s;
+struct refNF_s;
+
+/* Número máximo de documentos referenciados (grupo NFref: maxOccurs="999"
+ * no leiauteNFe_v4.00.xsd) */
+#define NFE_MAX_NFREF 999
 
 /* Valor de data/hora opcional não informado (ex.: dhSaiEnt) */
 #define NFE_SEM_DATA ((time_t)-1)
@@ -59,7 +65,6 @@ void ideContDel(struct Cont_s *cont);
  * cuf      = UF, código IBGE (nfe_uf)
  * cnf      = chave de acesso - 8 caracteres
  * natop    = Descrição natureza da operação: string 60 caracteres;
- * indpag   = forma de pagamento (nfe_forma_pagamento);
  * mod      = modelo do documento (nfe_modelo);
  * serie    = serie do documento fiscal - 3 algarismos
  * dhemi    = instante de emissão
@@ -76,7 +81,7 @@ void ideContDel(struct Cont_s *cont);
  * finnfe   = finalidade (nfe_finalidade);
  * indfinal = consumidor final (nfe_consumidor);
  * indpres  = presença do comprador (nfe_presenca);
- * procemis = processo de emissão (nfe_processo_emissao);
+ * procemi  = processo de emissão (nfe_processo_emissao);
  * verproc  = Versão do protocolo de emissao: 20 caracteres
  * tzd      = fuso horário em que as datas serão escritas (nfe_tzd);
  *
@@ -88,7 +93,6 @@ struct ide_s *ideNew(struct ide_s *this,
                      nfe_uf cuf, 
                      uint32_t cnf, 
                      char *natop, 
-                     nfe_forma_pagamento indpag, 
                      nfe_modelo mod, 
                      uint16_t serie, 
                      uint32_t nnf, 
@@ -104,16 +108,25 @@ struct ide_s *ideNew(struct ide_s *this,
                      nfe_finalidade finnfe,
                      nfe_consumidor indfinal, 
                      nfe_presenca indpres,
-                     nfe_processo_emissao procemis, 
+                     nfe_processo_emissao procemi, 
                      char *verproc,
                      struct Cont_s *cont,
                      nfe_tzd tzd );
 void ideDel(struct ide_s *ide);
 
+/* Documentos fiscais referenciados (grupo NFref, até NFE_MAX_NFREF).
+ * As referências são geradas no XML na ordem em que foram adicionadas.
+ * Em caso de sucesso, o ide passa a ser dono da referência e a libera em
+ * ideDel. Retornam 0, E_ISNULL, E_VALOR (limite atingido) ou E_MALLOC. */
+int ideAddRefNFe(struct ide_s *ide, struct refNFe_s *ref);
+int ideAddRefNF(struct ide_s *ide, struct refNF_s *ref);
+
 /*  Gera o Nó xml para o respectivo objeto
  *  
  *  xmlGenideNode(writer, ide) chama internamente
- *  xmlGenideContNode(writer, cont) se este for definido.
+ *  xmlGenideContNode(writer, cont) se este for definido, que escreve
+ *  dhCont e xJust diretamente dentro de <ide>, seguidos de um grupo
+ *  <NFref> para cada documento referenciado.
  ***/
 
 int xmlGenideContNode(xmlTextWriterPtr writer,struct Cont_s *cont);

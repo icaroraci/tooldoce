@@ -75,7 +75,8 @@ typedef enum nfe_mes {
 	NFE_MES_DEZEMBRO = 12
 } nfe_mes;
 
-/* indPag: forma de pagamento (no leiaute 4.00 passa para o grupo pag, ver #43) */
+/* indPag: forma de pagamento. No leiaute 4.00 fica no grupo pag/detPag (ainda
+ * não implementado), e não mais em ide. */
 typedef enum nfe_forma_pagamento {
 	NFE_PAGAMENTO_AVISTA = 0,
 	NFE_PAGAMENTO_PRAZO = 1,
