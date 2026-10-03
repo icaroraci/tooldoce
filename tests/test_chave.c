@@ -23,6 +23,7 @@
 #include <libxml/xmlwriter.h>
 
 #include <libnfe/chave.h>
+#include <libnfe/cnpjcpf.h>
 #include <libnfe/erros.h>
 #include <libnfe/ide.h>
 
@@ -64,17 +65,56 @@ static void teste_dv(void)
 	VERIFICA_INT(nfe_chave_validar(NULL), E_ISNULL);
 }
 
+/* CNPJ alfanumérico: cada caractere vale ASCII - 48. Exemplo publicado com
+ * o CNPJ de exemplo da Receita (12.ABC.345/01DE-35): DV 4 */
+static void teste_alfanumerico(void)
+{
+	VERIFICA_INT(
+	        nfe_chave_dv("35260912ABC34501DE3555001000000123112345678"), 4);
+	VERIFICA_INT(nfe_chave_validar(
+	                     "35260912ABC34501DE35550010000001231123456784"),
+	             0);
+	VERIFICA_INT(nfe_chave_validar(
+	                     "35260912ABC34501DE35550010000001231123456783"),
+	             E_VALOR);
+	/* letras só nas 12 primeiras posições do CNPJ */
+	VERIFICA_INT(
+	        nfe_chave_dv("3A260912ABC34501DE3555001000000123112345678"),
+	        E_VALOR);
+	VERIFICA_INT(
+	        nfe_chave_dv("35260912ABC34501DE3A55001000000123112345678"),
+	        E_VALOR);
+	VERIFICA_INT(
+	        nfe_chave_dv("35260912abc34501de3555001000000123112345678"),
+	        E_VALOR);
+}
+
 static void teste_gerar(void)
 {
 	nfe_ide *ide = novo(T0, NFE_TZD_BRASILIA);
 	char chave[45];
 
-	/* CNPJ: 35 1008 12345678000199 55 001 000000042 1 12345678 + DV 9 */
+	/* CNPJ: 35 1008 12345678000195 55 001 000000042 1 12345678 + DV 1 */
+	VERIFICA_INT(
+	        nfe_ide_gerar_chave(ide, "12345678000195", chave, sizeof chave),
+	        0);
+	VERIFICA_STR(chave, "35100812345678000195550010000000421123456781");
+	VERIFICA_INT(nfe_chave_validar(chave), 0);
+
+	/* CNPJ alfanumérico */
+	VERIFICA_INT(
+	        nfe_ide_gerar_chave(ide, "12ABC34501DE35", chave, sizeof chave),
+	        0);
+	VERIFICA_STR(chave, "35100812ABC34501DE35550010000000421123456781");
+	VERIFICA_INT(nfe_chave_validar(chave), 0);
+
+	/* CNPJ e CPF com dígito verificador errado */
 	VERIFICA_INT(
 	        nfe_ide_gerar_chave(ide, "12345678000199", chave, sizeof chave),
-	        0);
-	VERIFICA_STR(chave, "35100812345678000199550010000000421123456789");
-	VERIFICA_INT(nfe_chave_validar(chave), 0);
+	        E_VALOR);
+	VERIFICA_INT(
+	        nfe_ide_gerar_chave(ide, "12345678900", chave, sizeof chave),
+	        E_VALOR);
 
 	/* CPF: completado com zeros à esquerda */
 	VERIFICA_INT(
@@ -89,9 +129,9 @@ static void teste_gerar(void)
 	VERIFICA_INT(
 	        nfe_ide_gerar_chave(ide, "1234567800019A", chave, sizeof chave),
 	        E_VALOR);
-	VERIFICA_INT(nfe_ide_gerar_chave(ide, "12345678000199", chave, 44),
+	VERIFICA_INT(nfe_ide_gerar_chave(ide, "12345678000195", chave, 44),
 	             E_TAMANHO);
-	VERIFICA_INT(nfe_ide_gerar_chave(NULL, "12345678000199", chave,
+	VERIFICA_INT(nfe_ide_gerar_chave(NULL, "12345678000195", chave,
 	                                 sizeof chave),
 	             E_ISNULL);
 	nfe_ide_free(ide);
@@ -99,7 +139,7 @@ static void teste_gerar(void)
 	/* Sem os campos necessários */
 	ide = nfe_ide_new();
 	VERIFICA_INT(
-	        nfe_ide_gerar_chave(ide, "12345678000199", chave, sizeof chave),
+	        nfe_ide_gerar_chave(ide, "12345678000195", chave, sizeof chave),
 	        E_VALOR);
 	nfe_ide_free(ide);
 }
@@ -113,14 +153,14 @@ static void teste_virada_de_ano(void)
 	char chave[45];
 
 	VERIFICA_INT(
-	        nfe_ide_gerar_chave(ide, "12345678000199", chave, sizeof chave),
+	        nfe_ide_gerar_chave(ide, "12345678000195", chave, sizeof chave),
 	        0);
 	VERIFICA(strncmp(chave + 2, "1012", 4) == 0);
 	nfe_ide_free(ide);
 
 	ide = novo(t, NFE_TZD_FERNANDO_NORONHA);
 	VERIFICA_INT(
-	        nfe_ide_gerar_chave(ide, "12345678000199", chave, sizeof chave),
+	        nfe_ide_gerar_chave(ide, "12345678000195", chave, sizeof chave),
 	        0);
 	VERIFICA(strncmp(chave + 2, "1101", 4) == 0);
 	nfe_ide_free(ide);
@@ -138,11 +178,11 @@ static void teste_cdv_no_xml(void)
 	rc |= nfe_ide_set_natop(ide, "VENDA");
 	rc |= nfe_ide_set_cmunfg(ide, 3550308);
 	rc |= nfe_ide_set_verproc(ide, "teste");
-	rc |= nfe_ide_gerar_chave(ide, "12345678000199", chave, sizeof chave);
+	rc |= nfe_ide_gerar_chave(ide, "12345678000195", chave, sizeof chave);
 	VERIFICA_INT(rc, 0);
 	VERIFICA_INT(nfe_ide_write_xml(w, ide), 0);
 	xmlTextWriterEndDocument(w);
-	VERIFICA(strstr((const char *)xmlBufferContent(buf), "<cDV>9</cDV>") !=
+	VERIFICA(strstr((const char *)xmlBufferContent(buf), "<cDV>1</cDV>") !=
 	         NULL);
 
 	xmlFreeTextWriter(w);
@@ -153,6 +193,7 @@ static void teste_cdv_no_xml(void)
 int main(void)
 {
 	teste_dv();
+	teste_alfanumerico();
 	teste_gerar();
 	teste_virada_de_ano();
 	teste_cdv_no_xml();

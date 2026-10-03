@@ -37,7 +37,7 @@
 #include "teste.h"
 
 #define NS    "http://www.portalfiscal.inf.br/nfe"
-#define CHAVE "35100812345678000199550010000000421123456789"
+#define CHAVE "35100812345678000195550010000000421123456781"
 #define T0    ((time_t)1282237215) /* 2010-08-19T17:00:15Z */
 
 static xmlSchemaPtr schema;
@@ -197,7 +197,7 @@ static void teste_contingencia_e_referencias(void)
 	VERIFICA_INT(RefNFeSetrefNFe(r1, CHAVE), 0);
 	VERIFICA_INT(RefNFSetcUF(r2, NFE_UF_SP), 0);
 	VERIFICA_INT(RefNFSetAAMM(r2, 10, NFE_MES_AGOSTO), 0);
-	VERIFICA_INT(RefNFSetCNPJ(r2, "12345678000199"), 0);
+	VERIFICA_INT(RefNFSetCNPJ(r2, "12345678000195"), 0);
 	VERIFICA_INT(RefNFSetmod(r2, "01"), 0);
 	VERIFICA_INT(RefNFSetSerie(r2, "1"), 0);
 	VERIFICA_INT(RefNFSetnNF(r2, "123"), 0);
