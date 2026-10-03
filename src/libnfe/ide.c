@@ -27,14 +27,14 @@
 
 struct Cont_s {
   char *dhCont;                    // Data
-  char xJust[TAM_JUSTIFICATIVA];   // 256 caracteres
+  char xJust[NFE_TAM_UTF8(NFE_TAM_XJUST)];     // 256 caracteres
 };
 
 
 struct ide_s{
   nfe_uf cUF;              // 2 caracteres
   uint32_t cNF;                    // 8 caracteres 
-  char natOp[TAM_NATOP];           // 61 caracteres
+  char natOp[NFE_TAM_UTF8(NFE_TAM_NATOP)];     // 60 caracteres
   nfe_forma_pagamento indPag;                  // 1 caractere
   nfe_modelo mod;             // 2 caracteres
   uint16_t serie;                  // 3 caracteres
@@ -52,7 +52,7 @@ struct ide_s{
   nfe_consumidor indFinal;         // 1 caractere
   nfe_presenca indPres;        // 1 caractere
   nfe_processo_emissao procEmis;  // 1 caractere
-  char verProc[TAM_VERSAO_APLIC];  // 20 caracteres
+  char verProc[NFE_TAM_UTF8(NFE_TAM_VERPROC)]; // 20 caracteres
   struct Cont_s *cont;             // Default NULL
 };
  

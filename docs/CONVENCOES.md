@@ -44,7 +44,7 @@ int      nfe_ide_write_xml(xmlTextWriterPtr writer, const nfe_ide *ide);
 ## Textos e tamanhos
 
 - Textos são UTF-8. Os limites do leiaute são em **caracteres**, e um caractere pode ocupar até 4 bytes.
-- Para cada campo há uma macro em `defs.h` com o limite em caracteres; o buffer usa `NFE_TAM_UTF8(n)`.
+- Para cada campo há uma macro `NFE_TAM_<CAMPO>` em `defs.h` com o limite em caracteres. O buffer usa `NFE_TAM_UTF8(n)` para texto livre e `NFE_TAM_ASCII(n)` para campos só com dígitos ou ASCII.
 - Cópias de texto sempre com limite de tamanho, nunca `strcpy`/`strcat`.
 
 ## Headers
