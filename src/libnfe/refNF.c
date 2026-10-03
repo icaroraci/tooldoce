@@ -21,7 +21,7 @@
 #include <string.h>
 
 
-#include "refNF.h"
+#include <libnfe/refNF.h>
 
 
 #include <libnfe/defs.h>
