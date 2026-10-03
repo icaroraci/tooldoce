@@ -1,20 +1,25 @@
-# Dependência: libxml2 (pacote libxml2-dev / libxml2-devel)
+# Dependências: libxml2 (pacote libxml2-dev / libxml2-devel) e xmlsec1 com
+# OpenSSL (libxmlsec1-dev / xmlsec1-devel e xmlsec1-openssl-devel)
 XML2_CONFIG ?= xml2-config
+PKG_CONFIG  ?= pkg-config
 
 ifeq ($(filter clean uninstall formatar verificar-formato,$(MAKECMDGOALS)),)
 ifeq ($(shell command -v $(XML2_CONFIG) 2>/dev/null),)
 $(error $(XML2_CONFIG) não encontrado. Instale a libxml2 de desenvolvimento (ex.: apt install libxml2-dev ou dnf install libxml2-devel))
+endif
+ifneq ($(shell $(PKG_CONFIG) --exists xmlsec1-openssl 2>/dev/null && echo ok),ok)
+$(error xmlsec1-openssl não encontrado. Instale a xmlsec1 de desenvolvimento (ex.: apt install libxmlsec1-dev ou dnf install xmlsec1-devel xmlsec1-openssl-devel))
 endif
 endif
 
 
 # Flags do compilador
 # -MMD -MP gera arquivos .d para recompilar quando um header muda
-CFLAGS := -Werror -Wall -Wextra -Wwrite-strings -std=c99 -g -fPIC -MMD -MP $(shell $(XML2_CONFIG) --cflags 2>/dev/null)
+CFLAGS := -Werror -Wall -Wextra -Wwrite-strings -std=c99 -g -fPIC -MMD -MP $(shell $(XML2_CONFIG) --cflags 2>/dev/null) $(shell $(PKG_CONFIG) --cflags xmlsec1-openssl 2>/dev/null)
 
 
 # Flags para adicionar libs
-LIBS := $(shell $(XML2_CONFIG) --libs 2>/dev/null)
+LIBS := $(shell $(XML2_CONFIG) --libs 2>/dev/null) $(shell $(PKG_CONFIG) --libs xmlsec1-openssl 2>/dev/null)
 
 
 #-I includes

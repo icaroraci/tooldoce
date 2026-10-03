@@ -45,6 +45,9 @@ Os setters validam cada valor contra o leiaute e retornam um código de erro (`e
     $ make exemplos
     $ ./obj/gerar_ide
     $ ./obj/gerar_nfe
+    $ ./obj/assinar_nfe tests/certificados/teste.pfx teste
+
+`assinar_nfe` monta a mesma NFC-e e a assina com o certificado A1 indicado (arquivo .pfx e senha). O de `tests/certificados` é só de teste; para conferir com o seu certificado, rode o exemplo na sua máquina e valide a nota num validador de assinatura de NF-e. Nunca coloque um certificado real no repositório.
 
 Para conferir a nota antes de assinar e transmitir, `validar.h` valida o XML contra os schemas oficiais, que `make install` instala em `$(PREFIX)/share/tooldoce/schemas`, e devolve a lista de erros com o campo e a linha de cada um.
 
@@ -58,11 +61,12 @@ Para compilar um programa seu com a biblioteca instalada:
 ### Dependências
 * Compilador C99 (gcc ou clang) e GNU make
 * [libxml2](http://xmlsoft.org/) com os arquivos de desenvolvimento (fornece o `xml2-config`)
+* [xmlsec1](https://www.aleksey.com/xmlsec/) com OpenSSL, para a assinatura digital (licenças MIT e Apache 2.0)
 
 | Distribuição | Comando |
 |---|---|
-| Debian / Ubuntu | `sudo apt install build-essential libxml2-dev` |
-| Fedora / RHEL | `sudo dnf install gcc make libxml2-devel` |
+| Debian / Ubuntu | `sudo apt install build-essential libxml2-dev libxmlsec1-dev` |
+| Fedora / RHEL | `sudo dnf install gcc make libxml2-devel xmlsec1-devel xmlsec1-openssl-devel` |
 | Arch Linux | `sudo pacman -S base-devel libxml2` |
 | macOS (Homebrew) | `brew install libxml2` |
 

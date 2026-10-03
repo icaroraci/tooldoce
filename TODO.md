@@ -6,7 +6,7 @@ Marque `[x]` quando a estrutura tiver: criação/liberação, setters com valida
 
 ## Estruturas da NF-e
 
-- [ ] [**NFe**](docs/diagramas/NFe.svg)
+- [x] [**NFe**](docs/diagramas/NFe.svg)
   - [x] [**infNFe**](docs/diagramas/NFe/infNFe.svg)
     - [x] [**ide**](docs/diagramas/NFe/infNFe/ide.svg)
       - [x] [**NFref**](docs/diagramas/NFe/infNFe/ide/NFref.svg) `0..999` _(opcional)_
@@ -182,7 +182,7 @@ Marque `[x]` quando a estrutura tiver: criação/liberação, setters com valida
 
 - [x] Chave de acesso e dígito verificador (#54)
 - [x] CNPJ alfanumérico (#66)
-- [ ] Assinatura digital XMLDSig (#56)
+- [x] Assinatura digital XMLDSig (#56)
 - [ ] Transmissão aos webservices da SEFAZ e tratamento do retorno (#57)
 - [x] Atualizar os schemas para a Reforma Tributária (PL_010f, com IBS/CBS/IS)
 - [ ] NFC-e, NFS-e, CT-e, MDF-e (ver `docs/VISAO.md`)

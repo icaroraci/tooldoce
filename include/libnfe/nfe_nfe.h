@@ -24,6 +24,7 @@
 #include <libxml/encoding.h>
 #include <libxml/xmlwriter.h>
 
+#include <libnfe/assinatura.h>
 #include <libnfe/cobr.h>
 #include <libnfe/dest.h>
 #include <libnfe/det.h>
@@ -47,8 +48,8 @@
  * como infNFeSupl (QR Code da NFC-e), pelo grupo genérico (grupo.h)
  * devolvido por nfe_nfe_grupo.
  *
- * O documento gerado ainda não tem a assinatura digital (ds:Signature),
- * exigida pela SEFAZ e pelo schema nfe_v4.00.xsd.
+ * nfe_nfe_xml gera o documento sem a assinatura digital; nfe_nfe_assinar
+ * gera o documento já assinado (ver assinatura.h).
  *
  * Uso típico:
  *   nfe_nfe *nota = nfe_nfe_new();
@@ -146,6 +147,12 @@ int nfe_nfe_write_xml(xmlTextWriterPtr writer, nfe_nfe *nfe);
  * tamanho (sem o terminador) vai em *tam, se tam não for NULL. Retorna os
  * mesmos códigos de nfe_nfe_write_xml, ou E_MALLOC. */
 int nfe_nfe_xml(nfe_nfe *nfe, char **xml, size_t *tam);
+
+/* Gera o documento como nfe_nfe_xml e o assina com o certificado (ver
+ * nfe_assinar_xml). Retorna os códigos de nfe_nfe_xml e de
+ * nfe_assinar_xml. */
+int nfe_nfe_assinar(nfe_nfe *nfe, const nfe_certificado *cert, char **xml,
+                    size_t *tam);
 
 /* Grava o documento XML completo no arquivo caminho (substitui o
  * existente). Retorna os mesmos códigos de nfe_nfe_xml, ou E_ARQUIVO. */

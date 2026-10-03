@@ -570,6 +570,23 @@ int nfe_nfe_xml(nfe_nfe *nfe, char **xml, size_t *tam)
 	return rc;
 }
 
+int nfe_nfe_assinar(nfe_nfe *nfe, const nfe_certificado *cert, char **xml,
+                    size_t *tam)
+{
+	char *sem;
+	size_t n;
+	int rc;
+
+	if (!nfe || !cert || !xml)
+		return E_ISNULL;
+	rc = nfe_nfe_xml(nfe, &sem, &n);
+	if (rc != 0)
+		return rc;
+	rc = nfe_assinar_xml(cert, sem, n, xml, tam);
+	free(sem);
+	return rc;
+}
+
 int nfe_nfe_salvar(nfe_nfe *nfe, const char *caminho)
 {
 	char *xml;
