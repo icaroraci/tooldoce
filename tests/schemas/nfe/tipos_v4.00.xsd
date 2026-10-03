@@ -16877,4 +16877,9 @@ tipo de ato concessório:
 	</xs:element>
 	<xs:element name="enderEmit" type="TEnderEmi"/>
 	<xs:element name="enderDest" type="TEndereco"/>
+	<xs:element name="enviNFe" type="TEnviNFe"/>
+	<xs:element name="retEnviNFe" type="TRetEnviNFe"/>
+	<xs:element name="consReciNFe" type="TConsReciNFe"/>
+	<xs:element name="protNFe" type="TProtNFe"/>
+	<xs:element name="nfeProc" type="TNfeProc"/>
 </xs:schema>

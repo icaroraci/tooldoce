@@ -8,7 +8,22 @@
 - `DFeTiposBasicos_v1.00.xsd`
 - `xmldsig-core-schema_v1.01.xsd`
 
-`nfe/tipos_v4.00.xsd` **não é oficial**: é gerado por `gerar_tipos_xsd.py` a partir de `leiauteNFe_v4.00.xsd`. Ele inclui o leiaute e declara como elementos globais os grupos que a biblioteca já gera sozinhos (`ide`, `emit`, `dest`, `det`, `prod`, `imposto`, `total`, `transp`, `pag`, `infNFe`, `enderEmit`, `enderDest`), para validá-los nos testes enquanto a biblioteca ainda não gera a nota completa. O CI confere se ele está atualizado.
+Também em `nfe/`, do **Pacote de Liberação 010d (v1.03)**, compatíveis com
+os acima: `consSitNFe_v4.00.xsd`, `leiauteConsSitNFe_v4.00.xsd`,
+`retConsSitNFe_v4.00.xsd`, `retConsReciNFe_v4.00.xsd`,
+`leiauteInutNFe_v4.00.xsd` e `procInutNFe_v4.00.xsd`.
+
+Outros pacotes oficiais, cada um na sua pasta e sem alteração:
+
+- `evento/`: eventos genéricos (`envEvento`, `retEnvEvento`,
+  `procEventoNFe`) do PL_010d;
+- `evento_canc/`: evento de cancelamento (v1.01, NT 2018.004);
+- `evento_cancsubst/`: cancelamento por substituição da NFC-e (v1.01,
+  NT 2018.004);
+- `evento_cce/`: carta de correção (v1.01);
+- `cadastro/`: consulta cadastro do PL_010d (ainda não usada).
+
+`nfe/tipos_v4.00.xsd` **não é oficial**: é gerado por `gerar_tipos_xsd.py` a partir de `leiauteNFe_v4.00.xsd`. Ele inclui o leiaute e declara como elementos globais os grupos que a biblioteca já gera sozinhos (`ide`, `emit`, `dest`, `det`, `prod`, `imposto`, `total`, `transp`, `pag`, `infNFe`, `enderEmit`, `enderDest`), para validá-los nos testes, e as mensagens aos webservices cujo elemento não vem nos pacotes (`enviNFe`, `retEnviNFe`, `consReciNFe`, `protNFe`, `nfeProc`). O CI confere se ele está atualizado.
 
 Os diagramas de `docs/diagramas/` e o `TODO.md` também são gerados a partir destes schemas (`tools/gerar_diagramas.py`).
 

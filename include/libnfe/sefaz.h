@@ -123,10 +123,16 @@ int nfe_sefaz_msg_recibo(nfe_ambiente amb, const char *nrec, char **msg);
 /* consSitNFe: situação da nota pela chave de acesso */
 int nfe_sefaz_msg_consulta(nfe_ambiente amb, const char *chave, char **msg);
 
+/* envEvento: lote com n (1 a 20) eventos assinados (documentos <evento>,
+ * ver evento.h), identificado por id_lote (1 a 15 dígitos) */
+int nfe_sefaz_msg_evento(const char *id_lote, const char *const *eventos, int n,
+                         char **msg);
+
 /* ---- Leitura do retorno ---- */
 
-/* cStat e xMotivo do elemento de retorno (os do lote ou do serviço, não
- * os de cada nota). xmotivo (pode ser NULL) recebe o texto truncado em
+/* cStat e xMotivo do elemento de retorno: os do lote ou do serviço (no
+ * retorno completo) ou os da nota ou do evento (num <protNFe> ou
+ * <retEvento>). xmotivo (pode ser NULL) recebe o texto truncado em
  * tam_xmotivo. Retorna 0, E_ISNULL ou E_XML (retorno malformado ou sem
  * cStat). */
 int nfe_sefaz_cstat(const char *ret, size_t tam, int *cstat, char *xmotivo,
@@ -145,5 +151,14 @@ int nfe_sefaz_protocolo(const char *ret, size_t tam, const char *chave,
  * malformados), E_VALOR (o protocolo é de outra nota) ou E_MALLOC. */
 int nfe_sefaz_proc(const char *nfe, size_t tam_nfe, const char *prot,
                    size_t tam_prot, char **proc, size_t *tam_proc);
+
+/* procEventoNFe: o evento assinado (<evento>) com o seu registro
+ * (<retEvento>, procurado no retorno ret pela chave, tipo e sequência do
+ * evento), alocado em *proc (libere com free()). O evento é copiado sem
+ * alterações. Retorna 0, E_ISNULL, E_XML (documentos malformados), E_VALOR
+ * (retorno sem o registro do evento) ou E_MALLOC. */
+int nfe_sefaz_proc_evento(const char *evento, size_t tam_evento,
+                          const char *ret, size_t tam_ret, char **proc,
+                          size_t *tam_proc);
 
 #endif

@@ -19,8 +19,12 @@
 #ifndef LIBNFE_ESCRITA_H
 #define LIBNFE_ESCRITA_H
 
+#include <stddef.h>
+#include <time.h>
+
 #include <libxml/xmlwriter.h>
 
+#include <libnfe/nfe.h>
 #include <libnfe/utils.h>
 
 /* Funções internas de escrita do XML */
@@ -33,6 +37,11 @@ NFE_INTERNO int nfe_escreve(xmlTextWriterPtr writer, const char *tag,
         __attribute__((format(printf, 3, 4)))
 #endif
         ;
+
+/* Escreve em dst (tam bytes) o instante t no formato
+ * AAAA-MM-DDThh:mm:ssTZD, no fuso tzd (ex.: 2010-08-19T13:00:15-03:00).
+ * Retorna 0, E_VALOR (fuso inválido) ou E_TAMANHO (buffer pequeno). */
+NFE_INTERNO int nfe_data_hora(char *dst, size_t tam, time_t t, nfe_tzd tzd);
 
 /* Abre e fecha um elemento; retornam 0 ou E_XML */
 NFE_INTERNO int nfe_abre(xmlTextWriterPtr writer, const char *tag);

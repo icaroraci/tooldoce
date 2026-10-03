@@ -103,7 +103,7 @@ struct nfe_ide {
  * no fuso tzd. Ex.: 2010-08-19T13:00:15-03:00.
  * Não há horário de verão no Brasil desde 2019.
  * Retorna 0, E_VALOR (fuso inválido) ou E_TAMANHO (buffer pequeno). */
-static int DHSet(char *dst, size_t tam, time_t t, nfe_tzd tzd)
+int nfe_data_hora(char *dst, size_t tam, time_t t, nfe_tzd tzd)
 {
 	struct tm tm;
 	time_t local;
@@ -446,8 +446,8 @@ int nfe_ide_set_tzd(nfe_ide *ide, nfe_tzd tzd)
 	char teste[NFE_TAM_ASCII(NFE_TAM_DATA_HORA)];
 
 	EXIGE_IDE(ide);
-	/* DHSet recusa fusos desconhecidos */
-	EXIGE(DHSet(teste, sizeof teste, 0, tzd) == 0);
+	/* nfe_data_hora recusa fusos desconhecidos */
+	EXIGE(nfe_data_hora(teste, sizeof teste, 0, tzd) == 0);
 	ide->tzd = tzd;
 	return 0;
 }
@@ -645,7 +645,7 @@ static int escreve_data(xmlTextWriterPtr writer, const char *tag, time_t t,
                         nfe_tzd tzd)
 {
 	char dh[NFE_TAM_ASCII(NFE_TAM_DATA_HORA)];
-	int rc = DHSet(dh, sizeof dh, t, tzd);
+	int rc = nfe_data_hora(dh, sizeof dh, t, tzd);
 
 	if (rc != 0)
 		return rc;

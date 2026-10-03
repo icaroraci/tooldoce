@@ -38,6 +38,8 @@
 #define TAM_MAX_RESPOSTA (32u * 1024 * 1024)
 /* Máximo de notas por lote (leiaute) */
 #define MAX_LOTE 50
+/* Máximo de eventos por lote */
+#define MAX_EVENTOS 20
 
 struct nfe_sefaz {
 	const nfe_certificado *cert;
@@ -583,6 +585,38 @@ int nfe_sefaz_msg_lote(const char *id_lote, int sincrono,
 	return entrega(&b, msg, NULL);
 }
 
+int nfe_sefaz_msg_evento(const char *id_lote, const char *const *eventos, int n,
+                         char **msg)
+{
+	struct buf b = { 0 };
+	const char *ev;
+	size_t tam;
+	int i;
+
+	if (!id_lote || !eventos || !msg)
+		return E_ISNULL;
+	if (!so_digitos(id_lote, 1, 15) || n < 1 || n > MAX_EVENTOS)
+		return E_VALOR;
+	for (i = 0; i < n; i++) {
+		if (!eventos[i])
+			return E_ISNULL;
+		tam = strlen(eventos[i]);
+		ev = pula_declaracao(eventos[i], &tam);
+		if (!comeca_com(ev, tam, "evento"))
+			return E_VALOR;
+	}
+	poe(&b, "<envEvento xmlns=\"" NS_NFE "\" versao=\"1.00\"><idLote>");
+	poe(&b, id_lote);
+	poe(&b, "</idLote>");
+	for (i = 0; i < n; i++) {
+		tam = strlen(eventos[i]);
+		ev = pula_declaracao(eventos[i], &tam);
+		poe_n(&b, ev, tam);
+	}
+	poe(&b, "</envEvento>");
+	return entrega(&b, msg, NULL);
+}
+
 /* ---- retorno ---- */
 
 int nfe_sefaz_cstat(const char *ret, size_t tam, int *cstat, char *xmotivo,
@@ -597,6 +631,18 @@ int nfe_sefaz_cstat(const char *ret, size_t tam, int *cstat, char *xmotivo,
 	doc = le_xml(ret, tam);
 	raiz = doc ? xmlDocGetRootElement(doc) : NULL;
 	c = texto(raiz, "cStat");
+	if (!*c) {
+		/* Protocolo (protNFe/infProt) ou retorno de evento
+		 * (retEvento/infEvento): o cStat fica no primeiro filho */
+		xmlNodePtr inf = filho(raiz, NULL);
+
+		if (inf && (xmlStrEqual(inf->name, BAD_CAST "infProt") ||
+		            xmlStrEqual(inf->name, BAD_CAST "infEvento") ||
+		            xmlStrEqual(inf->name, BAD_CAST "infInut"))) {
+			raiz = inf;
+			c = texto(raiz, "cStat");
+		}
+	}
 	if (!so_digitos(c, 3, 3)) {
 		xmlFreeDoc(doc);
 		return E_XML;
@@ -694,5 +740,70 @@ int nfe_sefaz_proc(const char *nfe, size_t tam_nfe, const char *prot,
 	poe_n(&b, nota, tam_nfe);
 	poe_n(&b, p, tam_prot);
 	poe(&b, "</nfeProc>");
+	return entrega(&b, proc, tam_proc);
+}
+
+/* retEvento com a chave, o tipo e a sequência em no ou nos descendentes */
+static xmlNodePtr acha_ret_evento(xmlNodePtr no, const char *chave,
+                                  const char *tipo, const char *seq)
+{
+	xmlNodePtr f, inf, achado;
+
+	for (f = no; f; f = f->next) {
+		if (f->type != XML_ELEMENT_NODE)
+			continue;
+		if (xmlStrEqual(f->name, BAD_CAST "retEvento")) {
+			inf = filho(f, "infEvento");
+			if (strcmp(texto(inf, "chNFe"), chave) == 0 &&
+			    strcmp(texto(inf, "tpEvento"), tipo) == 0 &&
+			    strcmp(texto(inf, "nSeqEvento"), seq) == 0)
+				return f;
+			continue;
+		}
+		achado = acha_ret_evento(f->children, chave, tipo, seq);
+		if (achado)
+			return achado;
+	}
+	return NULL;
+}
+
+int nfe_sefaz_proc_evento(const char *evento, size_t tam_evento,
+                          const char *ret, size_t tam_ret, char **proc,
+                          size_t *tam_proc)
+{
+	struct buf b = { 0 };
+	const char *ev;
+	xmlDocPtr doc_ev, doc_ret;
+	xmlNodePtr inf, r;
+	char *ret_ev = NULL;
+	size_t tam_ret_ev = 0;
+	int rc;
+
+	if (!evento || !ret || !proc)
+		return E_ISNULL;
+	ev = pula_declaracao(evento, &tam_evento);
+	if (!comeca_com(ev, tam_evento, "evento"))
+		return E_XML;
+	doc_ev = le_xml(ev, tam_evento);
+	inf = doc_ev ? filho(xmlDocGetRootElement(doc_ev), "infEvento") : NULL;
+	doc_ret = le_xml(ret, tam_ret);
+	if (!inf || !doc_ret) {
+		xmlFreeDoc(doc_ev);
+		xmlFreeDoc(doc_ret);
+		return E_XML;
+	}
+	r = acha_ret_evento(xmlDocGetRootElement(doc_ret), texto(inf, "chNFe"),
+	                    texto(inf, "tpEvento"), texto(inf, "nSeqEvento"));
+	rc = r ? serializa(r, &ret_ev, &tam_ret_ev) : E_VALOR;
+	xmlFreeDoc(doc_ev);
+	xmlFreeDoc(doc_ret);
+	if (rc != 0)
+		return rc;
+	poe(&b, "<?xml version=\"1.0\" encoding=\"UTF-8\"?><procEventoNFe "
+	        "xmlns=\"" NS_NFE "\" versao=\"1.00\">");
+	poe_n(&b, ev, tam_evento);
+	poe_n(&b, ret_ev, tam_ret_ev);
+	poe(&b, "</procEventoNFe>");
+	free(ret_ev);
 	return entrega(&b, proc, tam_proc);
 }
