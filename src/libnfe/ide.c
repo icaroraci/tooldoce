@@ -34,6 +34,7 @@
 #include <libnfe/refNF.h>
 #include <libnfe/refNFe.h>
 #include <libnfe/utils.h>
+#include <libnfe/valida.h>
 
 /* Documento referenciado: um item do grupo NFref */
 enum tipo_ref_e {
@@ -59,16 +60,22 @@ struct nfe_ide {
 	uint32_t nNF;
 	time_t dhEmi;
 	time_t dhSaiEnt;
+	time_t dPrevEntrega; /* só a data é escrita */
 	nfe_tipo_operacao tpNF;
 	nfe_destino idDest;
 	uint32_t cMunFG;
+	uint32_t cMunFGIBS; /* 0: não informado */
 	nfe_danfe tpImp;
 	nfe_emissao tpEmis;
 	unsigned cDV;
 	nfe_ambiente tpAmb;
 	nfe_finalidade finNFe;
+	nfe_tipo_debito tpNFDebito;   /* 0: não informado */
+	nfe_tipo_credito tpNFCredito; /* 0: não informado */
 	nfe_consumidor indFinal;
 	nfe_presenca indPres;
+	nfe_intermediador indIntermed;
+	char cIndOp[NFE_TAM_ASCII(6)]; /* "": não informado */
 	nfe_processo_emissao procEmi;
 	char verProc[NFE_TAM_UTF8(NFE_TAM_VERPROC)];
 	nfe_tzd tzd;      /* fuso em que as datas são escritas */
@@ -126,6 +133,7 @@ nfe_ide *nfe_ide_new(void)
 	ide->mod = NFE_MODELO_NFE;
 	ide->dhEmi = NFE_SEM_DATA;
 	ide->dhSaiEnt = NFE_SEM_DATA;
+	ide->dPrevEntrega = NFE_SEM_DATA;
 	ide->tpNF = NFE_OPERACAO_SAIDA;
 	ide->idDest = NFE_DESTINO_INTERNO;
 	ide->tpImp = NFE_DANFE_NORMAL_RETRATO;
@@ -134,6 +142,7 @@ nfe_ide *nfe_ide_new(void)
 	ide->finNFe = NFE_FINALIDADE_NORMAL;
 	ide->indFinal = NFE_CONSUMIDOR_NORMAL;
 	ide->indPres = NFE_PRESENCA_NAO_SE_APLICA;
+	ide->indIntermed = NFE_INTERMEDIADOR_NAO_INFORMADO;
 	ide->procEmi = NFE_PROCESSO_APP_CONTRIBUINTE;
 	ide->tzd = NFE_TZD_BRASILIA;
 	return ide;
@@ -217,8 +226,8 @@ int nfe_ide_set_cnf(nfe_ide *ide, uint32_t cnf)
 int nfe_ide_set_natop(nfe_ide *ide, const char *natop)
 {
 	EXIGE_IDE(ide);
-	return nfe_copia_texto(ide->natOp, sizeof ide->natOp, natop, 1,
-	                       NFE_TAM_NATOP);
+	return nfe_copia_texto_validado(ide->natOp, sizeof ide->natOp, natop, 1,
+	                                NFE_TAM_NATOP);
 }
 
 int nfe_ide_set_mod(nfe_ide *ide, nfe_modelo mod)
@@ -288,7 +297,7 @@ int nfe_ide_set_tpimp(nfe_ide *ide, nfe_danfe tpimp)
 {
 	EXIGE_IDE(ide);
 	EXIGE(tpimp >= NFE_DANFE_SEM_GERAR &&
-	      tpimp <= NFE_DANFE_NFCE_MSG_ELETRONICA);
+	      tpimp <= NFE_DANFE_SIMPLIFICADA_TIPO2);
 	ide->tpImp = tpimp;
 	return 0;
 }
@@ -324,7 +333,7 @@ int nfe_ide_set_finnfe(nfe_ide *ide, nfe_finalidade finnfe)
 {
 	EXIGE_IDE(ide);
 	EXIGE(finnfe >= NFE_FINALIDADE_NORMAL &&
-	      finnfe <= NFE_FINALIDADE_DEVOLUCAO);
+	      finnfe <= NFE_FINALIDADE_DEBITO);
 	ide->finNFe = finnfe;
 	return 0;
 }
@@ -352,7 +361,7 @@ int nfe_ide_set_procemi(nfe_ide *ide, nfe_processo_emissao procemi)
 {
 	EXIGE_IDE(ide);
 	EXIGE(procemi >= NFE_PROCESSO_APP_CONTRIBUINTE &&
-	      procemi <= NFE_PROCESSO_APP_FISCO);
+	      procemi <= NFE_PROCESSO_PAA);
 	ide->procEmi = procemi;
 	return 0;
 }
@@ -360,8 +369,62 @@ int nfe_ide_set_procemi(nfe_ide *ide, nfe_processo_emissao procemi)
 int nfe_ide_set_verproc(nfe_ide *ide, const char *verproc)
 {
 	EXIGE_IDE(ide);
-	return nfe_copia_texto(ide->verProc, sizeof ide->verProc, verproc, 1,
-	                       NFE_TAM_VERPROC);
+	return nfe_copia_texto_validado(ide->verProc, sizeof ide->verProc,
+	                                verproc, 1, NFE_TAM_VERPROC);
+}
+
+int nfe_ide_set_dpreventrega(nfe_ide *ide, time_t dpreventrega)
+{
+	EXIGE_IDE(ide);
+	ide->dPrevEntrega = dpreventrega;
+	return 0;
+}
+
+int nfe_ide_set_cmunfgibs(nfe_ide *ide, uint32_t cmunfgibs)
+{
+	EXIGE_IDE(ide);
+	EXIGE(cmunfgibs == 0 ||
+	      (cmunfgibs >= 1000000u && cmunfgibs <= 9999999u));
+	ide->cMunFGIBS = cmunfgibs;
+	return 0;
+}
+
+int nfe_ide_set_tpnfdebito(nfe_ide *ide, nfe_tipo_debito tpnfdebito)
+{
+	EXIGE_IDE(ide);
+	EXIGE(tpnfdebito >= NFE_DEBITO_NAO_INFORMADO &&
+	      tpnfdebito <= NFE_DEBITO_DESENQUADRAMENTO_SN);
+	ide->tpNFDebito = tpnfdebito;
+	return 0;
+}
+
+int nfe_ide_set_tpnfcredito(nfe_ide *ide, nfe_tipo_credito tpnfcredito)
+{
+	EXIGE_IDE(ide);
+	EXIGE(tpnfcredito >= NFE_CREDITO_NAO_INFORMADO &&
+	      tpnfcredito <= NFE_CREDITO_RETORNO_RECUSA_PARCIAL);
+	ide->tpNFCredito = tpnfcredito;
+	return 0;
+}
+
+int nfe_ide_set_indintermed(nfe_ide *ide, nfe_intermediador indintermed)
+{
+	EXIGE_IDE(ide);
+	EXIGE(indintermed >= NFE_INTERMEDIADOR_NAO_INFORMADO &&
+	      indintermed <= NFE_INTERMEDIADOR_TERCEIROS);
+	ide->indIntermed = indintermed;
+	return 0;
+}
+
+int nfe_ide_set_cindop(nfe_ide *ide, const char *cindop)
+{
+	EXIGE_IDE(ide);
+	if (!cindop) {
+		ide->cIndOp[0] = '\0';
+		return 0;
+	}
+	return nfe_copia_padrao(ide->cIndOp, sizeof ide->cIndOp, cindop,
+	                        "[0-9]{6}");
 }
 
 int nfe_ide_set_tzd(nfe_ide *ide, nfe_tzd tzd)
@@ -381,8 +444,8 @@ int nfe_ide_set_contingencia(nfe_ide *ide, time_t dhcont, const char *xjust)
 
 	EXIGE_IDE(ide);
 	EXIGE(dhcont != NFE_SEM_DATA);
-	rc = nfe_copia_texto(ide->xJust, sizeof ide->xJust, xjust, 15,
-	                     NFE_TAM_XJUST);
+	rc = nfe_copia_texto_validado(ide->xJust, sizeof ide->xJust, xjust, 15,
+	                              NFE_TAM_XJUST);
 	if (rc != 0)
 		return rc;
 	ide->dhCont = dhcont;
@@ -503,6 +566,21 @@ static int escreve_data(xmlTextWriterPtr writer, const char *tag, time_t t,
 	return escreve(writer, tag, "%s", dh);
 }
 
+/* Escreve só a data (AAAA-MM-DD) de t, no fuso do ide */
+static int escreve_dia(xmlTextWriterPtr writer, const char *tag, time_t t,
+                       nfe_tzd tzd)
+{
+	char dia[NFE_TAM_ASCII(10)];
+	struct tm tm;
+	time_t local = t + (time_t)tzd * 3600;
+
+	if (!gmtime_r(&local, &tm))
+		return E_VALOR;
+	if (strftime(dia, sizeof dia, "%Y-%m-%d", &tm) == 0)
+		return E_TAMANHO;
+	return escreve(writer, tag, "%s", dia);
+}
+
 #define ESCREVE(...)                                                           \
 	do {                                                                   \
 		rc = escreve(writer, __VA_ARGS__);                             \
@@ -543,16 +621,32 @@ int nfe_ide_write_xml(xmlTextWriterPtr writer, const nfe_ide *ide)
 	ESCREVE_DATA("dhEmi", ide->dhEmi);
 	if (ide->dhSaiEnt != NFE_SEM_DATA) /* opcional */
 		ESCREVE_DATA("dhSaiEnt", ide->dhSaiEnt);
+	if (ide->dPrevEntrega != NFE_SEM_DATA) {
+		rc = escreve_dia(writer, "dPrevEntrega", ide->dPrevEntrega,
+		                 ide->tzd);
+		if (rc != 0)
+			return rc;
+	}
 	ESCREVE("tpNF", "%d", (int)ide->tpNF);
 	ESCREVE("idDest", "%d", (int)ide->idDest);
 	ESCREVE("cMunFG", "%07" PRIu32, ide->cMunFG);
+	if (ide->cMunFGIBS != 0)
+		ESCREVE("cMunFGIBS", "%07" PRIu32, ide->cMunFGIBS);
 	ESCREVE("tpImp", "%d", (int)ide->tpImp);
 	ESCREVE("tpEmis", "%d", (int)ide->tpEmis);
 	ESCREVE("cDV", "%u", ide->cDV);
 	ESCREVE("tpAmb", "%d", (int)ide->tpAmb);
 	ESCREVE("finNFe", "%d", (int)ide->finNFe);
+	if (ide->tpNFDebito != NFE_DEBITO_NAO_INFORMADO)
+		ESCREVE("tpNFDebito", "%02d", (int)ide->tpNFDebito);
+	if (ide->tpNFCredito != NFE_CREDITO_NAO_INFORMADO)
+		ESCREVE("tpNFCredito", "%02d", (int)ide->tpNFCredito);
 	ESCREVE("indFinal", "%d", (int)ide->indFinal);
 	ESCREVE("indPres", "%d", (int)ide->indPres);
+	if (ide->indIntermed != NFE_INTERMEDIADOR_NAO_INFORMADO)
+		ESCREVE("indIntermed", "%d", (int)ide->indIntermed);
+	if (ide->cIndOp[0] != '\0')
+		ESCREVE("cIndOp", "%s", ide->cIndOp);
 	ESCREVE("procEmi", "%d", (int)ide->procEmi);
 	ESCREVE("verProc", "%s", ide->verProc);
 

@@ -110,7 +110,9 @@ typedef enum nfe_danfe {
 	NFE_DANFE_SIMPLIFICADA = 3,
 	NFE_DANFE_NFCE = 4,
 	NFE_DANFE_NFCE_MSG_ELETRONICA =
-	        5 /* DANFE NFC-e em mensagem eletrônica */
+	        5, /* DANFE NFC-e em mensagem eletrônica */
+	NFE_DANFE_SIMPLIFICADA_TIPO2 =
+	        6 /* DANFE simplificado tipo 2 (Ajuste SINIEF 13/26) */
 } nfe_danfe;
 
 /* tpEmis: tipo de emissão */
@@ -119,7 +121,9 @@ typedef enum nfe_emissao {
 	NFE_EMISSAO_NORMAL = 1,
 	/* Contingência */
 	NFE_EMISSAO_CONTINGENCIA_FSIA = 2,
-	NFE_EMISSAO_CONTINGENCIA_SCAN = 3,
+	NFE_EMISSAO_REGIME_ESPECIAL_NFF = 3, /* regime especial NFF (NT
+	                                        2021.002) */
+	NFE_EMISSAO_CONTINGENCIA_SCAN = 3,   /* nome antigo do valor 3 */
 	NFE_EMISSAO_CONTINGENCIA_DPEC = 4,
 	NFE_EMISSAO_CONTINGENCIA_FSDA = 5,
 	NFE_EMISSAO_CONTINGENCIA_SVC_AN = 6,
@@ -138,8 +142,49 @@ typedef enum nfe_finalidade {
 	NFE_FINALIDADE_NORMAL = 1,
 	NFE_FINALIDADE_COMPLEMENTAR = 2,
 	NFE_FINALIDADE_AJUSTE = 3,
-	NFE_FINALIDADE_DEVOLUCAO = 4
+	NFE_FINALIDADE_DEVOLUCAO = 4,
+	NFE_FINALIDADE_CREDITO = 5, /* nota de crédito (ver nfe_tipo_credito) */
+	NFE_FINALIDADE_DEBITO = 6   /* nota de débito (ver nfe_tipo_debito) */
 } nfe_finalidade;
+
+/* tpNFDebito: tipo de nota de débito (finNFe = 6) */
+typedef enum nfe_tipo_debito {
+	NFE_DEBITO_NAO_INFORMADO = 0,
+	NFE_DEBITO_TRANSF_COOPERATIVA = 1, /* transferência de créditos para
+	                                      cooperativas */
+	NFE_DEBITO_ANULACAO_CREDITO = 2,   /* anulação de crédito por saídas
+	                                      imunes/isentas */
+	NFE_DEBITO_NAO_PROCESSADAS = 3,    /* débitos de notas fiscais não
+	                                      processadas na apuração */
+	NFE_DEBITO_MULTA_JUROS = 4,
+	NFE_DEBITO_TRANSF_SUCESSAO = 5, /* transferência de crédito na
+	                                   sucessão */
+	NFE_DEBITO_PAGAMENTO_ANTECIPADO = 6,
+	NFE_DEBITO_PERDA_ESTOQUE = 7, /* perecimento, perda, furto, roubo */
+	NFE_DEBITO_DESENQUADRAMENTO_SN = 8
+} nfe_tipo_debito;
+
+/* tpNFCredito: tipo de nota de crédito (finNFe = 5) */
+typedef enum nfe_tipo_credito {
+	NFE_CREDITO_NAO_INFORMADO = 0,
+	NFE_CREDITO_MULTA_JUROS = 1,
+	NFE_CREDITO_PRESUMIDO_ZFM = 2, /* crédito presumido de IBS na ZFM
+	                                  (art. 450, § 1º, LC 214/25) */
+	NFE_CREDITO_RETORNO_RECUSA = 3, /* recusa na entrega ou destinatário não
+	                                   localizado */
+	NFE_CREDITO_REDUCAO_VALORES = 4,
+	NFE_CREDITO_TRANSF_SUCESSAO = 5, /* transferência de crédito na
+	                                    sucessão */
+	NFE_CREDITO_RETORNO_RECUSA_PARCIAL = 6
+} nfe_tipo_credito;
+
+/* indIntermed: intermediador da transação */
+typedef enum nfe_intermediador {
+	NFE_INTERMEDIADOR_NAO_INFORMADO = -1,
+	NFE_INTERMEDIADOR_SEM = 0,      /* site ou plataforma própria */
+	NFE_INTERMEDIADOR_TERCEIROS = 1 /* site ou plataforma de terceiros
+	                                   (marketplace) */
+} nfe_intermediador;
 
 /* indFinal: operação com consumidor final */
 typedef enum nfe_consumidor {
@@ -153,7 +198,8 @@ typedef enum nfe_presenca {
 	NFE_PRESENCA_PRESENCIAL = 1,
 	NFE_PRESENCA_INTERNET = 2,
 	NFE_PRESENCA_TELEATENDIMENTO = 3,
-	NFE_PRESENCA_ENTREGA_DOMICILIO = 4, /* NFC-e */
+	NFE_PRESENCA_ENTREGA_DOMICILIO = 4, /* não presencial com entrega (NFC-e
+	                                       ou DANFE simplificado tipo 2) */
 	NFE_PRESENCA_PRESENCIAL_FORA =
 	        5, /* presencial, fora do estabelecimento */
 	NFE_PRESENCA_OUTROS = 9
@@ -164,7 +210,8 @@ typedef enum nfe_processo_emissao {
 	NFE_PROCESSO_APP_CONTRIBUINTE = 0,
 	NFE_PROCESSO_AVULSA_FISCO = 1,
 	NFE_PROCESSO_AVULSA_SITE_FISCO = 2,
-	NFE_PROCESSO_APP_FISCO = 3
+	NFE_PROCESSO_APP_FISCO = 3,
+	NFE_PROCESSO_PAA = 4 /* provedor de assinatura e autorização (PAA) */
 } nfe_processo_emissao;
 
 /**
