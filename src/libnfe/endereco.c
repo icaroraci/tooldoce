@@ -91,6 +91,10 @@ struct endereco_s{
 	Municipio *municipio;
 	} ;
 
+static void _delPais(Pais* t);
+static void _delUf(Uf* t);
+static void _delMunicipio(Municipio * t);
+
 static Pais* _newPais(void){
 	 Pais temp = {
 		.cPais = 1058,
@@ -107,29 +111,41 @@ static Pais* _newPais(void){
 
 static Uf* _newUf(void){
 	Uf temp = {
-		.cUF = 0,
-		.pais = _newPais()
+		.cUF = 0
 	};
-	Uf* ptr = (Uf *) malloc(sizeof (struct uf_s));
+	Uf* ptr;
+
+	temp.pais = _newPais();
+	if(temp.pais == NULL){
+		return NULL;
+	}
+	ptr = (Uf *) malloc(sizeof (struct uf_s));
 	if(ptr == NULL){
 		nfe_error("Erro ao alocar uf_s", E_NEWUF);
-	}else{
-		memcpy(ptr, &temp, sizeof(struct uf_s));
+		_delPais(temp.pais);
+		return NULL;
 	}
+	memcpy(ptr, &temp, sizeof(struct uf_s));
 	return ptr;
 }
 
 static Municipio* _newMunicipio(void){
 	Municipio temp = {
-		.cMun = 0,
-		.uf = _newUf()
+		.cMun = 0
 	};
-	Municipio* ptr = (Municipio *) malloc(sizeof(struct municipio_s));
+	Municipio* ptr;
+
+	temp.uf = _newUf();
+	if(temp.uf == NULL){
+		return NULL;
+	}
+	ptr = (Municipio *) malloc(sizeof(struct municipio_s));
 	if(ptr == NULL){
 		nfe_error("Erro ao alocar municipio_s", E_NEWMUNICIPIO);
-	}else{
-		memcpy(ptr, &temp, sizeof(struct municipio_s));
+		_delUf(temp.uf);
+		return NULL;
 	}
+	memcpy(ptr, &temp, sizeof(struct municipio_s));
 	return ptr;
 }
 
@@ -137,16 +153,21 @@ static Municipio* _newMunicipio(void){
 Endereco * NewEndereco(void){
 	Endereco temp = {
 		.CEP = 0,
-		.fone = 0,
-		.municipio = _newMunicipio()
+		.fone = 0
 	};
+	Endereco * ptr;
 
-	Endereco * ptr = (Endereco *) malloc(sizeof(struct endereco_s));
+	temp.municipio = _newMunicipio();
+	if(temp.municipio == NULL){
+		return NULL;
+	}
+	ptr = (Endereco *) malloc(sizeof(struct endereco_s));
 	if(ptr == NULL){
 		nfe_error("Erro ao alocar endereco_s", E_NEWENDERECO);
-	}else{
-		memcpy(ptr, &temp, sizeof(struct endereco_s));
+		_delMunicipio(temp.municipio);
+		return NULL;
 	}
+	memcpy(ptr, &temp, sizeof(struct endereco_s));
 	return ptr;	
 }
 
