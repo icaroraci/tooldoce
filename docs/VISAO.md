@@ -69,7 +69,7 @@ A ordem a partir do item 2 é uma proposta e pode ser revista conforme a demanda
 
 Decisão: **LGPL** (GNU Lesser General Public License), para permitir o uso da biblioteca em programas de qualquer licença, inclusive proprietários. Alterações *na própria biblioteca* continuam devendo ser compartilhadas.
 
-Situação: **em transição.** O código atual é GPLv3, e a troca depende da autorização de quem contribuiu com código. Ver a issue correspondente no repositório.
+Situação: **em transição.** O código atual é GPLv3, e a troca depende da autorização de quem contribuiu com código. Ver a issue [#59](https://github.com/icaroraci/tooldoce/issues/59).
 
 ## 7. Requisitos de qualidade
 
