@@ -1,9 +1,20 @@
-# Flags do comnpilador
-CFLAGS = -Werror -Wall -std=c99 -g -fPIC `xml2-config --cflags`
+# Dependência: libxml2 (pacote libxml2-dev / libxml2-devel)
+XML2_CONFIG ?= xml2-config
+
+ifeq ($(filter clean uninstall,$(MAKECMDGOALS)),)
+ifeq ($(shell command -v $(XML2_CONFIG) 2>/dev/null),)
+$(error $(XML2_CONFIG) não encontrado. Instale a libxml2 de desenvolvimento (ex.: apt install libxml2-dev ou dnf install libxml2-devel))
+endif
+endif
+
+
+# Flags do compilador
+# -MMD -MP gera arquivos .d para recompilar quando um header muda
+CFLAGS := -Werror -Wall -std=c99 -g -fPIC -MMD -MP $(shell $(XML2_CONFIG) --cflags 2>/dev/null)
 
 
 # Flags para adicionar libs
-LIBS = `xml2-config --libs`
+LIBS := $(shell $(XML2_CONFIG) --libs 2>/dev/null)
 
 
 #-I includes
@@ -15,77 +26,80 @@ SOURCE = ./src/libnfe
 
 
 #Objetos compilados para Library
-LOBJ = ./OBJ
+LOBJ = ./obj
 
 
 #Path da lib
 LIB = ./lib
 
 
-#Nome de todas os arquivos fontes com path e extensão (*.c) 
-C_SOURCE=$(wildcard ./src/libnfe/*.c)
+#Nomes da biblioteca compartilhada
+LIBNAME  = libnfe.so
+SONAME   = $(LIBNAME).0
+REALNAME = $(LIBNAME).0.0
 
 
-#Nome de todas os arquivos fontes com path e extensão (*.o) 
-# Substitui a extenssao de (*.c) por (*.o)
-OBJ=$(C_SOURCE:.c=.o)
+#Destino do `make install` (DESTDIR permite instalar em diretório temporário)
+PREFIX     ?= /usr/local
+LIBDIR     ?= $(PREFIX)/lib
+INCLUDEDIR ?= $(PREFIX)/include
 
 
-#Nome de todas os arquivos fontes com extensão (*.o) e sem path
-PURE =$(notdir $(OBJ))
+#Nome de todas os arquivos fontes com path e extensão (*.c)
+C_SOURCE = $(wildcard $(SOURCE)/*.c)
 
 
-#Adiciona o path ".OBJ/" aos arquivos fontes com extensão (*.o)
-ALL  = $(addprefix $(LOBJ)/,$(PURE))
+#Objetos com path ./obj/ e extensão (*.o)
+OBJ = $(addprefix $(LOBJ)/,$(notdir $(C_SOURCE:.c=.o)))
 
 
-#Todos os objetos de PURE
-all:$(PURE)
+.PHONY: all libnfe install uninstall test clean
+
+all: libnfe
+
+libnfe: $(LIB)/$(REALNAME) $(LIB)/$(SONAME) $(LIB)/$(LIBNAME)
+
+$(LIB)/$(REALNAME): $(OBJ) | $(LIB)
+	$(CC) -shared -Wl,-soname,$(SONAME) $^ -o $@ $(LIBS)
+
+#Links simbólicos: libnfe.so -> libnfe.so.0 -> libnfe.so.0.0
+$(LIB)/$(SONAME): $(LIB)/$(REALNAME)
+	ln -sf $(REALNAME) $@
+
+$(LIB)/$(LIBNAME): $(LIB)/$(SONAME)
+	ln -sf $(SONAME) $@
 
 
-#Todos os objetos de OBJ/*.o
-libnfe:$(ALL)
-	gcc -shared $^ -o $(LIB)/libnfe.so.0.0
+#Compila se não existir, ou recompila, se houve alteracao no fonte
+$(LOBJ)/%.o: $(SOURCE)/%.c | $(LOBJ)
+	$(CC) $(CFLAGS) -I$(INCLUDE) -c $< -o $@
 
 
-#Compila se não existir, ou recompila, se houve alteracao no objeto
-#Nome da regra é um path do objeto
-$(LOBJ)/%.o:$(SOURCE)/%.c
-	gcc $(CFLAGS) -I$(INCLUDE) -c $^ -o $@
-	@echo Compila só se não existir ou desatualizado
+#Cria os diretórios de saída
+$(LOBJ) $(LIB):
+	mkdir -p $@
 
 
+install: libnfe
+	install -d $(DESTDIR)$(LIBDIR) $(DESTDIR)$(INCLUDEDIR)/libnfe
+	install -m 755 $(LIB)/$(REALNAME) $(DESTDIR)$(LIBDIR)/
+	ln -sf $(REALNAME) $(DESTDIR)$(LIBDIR)/$(SONAME)
+	ln -sf $(SONAME) $(DESTDIR)$(LIBDIR)/$(LIBNAME)
+	install -m 644 $(INCLUDE)/libnfe/*.h $(DESTDIR)$(INCLUDEDIR)/libnfe/
 
-%.o:$(SOURCE)/%.c
-	gcc $(CFLAGS) -I$(INCLUDE) -c $^ -o $(LOBJ)/$@
-	@echo Compilação incondicional
-	
+
+uninstall:
+	rm -fv $(DESTDIR)$(LIBDIR)/$(LIBNAME) $(DESTDIR)$(LIBDIR)/$(SONAME) $(DESTDIR)$(LIBDIR)/$(REALNAME)
+	rm -rfv $(DESTDIR)$(INCLUDEDIR)/libnfe
 
 
-var:
-	@echo "$@: $$@ O nome do alvo."
-	@echo "$*: $$* O nome do alvo sem a extensão."
-	@echo "$<: $$< O primeiro dos pré-requisitos."
-	@echo "$^: $$^ Os nomes dos arquivos de todos os pré-requisitos, separados por espaços, descarta duplicatas."
-	@echo "$+: $$+ Similar ao $^, mas inclui duplicatas."
-	@echo "$?: $$? Os nomes de todos os pré-requisitos que são mais novos do que o alvo, separados por espaços."
+#Testes automatizados ainda não existem (ver issue #47)
+test:
+	@echo "Nenhum teste definido ainda."
 
-lobj:
-	@echo $(LOBJ)
-	
-csource:
-	@echo $(C_SOURCE)
-
-obj:
-	@echo $(OBJ)
-
-pure:
-	@echo $(PURE)
-
-aul:
-	@echo $(ALL)
 
 clean:
-	@rm $(LOBJ)/*.o -fv
+	rm -fv $(LOBJ)/*.o $(LOBJ)/*.d $(LIB)/libnfe.so*
 
 
+-include $(OBJ:.o=.d)

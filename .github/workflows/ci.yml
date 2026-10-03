@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: build (${{ matrix.cc }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        cc: [gcc, clang]
+    env:
+      CC: ${{ matrix.cc }}
+      # Fontes que ainda não compilam. Remova da lista quando a issue for resolvida.
+      #   ide.c   -> #18, #20, #26, #27
+      #   refNF.c -> #18, #20, #28, #29
+      KNOWN_BROKEN: "ide.c refNF.c"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Instalar dependências
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libxml2-dev ${{ matrix.cc }}
+
+      - name: Compilar
+        run: sh .github/scripts/compilar.sh
+
+      - name: Testes
+        run: make test
+
+      - name: Instalação
+        run: |
+          destino="$RUNNER_TEMP/destino"
+          make install DESTDIR="$destino" PREFIX=/usr C_SOURCE="$(ls obj/*.o | sed 's|^obj/|src/libnfe/|; s|\.o$|.c|')"
+          test -f "$destino/usr/lib/libnfe.so.0.0"
+          test -L "$destino/usr/lib/libnfe.so.0"
+          test -L "$destino/usr/lib/libnfe.so"
+          test -f "$destino/usr/include/libnfe/nfe.h"
+          readelf -d "$destino/usr/lib/libnfe.so.0.0" | grep -q 'SONAME.*libnfe\.so\.0'
+          make uninstall DESTDIR="$destino" PREFIX=/usr
+          test -z "$(find "$destino" -type f -o -type l)"

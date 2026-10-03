@@ -19,7 +19,7 @@
 #include<errno.h>
 #include<string.h>
 
-#include"utils.h"
+#include <libnfe/utils.h>
 
 int error(char* msg, int codErro){
 	fprintf(stderr, "%s: %s com erro: %d\n", msg, strerror(errno), codErro);
