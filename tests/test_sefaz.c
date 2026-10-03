@@ -190,6 +190,37 @@ static void testa_retorno(void)
 	VERIFICA_INT(nfe_sefaz_cstat("<a/>", 4, &cstat, NULL, 0), E_XML);
 	VERIFICA_INT(nfe_sefaz_cstat("<a", 2, &cstat, NULL, 0), E_XML);
 	VERIFICA_INT(nfe_sefaz_cstat(NULL, 0, &cstat, NULL, 0), E_ISNULL);
+
+	/* Códigos de 4 dígitos (Reforma Tributária), com acento no motivo */
+	{
+		static const char prot[] =
+		        "<protNFe xmlns=\"http://www.portalfiscal.inf.br/nfe\" "
+		        "versao=\"4.00\"><infProt><tpAmb>2</tpAmb><cStat>1115"
+		        "</cStat><xMotivo>Rejeicao: IBS/CBS n\xc3\xa3o "
+		        "informado"
+		        "</xMotivo></infProt></protNFe>";
+		static const char cinco[] = "<retConsStatServ><cStat>10000</"
+		                            "cStat></retConsStatServ>";
+		static const char vazio[] =
+		        "<retConsStatServ><cStat/></retConsStatServ>";
+		char m[64];
+
+		VERIFICA_INT(nfe_sefaz_cstat(prot, strlen(prot), &cstat, m,
+		                             sizeof m),
+		             0);
+		VERIFICA_INT(cstat, 1115);
+		VERIFICA_STR(m, "Rejeicao: IBS/CBS n\xc3\xa3o informado");
+		/* Truncado no meio do "ã" (2 bytes): fica sem ele */
+		VERIFICA_INT(nfe_sefaz_cstat(prot, strlen(prot), &cstat, m, 21),
+		             0);
+		VERIFICA_STR(m, "Rejeicao: IBS/CBS n");
+		VERIFICA_INT(
+		        nfe_sefaz_cstat(cinco, strlen(cinco), &cstat, NULL, 0),
+		        E_XML);
+		VERIFICA_INT(
+		        nfe_sefaz_cstat(vazio, strlen(vazio), &cstat, NULL, 0),
+		        E_XML);
+	}
 }
 
 int main(int argc, char **argv)

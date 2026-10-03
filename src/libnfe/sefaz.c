@@ -630,13 +630,24 @@ int nfe_sefaz_cstat(const char *ret, size_t tam, int *cstat, char *xmotivo,
 			c = texto(raiz, "cStat");
 		}
 	}
-	if (!so_digitos(c, 3, 3)) {
+	if (!so_digitos(c, 3, 4)) { /* TStat: 3 ou 4 dígitos */
 		xmlFreeDoc(doc);
 		return E_XML;
 	}
 	*cstat = atoi(c);
-	if (xmotivo && tam_xmotivo > 0)
-		snprintf(xmotivo, tam_xmotivo, "%s", texto(raiz, "xMotivo"));
+	if (xmotivo && tam_xmotivo > 0) {
+		const char *m = texto(raiz, "xMotivo");
+		size_t n = strlen(m);
+
+		/* Truncado sem cortar um caractere UTF-8 ao meio */
+		if (n >= tam_xmotivo) {
+			n = tam_xmotivo - 1;
+			while (n > 0 && ((unsigned char)m[n] & 0xC0) == 0x80)
+				n--;
+		}
+		memcpy(xmotivo, m, n);
+		xmotivo[n] = '\0';
+	}
 	xmlFreeDoc(doc);
 	return 0;
 }

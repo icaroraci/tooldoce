@@ -25,7 +25,7 @@
 #define E_ISNULL  -1   /* ponteiro nulo recebido */
 #define E_TAMANHO -2   /* texto fora dos limites do campo */
 #define E_VALOR   -3   /* valor fora da faixa permitida */
-#define E_XML     -4   /* falha ao escrever o XML (libxml2) */
+#define E_XML     -4   /* XML malformado ou falha ao gerá-lo (libxml2) */
 #define E_ARQUIVO -5   /* falha ao gravar o arquivo */
 #define E_REDE    -6   /* falha na comunicação com a SEFAZ */
 #define E_MALLOC  -101 /* falta de memória */
