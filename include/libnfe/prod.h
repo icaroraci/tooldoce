@@ -22,14 +22,21 @@
 #include <libxml/encoding.h>
 #include <libxml/xmlwriter.h>
 
+#include <libnfe/grupo.h>
 #include <libnfe/nfe.h>
 #include <libnfe/utils.h>
 
 /*
  * Produto ou serviço de um item da nota (grupo det/prod).
  *
- * Ainda não implementados: gCred, DI, detExport, rastro, infProdNFF,
- * infProdEmb e os grupos específicos (veicProd, med, arma, comb, nRECOPI).
+ * Os campos mais usados têm setters próprios (abaixo). Todos os demais,
+ * inclusive os subgrupos (gCred, DI, detExport, rastro, infProdNFF,
+ * infProdEmb, veicProd, med, arma, comb, nRECOPI), são preenchidos pelo
+ * grupo genérico (grupo.h) devolvido por nfe_prod_grupo:
+ *   nfe_grupo *g = nfe_prod_grupo(prod), *di;
+ *   nfe_grupo_add(g, "DI", &di);
+ *   nfe_grupo_set(di, "nDI", "2612345678");
+ *   ...
  *
  * Uso típico:
  *   nfe_prod *prod = nfe_prod_new();
@@ -64,6 +71,9 @@ nfe_prod *nfe_prod_new(void);
 
 /* Libera o produto; aceita NULL */
 void nfe_prod_free(nfe_prod *prod);
+
+/* Grupo genérico com todos os campos de <prod> (pertence ao produto) */
+nfe_grupo *nfe_prod_grupo(nfe_prod *prod);
 
 int nfe_prod_set_cprod(nfe_prod *prod, const char *cprod); /* 1 a 60 */
 /* cEAN: GTIN com 8, 12, 13 ou 14 dígitos, "" ou NFE_SEM_GTIN */
@@ -120,9 +130,10 @@ int nfe_prod_set_nitemped(nfe_prod *prod, const char *nitemped);
 /* nFCI: número da FCI, GUID em maiúsculas com hífens */
 int nfe_prod_set_nfci(nfe_prod *prod, const char *nfci);
 
-/* Escreve o elemento <prod>. Retorna 0, E_ISNULL, E_VALOR (falta cProd,
- * xProd, NCM, CFOP ou os dados comercial/tributável; ou indEscala/CNPJFab
- * sem CEST) ou E_XML. */
+/* Escreve o elemento <prod>. Retorna 0, E_ISNULL, E_VALOR (falta campo
+ * obrigatório, como cProd, xProd, NCM, CFOP ou os dados comercial e
+ * tributável; indEscala/CNPJFab sem CEST; ou subgrupo incompleto) ou
+ * E_XML. */
 int nfe_prod_write_xml(xmlTextWriterPtr writer, const nfe_prod *prod);
 
 /* Uso interno (cálculo dos totais) */

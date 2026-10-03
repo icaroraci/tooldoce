@@ -6,27 +6,32 @@ caminho marcado como **provisório**.
 
 ## Em aberto
 
-1. **Assinatura digital.** A nota só é aceita pela SEFAZ assinada (XMLDSig),
-   com certificado A1 (arquivo .pfx) ou A3 (token/cartão). O `VISAO.md`
-   prevê xmlsec1 + OpenSSL. Posso adicionar essas dependências?
-   **Provisório:** sigo com as partes que não dependem da assinatura e deixo
-   a assinatura (e a transmissão, #57) para depois da sua resposta.
-2. **Certificado A3** (decisão pendente no `VISAO.md`): suportar já, ou só
-   A1 no começo? **Provisório:** só A1.
-3. **DANFE** (decisão pendente no `VISAO.md`): a impressão fica dentro ou
-   fora da biblioteca? **Provisório:** fora; não vou mexer nisso.
-4. **Totais automáticos.** Hoje quem usa a biblioteca informa os totais da
-   nota. Posso acrescentar uma função que some os itens e preencha o
-   `ICMSTot`? **Provisório (feito):** sim, como função opcional
-   (`nfe_nfe_calcular_totais`), sem mudar o comportamento atual.
-5. **Motor genérico de grupos.** Para os grupos com muitos campos (todos os
-   de `<imposto>`: ICMS, IPI, II, PIS, COFINS, ICMSUFDest, IS e IBS/CBS),
-   em vez de um setter para cada campo, gerei do XSD uma tabela com a
-   estrutura de cada grupo (`tools/gerar_esquemas.py`) e um motor que
-   valida e escreve qualquer campo pelo caminho:
-   `nfe_imposto_set(imp, "ICMS10/vBC", "100.00")`. Os atalhos tipados
-   (`nfe_imposto_set_icms00` etc.) continuam. **Provisório (feito):** sigo
-   assim para os grupos grandes que faltam; se preferir setters tipados
-   para algum grupo, dá para acrescentar por cima do motor.
-6. **Licença LGPL** (#59): continua esperando a autorização do Marcelo.
+1. **Certificado A3.** Proposta: começar só com o A1 (arquivo .pfx) e
+   desenhar a assinatura com uma "fonte da chave" trocável, para o A3
+   (token/cartão via PKCS#11, com libp11) entrar depois sem mudar o resto.
+   Implicações do A3: o token precisa estar conectado e o PIN digitado na
+   hora de assinar (difícil em servidores/nuvem), cada fabricante tem seu
+   driver PKCS#11, e os testes precisam de token real (no CI dá para
+   simular com SoftHSM). **Provisório:** só A1, com o ponto de troca
+   preparado. Confirma?
+2. **Totais automáticos.** `nfe_nfe_calcular_totais` soma os itens e
+   preenche o `ICMSTot`, como função opcional; quem preferir continua
+   informando os totais. **Decisão (03/10):** deixar assim por enquanto e
+   manter o assunto aqui.
+3. **Motor genérico de grupos.** Para os grupos com muitos campos, em vez
+   de um setter para cada campo, gerei do XSD uma tabela com a estrutura de
+   cada grupo (`tools/gerar_esquemas.py`) e um motor que valida e escreve
+   qualquer campo pelo caminho (`grupo.h`):
+   `nfe_grupo_set(nfe_imposto_grupo(imp), "ICMS10/vBC", "100.00")`, com
+   listas (`nfe_grupo_add`) e atributos. Os setters tipados dos campos mais
+   usados continuam. **Provisório (feito):** uso o motor nos tributos, no
+   produto, no transporte, nos totais e nos demais grupos grandes; se
+   preferir setters tipados para algum grupo, dá para acrescentar por cima.
+4. **Licença LGPL** (#59): continua esperando a autorização do Marcelo.
    Não vou mexer.
+
+## Respondidas
+
+- **Assinatura digital (03/10):** pode usar xmlsec1 (licença MIT) e
+  OpenSSL 3.x (Apache 2.0), ambas livres para programas fechados.
+- **DANFE (03/10):** fora da biblioteca; é um projeto à parte.

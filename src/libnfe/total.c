@@ -16,15 +16,12 @@
  ** along with tooldoce.  If not, see <http://www.gnu.org/licenses/>.
  ** */
 
+#include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
-#include <libnfe/defs.h>
 #include <libnfe/erros.h>
-#include <libnfe/escrita.h>
-#include <libnfe/padroes.h>
+#include <libnfe/esquema.h>
 #include <libnfe/total.h>
-#include <libnfe/valida.h>
 
 /* Tag e obrigatoriedade de cada campo, na ordem de nfe_campo_icmstot */
 static const struct {
@@ -43,17 +40,25 @@ static const struct {
 	{ "vNF", 0 },        { "vTotTrib", 1 },
 };
 
-typedef char decimal[NFE_TAM_ASCII(NFE_TAM_DEC)];
-
+/* Os campos ficam em um grupo genérico (esquema.h) com a estrutura de
+ * <total> do leiaute; os setters específicos são atalhos para ele. */
 struct nfe_total {
-	decimal icmstot[NFE_TOT_QUANTIDADE]; /* "": não informado */
-	decimal vNFTot;                      /* "": não informado */
+	nfe_grupo *g;
 };
 
-/* Valor inicial do campo: "0.00" nos obrigatórios, "" nos opcionais */
-static void inicial(nfe_total *tot, int campo)
+/* Caminho "ICMSTot/<tag>" do campo */
+static void caminho(char *dst, size_t tam, int campo)
 {
-	strcpy(tot->icmstot[campo], campos[campo].opcional ? "" : "0.00");
+	snprintf(dst, tam, "ICMSTot/%s", campos[campo].tag);
+}
+
+/* Valor inicial do campo: "0.00" nos obrigatórios, nenhum nos opcionais */
+static int inicial(nfe_total *tot, int campo)
+{
+	char c[32];
+
+	caminho(c, sizeof c, campo);
+	return nfe_grupo_set(tot->g, c, campos[campo].opcional ? NULL : "0.00");
 }
 
 nfe_total *nfe_total_new(void)
@@ -63,66 +68,68 @@ nfe_total *nfe_total_new(void)
 
 	if (!tot)
 		return NULL;
-	for (i = 0; i < NFE_TOT_QUANTIDADE; i++)
-		inicial(tot, i);
+	tot->g = nfe_grupo_new(&esq_total);
+	if (!tot->g) {
+		free(tot);
+		return NULL;
+	}
+	for (i = 0; i < NFE_TOT_QUANTIDADE; i++) {
+		if (inicial(tot, i) != 0) {
+			nfe_total_free(tot);
+			return NULL;
+		}
+	}
 	return tot;
 }
 
 void nfe_total_free(nfe_total *tot)
 {
+	if (!tot)
+		return;
+	nfe_grupo_free(tot->g);
 	free(tot);
+}
+
+nfe_grupo *nfe_total_grupo(nfe_total *tot)
+{
+	return tot ? tot->g : NULL;
 }
 
 int nfe_total_set_icmstot(nfe_total *tot, nfe_campo_icmstot campo,
                           const char *valor)
 {
+	char c[32];
+
 	if (!tot)
 		return E_ISNULL;
 	if ((int)campo < 0 || campo >= NFE_TOT_QUANTIDADE)
 		return E_VALOR;
-	if (!valor) {
-		inicial(tot, (int)campo);
-		return 0;
-	}
-	return nfe_copia_padrao(tot->icmstot[campo], sizeof tot->icmstot[0],
-	                        valor, NFE_PADRAO_TDec_1302);
+	if (!valor)
+		return inicial(tot, (int)campo);
+	caminho(c, sizeof c, (int)campo);
+	return nfe_grupo_set(tot->g, c, valor);
 }
 
 int nfe_total_set_vnftot(nfe_total *tot, const char *vnftot)
 {
 	if (!tot)
 		return E_ISNULL;
-	if (!vnftot) {
-		tot->vNFTot[0] = '\0';
-		return 0;
-	}
-	return nfe_copia_padrao(tot->vNFTot, sizeof tot->vNFTot, vnftot,
-	                        NFE_PADRAO_TDec_1302);
+	return nfe_grupo_set(tot->g, "vNFTot", vnftot);
 }
 
 const char *nfe_total_valor(const nfe_total *tot, nfe_campo_icmstot campo)
 {
-	return tot->icmstot[campo];
+	char c[32];
+	const char *v;
+
+	caminho(c, sizeof c, (int)campo);
+	v = nfe_grupo_get(tot->g, c);
+	return v ? v : "";
 }
 
 int nfe_total_write_xml(xmlTextWriterPtr writer, const nfe_total *tot)
 {
-	int i, rc;
-
 	if (!writer || !tot)
 		return E_ISNULL;
-	rc = nfe_abre(writer, "total");
-	if (rc == 0)
-		rc = nfe_abre(writer, "ICMSTot");
-	if (rc != 0)
-		return rc;
-	for (i = 0; i < NFE_TOT_QUANTIDADE; i++)
-		if (tot->icmstot[i][0] != '\0')
-			NFE_ESCREVE(campos[i].tag, "%s", tot->icmstot[i]);
-	rc = nfe_fecha(writer);
-	if (rc != 0)
-		return rc;
-	if (tot->vNFTot[0] != '\0')
-		NFE_ESCREVE("vNFTot", "%s", tot->vNFTot);
-	return nfe_fecha(writer);
+	return nfe_grupo_write_xml(writer, tot->g);
 }

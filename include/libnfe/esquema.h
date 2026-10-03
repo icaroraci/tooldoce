@@ -21,6 +21,7 @@
 
 #include <libxml/xmlwriter.h>
 
+#include <libnfe/grupo.h>
 #include <libnfe/utils.h>
 
 /*
@@ -37,12 +38,16 @@
  * (ex.: "ICMS10/vBC", ou só "vBC" quando não há ambiguidade).
  */
 
-enum nfe_esq_tipo { ESQ_ELEM, ESQ_SEQ, ESQ_CHOICE };
+enum nfe_esq_tipo { ESQ_ELEM, ESQ_SEQ, ESQ_CHOICE, ESQ_ATTR, ESQ_LISTA };
+
+struct nfe_esq;
 
 struct nfe_esq_no {
-	const char *nome;           /* elemento; NULL em sequência/escolha */
+	const char *nome;           /* elemento ou atributo; NULL em
+	                               sequência/escolha */
 	unsigned char tipo;         /* enum nfe_esq_tipo */
-	unsigned char min;          /* minOccurs (0 ou 1) */
+	unsigned char min;          /* minOccurs (0 ou 1) / use="required" */
+	unsigned short max;         /* maxOccurs das listas (0: sem limite) */
 	const char *padrao;         /* xs:pattern ou NULL */
 	const char *const *valores; /* xs:enumeration (lista com NULL) */
 	unsigned short tmin, tmax;  /* tamanho em caracteres (0: livre) */
@@ -50,6 +55,9 @@ struct nfe_esq_no {
 	short pai, filho, irmao;    /* índices na tabela (-1: nenhum) */
 	short folha;                /* índice do valor; -1 se não é folha */
 	short ini, fim;             /* folhas do nó: [ini, fim) */
+	short lista;                /* índice da lista; -1 se não é lista */
+	short lini, lfim;           /* listas do nó: [lini, lfim) */
+	const struct nfe_esq *sub;  /* estrutura dos itens da lista */
 };
 
 struct nfe_esq {
@@ -57,31 +65,26 @@ struct nfe_esq {
 	const struct nfe_esq_no *nos;
 	int nnos;
 	int nfolhas;
+	int nlistas;
 };
 
 /* Estruturas geradas */
-extern const struct nfe_esq nfe_esq_imposto;
-
-typedef struct nfe_grupo nfe_grupo;
+extern const struct nfe_esq esq_imposto, esq_prod, esq_transp, esq_total,
+        esq_NFref, esq_impostoDevol, esq_obsItem, esq_DFeReferenciado,
+        esq_avulsa, esq_exporta, esq_compra, esq_cana, esq_infSolicNFF,
+        esq_agropecuario, esq_infPAA, esq_infNFeSupl;
 
 NFE_INTERNO nfe_grupo *nfe_grupo_new(const struct nfe_esq *esq);
 NFE_INTERNO void nfe_grupo_free(nfe_grupo *g);
 
 /* Confere se valor é aceito no campo, sem gravar. Retorna 0, E_ISNULL,
- * E_VALOR (campo inexistente, ambíguo ou valor inválido) ou E_TAMANHO. */
+ * E_VALOR (campo inexistente ou valor inválido) ou E_TAMANHO. */
 NFE_INTERNO int nfe_grupo_valida(const nfe_grupo *g, const char *caminho,
                                  const char *valor);
-/* Grava o campo (NULL remove). Ao gravar um campo dentro de uma escolha,
- * os campos dos outros ramos da escolha são apagados. Retorna os códigos
- * de nfe_grupo_valida ou E_MALLOC. */
-NFE_INTERNO int nfe_grupo_set(nfe_grupo *g, const char *caminho,
-                              const char *valor);
-/* Valor do campo (o primeiro informado, se o caminho servir para mais de
- * um), ou NULL */
-NFE_INTERNO const char *nfe_grupo_get(const nfe_grupo *g, const char *caminho);
-/* Apaga todos os campos dentro dos elementos que casam com caminho.
- * Retorna 0, E_ISNULL ou E_VALOR (caminho inexistente). */
-NFE_INTERNO int nfe_grupo_limpa(nfe_grupo *g, const char *caminho);
+/* Apaga o último item da lista do caminho (desfaz um nfe_grupo_add) */
+NFE_INTERNO void nfe_grupo_remove_ultimo(nfe_grupo *g, const char *caminho);
+/* Algum campo informado (ou item de lista) no grupo */
+NFE_INTERNO int nfe_grupo_vazio(const nfe_grupo *g);
 /* Escreve o elemento raiz. Retorna 0, E_ISNULL, E_VALOR (falta campo
  * obrigatório ou mais de um ramo de uma escolha) ou E_XML. */
 NFE_INTERNO int nfe_grupo_write_xml(xmlTextWriterPtr writer,

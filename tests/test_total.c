@@ -133,6 +133,76 @@ static void teste_valores(void)
 	nfe_total_free(tot);
 }
 
+/* Totais da Reforma Tributária pelo grupo genérico */
+static void teste_ibscbs(void)
+{
+	nfe_total *tot = nfe_total_new();
+	nfe_grupo *g = nfe_total_grupo(tot);
+	static const char *const campos[] = {
+		"ISTot/vIS",
+		"1.00",
+		"IBSCBSTot/vBCIBSCBS",
+		"100.00",
+		"gIBSUF/vDif",
+		"0",
+		"gIBSUF/vDevTrib",
+		"0",
+		"gIBSUF/vIBSUF",
+		"0.10",
+		"gIBSMun/vDif",
+		"0",
+		"gIBSMun/vDevTrib",
+		"0",
+		"gIBSMun/vIBSMun",
+		"0",
+		"gIBS/vIBS",
+		"0.10",
+		"gIBS/vCredPres",
+		"0",
+		"gIBS/vCredPresCondSus",
+		"0",
+		"gCBS/vDif",
+		"0",
+		"gCBS/vDevTrib",
+		"0",
+		"gCBS/vCBS",
+		"0.90",
+		"gCBS/vCredPres",
+		"0",
+		"gCBS/vCredPresCondSus",
+		"0",
+		NULL,
+	};
+	const char *const *c;
+	char *xml;
+	int rc = 0;
+
+	for (c = campos; c[0]; c += 2)
+		rc |= nfe_grupo_set(g, c[0], c[1]);
+	rc |= nfe_total_set_vnftot(tot, "101.00");
+	VERIFICA_INT(rc, 0);
+	xml = teste_gera(escreve, tot, &rc);
+	VERIFICA_INT(rc, 0);
+	VERIFICA(xml != NULL);
+	if (xml) {
+		VERIFICA(strstr(xml,
+		                "</ICMSTot><ISTot><vIS>1.00</vIS></ISTot>"
+		                "<IBSCBSTot><vBCIBSCBS>100.00</vBCIBSCBS>") !=
+		         NULL);
+		VERIFICA(strstr(xml, "</IBSCBSTot><vNFTot>101.00</vNFTot>"
+		                     "</total>") != NULL);
+		VERIFICA_INT(teste_valida(xml), 0);
+	}
+	free(xml);
+
+	/* IBSCBSTot incompleto */
+	VERIFICA_INT(nfe_grupo_set(g, "gCBS/vCBS", NULL), 0);
+	xml = teste_gera(escreve, tot, &rc);
+	VERIFICA_INT(rc, E_VALOR);
+	free(xml);
+	nfe_total_free(tot);
+}
+
 static void teste_valores_invalidos(void)
 {
 	nfe_total *tot = nfe_total_new();
@@ -178,6 +248,7 @@ int main(int argc, char **argv)
 
 	teste_padrao();
 	teste_valores();
+	teste_ibscbs();
 	teste_valores_invalidos();
 
 	teste_libera_schema();

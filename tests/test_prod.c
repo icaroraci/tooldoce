@@ -252,6 +252,105 @@ static void teste_valores_invalidos(void)
 	nfe_prod_free(prod);
 }
 
+/* Subgrupos pelo grupo genérico: DI com adições, rastro, gCred e med */
+static void teste_subgrupos(void)
+{
+	nfe_prod *prod = novo();
+	nfe_grupo *g = nfe_prod_grupo(prod), *di, *adi, *ras, *cred;
+	char *xml;
+	int rc = 0;
+
+	VERIFICA(g != NULL);
+	if (!g) {
+		nfe_prod_free(prod);
+		return;
+	}
+	rc |= nfe_grupo_add(g, "gCred", &cred);
+	rc |= nfe_grupo_set(cred, "cCredPresumido", "SP000001");
+	rc |= nfe_grupo_set(cred, "pCredPresumido", "1.00");
+	rc |= nfe_grupo_set(cred, "vCredPresumido", "0.15");
+	rc |= nfe_grupo_add(g, "DI", &di);
+	rc |= nfe_grupo_set(di, "nDI", "2612345678");
+	rc |= nfe_grupo_set(di, "dDI", "2026-09-30");
+	rc |= nfe_grupo_set(di, "xLocDesemb", "SANTOS");
+	rc |= nfe_grupo_set(di, "UFDesemb", "SP");
+	rc |= nfe_grupo_set(di, "dDesemb", "2026-10-01");
+	rc |= nfe_grupo_set(di, "tpViaTransp", "1");
+	rc |= nfe_grupo_set(di, "vAFRMM", "10.00");
+	rc |= nfe_grupo_set(di, "tpIntermedio", "1");
+	rc |= nfe_grupo_set(di, "cExportador", "EXP001");
+	rc |= nfe_grupo_add(di, "adi", &adi);
+	rc |= nfe_grupo_set(adi, "nAdicao", "1");
+	rc |= nfe_grupo_set(adi, "nSeqAdic", "1");
+	rc |= nfe_grupo_set(adi, "cFabricante", "FAB01");
+	rc |= nfe_grupo_add(g, "rastro", &ras);
+	rc |= nfe_grupo_set(ras, "nLote", "L123");
+	rc |= nfe_grupo_set(ras, "qLote", "10.000");
+	rc |= nfe_grupo_set(ras, "dFab", "2026-01-01");
+	rc |= nfe_grupo_set(ras, "dVal", "2027-01-01");
+	rc |= nfe_grupo_set(g, "med/cProdANVISA", "1234567890123");
+	rc |= nfe_grupo_set(g, "med/vPMC", "20.00");
+	VERIFICA_INT(rc, 0);
+	VERIFICA_INT(nfe_grupo_quantidade(g, "DI"), 1);
+	VERIFICA(nfe_grupo_item(g, "DI", 0) == di);
+	VERIFICA(nfe_grupo_item(g, "DI", 1) == NULL);
+
+	xml = teste_gera(escreve, prod, &rc);
+	VERIFICA_INT(rc, 0);
+	VERIFICA(xml != NULL);
+	if (xml) {
+		VERIFICA(strstr(xml,
+		                "<NCM>96081000</NCM><gCred>"
+		                "<cCredPresumido>SP000001</cCredPresumido>") !=
+		         NULL);
+		VERIFICA(
+		        strstr(xml,
+		               "<indTot>1</indTot><DI><nDI>2612345678</nDI>") !=
+		        NULL);
+		VERIFICA(strstr(xml,
+		                "<adi><nAdicao>1</nAdicao><nSeqAdic>1"
+		                "</nSeqAdic><cFabricante>FAB01</cFabricante>"
+		                "</adi></DI><rastro><nLote>L123</nLote>") !=
+		         NULL);
+		VERIFICA(strstr(xml, "</rastro><med><cProdANVISA>1234567890123"
+		                     "</cProdANVISA><vPMC>20.00</vPMC></med>"
+		                     "</prod>") != NULL);
+		VERIFICA_INT(teste_valida(xml), 0);
+	}
+	free(xml);
+
+	/* DI sem adição: lista obrigatória vazia é recusada */
+	VERIFICA_INT(nfe_grupo_remove(di, "adi"), 0);
+	xml = teste_gera(escreve, prod, &rc);
+	VERIFICA_INT(rc, E_VALOR);
+	free(xml);
+
+	/* Trocar med por comb apaga med (escolha) */
+	VERIFICA_INT(nfe_grupo_remove(g, "DI"), 0);
+	VERIFICA_INT(nfe_grupo_set(g, "nRECOPI", "12345678901234567890"), 0);
+	VERIFICA(nfe_grupo_get(g, "med/vPMC") == NULL);
+	xml = teste_gera(escreve, prod, &rc);
+	VERIFICA_INT(rc, 0);
+	if (xml) {
+		VERIFICA(strstr(xml,
+		                "<nRECOPI>12345678901234567890</nRECOPI>") !=
+		         NULL);
+		VERIFICA_INT(teste_valida(xml), 0);
+	}
+	free(xml);
+
+	/* Listas: limite (gCred até 4), caminho inexistente e NULL */
+	VERIFICA_INT(nfe_grupo_add(g, "gCred", &cred), 0);
+	VERIFICA_INT(nfe_grupo_add(g, "gCred", &cred), 0);
+	VERIFICA_INT(nfe_grupo_add(g, "gCred", &cred), 0);
+	VERIFICA_INT(nfe_grupo_add(g, "gCred", &cred), E_VALOR);
+	VERIFICA_INT(nfe_grupo_add(g, "cProd", &cred), E_VALOR);
+	VERIFICA_INT(nfe_grupo_add(g, "gCred", NULL), E_ISNULL);
+	VERIFICA_INT(nfe_grupo_quantidade(g, "naoexiste"), E_VALOR);
+	VERIFICA(nfe_prod_grupo(NULL) == NULL);
+	nfe_prod_free(prod);
+}
+
 /* Sem os campos obrigatórios, o XML não é gerado */
 static void teste_obrigatorios(void)
 {
@@ -288,6 +387,7 @@ int main(int argc, char **argv)
 	teste_minimo();
 	teste_completo();
 	teste_valores_invalidos();
+	teste_subgrupos();
 	teste_obrigatorios();
 
 	teste_libera_schema();

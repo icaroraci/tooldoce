@@ -22,12 +22,16 @@
 #include <libxml/encoding.h>
 #include <libxml/xmlwriter.h>
 
+#include <libnfe/grupo.h>
 #include <libnfe/utils.h>
 
 /*
  * Totais da nota (grupo total): ICMSTot e vNFTot.
  *
- * Ainda não implementados: ISSQNtot, retTrib, ISTot e IBSCBSTot.
+ * ICMSTot e vNFTot têm setters próprios (abaixo). Os demais grupos
+ * (ISSQNtot, retTrib, ISTot e IBSCBSTot) são preenchidos pelo grupo
+ * genérico (grupo.h) devolvido por nfe_total_grupo:
+ *   nfe_grupo_set(nfe_total_grupo(tot), "IBSCBSTot/vBCIBSCBS", "100.00");
  *
  * Uso típico:
  *   nfe_total *tot = nfe_total_new();   (campos obrigatórios em "0.00")
@@ -91,6 +95,9 @@ nfe_total *nfe_total_new(void);
 /* Libera os totais; aceita NULL */
 void nfe_total_free(nfe_total *tot);
 
+/* Grupo genérico com todos os campos de <total> (pertence aos totais) */
+nfe_grupo *nfe_total_grupo(nfe_total *tot);
+
 /* Grava um campo do ICMSTot. NULL volta o campo ao valor inicial ("0.00"
  * nos obrigatórios; não informado nos opcionais). Retorna 0, E_ISNULL ou
  * E_VALOR (campo inexistente ou valor fora do formato). */
@@ -100,7 +107,8 @@ int nfe_total_set_icmstot(nfe_total *tot, nfe_campo_icmstot campo,
 /* vNFTot: valor total da nota com IBS, CBS e IS; NULL remove */
 int nfe_total_set_vnftot(nfe_total *tot, const char *vnftot);
 
-/* Escreve o elemento <total>. Retorna 0, E_ISNULL ou E_XML. */
+/* Escreve o elemento <total>. Retorna 0, E_ISNULL, E_VALOR (grupo
+ * incompleto) ou E_XML. */
 int nfe_total_write_xml(xmlTextWriterPtr writer, const nfe_total *tot);
 
 /* Uso interno: valor atual do campo ("" se opcional não informado) */

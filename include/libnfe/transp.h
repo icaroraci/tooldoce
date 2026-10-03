@@ -22,13 +22,19 @@
 #include <libxml/encoding.h>
 #include <libxml/xmlwriter.h>
 
+#include <libnfe/grupo.h>
 #include <libnfe/nfe.h>
 
 /*
  * Transporte (grupo transp): modalidade do frete, transportador e volumes.
  *
- * Ainda não implementados: retTransp, veicTransp, reboque, vagao, balsa e
- * lacres.
+ * Os campos mais usados têm setters próprios (abaixo). Os demais (retTransp,
+ * veicTransp, reboque, vagao, balsa e os lacres de cada volume) são
+ * preenchidos pelo grupo genérico (grupo.h) devolvido por
+ * nfe_transp_grupo; os volumes são itens da lista "vol":
+ *   nfe_grupo *vol = nfe_grupo_item(nfe_transp_grupo(tr), "vol", 0), *lac;
+ *   nfe_grupo_add(vol, "lacres", &lac);
+ *   nfe_grupo_set(lac, "nLacre", "123");
  *
  * Uso típico:
  *   nfe_transp *tr = nfe_transp_new();   (sem ocorrência de transporte)
@@ -54,6 +60,9 @@ nfe_transp *nfe_transp_new(void);
 
 /* Libera o transporte; aceita NULL */
 void nfe_transp_free(nfe_transp *tr);
+
+/* Grupo genérico com todos os campos de <transp> (pertence ao transporte) */
+nfe_grupo *nfe_transp_grupo(nfe_transp *tr);
 
 int nfe_transp_set_modfrete(nfe_transp *tr, nfe_mod_frete modfrete);
 
@@ -82,7 +91,8 @@ int nfe_transp_add_vol(nfe_transp *tr, const char *qvol, const char *esp,
 /* Apaga todos os volumes */
 int nfe_transp_remove_vol(nfe_transp *tr);
 
-/* Escreve o elemento <transp>. Retorna 0, E_ISNULL ou E_XML. */
+/* Escreve o elemento <transp>. Retorna 0, E_ISNULL, E_VALOR (subgrupo
+ * incompleto) ou E_XML. */
 int nfe_transp_write_xml(xmlTextWriterPtr writer, const nfe_transp *tr);
 
 #endif
