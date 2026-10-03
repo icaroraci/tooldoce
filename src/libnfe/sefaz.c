@@ -27,7 +27,9 @@
 
 #include <libnfe/chave.h>
 #include <libnfe/erros.h>
+#include <libnfe/padroes.h>
 #include <libnfe/sefaz.h>
+#include <libnfe/valida.h>
 
 #define NS_NFE  "http://www.portalfiscal.inf.br/nfe"
 #define NS_WSDL "http://www.portalfiscal.inf.br/nfe/wsdl/"
@@ -465,6 +467,16 @@ int nfe_sefaz_enviar(nfe_sefaz *s, const char *url, nfe_servico servico,
 
 /* ---- mensagens ---- */
 
+/* Chave de acesso (com letras nas posições do CNPJ alfanumérico) e dígito
+ * verificador; 0 ou E_VALOR */
+static int chave_valida(const char *chave)
+{
+	return nfe_valida_padrao(chave, NFE_PADRAO_TChNFe) == 0 &&
+	                       nfe_chave_validar(chave) == 0
+	               ? 0
+	               : E_VALOR;
+}
+
 static int uf_valida(nfe_uf uf)
 {
 	static const int codigos[] = { 11, 12, 13, 14, 15, 16, 17, 21, 22,
@@ -528,8 +540,7 @@ int nfe_sefaz_msg_consulta(nfe_ambiente amb, const char *chave, char **msg)
 {
 	if (!chave || !msg)
 		return E_ISNULL;
-	if (!amb_valido(amb) || !so_digitos(chave, 44, 44) ||
-	    nfe_chave_validar(chave) != 0)
+	if (!amb_valido(amb) || chave_valida(chave) != 0)
 		return E_VALOR;
 	return msg_simples(msg,
 	                   "<consSitNFe xmlns=\"" NS_NFE "\" versao=\"4.00\">"
@@ -644,7 +655,7 @@ static int chave_da_nota(const char *nfe, size_t tam, char *chave)
 		if (memcmp(nfe + i, marca, k) == 0) {
 			memcpy(chave, nfe + i + k, 44);
 			chave[44] = '\0';
-			return so_digitos(chave, 44, 44) ? 0 : E_XML;
+			return chave_valida(chave) == 0 ? 0 : E_XML;
 		}
 	return E_XML;
 }

@@ -32,6 +32,7 @@
 #include <unistd.h>
 
 #include <libnfe/assinatura.h>
+#include <libnfe/chave.h>
 #include <libnfe/erros.h>
 #include <libnfe/nfe_nfe.h>
 #include <libnfe/sefaz.h>
@@ -119,6 +120,20 @@ static void testa_mensagens(void)
 	VERIFICA(contem(msg, "<xServ>CONSULTAR</xServ><chNFe>352610123456780"
 	                     "00195650010000000011123456784</chNFe>"));
 	free(msg);
+	/* CNPJ alfanumérico na chave */
+	{
+		char alfa[45] = "3526101"
+		                "2ABC3450001"
+		                "9565001000000001112345678";
+
+		alfa[43] = (char)('0' + nfe_chave_dv(alfa));
+		alfa[44] = '\0';
+		VERIFICA_INT(nfe_sefaz_msg_consulta(NFE_AMBIENTE_HOMOLOGACAO,
+		                                    alfa, &msg),
+		             0);
+		VERIFICA(contem(msg, alfa));
+		free(msg);
+	}
 	/* Dígito verificador errado */
 	VERIFICA_INT(nfe_sefaz_msg_consulta(
 	                     NFE_AMBIENTE_HOMOLOGACAO,
@@ -321,13 +336,16 @@ int main(int argc, char **argv)
 
 	/* Protocolo de outra nota; documentos errados */
 	if (prot) {
-		char *outro = strdup(xml),
-		     *p = outro ? strstr(outro, "Id=\"NFe") : NULL;
+		/* Mesmo protocolo com a chave de outra nota (nNF diferente) */
+		char *outro = strdup(prot),
+		     *p = outro ? strstr(outro, "<n:chNFe>") : NULL;
 
 		if (p) {
-			p[7] = p[7] == '1' ? '2' : '1';
-			VERIFICA_INT(nfe_sefaz_proc(outro, strlen(outro), prot,
-			                            tam_prot, &proc, NULL),
+			p += 9;
+			p[33] = p[33] == '1' ? '2' : '1';
+			p[43] = (char)('0' + nfe_chave_dv(p));
+			VERIFICA_INT(nfe_sefaz_proc(xml, tam, outro,
+			                            strlen(outro), &proc, NULL),
 			             E_VALOR);
 		}
 		free(outro);
