@@ -19,6 +19,8 @@
 #ifndef LIBNFE_UTILS_H
 #define LIBNFE_UTILS_H
 
+#include<stddef.h>
+
 #include<libnfe/erros.h>
 
 /* Funções de uso interno da biblioteca: não são exportadas na libnfe.so */
@@ -30,4 +32,11 @@
 
 NFE_INTERNO int nfe_error(const char *msg, int codErro);
 NFE_INTERNO int nfe_ptrnull(const void *ptr);
+
+/* Copia o texto src para dst (tam bytes, incluindo o terminador).
+ * min e max são os limites do campo em caracteres UTF-8 (max == 0: sem
+ * limite além do buffer). Em caso de erro dst não é alterado.
+ * Retorna 0, E_ISNULL (dst ou src NULL) ou E_TAMANHO. */
+NFE_INTERNO int nfe_copia_texto(char *dst, size_t tam, const char *src,
+                                size_t min, size_t max);
 #endif

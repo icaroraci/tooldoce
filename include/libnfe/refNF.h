@@ -31,23 +31,25 @@ struct refNF_s;
 struct refNF_s *RefNFNew();
 void RefNFDel(struct refNF_s *nf);
 
-/* Funções de acesso ao dado  */
-void RefNFSetcUF(struct refNF_s *nf, nfe_uf uf);
+/* Funções de acesso ao dado
+ * Os setters retornam 0, E_ISNULL, E_TAMANHO ou E_VALOR; em caso de erro
+ * o campo não é alterado. */
+int RefNFSetcUF(struct refNF_s *nf, nfe_uf uf);
 char *RefNFGetcUF(struct refNF_s *nf);
 
-void RefNFSetAAMM(struct refNF_s *nf, const int ano, nfe_mes mes);
+int RefNFSetAAMM(struct refNF_s *nf, const int ano, nfe_mes mes);
 char *RefNFGetAAMM(struct refNF_s *nf);
 
-void RefNFSetCNPJ(struct refNF_s *nf, const char *cnpj);
+int RefNFSetCNPJ(struct refNF_s *nf, const char *cnpj);
 char *RefNFGetCNPJ(struct refNF_s *nf);
 
-void RefNFSetmod(struct refNF_s *nf, const char *mod);
+int RefNFSetmod(struct refNF_s *nf, const char *mod);
 char *RefNFGetmod(struct refNF_s *nf);
 
-void RefNFSetSerie(struct refNF_s *nf, const char *serie);
+int RefNFSetSerie(struct refNF_s *nf, const char *serie);
 char *RefNFGetSerie(struct refNF_s *nf);
 
-void RefNFSetnNF(struct refNF_s *nf, const char *nnf);
+int RefNFSetnNF(struct refNF_s *nf, const char *nnf);
 char *RefNFGetnNF(struct refNF_s *nf);
 
 /* Funções de manipulação do xml  */

@@ -26,6 +26,7 @@
 #include <string.h>
 #include <libnfe/defs.h>
 #include <libnfe/erros.h>
+#include <libnfe/utils.h>
 #include <libnfe/ide.h>
 
 
@@ -117,12 +118,13 @@ struct Cont_s *ideContNew(struct Cont_s *this,
   struct Cont_s *cont = this;
   if (!cont)
     cont = (struct Cont_s *)malloc(sizeof(struct Cont_s));
-  if (DHSet(cont->dhCont, sizeof cont->dhCont, dhcont, tzd) != 0){
+  if (DHSet(cont->dhCont, sizeof cont->dhCont, dhcont, tzd) != 0 ||
+      nfe_copia_texto(cont->xJust, sizeof cont->xJust, xjust,
+                      15, NFE_TAM_XJUST) != 0){
     if (!this)
       free(cont);
     return NULL;
   }
-  strcpy(cont->xJust, xjust);
   return cont;
 }
 
@@ -197,13 +199,16 @@ struct ide_s *ideNew(struct ide_s *this,
     ide = (struct ide_s *)malloc(sizeof(struct ide_s));
   ide->cUF = cuf;
   ide->cNF = cnf;
-  strcpy(ide->natOp, natop);
   ide->indPag = indpag;
   ide->mod = mod;
   ide->serie = serie;
   ide->nNF = nnf;
   if (DHSet(ide->dhEmi, sizeof ide->dhEmi, dhemi, tzd) != 0 ||
-      DHSet(ide->dhSaiEnt, sizeof ide->dhSaiEnt, dhsaient, tzd) != 0){
+      DHSet(ide->dhSaiEnt, sizeof ide->dhSaiEnt, dhsaient, tzd) != 0 ||
+      nfe_copia_texto(ide->natOp, sizeof ide->natOp, natop,
+                      1, NFE_TAM_NATOP) != 0 ||
+      nfe_copia_texto(ide->verProc, sizeof ide->verProc, verproc,
+                      1, NFE_TAM_VERPROC) != 0){
     if (!this)
       free(ide);
     return NULL;
@@ -219,7 +224,6 @@ struct ide_s *ideNew(struct ide_s *this,
   ide->indFinal = indfinal;
   ide->indPres = indpres;
   ide->procEmis = procemis;
-  strcpy(ide->verProc, verproc);
   ide->cont = cont;
   return ide;
 }

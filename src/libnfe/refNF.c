@@ -25,6 +25,8 @@
 
 
 #include <libnfe/defs.h>
+#include <libnfe/erros.h>
+#include <libnfe/utils.h>
 
 
 
@@ -49,9 +51,14 @@ void RefNFDel(struct refNF_s *nf)
 }
 
 
-void RefNFSetcUF(struct refNF_s *nf, nfe_uf uf)
+int RefNFSetcUF(struct refNF_s *nf, nfe_uf uf)
 {
+  if (!nf)
+    return E_ISNULL;
+  if (uf < 11 || uf > 53)
+    return E_VALOR;
   snprintf(nf->cUF, sizeof nf->cUF, "%02d", (int)uf);
+  return 0;
 }
 
 char *RefNFGetcUF(struct refNF_s *nf)
@@ -59,12 +66,16 @@ char *RefNFGetcUF(struct refNF_s *nf)
   return nf->cUF;
 }
 
-/* ano: dois dígitos (0 a 99); valores fora da faixa são ignorados */
-void RefNFSetAAMM(struct refNF_s *nf, const int ano, nfe_mes mes)
+/* ano: dois dígitos (0 a 99) */
+int RefNFSetAAMM(struct refNF_s *nf, const int ano, nfe_mes mes)
 {
-  if (ano >= 0 && ano < 100 &&
-      mes >= NFE_MES_JANEIRO && mes <= NFE_MES_DEZEMBRO)
-    snprintf(nf->AAMM, sizeof nf->AAMM, "%02d%02d", ano, (int)mes);
+  if (!nf)
+    return E_ISNULL;
+  if (ano < 0 || ano > 99 ||
+      mes < NFE_MES_JANEIRO || mes > NFE_MES_DEZEMBRO)
+    return E_VALOR;
+  snprintf(nf->AAMM, sizeof nf->AAMM, "%02d%02d", ano, (int)mes);
+  return 0;
 }
 
 char *RefNFGetAAMM(struct refNF_s *nf)
@@ -72,9 +83,12 @@ char *RefNFGetAAMM(struct refNF_s *nf)
   return nf->AAMM;
 }
 
-void RefNFSetCNPJ(struct refNF_s *nf, const char *cnpj)
+int RefNFSetCNPJ(struct refNF_s *nf, const char *cnpj)
 {
-  strcpy(nf->CNPJ, cnpj);
+  if (!nf)
+    return E_ISNULL;
+  return nfe_copia_texto(nf->CNPJ, sizeof nf->CNPJ, cnpj,
+                         NFE_TAM_CNPJ, NFE_TAM_CNPJ);
 }
 
 char *RefNFGetCNPJ(struct refNF_s *nf)
@@ -82,9 +96,12 @@ char *RefNFGetCNPJ(struct refNF_s *nf)
   return nf->CNPJ;
 }
 
-void RefNFSetmod(struct refNF_s *nf, const char *mod)
+int RefNFSetmod(struct refNF_s *nf, const char *mod)
 {
-  strcpy(nf->mod, mod);
+  if (!nf)
+    return E_ISNULL;
+  return nfe_copia_texto(nf->mod, sizeof nf->mod, mod,
+                         NFE_TAM_MOD, NFE_TAM_MOD);
 }
 
 char *RefNFGetmod(struct refNF_s *nf)
@@ -92,9 +109,12 @@ char *RefNFGetmod(struct refNF_s *nf)
   return nf->mod;
 }
 
-void RefNFSetSerie(struct refNF_s *nf, const char *serie)
+int RefNFSetSerie(struct refNF_s *nf, const char *serie)
 {
-  strcpy(nf->serie, serie);
+  if (!nf)
+    return E_ISNULL;
+  return nfe_copia_texto(nf->serie, sizeof nf->serie, serie,
+                         1, NFE_TAM_SERIE);
 }
 
 char *RefNFGetSerie(struct refNF_s *nf)
@@ -102,9 +122,12 @@ char *RefNFGetSerie(struct refNF_s *nf)
   return nf->serie;
 }
 
-void RefNFSetnNF(struct refNF_s *nf, const char *nnf)
+int RefNFSetnNF(struct refNF_s *nf, const char *nnf)
 {
-  strcpy(nf->nNF, nnf);
+  if (!nf)
+    return E_ISNULL;
+  return nfe_copia_texto(nf->nNF, sizeof nf->nNF, nnf,
+                         1, NFE_TAM_NNF);
 }
 
 char *RefNFGetnNF(struct refNF_s *nf)

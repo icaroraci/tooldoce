@@ -33,3 +33,22 @@ int nfe_ptrnull(const void *ptr){
 	return 0;
 };
 
+int nfe_copia_texto(char *dst, size_t tam, const char *src,
+                    size_t min, size_t max){
+	size_t bytes = 0, caracteres = 0;
+
+	if(dst == NULL || src == NULL){
+		return E_ISNULL;
+	}
+	for(; src[bytes] != '\0'; bytes++){
+		/* Em UTF-8, bytes de continuação têm a forma 10xxxxxx */
+		if(((unsigned char)src[bytes] & 0xC0) != 0x80){
+			caracteres++;
+		}
+	}
+	if(bytes >= tam || caracteres < min || (max > 0 && caracteres > max)){
+		return E_TAMANHO;
+	}
+	memcpy(dst, src, bytes + 1);
+	return 0;
+}

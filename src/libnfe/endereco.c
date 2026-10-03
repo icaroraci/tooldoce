@@ -220,20 +220,6 @@ uint64_t GetFone(Endereco* end){
 	}
 }
 
-/* Copia src para dst (tam bytes, com o terminador), sem truncar */
-static int _copiaTexto(char *dst, size_t tam, const char *src){
-	size_t n;
-	if(nfe_ptrnull(src) != 0){
-		return E_ISNULL;
-	}
-	n = strlen(src);
-	if(n >= tam){
-		return E_TAMANHO;
-	}
-	memcpy(dst, src, n + 1);
-	return 0;
-}
-
 char* GetLgr(Endereco* end){
 	if(nfe_ptrnull(end) != 0){
 		return NULL;
@@ -274,7 +260,7 @@ int SetLgr(Endereco* end, const char* xlgr){
 	if(rc != 0){
 		return rc;
 	}
-	return _copiaTexto(end->xLgr, sizeof end->xLgr, xlgr);
+	return nfe_copia_texto(end->xLgr, sizeof end->xLgr, xlgr, 2, NFE_TAM_XLGR);
 }
 
 int SetNro(Endereco* end, const char* nro){
@@ -282,7 +268,7 @@ int SetNro(Endereco* end, const char* nro){
 	if(rc != 0){
 		return rc;
 	}
-	return _copiaTexto(end->nro, sizeof end->nro, nro);
+	return nfe_copia_texto(end->nro, sizeof end->nro, nro, 1, NFE_TAM_NRO);
 }
 
 int SetCpl(Endereco* end, const char* cpl){
@@ -290,7 +276,7 @@ int SetCpl(Endereco* end, const char* cpl){
 	if(rc != 0){
 		return rc;
 	}
-	return _copiaTexto(end->Cpl, sizeof end->Cpl, cpl);
+	return nfe_copia_texto(end->Cpl, sizeof end->Cpl, cpl, 1, NFE_TAM_XCPL);
 }
 
 int SetBairro(Endereco* end, const char* bairro){
@@ -298,7 +284,7 @@ int SetBairro(Endereco* end, const char* bairro){
 	if(rc != 0){
 		return rc;
 	}
-	return _copiaTexto(end->xBairro, sizeof end->xBairro, bairro);
+	return nfe_copia_texto(end->xBairro, sizeof end->xBairro, bairro, 2, NFE_TAM_XBAIRRO);
 }
 
 /* O endereço passa a ser dono de muni, e o município anterior é liberado */
