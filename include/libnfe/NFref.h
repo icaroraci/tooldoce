@@ -31,7 +31,8 @@ struct NFref_s *NFrefNew();
 void NFrefDel(struct NFref_s *nf);
 
 /* Funções de acesso aos dados  */
-void NFrefSetrefNFe(struct NFref_s *nf, char *ref);
+/* ref: chave de acesso com 44 dígitos; retorna 0, E_ISNULL ou E_TAMANHO */
+int NFrefSetrefNFe(struct NFref_s *nf, const char *ref);
 char *NFrefGetrefNFe(struct NFref_s *nf);
 
 /* Funções para tratamento do xml  */

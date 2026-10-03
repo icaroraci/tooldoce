@@ -21,6 +21,8 @@
 #include <string.h>
 #include <libnfe/NFref.h>
 #include <libnfe/defs.h>
+#include <libnfe/erros.h>
+#include <libnfe/utils.h>
 
 
 struct NFref_s{
@@ -29,7 +31,8 @@ struct NFref_s{
 
 struct NFref_s *NFrefNew()
 {
-  struct NFref_s *nf = (struct NFref_s *)malloc(sizeof(struct NFref_s));
+  /* calloc: campos começam vazios; NULL se faltar memória */
+  struct NFref_s *nf = (struct NFref_s *)calloc(1, sizeof(struct NFref_s));
   return nf;
 }
 
@@ -38,9 +41,12 @@ void NFrefDel(struct NFref_s *nf)
   free(nf);
 }
 
-void NFrefSetrefNFe(struct NFref_s *nf, char *ref)
+int NFrefSetrefNFe(struct NFref_s *nf, const char *ref)
 {
-  strcpy(nf->refNFe, ref);
+  if (!nf)
+    return E_ISNULL;
+  return nfe_copia_texto(nf->refNFe, sizeof nf->refNFe, ref,
+                         NFE_TAM_CHAVE, NFE_TAM_CHAVE);
 }
 
 char *NFrefGetrefNFe(struct NFref_s *nf)

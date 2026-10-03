@@ -46,6 +46,7 @@
 #define NFE_TAM_NNF       9  /* nNF: número do documento fiscal */
 #define NFE_TAM_NECF      3  /* nECF: número de ordem do ECF */
 #define NFE_TAM_NCOO      6  /* nCOO: número do contador de ordem de operação */
+#define NFE_TAM_DATA_HORA 25 /* data e hora com fuso: AAAA-MM-DDThh:mm:ss-03:00 */
 
 /* Campos de texto livre (UTF-8) */
 #define NFE_TAM_XNOME    60  /* xNome: razão social ou nome (2 a 60) */

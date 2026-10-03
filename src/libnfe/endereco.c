@@ -65,7 +65,7 @@ struct uf_s{
  */
 struct municipio_s{
 	const char *xMun;
-	uint16_t cMun;
+	uint32_t cMun; /* 7 dígitos (ex.: 3550308) */
 	Uf *uf;
 } ;
 
@@ -91,6 +91,10 @@ struct endereco_s{
 	Municipio *municipio;
 	} ;
 
+static void _delPais(Pais* t);
+static void _delUf(Uf* t);
+static void _delMunicipio(Municipio * t);
+
 static Pais* _newPais(void){
 	 Pais temp = {
 		.cPais = 1058,
@@ -107,29 +111,41 @@ static Pais* _newPais(void){
 
 static Uf* _newUf(void){
 	Uf temp = {
-		.cUF = 0,
-		.pais = _newPais()
+		.cUF = 0
 	};
-	Uf* ptr = (Uf *) malloc(sizeof (struct uf_s));
+	Uf* ptr;
+
+	temp.pais = _newPais();
+	if(temp.pais == NULL){
+		return NULL;
+	}
+	ptr = (Uf *) malloc(sizeof (struct uf_s));
 	if(ptr == NULL){
 		nfe_error("Erro ao alocar uf_s", E_NEWUF);
-	}else{
-		memcpy(ptr, &temp, sizeof(struct uf_s));
+		_delPais(temp.pais);
+		return NULL;
 	}
+	memcpy(ptr, &temp, sizeof(struct uf_s));
 	return ptr;
 }
 
 static Municipio* _newMunicipio(void){
 	Municipio temp = {
-		.cMun = 0,
-		.uf = _newUf()
+		.cMun = 0
 	};
-	Municipio* ptr = (Municipio *) malloc(sizeof(struct municipio_s));
+	Municipio* ptr;
+
+	temp.uf = _newUf();
+	if(temp.uf == NULL){
+		return NULL;
+	}
+	ptr = (Municipio *) malloc(sizeof(struct municipio_s));
 	if(ptr == NULL){
 		nfe_error("Erro ao alocar municipio_s", E_NEWMUNICIPIO);
-	}else{
-		memcpy(ptr, &temp, sizeof(struct municipio_s));
+		_delUf(temp.uf);
+		return NULL;
 	}
+	memcpy(ptr, &temp, sizeof(struct municipio_s));
 	return ptr;
 }
 
@@ -137,16 +153,21 @@ static Municipio* _newMunicipio(void){
 Endereco * NewEndereco(void){
 	Endereco temp = {
 		.CEP = 0,
-		.fone = 0,
-		.municipio = _newMunicipio()
+		.fone = 0
 	};
+	Endereco * ptr;
 
-	Endereco * ptr = (Endereco *) malloc(sizeof(struct endereco_s));
+	temp.municipio = _newMunicipio();
+	if(temp.municipio == NULL){
+		return NULL;
+	}
+	ptr = (Endereco *) malloc(sizeof(struct endereco_s));
 	if(ptr == NULL){
 		nfe_error("Erro ao alocar endereco_s", E_NEWENDERECO);
-	}else{
-		memcpy(ptr, &temp, sizeof(struct endereco_s));
+		_delMunicipio(temp.municipio);
+		return NULL;
 	}
+	memcpy(ptr, &temp, sizeof(struct endereco_s));
 	return ptr;	
 }
 
@@ -220,20 +241,6 @@ uint64_t GetFone(Endereco* end){
 	}
 }
 
-/* Copia src para dst (tam bytes, com o terminador), sem truncar */
-static int _copiaTexto(char *dst, size_t tam, const char *src){
-	size_t n;
-	if(nfe_ptrnull(src) != 0){
-		return E_ISNULL;
-	}
-	n = strlen(src);
-	if(n >= tam){
-		return E_TAMANHO;
-	}
-	memcpy(dst, src, n + 1);
-	return 0;
-}
-
 char* GetLgr(Endereco* end){
 	if(nfe_ptrnull(end) != 0){
 		return NULL;
@@ -274,7 +281,7 @@ int SetLgr(Endereco* end, const char* xlgr){
 	if(rc != 0){
 		return rc;
 	}
-	return _copiaTexto(end->xLgr, sizeof end->xLgr, xlgr);
+	return nfe_copia_texto(end->xLgr, sizeof end->xLgr, xlgr, 2, NFE_TAM_XLGR);
 }
 
 int SetNro(Endereco* end, const char* nro){
@@ -282,7 +289,7 @@ int SetNro(Endereco* end, const char* nro){
 	if(rc != 0){
 		return rc;
 	}
-	return _copiaTexto(end->nro, sizeof end->nro, nro);
+	return nfe_copia_texto(end->nro, sizeof end->nro, nro, 1, NFE_TAM_NRO);
 }
 
 int SetCpl(Endereco* end, const char* cpl){
@@ -290,7 +297,7 @@ int SetCpl(Endereco* end, const char* cpl){
 	if(rc != 0){
 		return rc;
 	}
-	return _copiaTexto(end->Cpl, sizeof end->Cpl, cpl);
+	return nfe_copia_texto(end->Cpl, sizeof end->Cpl, cpl, 1, NFE_TAM_XCPL);
 }
 
 int SetBairro(Endereco* end, const char* bairro){
@@ -298,7 +305,7 @@ int SetBairro(Endereco* end, const char* bairro){
 	if(rc != 0){
 		return rc;
 	}
-	return _copiaTexto(end->xBairro, sizeof end->xBairro, bairro);
+	return nfe_copia_texto(end->xBairro, sizeof end->xBairro, bairro, 2, NFE_TAM_XBAIRRO);
 }
 
 /* O endereço passa a ser dono de muni, e o município anterior é liberado */
