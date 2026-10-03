@@ -16,8 +16,8 @@
  * along with tooldoce.  If not, see <http://www.gnu.org/licenses/>.
  * */
 
-#ifndef INCLUIDO_UTILS_H
-#define INCLUIDO_UTILS_H
+#ifndef LIBNFE_UTILS_H
+#define LIBNFE_UTILS_H
 
 #include<libnfe/erros.h>
 

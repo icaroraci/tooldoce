@@ -16,8 +16,8 @@
  * along with tooldoce.  If not, see <http://www.gnu.org/licenses/>.
  * */
 
-#ifndef INCLUIDO_ERROS_H
-#define INCLUIDO_ERROS_H
+#ifndef LIBNFE_ERROS_H
+#define LIBNFE_ERROS_H
 
 #define E_ISNULL -1
 #define E_MALLOC -101

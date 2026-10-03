@@ -18,8 +18,10 @@
 
 
 
-#ifndef INCLUIDO_IDE_H
-#define INCLUIDO_IDE_H
+#ifndef LIBNFE_IDE_H
+#define LIBNFE_IDE_H
+
+#include <stdint.h>
 
 #include <libxml/encoding.h>
 #include <libxml/xmlwriter.h>
