@@ -19,9 +19,8 @@ jobs:
     env:
       CC: ${{ matrix.cc }}
       # Fontes que ainda não compilam. Remova da lista quando a issue for resolvida.
-      #   ide.c   -> #26, #27
       #   refNF.c -> #28, #29
-      KNOWN_BROKEN: "ide.c refNF.c"
+      KNOWN_BROKEN: "refNF.c"
       # Headers que ainda não compilam sozinhos (nenhum no momento).
       KNOWN_BROKEN_HEADERS: ""
     steps:

@@ -39,12 +39,12 @@ struct ide_s;
  *  
 */ 
 
-struct Cont_s *ideContNew(const struct Cont_s *this,
+struct Cont_s *ideContNew(struct Cont_s *this,
                           nfe_tzd tzd, 
-                          const char *str, 
+                          char *str, 
                           const char *xjust);
 
-void ideContDel(const struct Cont_s *cont);
+void ideContDel(struct Cont_s *cont);
 
 /* Cria um objeto "ide" para identificação da NF-e
  *
@@ -99,7 +99,7 @@ struct ide_s *ideNew(struct ide_s *this,
                      char *verproc,
                      struct Cont_s *cont,
                      nfe_tzd tzd, 
-                     const char *str );
+                     char *str );
 void ideDel(struct ide_s *ide);
 
 /*  Gera o Nó xml para o respectivo objeto

@@ -19,6 +19,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
+#include <inttypes.h>
 #include <string.h>
 #include <libnfe/defs.h>
 #include <libnfe/ide.h>
@@ -67,7 +68,7 @@ struct ide_s{
  * 2010-08-19T13:00:15-03:00.
  * Não há horário de verão no Brasil desde 2019.
  * */
-static char *DHSet(nfe_tzd tzd, const char *str)
+static char *DHSet(nfe_tzd tzd, char *str)
 {
   char *aux;
   switch (tzd){
@@ -94,9 +95,9 @@ static char *DHSet(nfe_tzd tzd, const char *str)
  * newcont = rerencia 
 */
 
-struct Cont_s *ideContNew(const struct Cont_s *this,
+struct Cont_s *ideContNew(struct Cont_s *this,
                           nfe_tzd tzd, 
-                          const char *str, 
+                          char *str, 
                           const char *xjust)
 {
   if(!this) 
@@ -114,7 +115,7 @@ struct Cont_s *ideContNew(const struct Cont_s *this,
   }
 }
 
-void ideContDel(const struct Cont_s *cont)
+void ideContDel(struct Cont_s *cont)
 {
   free(cont);
 }
@@ -178,7 +179,7 @@ struct ide_s *ideNew(struct ide_s *this,
                      char *verproc,
                      struct Cont_s *cont,
                      nfe_tzd tzd, 
-                     const char *str )
+                     char *str )
 {
   if(!this)
   {
@@ -260,7 +261,7 @@ int xmlGenideNode(xmlTextWriterPtr writer,struct ide_s *ide)
     return -1;
   }
 
-  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "cNF","%08lu", 
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "cNF","%08" PRIu32, 
                                                ide->cNF);
   if (rc < 0) {
     printf("ide->cNF: Erro em xmlTextWriterWriteFormatElement\n");
@@ -295,7 +296,7 @@ int xmlGenideNode(xmlTextWriterPtr writer,struct ide_s *ide)
     return -1;
   }
 
-  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "nNF","%9lu", 
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "nNF","%9" PRIu32, 
                                                ide->cNF);
   if (rc < 0) {
     printf("ide->nNF: Erro em xmlTextWriterWriteFormatElement\n");
@@ -330,7 +331,7 @@ int xmlGenideNode(xmlTextWriterPtr writer,struct ide_s *ide)
     return -1;
   }
 
-  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "cMunFG","%07lu", 
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "cMunFG","%07" PRIu32, 
                                                ide->cMunFG);
   if (rc < 0) {
     printf("ide->cMunFG: Erro em xmlTextWriterWriteFormatElement\n");
