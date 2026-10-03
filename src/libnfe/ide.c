@@ -187,12 +187,12 @@ struct ide_s *ideNew(struct ide_s *this,
     strcpy(this->natOp, natop);
     this->indPag = indpag;
     this->mod = mod;
-    this->serir = serie;
+    this->serie = serie;
     this->nNF = nnf;
     strcpy(this->dhEmi, DHSet(tzd, str)); // precisa rever isso
     strcpy(this->dhSaiEnt, DHSet(tzd, str));
     this->tpNF = tpnf;
-    this->ideDest = idedest;
+    this->idDest = iddest;
     this->cMunFG = cmunfg;
     this->tpImp = tpimp;
     this->tpEmis = tpemis;
@@ -201,7 +201,7 @@ struct ide_s *ideNew(struct ide_s *this,
     this->finNFe = finnfe;
     this->indFinal = indfinal;
     this->indPres = indpres;
-    this->proEmis = procemis;
+    this->procEmis = procemis;
     strcpy(this->verProc, verproc);
     this->cont = cont;
     return this;
@@ -214,12 +214,12 @@ struct ide_s *ideNew(struct ide_s *this,
     strcpy(ide->natOp, natop);
     ide->indPag = indpag;
     ide->mod = mod;
-    ide->serir = serie;
+    ide->serie = serie;
     ide->nNF = nnf;
     strcpy(ide->dhEmi, DHSet(tzd, str)); // precisa rever isso
     strcpy(ide->dhSaiEnt, DHSet(tzd, str));
     ide->tpNF = tpnf;
-    ide->ideDest = idedest;
+    ide->idDest = iddest;
     ide->cMunFG = cmunfg;
     ide->tpImp = tpimp;
     ide->tpEmis = tpemis;
@@ -228,10 +228,9 @@ struct ide_s *ideNew(struct ide_s *this,
     ide->finNFe = finnfe;
     ide->indFinal = indfinal;
     ide->indPres = indpres;
-    ide->proEmis = procemis;
+    ide->procEmis = procemis;
     strcpy(ide->verProc, verproc);
     ide->cont = cont;
-    ide->newide = newide; 
     return ide;
  }
   
