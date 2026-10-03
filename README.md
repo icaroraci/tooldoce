@@ -40,7 +40,7 @@ if (rc != 0)
 nfe_ide_free(ide);
 ```
 
-Os setters validam cada valor contra o leiaute e retornam um código de erro (`erros.h`) quando ele é inválido; a biblioteca não imprime nada. O programa completo está em [`examples/gerar_ide.c`](examples/gerar_ide.c), e [`examples/gerar_nfe.c`](examples/gerar_nfe.c) monta uma NFC-e completa (ainda sem a assinatura digital):
+Os setters validam cada valor contra o leiaute e retornam um código de erro (`erros.h`) quando ele é inválido; a biblioteca não imprime nada. O programa completo está em [`examples/gerar_ide.c`](examples/gerar_ide.c), e [`examples/gerar_nfe.c`](examples/gerar_nfe.c) monta uma NFC-e completa:
 
     $ make exemplos
     $ ./obj/gerar_ide
@@ -49,7 +49,7 @@ Os setters validam cada valor contra o leiaute e retornam um código de erro (`e
 
 `assinar_nfe` monta a mesma NFC-e e a assina com o certificado A1 indicado (arquivo .pfx e senha). O de `tests/certificados` é só de teste; para conferir com o seu certificado, rode o exemplo na sua máquina e valide a nota num validador de assinatura de NF-e. Nunca coloque um certificado real no repositório.
 
-Para conferir a nota antes de assinar e transmitir, `validar.h` valida o XML contra os schemas oficiais, que `make install` instala em `$(PREFIX)/share/tooldoce/schemas`, e devolve a lista de erros com o campo e a linha de cada um.
+Para conferir a nota antes de assinar e transmitir, `validar.h` valida o XML contra os schemas oficiais, que `make install` instala em `$(PREFIX)/share/tooldoce/schemas`, e confere também regras da SEFAZ que o schema não cobre (chave de acesso coerente com os campos, totais iguais à soma dos itens, regras da NFC-e), devolvendo a lista de erros com o campo, a linha e, quando houver, o código de rejeição da SEFAZ.
 
 Para compilar um programa seu com a biblioteca instalada:
 

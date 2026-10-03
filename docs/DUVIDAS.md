@@ -29,6 +29,21 @@ caminho marcado como **provisório**.
    preferir setters tipados para algum grupo, dá para acrescentar por cima.
 4. **Licença LGPL** (#59): continua esperando a autorização do Marcelo.
    Não vou mexer.
+5. **Schemas dos webservices (para a transmissão, #57).** O pacote
+   PL_010f que você mandou traz só os schemas da nota. Para transmitir e
+   ler as respostas da SEFAZ, preciso também dos schemas das mensagens:
+   envio do lote (enviNFe/retEnviNFe), consulta do recibo
+   (consReciNFe/retConsReciNFe), consulta da situação (consSitNFe),
+   status do serviço (consStatServ) e eventos (cancelamento, carta de
+   correção). Ficam no Portal Nacional da NF-e
+   (www.nfe.fazenda.gov.br), em Documentos > Esquemas XML, nos pacotes
+   de liberação (PL) mais recentes e no "Pacote de Eventos". Pode baixar
+   e mandar os .zip? **Provisório:** começo pela comunicação (SOAP/TLS
+   com o certificado A1) e pelo status do serviço, que é simples.
+6. **libcurl (para a transmissão).** Para conversar com a SEFAZ por HTTPS
+   com o certificado, vou usar a libcurl, cuja licença (curl, no estilo
+   MIT) permite uso em programas fechados, como a xmlsec1 e o OpenSSL que
+   você já aprovou. **Provisório:** sigo com a libcurl.
 
 ## Respondidas
 

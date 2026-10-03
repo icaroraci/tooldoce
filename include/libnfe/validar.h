@@ -39,8 +39,23 @@
  * a nota é validada como se estivesse assinada, ou seja, todo o resto do
  * documento é conferido, inclusive a ordem e o formato de cada campo.
  *
- * As regras de validação da SEFAZ que o schema não cobre (somas, datas,
- * campos obrigatórios por condição) ainda não são conferidas.
+ * Se o schema aceitar o documento, são conferidas também algumas regras de
+ * validação da SEFAZ que o schema não cobre (entre parênteses, o código de
+ * rejeição da SEFAZ, devolvido por nfe_erros_codigo; 0 quando a regra não
+ * tem um código único):
+ *   - chave de acesso (Id) com dígito verificador correto (236) e
+ *     correspondente a cUF, dhEmi, CNPJ/CPF do emitente, mod, serie, nNF,
+ *     tpEmis, cNF e cDV (502);
+ *   - totais de ICMSTot iguais à soma dos itens: vProd dos itens com
+ *     indTot=1 (564), vBC (531), vICMS (532), vBCST (533) e vST (534);
+ *   - vNF = vProd - vDesc + vST + vFCPST + vFrete + vSeg + vOutro + vII +
+ *     vIPI + vIPIDevol + vServ, com ou sem a dedução de vICMSDeson (610);
+ *   - UF e município do emitente e município do fato gerador (cMunFG) na
+ *     UF de cUF (0);
+ *   - NFC-e (mod 65): consumidor final (indFinal=1), operação interna
+ *     (idDest=1) e DANFE NFC-e (tpImp 4 ou 5) (0).
+ * As demais regras (datas, campos obrigatórios por condição, cadastros da
+ * SEFAZ etc.) ficam para a SEFAZ, que devolve a rejeição na transmissão.
  */
 
 typedef struct nfe_erros nfe_erros;
@@ -53,12 +68,16 @@ void nfe_erros_free(nfe_erros *erros);
 void nfe_erros_limpa(nfe_erros *erros);
 /* Quantidade de erros */
 int nfe_erros_qtd(const nfe_erros *erros);
-/* Erro i (a partir de 0): mensagem (em inglês, da libxml2), nome do campo
+/* Erro i (a partir de 0): mensagem (em inglês, da libxml2, para erros de
+ * schema; em português, para as regras da SEFAZ), nome do campo
  * (elemento) em que ocorreu, se conhecido, e linha no documento (0 se
  * desconhecida). Texto pertencente à lista; NULL/0 se i não existir. */
 const char *nfe_erros_msg(const nfe_erros *erros, int i);
 const char *nfe_erros_campo(const nfe_erros *erros, int i);
 int nfe_erros_linha(const nfe_erros *erros, int i);
+/* Código de rejeição da SEFAZ correspondente ao erro i, ou 0 (erro de
+ * schema, regra sem código único ou i inexistente) */
+int nfe_erros_codigo(const nfe_erros *erros, int i);
 
 /* Diretório padrão dos schemas, onde make install os coloca */
 const char *nfe_dir_schemas(void);
@@ -71,8 +90,8 @@ void nfe_validador_free(nfe_validador *v);
 
 /* Valida o documento xml (tam bytes; não precisa terminar em '\0') e
  * acrescenta os problemas em erros (que pode ser NULL). Retorna 0 (válido),
- * E_VALOR (inválido contra o schema), E_XML (documento malformado ou que
- * não é uma NF-e), E_ISNULL ou E_MALLOC. */
+ * E_VALOR (inválido contra o schema ou contra as regras acima), E_XML
+ * (documento malformado ou que não é uma NF-e), E_ISNULL ou E_MALLOC. */
 int nfe_validar_xml(nfe_validador *v, const char *xml, size_t tam,
                     nfe_erros *erros);
 
