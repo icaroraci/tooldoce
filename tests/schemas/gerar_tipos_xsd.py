@@ -18,7 +18,7 @@ ORIGEM = os.path.join(DIR, "leiauteNFe_v4.00.xsd")
 DESTINO = os.path.join(DIR, "tipos_v4.00.xsd")
 
 # Elementos locais de TNFe/infNFe (e de det) copiados como globais
-LOCAIS = ("ide", "emit", "dest", "det", "prod", "imposto", "total", "transp", "pag", "infNFe")
+LOCAIS = ("ide", "emit", "dest", "det", "prod", "imposto", "total", "transp", "pag", "infNFe", "infNFeSupl")
 
 # Tipos complexos do leiaute declarados como elementos globais
 TIPOS = (("enderEmit", "TEnderEmi"), ("enderDest", "TEndereco"))

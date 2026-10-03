@@ -30,6 +30,7 @@
 #include <libnfe/defs.h>
 #include <libnfe/erros.h>
 #include <libnfe/escrita.h>
+#include <libnfe/esquema.h>
 #include <libnfe/nfe_nfe.h>
 #include <libnfe/valida.h>
 
@@ -54,6 +55,33 @@ struct nfe_nfe {
 	char idCadIntTran[NFE_TAM_UTF8(NFE_TAM_IDCADINT)];
 	nfe_infadic *infadic;
 	nfe_resptec *resptec;
+	nfe_grupo *grupo[8]; /* na ordem de grupos[] */
+};
+
+/* Grupos genéricos da nota */
+enum {
+	G_AVULSA,
+	G_EXPORTA,
+	G_COMPRA,
+	G_CANA,
+	G_SOLICNFF,
+	G_AGRO,
+	G_PAA,
+	G_SUPL,
+	G_N
+};
+static const struct {
+	const char *nome;
+	const struct nfe_esq *esq;
+} grupos[G_N] = {
+	{ "avulsa", &esq_avulsa },
+	{ "exporta", &esq_exporta },
+	{ "compra", &esq_compra },
+	{ "cana", &esq_cana },
+	{ "infSolicNFF", &esq_infSolicNFF },
+	{ "agropecuario", &esq_agropecuario },
+	{ "infPAA", &esq_infPAA },
+	{ "infNFeSupl", &esq_infNFeSupl },
 };
 
 nfe_nfe *nfe_nfe_new(void)
@@ -75,6 +103,8 @@ void nfe_nfe_free(nfe_nfe *nfe)
 	nfe_cobr_free(nfe->cobr);
 	nfe_infadic_free(nfe->infadic);
 	nfe_resptec_free(nfe->resptec);
+	for (i = 0; i < G_N; i++)
+		nfe_grupo_free(nfe->grupo[i]);
 	for (i = 0; i < nfe->nDet; i++)
 		nfe_det_free(nfe->det[i]);
 	nfe_total_free(nfe->total);
@@ -124,6 +154,30 @@ int nfe_nfe_set_transp(nfe_nfe *nfe, nfe_transp *transp)
 int nfe_nfe_set_pag(nfe_nfe *nfe, nfe_pag *pag)
 {
 	TROCA(pag, pag, nfe_pag_free, 0);
+}
+
+nfe_grupo *nfe_nfe_grupo(nfe_nfe *nfe, const char *nome)
+{
+	int i;
+
+	if (!nfe || !nome)
+		return NULL;
+	for (i = 0; i < G_N; i++) {
+		if (strcmp(nome, grupos[i].nome) != 0)
+			continue;
+		if (!nfe->grupo[i])
+			nfe->grupo[i] = nfe_grupo_new(grupos[i].esq);
+		return nfe->grupo[i];
+	}
+	return NULL;
+}
+
+/* Escreve o grupo genérico i, se tiver algum campo */
+static int escreve_grupo(xmlTextWriterPtr writer, const nfe_nfe *nfe, int i)
+{
+	if (nfe_grupo_vazio(nfe->grupo[i]))
+		return 0;
+	return nfe_grupo_write_xml(writer, nfe->grupo[i]);
 }
 
 int nfe_nfe_set_retirada(nfe_nfe *nfe, nfe_local *retirada)
@@ -401,6 +455,8 @@ int nfe_nfe_write_xml(xmlTextWriterPtr writer, nfe_nfe *nfe)
 	rc = nfe_ide_write_xml(writer, nfe->ide);
 	if (rc == 0)
 		rc = nfe_emit_write_xml(writer, nfe->emit);
+	if (rc == 0)
+		rc = escreve_grupo(writer, nfe, G_AVULSA);
 	if (rc == 0 && nfe->dest)
 		rc = nfe_dest_write_xml(writer, nfe->dest);
 	if (rc == 0 && nfe->retirada)
@@ -443,12 +499,18 @@ int nfe_nfe_write_xml(xmlTextWriterPtr writer, nfe_nfe *nfe)
 	}
 	if (rc == 0 && nfe->infadic)
 		rc = nfe_infadic_write_xml(writer, nfe->infadic);
+	for (i = G_EXPORTA; rc == 0 && i <= G_CANA; i++)
+		rc = escreve_grupo(writer, nfe, i);
 	if (rc == 0 && nfe->resptec)
 		rc = nfe_resptec_write_xml(writer, nfe->resptec);
+	for (i = G_SOLICNFF; rc == 0 && i <= G_PAA; i++)
+		rc = escreve_grupo(writer, nfe, i);
 	if (rc != 0)
 		return rc;
 
 	rc = nfe_fecha(writer); /* infNFe */
+	if (rc == 0)
+		rc = escreve_grupo(writer, nfe, G_SUPL);
 	if (rc != 0)
 		return rc;
 	return nfe_fecha(writer); /* NFe */

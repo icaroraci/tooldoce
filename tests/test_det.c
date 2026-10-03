@@ -117,6 +117,65 @@ static void teste_item(void)
 	nfe_det_free(det);
 }
 
+/* Grupos opcionais do item pelo grupo genérico */
+static void teste_grupos(void)
+{
+	nfe_det *det = nfe_det_new();
+	nfe_grupo *dev, *obs, *ref;
+	char *xml;
+	int rc = 0;
+
+	rc |= nfe_det_set_nitem(det, 1);
+	rc |= nfe_det_set_prod(det, produto());
+	rc |= nfe_det_set_imposto(det, imposto());
+	rc |= nfe_det_set_infadprod(det, "TEXTO");
+	rc |= nfe_det_set_vitem(det, "15.00");
+	VERIFICA_INT(rc, 0);
+	/* Grupos criados vazios não aparecem */
+	VERIFICA(nfe_det_grupo(det, "obsItem") != NULL);
+	VERIFICA(nfe_det_grupo(det, "naoexiste") == NULL);
+	VERIFICA(nfe_det_grupo(NULL, "obsItem") == NULL);
+	xml = teste_gera(escreve, det, &rc);
+	VERIFICA_INT(rc, 0);
+	if (xml)
+		VERIFICA(strstr(xml, "obsItem") == NULL);
+	free(xml);
+
+	dev = nfe_det_grupo(det, "impostoDevol");
+	obs = nfe_det_grupo(det, "obsItem");
+	ref = nfe_det_grupo(det, "DFeReferenciado");
+	rc |= nfe_grupo_set(dev, "pDevol", "100.00");
+	rc |= nfe_grupo_set(dev, "IPI/vIPIDevol", "0.00");
+	rc |= nfe_grupo_set(obs, "obsCont/xCampo", "lote");
+	rc |= nfe_grupo_set(obs, "obsCont/xTexto", "L-123");
+	rc |= nfe_grupo_set(ref, "chaveAcesso",
+	                    "35100812345678000195550010000000421123456781");
+	rc |= nfe_grupo_set(ref, "nItem", "3");
+	VERIFICA_INT(rc, 0);
+	xml = teste_gera(escreve, det, &rc);
+	VERIFICA_INT(rc, 0);
+	VERIFICA(xml != NULL);
+	if (xml) {
+		VERIFICA(strstr(xml,
+		                "</imposto><impostoDevol><pDevol>100.00"
+		                "</pDevol><IPI><vIPIDevol>0.00</vIPIDevol>"
+		                "</IPI></impostoDevol><infAdProd>TEXTO"
+		                "</infAdProd><obsItem><obsCont xCampo=\"lote"
+		                "\"><xTexto>L-123</xTexto></obsCont></obsItem>"
+		                "<vItem>15.00</vItem><DFeReferenciado>") !=
+		         NULL);
+		VERIFICA_INT(teste_valida(xml), 0);
+	}
+	free(xml);
+
+	/* Atributo obrigatório faltando */
+	VERIFICA_INT(nfe_grupo_set(obs, "obsCont/xCampo", NULL), 0);
+	xml = teste_gera(escreve, det, &rc);
+	VERIFICA_INT(rc, E_VALOR);
+	free(xml);
+	nfe_det_free(det);
+}
+
 static void teste_valores_invalidos(void)
 {
 	nfe_det *det = nfe_det_new();
@@ -183,6 +242,7 @@ int main(int argc, char **argv)
 		return 2;
 
 	teste_item();
+	teste_grupos();
 	teste_valores_invalidos();
 
 	teste_libera_schema();

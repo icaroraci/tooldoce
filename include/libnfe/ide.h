@@ -26,6 +26,7 @@
 #include <libxml/encoding.h>
 #include <libxml/xmlwriter.h>
 
+#include <libnfe/grupo.h>
 #include <libnfe/nfe.h>
 
 /*
@@ -132,6 +133,13 @@ int nfe_ide_gerar_chave(nfe_ide *ide, const char *cnpjcpf, char *chave,
  * E_VALOR (limite atingido) ou E_MALLOC. */
 int nfe_ide_add_refnfe(nfe_ide *ide, struct refNFe_s *ref);
 int nfe_ide_add_refnf(nfe_ide *ide, struct refNF_s *ref);
+/* Referência genérica: acrescenta um grupo NFref vazio (pertence ao ide) e
+ * o devolve em *nfref, para ser preenchido pelo grupo genérico (grupo.h)
+ * com qualquer tipo de documento: refNFe, refNFeSig, refNF, refNFP
+ * (produtor rural), refCTe ou refECF (cupom fiscal). Ex.:
+ *   nfe_grupo_set(nfref, "refECF/mod", "2D");
+ * Retorna 0, E_ISNULL, E_VALOR (limite atingido) ou E_MALLOC. */
+int nfe_ide_add_nfref(nfe_ide *ide, nfe_grupo **nfref);
 
 /* Número máximo de chaves em gCompraGov/refDFeAnt e em gPagAntecipado/refNFe
  * (maxOccurs="99" no XSD) */

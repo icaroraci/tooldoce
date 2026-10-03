@@ -40,10 +40,12 @@
  * Nota fiscal completa (NF-e modelo 55 ou NFC-e modelo 65): junta os grupos
  * de infNFe e gera o documento XML.
  *
- * Grupos implementados: ide, emit, dest, retirada, entrega, autXML, det,
- * total, transp, cobr, pag, infIntermed, infAdic e infRespTec. Os opcionais
- * avulsa, exporta, compra, cana, infSolicNFF, agropecuario e infPAA ainda
- * não.
+ * Todos os grupos de infNFe estão disponíveis: os principais com objetos
+ * próprios (ide, emit, dest, retirada, entrega, det, total, transp, cobr,
+ * pag, infAdic, infRespTec) ou funções da nota (autXML, infIntermed), e
+ * avulsa, exporta, compra, cana, infSolicNFF, agropecuario e infPAA, assim
+ * como infNFeSupl (QR Code da NFC-e), pelo grupo genérico (grupo.h)
+ * devolvido por nfe_nfe_grupo.
  *
  * O documento gerado ainda não tem a assinatura digital (ds:Signature),
  * exigida pela SEFAZ e pelo schema nfe_v4.00.xsd.
@@ -85,6 +87,14 @@ int nfe_nfe_set_entrega(nfe_nfe *nfe, nfe_local *entrega);
 int nfe_nfe_set_cobr(nfe_nfe *nfe, nfe_cobr *cobr);
 int nfe_nfe_set_infadic(nfe_nfe *nfe, nfe_infadic *infadic);
 int nfe_nfe_set_resptec(nfe_nfe *nfe, nfe_resptec *resptec);
+
+/* Grupo genérico de um grupo opcional da nota: "avulsa", "exporta",
+ * "compra", "cana", "infSolicNFF", "agropecuario", "infPAA" ou
+ * "infNFeSupl" (criado vazio na primeira chamada; pertence à nota e só é
+ * escrito se tiver algum campo). NULL se o nome não existir ou faltar
+ * memória. Ex.:
+ *   nfe_grupo_set(nfe_nfe_grupo(nota, "exporta"), "UFSaidaPais", "SP"); */
+nfe_grupo *nfe_nfe_grupo(nfe_nfe *nfe, const char *nome);
 
 /* Número máximo de autorizados a baixar o XML (autXML) */
 #define NFE_MAX_AUTXML 10

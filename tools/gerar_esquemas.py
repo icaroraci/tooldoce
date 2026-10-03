@@ -95,18 +95,24 @@ class Tipos:
         elif base == "xs:base64Binary":
             f["base64"] = True
         proprias = []
+        padroes = []
         for c in restricao:
             chave = c.tag.replace(XS, "")
             if chave == "enumeration":
                 proprias.append(c.get("value"))
             elif chave == "pattern":
-                f["pattern"] = c.get("value")
+                padroes.append(c.get("value"))
             elif chave in ("minLength", "maxLength"):
                 f[chave] = int(c.get("value"))
             elif chave == "length":
                 f["minLength"] = f["maxLength"] = int(c.get("value"))
         if proprias:
             f["enumeration"] = proprias
+        # Vários xs:pattern no mesmo passo valem como alternativas
+        if len(padroes) == 1:
+            f["pattern"] = padroes[0]
+        elif padroes:
+            f["pattern"] = "|".join("(%s)" % p for p in padroes)
         if f.get("base64"):
             # xs:base64Binary com length n (em bytes)
             n = f.pop("minLength", None)

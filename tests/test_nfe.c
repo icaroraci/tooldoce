@@ -32,7 +32,7 @@
 
 #define T0 ((time_t)1791014400) /* 2026-10-03T08:00:00Z */
 
-/* Valida o elemento <infNFe> do documento */
+/* Valida o elemento <infNFe> do documento (e o <infNFeSupl>, se houver) */
 static int valida_infnfe(const char *xml)
 {
 	xmlDocPtr doc =
@@ -48,6 +48,11 @@ static int valida_infnfe(const char *xml)
 	if (no && xmlStrEqual(no->name, BAD_CAST "infNFe")) {
 		ctx = xmlSchemaNewValidCtxt(teste_schema);
 		rc = xmlSchemaValidateOneElement(ctx, no);
+		/* infNFeSupl, se houver, logo depois */
+		no = xmlNextElementSibling(no);
+		if (rc == 0 && no &&
+		    xmlStrEqual(no->name, BAD_CAST "infNFeSupl"))
+			rc = xmlSchemaValidateOneElement(ctx, no);
 		xmlSchemaFreeValidCtxt(ctx);
 	}
 	xmlFreeDoc(doc);
@@ -603,6 +608,79 @@ static void teste_grupos_opcionais(void)
 	nfe_nfe_free(nfe);
 }
 
+/* Grupos genéricos da nota: avulsa, exporta, compra, cana, agropecuário e
+ * infNFeSupl */
+static void teste_grupos_genericos(void)
+{
+	nfe_nfe *nfe = nota(NFE_MODELO_NFE);
+	nfe_grupo *g, *dia, *def;
+	char *xml = NULL;
+	int rc = 0;
+
+	VERIFICA(nfe_nfe_grupo(nfe, "naoexiste") == NULL);
+	g = nfe_nfe_grupo(nfe, "avulsa");
+	rc |= nfe_grupo_set(g, "CNPJ", "12345678000195");
+	rc |= nfe_grupo_set(g, "xOrgao", "SEFAZ");
+	rc |= nfe_grupo_set(g, "matr", "123");
+	rc |= nfe_grupo_set(g, "xAgente", "FISCAL");
+	rc |= nfe_grupo_set(g, "UF", "SP");
+	rc |= nfe_grupo_set(g, "repEmi", "CENTRAL");
+	g = nfe_nfe_grupo(nfe, "exporta");
+	rc |= nfe_grupo_set(g, "UFSaidaPais", "SP");
+	rc |= nfe_grupo_set(g, "xLocExporta", "PORTO DE SANTOS");
+	g = nfe_nfe_grupo(nfe, "compra");
+	rc |= nfe_grupo_set(g, "xPed", "PED-1");
+	g = nfe_nfe_grupo(nfe, "cana");
+	rc |= nfe_grupo_set(g, "safra", "2026/2027");
+	rc |= nfe_grupo_set(g, "ref", "10/2026");
+	rc |= nfe_grupo_add(g, "forDia", &dia);
+	rc |= nfe_grupo_set(dia, "dia", "3");
+	rc |= nfe_grupo_set(dia, "qtde", "1000");
+	rc |= nfe_grupo_set(g, "qTotMes", "1000");
+	rc |= nfe_grupo_set(g, "qTotAnt", "0");
+	rc |= nfe_grupo_set(g, "qTotGer", "1000");
+	rc |= nfe_grupo_set(g, "vFor", "100.00");
+	rc |= nfe_grupo_set(g, "vTotDed", "0.00");
+	rc |= nfe_grupo_set(g, "vLiqFor", "100.00");
+	g = nfe_nfe_grupo(nfe, "agropecuario");
+	rc |= nfe_grupo_add(g, "defensivo", &def);
+	rc |= nfe_grupo_set(def, "nReceituario", "REC-1");
+	rc |= nfe_grupo_set(def, "CPFRespTec", "12345678909");
+	g = nfe_nfe_grupo(nfe, "infNFeSupl");
+	rc |= nfe_grupo_set(g, "qrCode",
+	                    "https://www.homologacao.nfce.fazenda.sp.gov.br/"
+	                    "qrcode?p=35261012345678000195650010000000011123"
+	                    "456784|2|2|1|ABCDEF0123456789ABCDEF0123456789AB"
+	                    "CDEF01");
+	rc |= nfe_grupo_set(g, "urlChave",
+	                    "https://www.homologacao.nfce.fazenda.sp.gov.br/"
+	                    "consulta");
+	VERIFICA_INT(rc, 0);
+
+	VERIFICA_INT(nfe_nfe_xml(nfe, &xml, NULL), 0);
+	VERIFICA(xml != NULL);
+	if (xml) {
+		VERIFICA(strstr(xml,
+		                "</emit><avulsa><CNPJ>12345678000195</CNPJ>") !=
+		         NULL);
+		VERIFICA(strstr(xml, "</pag><exporta><UFSaidaPais>SP</"
+		                     "UFSaidaPais>") != NULL);
+		VERIFICA(strstr(xml,
+		                "</exporta><compra><xPed>PED-1</xPed>"
+		                "</compra><cana><safra>2026/2027</safra>"
+		                "<ref>10/2026</ref><forDia dia=\"3\"><qtde>"
+		                "1000</qtde></forDia>") != NULL);
+		VERIFICA(strstr(xml, "</cana><agropecuario><defensivo>") !=
+		         NULL);
+		VERIFICA(strstr(xml, "</agropecuario></infNFe><infNFeSupl>"
+		                     "<qrCode>") != NULL);
+		VERIFICA(strstr(xml, "</infNFeSupl></NFe>") != NULL);
+		VERIFICA_INT(valida_infnfe(xml), 0);
+	}
+	free(xml);
+	nfe_nfe_free(nfe);
+}
+
 static void teste_obrigatorios(void)
 {
 	nfe_nfe *nfe = nfe_nfe_new();
@@ -658,6 +736,7 @@ int main(int argc, char **argv)
 	teste_salvar(argv[1]);
 	teste_calcular_totais();
 	teste_grupos_opcionais();
+	teste_grupos_genericos();
 	teste_obrigatorios();
 
 	teste_libera_schema();
