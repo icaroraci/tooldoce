@@ -88,11 +88,15 @@ def tipo_c(f, tipo):
 
 
 def itens_com_contexto(grupo, escolha=None):
-    """(item, rótulo da escolha) de cada elemento, atravessando grupos."""
+    """(item, contexto) de cada elemento, atravessando grupos. O contexto é
+    "escolha" (dentro de um xs:choice), "grupo" (dentro de um grupo
+    opcional: obrigatório só quando o grupo for informado) ou None."""
     for item in grupo.itens:
         if isinstance(item, gd.Grupo):
             rotulo = escolha
-            if item.tipo == "choice":
+            if item.minimo == "0":
+                rotulo = "grupo"
+            elif item.tipo == "choice" and rotulo != "grupo":
                 rotulo = "escolha"
             yield from itens_com_contexto(item, rotulo)
         else:
@@ -160,10 +164,12 @@ def corpo_issue(locais, nomes, repo, pais):
             f"{escape_tabela(descreve_validacao(at.facetas, at.tipo))} | "
             f"{escape_tabela(at.doc)} |")
     escolhas = False
+    grupos = False
     for item, ctx in itens_com_contexto(e.conteudo):
         escolhas = escolhas or ctx == "escolha"
-        obrig = "não" if item.minimo == "0" else (
-            "escolha" if ctx == "escolha" else "sim")
+        grupos = grupos or ctx == "grupo"
+        obrig = "não" if item.minimo == "0" else {
+            "escolha": "escolha", "grupo": "grupo"}.get(ctx, "sim")
         ocorr = gd.ocorrencia(item.minimo, item.maximo) or "1"
         if item.estrutura:
             tipo = "estrutura"
@@ -182,6 +188,11 @@ def corpo_issue(locais, nomes, repo, pais):
         linhas.append("> Campos marcados como **escolha** pertencem a um "
                       "`xs:choice`: apenas um ramo pode ser informado "
                       "(ver o diagrama).")
+        linhas.append("")
+    if grupos:
+        linhas.append("> Campos marcados como **grupo** pertencem a um "
+                      "grupo opcional: são obrigatórios apenas quando o "
+                      "grupo for informado (ver o diagrama).")
         linhas.append("")
 
     # funções
