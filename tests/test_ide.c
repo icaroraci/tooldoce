@@ -36,9 +36,9 @@
 
 #include "teste.h"
 
-#define NS     "http://www.portalfiscal.inf.br/nfe"
-#define CHAVE  "35100812345678000199550010000000421123456787"
-#define T0     ((time_t)1282237215) /* 2010-08-19T17:00:15Z */
+#define NS    "http://www.portalfiscal.inf.br/nfe"
+#define CHAVE "35100812345678000199550010000000421123456787"
+#define T0    ((time_t)1282237215) /* 2010-08-19T17:00:15Z */
 
 static xmlSchemaPtr schema;
 
@@ -57,7 +57,8 @@ static void ignora_erro(void *ctx, xmlErrorPtr erro)
  * os erros do libxml2 não são impressos (testes negativos). */
 static int valida(const char *xml, int mostrar)
 {
-	xmlDocPtr doc = xmlReadMemory(xml, (int)strlen(xml), "ide.xml", NULL, 0);
+	xmlDocPtr doc =
+	        xmlReadMemory(xml, (int)strlen(xml), "ide.xml", NULL, 0);
 	xmlSchemaValidCtxtPtr ctx;
 	int rc;
 
@@ -93,8 +94,8 @@ static char *gera(const nfe_ide *ide)
 		size_t antes = (size_t)(pos - conteudo);
 		xml = malloc(strlen(conteudo) + sizeof NS + 16);
 		if (xml)
-			sprintf(xml, "%.*s<ide xmlns=\"" NS "\">%s",
-			        (int)antes, conteudo, pos + strlen("<ide>"));
+			sprintf(xml, "%.*s<ide xmlns=\"" NS "\">%s", (int)antes,
+			        conteudo, pos + strlen("<ide>"));
 	}
 	xmlBufferFree(buf);
 	return xml;
@@ -140,8 +141,11 @@ static void teste_emissao_normal(void)
 		VERIFICA(strstr(xml, "<cNF>12345678</cNF>") != NULL);
 		VERIFICA(strstr(xml, "<serie>1</serie>") != NULL);
 		VERIFICA(strstr(xml, "<nNF>42</nNF>") != NULL);
-		VERIFICA(strstr(xml, "<dhEmi>2010-08-19T14:00:15-03:00</dhEmi>") != NULL);
-		VERIFICA(strstr(xml, "<dhSaiEnt>2010-08-19T15:00:15-03:00</dhSaiEnt>") != NULL);
+		VERIFICA(strstr(xml,
+		                "<dhEmi>2010-08-19T14:00:15-03:00</dhEmi>") !=
+		         NULL);
+		VERIFICA(strstr(xml, "<dhSaiEnt>2010-08-19T15:00:15-03:00</"
+		                     "dhSaiEnt>") != NULL);
 		VERIFICA(strstr(xml, "<cMunFG>3550308</cMunFG>") != NULL);
 		VERIFICA(strstr(xml, "<procEmi>0</procEmi>") != NULL);
 		VERIFICA(strstr(xml, "indPag") == NULL);
@@ -154,7 +158,7 @@ static void teste_emissao_normal(void)
 static void teste_fusos(void)
 {
 	const nfe_tzd fusos[] = { NFE_TZD_FERNANDO_NORONHA, NFE_TZD_BRASILIA,
-	                          NFE_TZD_MANAUS, NFE_TZD_ACRE };
+		                  NFE_TZD_MANAUS, NFE_TZD_ACRE };
 	const char *esperado[] = {
 		"<dhEmi>2010-08-19T15:00:15-02:00</dhEmi>",
 		"<dhEmi>2010-08-19T14:00:15-03:00</dhEmi>",
@@ -187,8 +191,9 @@ static void teste_contingencia_e_referencias(void)
 	char *xml;
 
 	VERIFICA(ide != NULL);
-	VERIFICA_INT(nfe_ide_set_contingencia(ide, T0,
-	             "Falha de comunicacao com a SEFAZ"), 0);
+	VERIFICA_INT(nfe_ide_set_contingencia(
+	                     ide, T0, "Falha de comunicacao com a SEFAZ"),
+	             0);
 	VERIFICA_INT(RefNFeSetrefNFe(r1, CHAVE), 0);
 	VERIFICA_INT(RefNFSetcUF(r2, NFE_UF_SP), 0);
 	VERIFICA_INT(RefNFSetAAMM(r2, 10, NFE_MES_AGOSTO), 0);
@@ -207,8 +212,11 @@ static void teste_contingencia_e_referencias(void)
 		const char *pj = strstr(xml, "<xJust>");
 
 		VERIFICA_INT(valida(xml, 1), 0);
-		VERIFICA(strstr(xml, "<dhCont>2010-08-19T14:00:15-03:00</dhCont>") != NULL);
-		/* xJust antes das referências, e referências na ordem de inclusão */
+		VERIFICA(strstr(xml,
+		                "<dhCont>2010-08-19T14:00:15-03:00</dhCont>") !=
+		         NULL);
+		/* xJust antes das referências, e referências na ordem de
+		 * inclusão */
 		VERIFICA(pj != NULL && p1 != NULL && p2 != NULL);
 		VERIFICA(pj < p1 && p1 < p2);
 	}
@@ -254,13 +262,14 @@ static void teste_valores_invalidos(void)
 	VERIFICA_INT(nfe_ide_set_cdv(ide, 10), E_VALOR);
 	VERIFICA_INT(nfe_ide_set_indpres(ide, (nfe_presenca)6), E_VALOR);
 	VERIFICA_INT(nfe_ide_set_indpres(ide, NFE_PRESENCA_PRESENCIAL_FORA), 0);
-	VERIFICA_INT(nfe_ide_set_procemi(ide, (nfe_processo_emissao)4), E_VALOR);
+	VERIFICA_INT(nfe_ide_set_procemi(ide, (nfe_processo_emissao)4),
+	             E_VALOR);
 	VERIFICA_INT(nfe_ide_set_tzd(ide, (nfe_tzd)7), E_VALOR);
 	VERIFICA_INT(nfe_ide_set_cuf(NULL, NFE_UF_SP), E_ISNULL);
 
 	/* Textos fora dos limites (E_TAMANHO) */
-	VERIFICA_INT(nfe_ide_set_natop(ide,
-	             "1234567890123456789012345678901234567890123456789012345678901"),
+	VERIFICA_INT(nfe_ide_set_natop(ide, "1234567890123456789012345678901234"
+	                                    "567890123456789012345678901"),
 	             E_TAMANHO);
 	VERIFICA_INT(nfe_ide_set_verproc(ide, ""), E_TAMANHO);
 	VERIFICA_INT(nfe_ide_set_contingencia(ide, T0, "curta"), E_TAMANHO);
@@ -309,7 +318,8 @@ static void teste_validador(void)
 		p = strstr(xml, "<procEmi>0</procEmi>");
 		VERIFICA(p != NULL);
 		if (p) {
-			/* troca procEmi por um nome inválido de mesmo tamanho */
+			/* troca procEmi por um nome inválido de mesmo tamanho
+			 */
 			memcpy(p + 1, "procEmX", 7);
 			memcpy(strstr(p, "</procEmi>") + 2, "procEmX", 7);
 			VERIFICA(valida(xml, 0) != 0);
@@ -334,7 +344,8 @@ int main(int argc, char **argv)
 	schema = xmlSchemaParse(pctx);
 	xmlSchemaFreeParserCtxt(pctx);
 	if (!schema) {
-		fprintf(stderr, "não foi possível carregar o schema %s\n", caminho);
+		fprintf(stderr, "não foi possível carregar o schema %s\n",
+		        caminho);
 		return 2;
 	}
 

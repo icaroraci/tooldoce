@@ -24,7 +24,6 @@
 
 struct refNFe_s;
 
-
 /* Funções de alocação de memória */
 
 struct refNFe_s *RefNFeNew(void);

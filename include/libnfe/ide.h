@@ -16,7 +16,6 @@
  * along with tooldoce.  If not, see <http://www.gnu.org/licenses/>.
  * */
 
-
 #ifndef LIBNFE_IDE_H
 #define LIBNFE_IDE_H
 
@@ -50,7 +49,7 @@ struct refNFe_s;
 struct refNF_s;
 
 /* Data/hora opcional não informada (ex.: dhSaiEnt) */
-#define NFE_SEM_DATA ((time_t)-1)
+#define NFE_SEM_DATA ((time_t) - 1)
 
 /* Número máximo de documentos referenciados (grupo NFref: maxOccurs="999"
  * no leiauteNFe_v4.00.xsd) */
@@ -66,25 +65,27 @@ nfe_ide *nfe_ide_new(void);
 void nfe_ide_free(nfe_ide *ide);
 
 int nfe_ide_set_cuf(nfe_ide *ide, nfe_uf cuf);
-int nfe_ide_set_cnf(nfe_ide *ide, uint32_t cnf);          /* 0 a 99999999 */
-int nfe_ide_set_natop(nfe_ide *ide, const char *natop);   /* 1 a 60 caracteres */
+int nfe_ide_set_cnf(nfe_ide *ide, uint32_t cnf);        /* 0 a 99999999 */
+int nfe_ide_set_natop(nfe_ide *ide, const char *natop); /* 1 a 60 caracteres */
 int nfe_ide_set_mod(nfe_ide *ide, nfe_modelo mod);
-int nfe_ide_set_serie(nfe_ide *ide, unsigned serie);      /* 0 a 999 */
-int nfe_ide_set_nnf(nfe_ide *ide, uint32_t nnf);          /* 1 a 999999999 */
+int nfe_ide_set_serie(nfe_ide *ide, unsigned serie); /* 0 a 999 */
+int nfe_ide_set_nnf(nfe_ide *ide, uint32_t nnf);     /* 1 a 999999999 */
 int nfe_ide_set_dhemi(nfe_ide *ide, time_t dhemi);
-int nfe_ide_set_dhsaient(nfe_ide *ide, time_t dhsaient);  /* aceita NFE_SEM_DATA */
+int nfe_ide_set_dhsaient(nfe_ide *ide,
+                         time_t dhsaient); /* aceita NFE_SEM_DATA */
 int nfe_ide_set_tpnf(nfe_ide *ide, nfe_tipo_operacao tpnf);
 int nfe_ide_set_iddest(nfe_ide *ide, nfe_destino iddest);
-int nfe_ide_set_cmunfg(nfe_ide *ide, uint32_t cmunfg);    /* 7 dígitos */
+int nfe_ide_set_cmunfg(nfe_ide *ide, uint32_t cmunfg); /* 7 dígitos */
 int nfe_ide_set_tpimp(nfe_ide *ide, nfe_danfe tpimp);
 int nfe_ide_set_tpemis(nfe_ide *ide, nfe_emissao tpemis);
-int nfe_ide_set_cdv(nfe_ide *ide, unsigned cdv);          /* 0 a 9 */
+int nfe_ide_set_cdv(nfe_ide *ide, unsigned cdv); /* 0 a 9 */
 int nfe_ide_set_tpamb(nfe_ide *ide, nfe_ambiente tpamb);
 int nfe_ide_set_finnfe(nfe_ide *ide, nfe_finalidade finnfe);
 int nfe_ide_set_indfinal(nfe_ide *ide, nfe_consumidor indfinal);
 int nfe_ide_set_indpres(nfe_ide *ide, nfe_presenca indpres);
 int nfe_ide_set_procemi(nfe_ide *ide, nfe_processo_emissao procemi);
-int nfe_ide_set_verproc(nfe_ide *ide, const char *verproc); /* 1 a 20 caracteres */
+int nfe_ide_set_verproc(nfe_ide *ide,
+                        const char *verproc); /* 1 a 20 caracteres */
 
 /* Fuso horário em que as datas (dhEmi, dhSaiEnt, dhCont) são escritas */
 int nfe_ide_set_tzd(nfe_ide *ide, nfe_tzd tzd);

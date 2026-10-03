@@ -38,7 +38,8 @@ int main(void)
 	VERIFICA_STR(buf, "ação");
 
 	/* Fora dos limites: recusa sem alterar o destino */
-	VERIFICA_INT(nfe_copia_texto(buf, sizeof buf, "abcdef", 1, 5), E_TAMANHO);
+	VERIFICA_INT(nfe_copia_texto(buf, sizeof buf, "abcdef", 1, 5),
+	             E_TAMANHO);
 	VERIFICA_INT(nfe_copia_texto(buf, sizeof buf, "", 1, 5), E_TAMANHO);
 	VERIFICA_STR(buf, "ação");
 
@@ -57,11 +58,13 @@ int main(void)
 	VERIFICA_INT(nfe_copia_texto(grande, sizeof grande, texto, 2, 60), 0);
 	VERIFICA_INT((long)strlen(grande), 120);
 	strcat(texto, "ç");
-	VERIFICA_INT(nfe_copia_texto(grande, sizeof grande, texto, 2, 60), E_TAMANHO);
+	VERIFICA_INT(nfe_copia_texto(grande, sizeof grande, texto, 2, 60),
+	             E_TAMANHO);
 
 	/* Descrição dos códigos de erro */
 	VERIFICA_STR(nfe_strerror(0), "sucesso");
-	VERIFICA_STR(nfe_strerror(E_TAMANHO), "texto fora dos limites do campo");
+	VERIFICA_STR(nfe_strerror(E_TAMANHO),
+	             "texto fora dos limites do campo");
 	VERIFICA_STR(nfe_strerror(E_XML), "falha ao escrever o XML");
 	VERIFICA_STR(nfe_strerror(12345), "erro desconhecido");
 

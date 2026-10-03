@@ -109,7 +109,8 @@ typedef enum nfe_danfe {
 	NFE_DANFE_NORMAL_PAISAGEM = 2,
 	NFE_DANFE_SIMPLIFICADA = 3,
 	NFE_DANFE_NFCE = 4,
-	NFE_DANFE_NFCE_MSG_ELETRONICA = 5 /* DANFE NFC-e em mensagem eletrônica */
+	NFE_DANFE_NFCE_MSG_ELETRONICA =
+	        5 /* DANFE NFC-e em mensagem eletrônica */
 } nfe_danfe;
 
 /* tpEmis: tipo de emissão */
@@ -153,7 +154,8 @@ typedef enum nfe_presenca {
 	NFE_PRESENCA_INTERNET = 2,
 	NFE_PRESENCA_TELEATENDIMENTO = 3,
 	NFE_PRESENCA_ENTREGA_DOMICILIO = 4, /* NFC-e */
-	NFE_PRESENCA_PRESENCIAL_FORA = 5, /* presencial, fora do estabelecimento */
+	NFE_PRESENCA_PRESENCIAL_FORA =
+	        5, /* presencial, fora do estabelecimento */
 	NFE_PRESENCA_OUTROS = 9
 } nfe_presenca;
 

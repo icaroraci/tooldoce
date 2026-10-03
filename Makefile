@@ -1,7 +1,7 @@
 # Dependência: libxml2 (pacote libxml2-dev / libxml2-devel)
 XML2_CONFIG ?= xml2-config
 
-ifeq ($(filter clean uninstall,$(MAKECMDGOALS)),)
+ifeq ($(filter clean uninstall formatar verificar-formato,$(MAKECMDGOALS)),)
 ifeq ($(shell command -v $(XML2_CONFIG) 2>/dev/null),)
 $(error $(XML2_CONFIG) não encontrado. Instale a libxml2 de desenvolvimento (ex.: apt install libxml2-dev ou dnf install libxml2-devel))
 endif
@@ -53,7 +53,7 @@ C_SOURCE = $(wildcard $(SOURCE)/*.c)
 OBJ = $(addprefix $(LOBJ)/,$(notdir $(C_SOURCE:.c=.o)))
 
 
-.PHONY: all libnfe install uninstall test clean
+.PHONY: all libnfe install uninstall test clean formatar verificar-formato
 
 all: libnfe
 
@@ -104,6 +104,17 @@ test: $(TESTES)
 
 $(LOBJ)/test_%: tests/test_%.c tests/teste.h $(C_SOURCE) $(wildcard $(INCLUDE)/libnfe/*.h) | $(LOBJ)
 	$(CC) $(CFLAGS_TESTE) -I$(INCLUDE) $< $(C_SOURCE) -o $@ $(LIBS)
+
+
+#Formatação (.clang-format)
+CLANG_FORMAT ?= clang-format
+FONTES_C = $(wildcard $(SOURCE)/*.c $(INCLUDE)/libnfe/*.h tests/*.c tests/*.h)
+
+formatar:
+	$(CLANG_FORMAT) -i $(FONTES_C)
+
+verificar-formato:
+	$(CLANG_FORMAT) --dry-run --Werror $(FONTES_C)
 
 
 clean:

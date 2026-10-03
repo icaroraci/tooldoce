@@ -22,10 +22,10 @@
 /* Códigos de erro devolvidos pelas funções da biblioteca (sempre negativos;
  * 0 indica sucesso). A biblioteca não imprime mensagens: use nfe_strerror()
  * para obter a descrição de um código. */
-#define E_ISNULL  -1 /* ponteiro nulo recebido */
-#define E_TAMANHO -2 /* texto fora dos limites do campo */
-#define E_VALOR   -3 /* valor fora da faixa permitida */
-#define E_XML     -4 /* falha ao escrever o XML (libxml2) */
+#define E_ISNULL  -1   /* ponteiro nulo recebido */
+#define E_TAMANHO -2   /* texto fora dos limites do campo */
+#define E_VALOR   -3   /* valor fora da faixa permitida */
+#define E_XML     -4   /* falha ao escrever o XML (libxml2) */
 #define E_MALLOC  -101 /* falta de memória */
 
 /* Descrição do código de erro (texto estático, não deve ser liberado) */

@@ -19,9 +19,9 @@
 #ifndef LIBNFE_UTILS_H
 #define LIBNFE_UTILS_H
 
-#include<stddef.h>
+#include <stddef.h>
 
-#include<libnfe/erros.h>
+#include <libnfe/erros.h>
 
 /* Funções de uso interno da biblioteca: não são exportadas na libnfe.so */
 #if defined(__GNUC__) && __GNUC__ >= 4

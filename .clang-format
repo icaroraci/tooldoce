@@ -1,0 +1,24 @@
+# Formatação do código C do tooldoce (ver docs/CONVENCOES.md).
+# Aplique com `make formatar`; o CI confere com `make verificar-formato`.
+BasedOnStyle: LLVM
+Language: Cpp
+UseTab: ForIndentation
+IndentWidth: 8
+TabWidth: 8
+ContinuationIndentWidth: 8
+ColumnLimit: 80
+BreakBeforeBraces: Linux
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AllowShortBlocksOnASingleLine: Never
+AllowShortCaseLabelsOnASingleLine: false
+IndentCaseLabels: false
+AlignConsecutiveMacros: Consecutive
+AlignTrailingComments: true
+AlignAfterOpenBracket: Align
+PointerAlignment: Right
+SpaceBeforeParens: ControlStatements
+SortIncludes: Never
+ReflowComments: true
+Cpp11BracedListStyle: false

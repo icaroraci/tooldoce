@@ -24,7 +24,6 @@
 
 #include <libnfe/nfe.h>
 
-
 struct refNF_s;
 
 /* Alocação de memória para os dados */
