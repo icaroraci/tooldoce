@@ -136,6 +136,14 @@ def corpo_issue(locais, nomes, repo, pais):
         txt += f" — [diagrama]({url_svg(repo, loc.caminho)})"
         linhas.append(txt)
     linhas.append("")
+    relacionadas = {
+        "NFe": "#69 (gerar o XML completo da NF-e) e #56 (assinatura)",
+        "NFe/infNFe": "#69 (gerar o XML completo da NF-e) e #54 "
+                      "(chave de acesso, usada no atributo `Id`)",
+    }
+    if e.caminho in relacionadas:
+        linhas.append(f"Relacionadas: {relacionadas[e.caminho]}.")
+        linhas.append("")
     linhas.append(f"![Diagrama de {e.nome}]({url_svg(repo, e.caminho)}"
                   "?raw=true)")
     linhas.append("")
@@ -160,6 +168,9 @@ def corpo_issue(locais, nomes, repo, pais):
         if item.estrutura:
             tipo = "estrutura"
             val = f"ver issue/diagrama de `{item.nome}`"
+        elif ":" in item.nome:
+            tipo = item.tipo
+            val = "gerado pela assinatura digital (#56), não por setter"
         else:
             tipo = item.tipo
             val = descreve_validacao(item.facetas, item.tipo)
@@ -188,6 +199,8 @@ def corpo_issue(locais, nomes, repo, pais):
                       f"(nfe_{nome} *obj, const char *valor)` — atributo")
     for item, ctx in itens_com_contexto(e.conteudo):
         campo = item.nome.lower()
+        if ":" in item.nome:
+            continue  # ds:Signature: produzido pela assinatura (#56)
         if item.estrutura:
             filho = nomes.get(item.caminho, campo)
             if item.maximo not in ("1", "0"):
