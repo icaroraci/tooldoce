@@ -24,6 +24,7 @@
 
 #include <libnfe/endereco.h>
 #include <libnfe/nfe.h>
+#include <libnfe/utils.h>
 
 /*
  * Identificação do emitente (grupo emit).
@@ -79,5 +80,8 @@ int nfe_emit_set_isufemit(nfe_emit *emit, const char *isufemit);
  * xNome, endereço ou CRT; CNAE sem IM; ou endereço inválido para o
  * emitente, ver nfe_endereco_write_xml) ou E_XML. */
 int nfe_emit_write_xml(xmlTextWriterPtr writer, const nfe_emit *emit);
+
+/* Uso interno: CNPJ ou CPF informado, ou NULL */
+NFE_INTERNO const char *nfe_emit_documento(const nfe_emit *emit);
 
 #endif

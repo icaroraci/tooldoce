@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Gera nfe/tipos_v4.00.xsd a partir do leiauteNFe_v4.00.xsd oficial.
 
-No leiaute, grupos como <ide>, <emit>, <dest>, <det>, <prod>, <imposto>, <total>, <transp> e <pag> são elementos locais dentro
+No leiaute, grupos como <ide>, <emit>, <dest>, <det>, <prod>, <imposto>, <total>, <transp>, <pag> e <infNFe> são elementos locais dentro
 do tipo TNFe, e tipos como TEnderEmi não têm elemento próprio: nenhum deles
 pode ser validado sozinho. Este script gera um schema que inclui o leiaute e
 declara esses grupos como elementos globais, para que os testes validem o
@@ -18,7 +18,7 @@ ORIGEM = os.path.join(DIR, "leiauteNFe_v4.00.xsd")
 DESTINO = os.path.join(DIR, "tipos_v4.00.xsd")
 
 # Elementos locais de TNFe/infNFe (e de det) copiados como globais
-LOCAIS = ("ide", "emit", "dest", "det", "prod", "imposto", "total", "transp", "pag")
+LOCAIS = ("ide", "emit", "dest", "det", "prod", "imposto", "total", "transp", "pag", "infNFe")
 
 # Tipos complexos do leiaute declarados como elementos globais
 TIPOS = (("enderEmit", "TEnderEmi"), ("enderDest", "TEndereco"))
@@ -44,6 +44,9 @@ def local(texto, nome):
     recuo = inicio.group(1)
     fim = texto.index("\n" + recuo + "</xs:element>", inicio.end())
     bloco = texto[inicio.start() + 1:fim + len(recuo) + len("</xs:element>") + 1]
+    # As restrições de unicidade (xs:unique) têm nome global; na cópia elas
+    # repetiriam os nomes do leiaute incluído
+    bloco = re.sub(r"\n\t*<xs:unique .*?</xs:unique>", "", bloco, flags=re.S)
     primeira, resto = bloco.split("\n", 1)
     primeira = re.sub(r'\s+(minOccurs|maxOccurs)="[^"]*"', "", primeira)
     linhas = [primeira] + resto.split("\n")

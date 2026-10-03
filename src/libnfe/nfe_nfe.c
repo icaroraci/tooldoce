@@ -1,0 +1,272 @@
+/* Copyright (c) 2017, 2018 Gabriel Lampa da Cunha <gabriellampa@gmail.com>
+ **
+ ** This file is part of tooldoce.
+ **
+ ** tooldoce is free software: you can redistribute it and/or modify
+ ** it under the terms of the GNU General Public License as published by
+ ** the Free Software Foundation, either version 3 of the License, or
+ ** (at your option) any later version.
+ **
+ ** tooldoce is distributed in the hope that it will be useful,
+ ** but WITHOUT ANY WARRANTY; without even the implied warranty of
+ ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ ** GNU General Public License for more details.
+ **
+ ** You should have received a copy of the GNU General Public License
+ ** along with tooldoce.  If not, see <http://www.gnu.org/licenses/>.
+ ** */
+
+/* open, write e close (POSIX); a biblioteca não usa stdio para não
+ * depender das funções de impressão */
+#define _POSIX_C_SOURCE 200809L
+
+#include <fcntl.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+
+#include <libnfe/defs.h>
+#include <libnfe/erros.h>
+#include <libnfe/escrita.h>
+#include <libnfe/nfe_nfe.h>
+
+#define NS_NFE     "http://www.portalfiscal.inf.br/nfe"
+#define VERSAO_NFE "4.00"
+
+struct nfe_nfe {
+	nfe_ide *ide;
+	nfe_emit *emit;
+	nfe_dest *dest; /* NULL: não informado */
+	nfe_det *det[NFE_MAX_ITENS];
+	int nDet;
+	nfe_total *total;
+	nfe_transp *transp;
+	nfe_pag *pag;
+};
+
+nfe_nfe *nfe_nfe_new(void)
+{
+	return (nfe_nfe *)calloc(1, sizeof(nfe_nfe));
+}
+
+void nfe_nfe_free(nfe_nfe *nfe)
+{
+	int i;
+
+	if (!nfe)
+		return;
+	nfe_ide_free(nfe->ide);
+	nfe_emit_free(nfe->emit);
+	nfe_dest_free(nfe->dest);
+	for (i = 0; i < nfe->nDet; i++)
+		nfe_det_free(nfe->det[i]);
+	nfe_total_free(nfe->total);
+	nfe_transp_free(nfe->transp);
+	nfe_pag_free(nfe->pag);
+	free(nfe);
+}
+
+/* Troca o grupo campo por novo, liberando o anterior com libera. Com
+ * opcional, novo pode ser NULL (remove o grupo). */
+#define TROCA(campo, novo, libera, opcional)                                   \
+	do {                                                                   \
+		if (!nfe || (!(novo) && !(opcional)))                          \
+			return E_ISNULL;                                       \
+		if (nfe->campo != (novo)) {                                    \
+			libera(nfe->campo);                                    \
+			nfe->campo = (novo);                                   \
+		}                                                              \
+		return 0;                                                      \
+	} while (0)
+
+int nfe_nfe_set_ide(nfe_nfe *nfe, nfe_ide *ide)
+{
+	TROCA(ide, ide, nfe_ide_free, 0);
+}
+
+int nfe_nfe_set_emit(nfe_nfe *nfe, nfe_emit *emit)
+{
+	TROCA(emit, emit, nfe_emit_free, 0);
+}
+
+int nfe_nfe_set_dest(nfe_nfe *nfe, nfe_dest *dest)
+{
+	TROCA(dest, dest, nfe_dest_free, 1);
+}
+
+int nfe_nfe_set_total(nfe_nfe *nfe, nfe_total *total)
+{
+	TROCA(total, total, nfe_total_free, 0);
+}
+
+int nfe_nfe_set_transp(nfe_nfe *nfe, nfe_transp *transp)
+{
+	TROCA(transp, transp, nfe_transp_free, 0);
+}
+
+int nfe_nfe_set_pag(nfe_nfe *nfe, nfe_pag *pag)
+{
+	TROCA(pag, pag, nfe_pag_free, 0);
+}
+
+int nfe_nfe_add_det(nfe_nfe *nfe, nfe_det *det)
+{
+	int rc;
+
+	if (!nfe || !det)
+		return E_ISNULL;
+	if (nfe->nDet >= NFE_MAX_ITENS)
+		return E_VALOR;
+	rc = nfe_det_set_nitem(det, (unsigned)nfe->nDet + 1);
+	if (rc != 0)
+		return rc;
+	nfe->det[nfe->nDet++] = det;
+	return 0;
+}
+
+int nfe_nfe_chave(nfe_nfe *nfe, char *chave, size_t tam)
+{
+	const char *doc;
+
+	if (!nfe || !chave)
+		return E_ISNULL;
+	doc = nfe_emit_documento(nfe->emit);
+	if (!nfe->ide || !doc)
+		return E_VALOR;
+	return nfe_ide_gerar_chave(nfe->ide, doc, chave, tam);
+}
+
+int nfe_nfe_write_xml(xmlTextWriterPtr writer, nfe_nfe *nfe)
+{
+	char chave[NFE_TAM_ASCII(NFE_TAM_CHAVE)];
+	int i, rc;
+
+	if (!writer || !nfe)
+		return E_ISNULL;
+	if (!nfe->ide || !nfe->emit || nfe->nDet == 0 || !nfe->total ||
+	    !nfe->transp || !nfe->pag)
+		return E_VALOR;
+	rc = nfe_nfe_chave(nfe, chave, sizeof chave);
+	if (rc != 0)
+		return rc;
+
+	rc = nfe_abre(writer, "NFe");
+	if (rc != 0)
+		return rc;
+	if (xmlTextWriterWriteAttribute(writer, BAD_CAST "xmlns",
+	                                BAD_CAST NS_NFE) < 0)
+		return E_XML;
+	rc = nfe_abre(writer, "infNFe");
+	if (rc != 0)
+		return rc;
+	if (xmlTextWriterWriteAttribute(writer, BAD_CAST "versao",
+	                                BAD_CAST VERSAO_NFE) < 0 ||
+	    xmlTextWriterWriteFormatAttribute(writer, BAD_CAST "Id", "NFe%s",
+	                                      chave) < 0)
+		return E_XML;
+
+	rc = nfe_ide_write_xml(writer, nfe->ide);
+	if (rc == 0)
+		rc = nfe_emit_write_xml(writer, nfe->emit);
+	if (rc == 0 && nfe->dest)
+		rc = nfe_dest_write_xml(writer, nfe->dest);
+	for (i = 0; rc == 0 && i < nfe->nDet; i++)
+		rc = nfe_det_write_xml(writer, nfe->det[i]);
+	if (rc == 0)
+		rc = nfe_total_write_xml(writer, nfe->total);
+	if (rc == 0)
+		rc = nfe_transp_write_xml(writer, nfe->transp);
+	if (rc == 0)
+		rc = nfe_pag_write_xml(writer, nfe->pag);
+	if (rc != 0)
+		return rc;
+
+	rc = nfe_fecha(writer); /* infNFe */
+	if (rc != 0)
+		return rc;
+	return nfe_fecha(writer); /* NFe */
+}
+
+int nfe_nfe_xml(nfe_nfe *nfe, char **xml, size_t *tam)
+{
+	xmlBufferPtr buf;
+	xmlTextWriterPtr writer;
+	size_t n;
+	int rc;
+
+	if (!nfe || !xml)
+		return E_ISNULL;
+	buf = xmlBufferCreate();
+	if (!buf)
+		return E_MALLOC;
+	writer = xmlNewTextWriterMemory(buf, 0);
+	if (!writer) {
+		xmlBufferFree(buf);
+		return E_MALLOC;
+	}
+
+	rc = xmlTextWriterStartDocument(writer, NULL, "UTF-8", NULL) < 0 ? E_XML
+	                                                                 : 0;
+	if (rc == 0)
+		rc = nfe_nfe_write_xml(writer, nfe);
+	if (rc == 0 && xmlTextWriterEndDocument(writer) < 0)
+		rc = E_XML;
+	xmlFreeTextWriter(writer); /* descarrega o conteúdo em buf */
+
+	if (rc == 0) {
+		/* Sem a quebra de linha que o libxml2 põe no fim do documento
+		 * e após a declaração XML */
+		const char *conteudo = (const char *)xmlBufferContent(buf);
+		const char *fim_decl = strstr(conteudo, "?>");
+		size_t decl = fim_decl ? (size_t)(fim_decl + 2 - conteudo) : 0;
+		const char *corpo = conteudo + decl;
+
+		while (*corpo == '\n')
+			corpo++;
+		n = strlen(corpo);
+		while (n > 0 && corpo[n - 1] == '\n')
+			n--;
+		*xml = (char *)malloc(decl + n + 1);
+		if (!*xml) {
+			rc = E_MALLOC;
+		} else {
+			memcpy(*xml, conteudo, decl);
+			memcpy(*xml + decl, corpo, n);
+			(*xml)[decl + n] = '\0';
+			if (tam)
+				*tam = decl + n;
+		}
+	}
+	xmlBufferFree(buf);
+	return rc;
+}
+
+int nfe_nfe_salvar(nfe_nfe *nfe, const char *caminho)
+{
+	char *xml;
+	size_t tam, feito = 0;
+	int fd, rc;
+
+	if (!nfe || !caminho)
+		return E_ISNULL;
+	rc = nfe_nfe_xml(nfe, &xml, &tam);
+	if (rc != 0)
+		return rc;
+	fd = open(caminho, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd < 0) {
+		free(xml);
+		return E_ARQUIVO;
+	}
+	while (feito < tam) {
+		ssize_t n = write(fd, xml + feito, tam - feito);
+		if (n <= 0) {
+			rc = E_ARQUIVO;
+			break;
+		}
+		feito += (size_t)n;
+	}
+	if (close(fd) != 0)
+		rc = E_ARQUIVO;
+	free(xml);
+	return rc;
+}

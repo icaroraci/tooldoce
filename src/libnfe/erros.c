@@ -31,6 +31,8 @@ const char *nfe_strerror(int codigo)
 		return "valor fora da faixa permitida";
 	case E_XML:
 		return "falha ao escrever o XML";
+	case E_ARQUIVO:
+		return "falha ao gravar o arquivo";
 	case E_MALLOC:
 		return "falta de memória";
 	default:

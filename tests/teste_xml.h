@@ -36,7 +36,7 @@
 static xmlSchemaPtr teste_schema;
 
 /* Carrega <dir>/schemas/nfe/tipos_v4.00.xsd; retorna 0 ou 2 (erro) */
-static int teste_carrega_schema(const char *dir)
+static inline int teste_carrega_schema(const char *dir)
 {
 	char caminho[1024];
 	xmlSchemaParserCtxtPtr pctx;
@@ -54,14 +54,14 @@ static int teste_carrega_schema(const char *dir)
 	return 0;
 }
 
-static void teste_libera_schema(void)
+static inline void teste_libera_schema(void)
 {
 	xmlSchemaFree(teste_schema);
 	xmlCleanupParser();
 }
 
 /* Valida o XML contra o schema; retorna 0 se válido */
-static int teste_valida(const char *xml)
+static inline int teste_valida(const char *xml)
 {
 	xmlDocPtr doc =
 	        xmlReadMemory(xml, (int)strlen(xml), "teste.xml", NULL, 0);
@@ -83,7 +83,8 @@ typedef int (*teste_escreve_fn)(xmlTextWriterPtr writer, const void *obj);
 /* Gera o XML com escreve, acrescentando o namespace da NF-e ao elemento
  * raiz. Retorna NULL se escreve falhar (o código vai em *rc). O resultado
  * deve ser liberado com free(). */
-static char *teste_gera(teste_escreve_fn escreve, const void *obj, int *rc)
+static inline char *teste_gera(teste_escreve_fn escreve, const void *obj,
+                               int *rc)
 {
 	xmlBufferPtr buf = xmlBufferCreate();
 	xmlTextWriterPtr w = xmlNewTextWriterMemory(buf, 0);
