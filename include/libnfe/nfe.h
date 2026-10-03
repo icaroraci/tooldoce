@@ -236,6 +236,24 @@ typedef enum nfe_processo_emissao {
 	NFE_PROCESSO_PAA = 4 /* provedor de assinatura e autorização (PAA) */
 } nfe_processo_emissao;
 
+/* CRT: código de regime tributário do emitente */
+typedef enum nfe_crt {
+	NFE_CRT_NAO_INFORMADO = 0,
+	NFE_CRT_SIMPLES_NACIONAL = 1,
+	NFE_CRT_SIMPLES_EXCESSO_SUBLIMITE = 2, /* Simples Nacional, excesso de
+	                                          sublimite de receita bruta */
+	NFE_CRT_REGIME_NORMAL = 3,
+	NFE_CRT_MEI = 4 /* Simples Nacional, Microempreendedor Individual */
+} nfe_crt;
+
+/* indIEDest: indicador da IE do destinatário */
+typedef enum nfe_ind_ie_dest {
+	NFE_IE_DEST_NAO_INFORMADO = 0,
+	NFE_IE_DEST_CONTRIBUINTE = 1, /* contribuinte ICMS (informar a IE) */
+	NFE_IE_DEST_ISENTO = 2,       /* contribuinte isento de inscrição */
+	NFE_IE_DEST_NAO_CONTRIBUINTE = 9 /* não contribuinte (pode ter IE) */
+} nfe_ind_ie_dest;
+
 /**
  * nfe_tzd:
  * @NFE_TZD_FERNANDO_NORONHA: horário de Fernando de Noronha (UTC-02:00)

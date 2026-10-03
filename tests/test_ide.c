@@ -19,7 +19,7 @@
 /* Testes do grupo ide, com validação do XML contra o XSD oficial.
  *
  * Uso: test_ide <diretório tests>
- * O schema usado é <diretório>/schemas/nfe/ide_v4.00.xsd. */
+ * O schema usado é <diretório>/schemas/nfe/tipos_v4.00.xsd. */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -608,7 +608,7 @@ int main(int argc, char **argv)
 		fprintf(stderr, "uso: %s <diretório tests>\n", argv[0]);
 		return 2;
 	}
-	snprintf(caminho, sizeof caminho, "%s/schemas/nfe/ide_v4.00.xsd",
+	snprintf(caminho, sizeof caminho, "%s/schemas/nfe/tipos_v4.00.xsd",
 	         argv[1]);
 	pctx = xmlSchemaNewParserCtxt(caminho);
 	schema = xmlSchemaParse(pctx);

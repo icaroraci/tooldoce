@@ -41,8 +41,9 @@ jobs:
         run: |
           python3 tools/gerar_padroes.py --verificar
           python3 tools/gerar_diagramas.py --todo
-          git diff --exit-code -- docs/diagramas TODO.md || {
-            echo "::error::Diagramas ou TODO.md desatualizados: rode python3 tools/gerar_diagramas.py --todo"
+          python3 tests/schemas/gerar_tipos_xsd.py
+          git diff --exit-code -- docs/diagramas TODO.md tests/schemas || {
+            echo "::error::Arquivos gerados desatualizados: rode python3 tools/gerar_diagramas.py --todo e python3 tests/schemas/gerar_tipos_xsd.py"
             exit 1
           }
 

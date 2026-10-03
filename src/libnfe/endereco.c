@@ -16,7 +16,6 @@
  ** along with tooldoce.  If not, see <http://www.gnu.org/licenses/>.
  ** */
 
-#include <stdarg.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
@@ -24,6 +23,7 @@
 #include <libnfe/defs.h>
 #include <libnfe/endereco.h>
 #include <libnfe/erros.h>
+#include <libnfe/escrita.h>
 #include <libnfe/padroes.h>
 #include <libnfe/valida.h>
 
@@ -161,27 +161,6 @@ int nfe_endereco_set_fone(nfe_endereco *end, const char *fone)
 	return copia_opcional(end->fone, sizeof end->fone, fone, "[0-9]{6,14}");
 }
 
-/* Escreve <tag>valor</tag>; retorna 0 ou E_XML */
-static int escreve(xmlTextWriterPtr writer, const char *tag,
-                   const char *formato, ...)
-{
-	va_list ap;
-	int rc;
-
-	va_start(ap, formato);
-	rc = xmlTextWriterWriteVFormatElement(writer, BAD_CAST tag, formato,
-	                                      ap);
-	va_end(ap);
-	return rc < 0 ? E_XML : 0;
-}
-
-#define ESCREVE(...)                                                           \
-	do {                                                                   \
-		rc = escreve(writer, __VA_ARGS__);                             \
-		if (rc != 0)                                                   \
-			return rc;                                             \
-	} while (0)
-
 int nfe_endereco_write_xml(xmlTextWriterPtr writer, nfe_endereco_tipo tipo,
                            const nfe_endereco *end)
 {
@@ -218,22 +197,22 @@ int nfe_endereco_write_xml(xmlTextWriterPtr writer, nfe_endereco_tipo tipo,
 
 	if (xmlTextWriterStartElement(writer, BAD_CAST tag) < 0)
 		return E_XML;
-	ESCREVE("xLgr", "%s", end->xLgr);
-	ESCREVE("nro", "%s", end->nro);
+	NFE_ESCREVE("xLgr", "%s", end->xLgr);
+	NFE_ESCREVE("nro", "%s", end->nro);
 	if (end->xCpl[0] != '\0')
-		ESCREVE("xCpl", "%s", end->xCpl);
-	ESCREVE("xBairro", "%s", end->xBairro);
-	ESCREVE("cMun", "%07u", (unsigned)end->cMun);
-	ESCREVE("xMun", "%s", end->xMun);
-	ESCREVE("UF", "%s", end->UF);
+		NFE_ESCREVE("xCpl", "%s", end->xCpl);
+	NFE_ESCREVE("xBairro", "%s", end->xBairro);
+	NFE_ESCREVE("cMun", "%07u", (unsigned)end->cMun);
+	NFE_ESCREVE("xMun", "%s", end->xMun);
+	NFE_ESCREVE("UF", "%s", end->UF);
 	if (end->CEP[0] != '\0')
-		ESCREVE("CEP", "%s", end->CEP);
+		NFE_ESCREVE("CEP", "%s", end->CEP);
 	if (end->cPais != 0)
-		ESCREVE("cPais", "%u", end->cPais);
+		NFE_ESCREVE("cPais", "%u", end->cPais);
 	if (end->xPais[0] != '\0')
-		ESCREVE("xPais", "%s", end->xPais);
+		NFE_ESCREVE("xPais", "%s", end->xPais);
 	if (end->fone[0] != '\0')
-		ESCREVE("fone", "%s", end->fone);
+		NFE_ESCREVE("fone", "%s", end->fone);
 	if (xmlTextWriterEndElement(writer) < 0)
 		return E_XML;
 	return 0;

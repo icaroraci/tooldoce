@@ -20,7 +20,6 @@
 #define _POSIX_C_SOURCE 200809L
 
 #include <inttypes.h>
-#include <stdarg.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -30,6 +29,7 @@
 #include <libnfe/cnpjcpf.h>
 #include <libnfe/defs.h>
 #include <libnfe/erros.h>
+#include <libnfe/escrita.h>
 #include <libnfe/ide.h>
 #include <libnfe/refNF.h>
 #include <libnfe/refNFe.h>
@@ -614,20 +614,6 @@ int nfe_ide_remove_pagantecipado(nfe_ide *ide)
 	return 0;
 }
 
-/* Escreve <tag>valor</tag>; retorna 0 ou E_XML */
-static int escreve(xmlTextWriterPtr writer, const char *tag,
-                   const char *formato, ...)
-{
-	va_list ap;
-	int rc;
-
-	va_start(ap, formato);
-	rc = xmlTextWriterWriteVFormatElement(writer, BAD_CAST tag, formato,
-	                                      ap);
-	va_end(ap);
-	return rc < 0 ? E_XML : 0;
-}
-
 /* Escreve uma data no fuso do ide */
 static int escreve_data(xmlTextWriterPtr writer, const char *tag, time_t t,
                         nfe_tzd tzd)
@@ -637,7 +623,7 @@ static int escreve_data(xmlTextWriterPtr writer, const char *tag, time_t t,
 
 	if (rc != 0)
 		return rc;
-	return escreve(writer, tag, "%s", dh);
+	return nfe_escreve(writer, tag, "%s", dh);
 }
 
 /* Escreve só a data (AAAA-MM-DD) de t, no fuso do ide */
@@ -652,15 +638,8 @@ static int escreve_dia(xmlTextWriterPtr writer, const char *tag, time_t t,
 		return E_VALOR;
 	if (strftime(dia, sizeof dia, "%Y-%m-%d", &tm) == 0)
 		return E_TAMANHO;
-	return escreve(writer, tag, "%s", dia);
+	return nfe_escreve(writer, tag, "%s", dia);
 }
-
-#define ESCREVE(...)                                                           \
-	do {                                                                   \
-		rc = escreve(writer, __VA_ARGS__);                             \
-		if (rc != 0)                                                   \
-			return rc;                                             \
-	} while (0)
 
 #define ESCREVE_DATA(tag, t)                                                   \
 	do {                                                                   \
@@ -701,12 +680,12 @@ int nfe_ide_write_xml(xmlTextWriterPtr writer, const nfe_ide *ide)
 	if (xmlTextWriterStartElement(writer, BAD_CAST "ide") < 0)
 		return E_XML;
 
-	ESCREVE("cUF", "%02d", (int)ide->cUF);
-	ESCREVE("cNF", "%08" PRIu32, ide->cNF);
-	ESCREVE("natOp", "%s", ide->natOp);
-	ESCREVE("mod", "%02d", (int)ide->mod);
-	ESCREVE("serie", "%u", ide->serie);
-	ESCREVE("nNF", "%" PRIu32, ide->nNF);
+	NFE_ESCREVE("cUF", "%02d", (int)ide->cUF);
+	NFE_ESCREVE("cNF", "%08" PRIu32, ide->cNF);
+	NFE_ESCREVE("natOp", "%s", ide->natOp);
+	NFE_ESCREVE("mod", "%02d", (int)ide->mod);
+	NFE_ESCREVE("serie", "%u", ide->serie);
+	NFE_ESCREVE("nNF", "%" PRIu32, ide->nNF);
 	ESCREVE_DATA("dhEmi", ide->dhEmi);
 	if (ide->dhSaiEnt != NFE_SEM_DATA) /* opcional */
 		ESCREVE_DATA("dhSaiEnt", ide->dhSaiEnt);
@@ -716,33 +695,33 @@ int nfe_ide_write_xml(xmlTextWriterPtr writer, const nfe_ide *ide)
 		if (rc != 0)
 			return rc;
 	}
-	ESCREVE("tpNF", "%d", (int)ide->tpNF);
-	ESCREVE("idDest", "%d", (int)ide->idDest);
-	ESCREVE("cMunFG", "%07" PRIu32, ide->cMunFG);
+	NFE_ESCREVE("tpNF", "%d", (int)ide->tpNF);
+	NFE_ESCREVE("idDest", "%d", (int)ide->idDest);
+	NFE_ESCREVE("cMunFG", "%07" PRIu32, ide->cMunFG);
 	if (ide->cMunFGIBS != 0)
-		ESCREVE("cMunFGIBS", "%07" PRIu32, ide->cMunFGIBS);
-	ESCREVE("tpImp", "%d", (int)ide->tpImp);
-	ESCREVE("tpEmis", "%d", (int)ide->tpEmis);
-	ESCREVE("cDV", "%u", ide->cDV);
-	ESCREVE("tpAmb", "%d", (int)ide->tpAmb);
-	ESCREVE("finNFe", "%d", (int)ide->finNFe);
+		NFE_ESCREVE("cMunFGIBS", "%07" PRIu32, ide->cMunFGIBS);
+	NFE_ESCREVE("tpImp", "%d", (int)ide->tpImp);
+	NFE_ESCREVE("tpEmis", "%d", (int)ide->tpEmis);
+	NFE_ESCREVE("cDV", "%u", ide->cDV);
+	NFE_ESCREVE("tpAmb", "%d", (int)ide->tpAmb);
+	NFE_ESCREVE("finNFe", "%d", (int)ide->finNFe);
 	if (ide->tpNFDebito != NFE_DEBITO_NAO_INFORMADO)
-		ESCREVE("tpNFDebito", "%02d", (int)ide->tpNFDebito);
+		NFE_ESCREVE("tpNFDebito", "%02d", (int)ide->tpNFDebito);
 	if (ide->tpNFCredito != NFE_CREDITO_NAO_INFORMADO)
-		ESCREVE("tpNFCredito", "%02d", (int)ide->tpNFCredito);
-	ESCREVE("indFinal", "%d", (int)ide->indFinal);
-	ESCREVE("indPres", "%d", (int)ide->indPres);
+		NFE_ESCREVE("tpNFCredito", "%02d", (int)ide->tpNFCredito);
+	NFE_ESCREVE("indFinal", "%d", (int)ide->indFinal);
+	NFE_ESCREVE("indPres", "%d", (int)ide->indPres);
 	if (ide->indIntermed != NFE_INTERMEDIADOR_NAO_INFORMADO)
-		ESCREVE("indIntermed", "%d", (int)ide->indIntermed);
+		NFE_ESCREVE("indIntermed", "%d", (int)ide->indIntermed);
 	if (ide->cIndOp[0] != '\0')
-		ESCREVE("cIndOp", "%s", ide->cIndOp);
-	ESCREVE("procEmi", "%d", (int)ide->procEmi);
-	ESCREVE("verProc", "%s", ide->verProc);
+		NFE_ESCREVE("cIndOp", "%s", ide->cIndOp);
+	NFE_ESCREVE("procEmi", "%d", (int)ide->procEmi);
+	NFE_ESCREVE("verProc", "%s", ide->verProc);
 
 	/* dhCont e xJust são filhos diretos de <ide>, logo após verProc */
 	if (ide->contingencia) {
 		ESCREVE_DATA("dhCont", ide->dhCont);
-		ESCREVE("xJust", "%s", ide->xJust);
+		NFE_ESCREVE("xJust", "%s", ide->xJust);
 	}
 
 	/* NFref: um grupo para cada documento referenciado */
@@ -763,11 +742,11 @@ int nfe_ide_write_xml(xmlTextWriterPtr writer, const nfe_ide *ide)
 		if (xmlTextWriterStartElement(writer, BAD_CAST "gCompraGov") <
 		    0)
 			return E_XML;
-		ESCREVE("tpEnteGov", "%d", (int)ide->tpEnteGov);
-		ESCREVE("pRedutor", "%s", ide->pRedutor);
-		ESCREVE("tpOperGov", "%d", (int)ide->tpOperGov);
+		NFE_ESCREVE("tpEnteGov", "%d", (int)ide->tpEnteGov);
+		NFE_ESCREVE("pRedutor", "%s", ide->pRedutor);
+		NFE_ESCREVE("tpOperGov", "%d", (int)ide->tpOperGov);
 		for (i = 0; i < ide->nRefDFeAnt; i++)
-			ESCREVE("refDFeAnt", "%s", ide->refDFeAnt[i]);
+			NFE_ESCREVE("refDFeAnt", "%s", ide->refDFeAnt[i]);
 		if (xmlTextWriterEndElement(writer) < 0)
 			return E_XML;
 	}
@@ -777,7 +756,7 @@ int nfe_ide_write_xml(xmlTextWriterPtr writer, const nfe_ide *ide)
 		                              BAD_CAST "gPagAntecipado") < 0)
 			return E_XML;
 		for (i = 0; i < ide->nPagAntecipado; i++)
-			ESCREVE("refNFe", "%s", ide->pagAntecipado[i]);
+			NFE_ESCREVE("refNFe", "%s", ide->pagAntecipado[i]);
 		if (xmlTextWriterEndElement(writer) < 0)
 			return E_XML;
 	}
