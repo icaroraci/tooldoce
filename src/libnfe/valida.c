@@ -121,3 +121,16 @@ int nfe_copia_texto_validado(char *dst, size_t tam, const char *valor,
 	}
 	return copia(dst, tam, valor);
 }
+
+int nfe_uf_valida(int cuf)
+{
+	static const int codigos[] = { 11, 12, 13, 14, 15, 16, 17, 21, 22,
+		                       23, 24, 25, 26, 27, 28, 29, 31, 32,
+		                       33, 35, 41, 42, 43, 50, 51, 52, 53 };
+	size_t i;
+
+	for (i = 0; i < sizeof codigos / sizeof codigos[0]; i++)
+		if (cuf == codigos[i])
+			return 0;
+	return E_VALOR;
+}

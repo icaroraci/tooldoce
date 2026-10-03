@@ -161,4 +161,13 @@ int nfe_sefaz_proc_evento(const char *evento, size_t tam_evento,
                           const char *ret, size_t tam_ret, char **proc,
                           size_t *tam_proc);
 
+/* ProcInutNFe: a inutilização assinada (<inutNFe>, ver inutilizacao.h) com
+ * o seu retorno (<retInutNFe>, procurado em ret e conferido contra a faixa
+ * inutilizada), alocado em *proc (libere com free()). A inutilização é
+ * copiada sem alterações. Retorna 0, E_ISNULL, E_XML (documentos
+ * malformados), E_VALOR (retorno ausente ou de outra faixa) ou E_MALLOC. */
+int nfe_sefaz_proc_inutilizacao(const char *inut, size_t tam_inut,
+                                const char *ret, size_t tam_ret, char **proc,
+                                size_t *tam_proc);
+
 #endif

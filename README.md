@@ -15,7 +15,8 @@ Biblioteca livre em C para emissão de documentos fiscais eletrônicos brasileir
 | Assinatura digital com certificado A1 (`assinatura.h`) | Pronto |
 | Comunicação com a SEFAZ: status, envio do lote, consultas e nfeProc (`sefaz.h`) | Pronto, testado com um servidor falso; falta testar na homologação da SEFAZ |
 | Eventos: cancelamento, cancelamento por substituição e carta de correção (`evento.h`) | Prontos; validados contra os schemas oficiais |
-| Inutilização, tabela de endereços por UF | A fazer |
+| Inutilização de numeração (`inutilizacao.h`) | Pronta; validada contra o schema oficial |
+| Tabela de endereços dos webservices por UF | A fazer |
 | Certificado A3 (token/cartão) | A fazer |
 | NFS-e, CT-e, MDF-e | Planejados (ver [visão do projeto](docs/VISAO.md)) |
 

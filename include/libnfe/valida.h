@@ -56,4 +56,7 @@ NFE_INTERNO int nfe_copia_padrao(char *dst, size_t tam, const char *valor,
 NFE_INTERNO int nfe_copia_texto_validado(char *dst, size_t tam,
                                          const char *valor, size_t min,
                                          size_t max);
+/* Confere o código IBGE de uma UF (cUF). Retorna 0 ou E_VALOR. */
+NFE_INTERNO int nfe_uf_valida(int cuf);
+
 #endif
