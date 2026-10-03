@@ -136,15 +136,11 @@ void ideContDel(struct Cont_s *cont)
   free(cont);
 }
 
+/* Escreve dhCont e xJust; no leiaute são filhos diretos de <ide>, sem
+ * grupo próprio, logo após verProc */
 int xmlGenideContNode(xmlTextWriterPtr writer,struct Cont_s *cont)
 {
   int rc;
-  rc = xmlTextWriterStartElement(writer, BAD_CAST "-x-");
-  if (rc < 0) {
-    printf("ide--x-: Erro em xmlTextWriterStartElement\n");
-    return -1;
-  }
-  
   rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "dhCont","%s", 
                                                cont->dhCont);
   if (rc < 0) {
@@ -156,13 +152,6 @@ int xmlGenideContNode(xmlTextWriterPtr writer,struct Cont_s *cont)
                                                cont->xJust);
   if (rc < 0) {
     printf("ide->cont->xJust: Erro em xmlTextWriterWriteFormatElement\n");
-    return -1;
-  }
-
-
-  rc = xmlTextWriterEndElement(writer);
-  if (rc < 0) {
-    printf("ide--x-: Erro em xmlTextWriterEndElement\n");
     return -1;
   }
 

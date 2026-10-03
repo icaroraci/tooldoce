@@ -113,7 +113,8 @@ void ideDel(struct ide_s *ide);
 /*  Gera o Nó xml para o respectivo objeto
  *  
  *  xmlGenideNode(writer, ide) chama internamente
- *  xmlGenideContNode(writer, cont) se este for definido.
+ *  xmlGenideContNode(writer, cont) se este for definido, que escreve
+ *  dhCont e xJust diretamente dentro de <ide>.
  ***/
 
 int xmlGenideContNode(xmlTextWriterPtr writer,struct Cont_s *cont);
