@@ -1,331 +1,240 @@
 /* Copyright (c) 2017, 2018 Gabriel Lampa da Cunha <gabriellampa@gmail.com>
- *
- * This file is part of tooldoce.
- *
- * tooldoce is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * tooldoce is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with tooldoce.  If not, see <http://www.gnu.org/licenses/>.
- * */
+ **
+ ** This file is part of tooldoce.
+ **
+ ** tooldoce is free software: you can redistribute it and/or modify
+ ** it under the terms of the GNU General Public License as published by
+ ** the Free Software Foundation, either version 3 of the License, or
+ ** (at your option) any later version.
+ **
+ ** tooldoce is distributed in the hope that it will be useful,
+ ** but WITHOUT ANY WARRANTY; without even the implied warranty of
+ ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ ** GNU General Public License for more details.
+ **
+ ** You should have received a copy of the GNU General Public License
+ ** along with tooldoce.  If not, see <http://www.gnu.org/licenses/>.
+ ** */
 
+#include <stdarg.h>
 #include <stdint.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include <libnfe/defs.h>
-#include <libnfe/erros.h>
-#include <libnfe/nfe.h>
-
-#include <libnfe/utils.h>
 #include <libnfe/endereco.h>
+#include <libnfe/erros.h>
+#include <libnfe/padroes.h>
+#include <libnfe/valida.h>
 
-/**
- * pais_s:
- * @cPais: Código do país
- * @xPais: Nome do país
- *
- * País
- */
-struct pais_s {
-	const char *xPais;
-	uint16_t cPais;
-};
-
-/**
- * uf_s:
- * @cUF: Código IBGE da UF
- * @xUF: Nome da UF
- * @pais: Pais
- *
- * Unidade federada
- */
-struct uf_s {
-	const char *xUF;
-	nfe_uf cUF;
-	Pais *pais;
-};
-
-/**
- * MUNICIPIO:
- * @xMun: Nome do municício
- * @cMun: Código IBGE do municício
- * @uf: UF
- *
- * Informação do Município
- */
-struct municipio_s {
-	const char *xMun;
-	uint32_t cMun; /* 7 dígitos (ex.: 3550308) */
-	Uf *uf;
-};
-
-/**
- * ENDERECO:
- * @xLgr: Rua do endereço
- * @nro: Número do endereço na rua
- * @Cpl: Complemento do endereço
- * @xBairro: Bairro do endereço
- * @municipio: Município do endereço
- * @CEP: CEP do endereço
- * @fone: O telefone é usado em algumas tags, juntamente com o endereço
- *
- * Endereço
- */
-struct endereco_s {
+struct nfe_endereco {
 	char xLgr[NFE_TAM_UTF8(NFE_TAM_XLGR)];
 	char nro[NFE_TAM_UTF8(NFE_TAM_NRO)];
-	char Cpl[NFE_TAM_UTF8(NFE_TAM_XCPL)];
+	char xCpl[NFE_TAM_UTF8(NFE_TAM_XCPL)]; /* "": não informado */
 	char xBairro[NFE_TAM_UTF8(NFE_TAM_XBAIRRO)];
-	uint32_t CEP;
-	uint64_t fone;
-	Municipio *municipio;
+	uint32_t cMun;
+	char xMun[NFE_TAM_UTF8(NFE_TAM_XMUN)];
+	char UF[NFE_TAM_ASCII(2)];
+	char CEP[NFE_TAM_ASCII(NFE_TAM_CEP)];    /* "": não informado */
+	unsigned cPais;                          /* 0: não informado */
+	char xPais[NFE_TAM_UTF8(NFE_TAM_XPAIS)]; /* "": não informado */
+	char fone[NFE_TAM_ASCII(NFE_TAM_FONE)];  /* "": não informado */
 };
 
-static void _delPais(Pais *t);
-static void _delUf(Uf *t);
-static void _delMunicipio(Municipio *t);
-
-static Pais *_newPais(void)
+nfe_endereco *nfe_endereco_new(void)
 {
-	Pais temp = { .cPais = 1058, .xPais = "BRASIL" };
-	Pais *ptr = (Pais *)malloc(sizeof(struct pais_s));
-	if (ptr != NULL) {
-		memcpy(ptr, &temp, sizeof(struct pais_s));
-	}
-	return ptr;
+	return (nfe_endereco *)calloc(1, sizeof(nfe_endereco));
 }
 
-static Uf *_newUf(void)
+void nfe_endereco_free(nfe_endereco *end)
 {
-	Uf temp = { .cUF = 0 };
-	Uf *ptr;
-
-	temp.pais = _newPais();
-	if (temp.pais == NULL) {
-		return NULL;
-	}
-	ptr = (Uf *)malloc(sizeof(struct uf_s));
-	if (ptr == NULL) {
-		_delPais(temp.pais);
-		return NULL;
-	}
-	memcpy(ptr, &temp, sizeof(struct uf_s));
-	return ptr;
+	free(end);
 }
 
-static Municipio *_newMunicipio(void)
-{
-	Municipio temp = { .cMun = 0 };
-	Municipio *ptr;
+#define EXIGE_END(end)                                                         \
+	do {                                                                   \
+		if (!(end))                                                    \
+			return E_ISNULL;                                       \
+	} while (0)
 
-	temp.uf = _newUf();
-	if (temp.uf == NULL) {
-		return NULL;
-	}
-	ptr = (Municipio *)malloc(sizeof(struct municipio_s));
-	if (ptr == NULL) {
-		_delUf(temp.uf);
-		return NULL;
-	}
-	memcpy(ptr, &temp, sizeof(struct municipio_s));
-	return ptr;
+int nfe_endereco_set_xlgr(nfe_endereco *end, const char *xlgr)
+{
+	EXIGE_END(end);
+	return nfe_copia_texto_validado(end->xLgr, sizeof end->xLgr, xlgr, 2,
+	                                NFE_TAM_XLGR);
 }
 
-Endereco *NewEndereco(void)
+int nfe_endereco_set_nro(nfe_endereco *end, const char *nro)
 {
-	Endereco temp = { .CEP = 0, .fone = 0 };
-	Endereco *ptr;
-
-	temp.municipio = _newMunicipio();
-	if (temp.municipio == NULL) {
-		return NULL;
-	}
-	ptr = (Endereco *)malloc(sizeof(struct endereco_s));
-	if (ptr == NULL) {
-		_delMunicipio(temp.municipio);
-		return NULL;
-	}
-	memcpy(ptr, &temp, sizeof(struct endereco_s));
-	return ptr;
+	EXIGE_END(end);
+	return nfe_copia_texto_validado(end->nro, sizeof end->nro, nro, 1,
+	                                NFE_TAM_NRO);
 }
 
-static void _delPais(Pais *t)
+int nfe_endereco_set_xcpl(nfe_endereco *end, const char *xcpl)
 {
-	if (nfe_ptrnull(t) == 0) {
-		free(t);
-	}
-}
-
-static void _delUf(Uf *t)
-{
-	if (nfe_ptrnull(t) == 0) {
-		_delPais(t->pais);
-		free(t);
-	}
-}
-
-static void _delMunicipio(Municipio *t)
-{
-	if (nfe_ptrnull(t) == 0) {
-		_delUf(t->uf);
-		free(t);
-	}
-}
-
-void DelEndereco(Endereco *t)
-{
-	if (nfe_ptrnull(t) == 0) {
-		_delMunicipio(t->municipio);
-		free(t);
-	}
-}
-
-uint32_t GetCEP(const Endereco *end)
-{
-	int rc;
-	rc = nfe_ptrnull(end);
-	if (rc == 0) {
-		return end->CEP;
-	} else {
+	EXIGE_END(end);
+	if (!xcpl) {
+		end->xCpl[0] = '\0';
 		return 0;
 	}
+	return nfe_copia_texto_validado(end->xCpl, sizeof end->xCpl, xcpl, 1,
+	                                NFE_TAM_XCPL);
 }
 
-int SetCEP(Endereco *end, uint32_t cep)
+int nfe_endereco_set_xbairro(nfe_endereco *end, const char *xbairro)
 {
+	EXIGE_END(end);
+	return nfe_copia_texto_validado(end->xBairro, sizeof end->xBairro,
+	                                xbairro, 2, NFE_TAM_XBAIRRO);
+}
+
+int nfe_endereco_set_cmun(nfe_endereco *end, uint32_t cmun)
+{
+	EXIGE_END(end);
+	if (cmun < 1000000u || cmun > 9999999u)
+		return E_VALOR;
+	end->cMun = cmun;
+	return 0;
+}
+
+int nfe_endereco_set_xmun(nfe_endereco *end, const char *xmun)
+{
+	EXIGE_END(end);
+	return nfe_copia_texto_validado(end->xMun, sizeof end->xMun, xmun, 2,
+	                                NFE_TAM_XMUN);
+}
+
+int nfe_endereco_set_uf(nfe_endereco *end, const char *uf)
+{
+	static const char *const ufs[] = { NFE_VALORES_TUf, NULL };
 	int rc;
-	rc = nfe_ptrnull(end);
-	if (rc == 0) {
-		end->CEP = cep;
-		return 0;
-	} else {
+
+	EXIGE_END(end);
+	rc = nfe_valida_lista(uf, ufs);
+	if (rc != 0)
 		return rc;
-	}
+	memcpy(end->UF, uf, sizeof end->UF);
+	return 0;
 }
 
-int SetFone(Endereco *end, uint64_t fone)
+/* Campo opcional só com dígitos: NULL remove */
+static int copia_opcional(char *dst, size_t tam, const char *valor,
+                          const char *padrao)
 {
+	if (!valor) {
+		dst[0] = '\0';
+		return 0;
+	}
+	return nfe_copia_padrao(dst, tam, valor, padrao);
+}
+
+int nfe_endereco_set_cep(nfe_endereco *end, const char *cep)
+{
+	EXIGE_END(end);
+	return copia_opcional(end->CEP, sizeof end->CEP, cep, "[0-9]{8}");
+}
+
+int nfe_endereco_set_cpais(nfe_endereco *end, unsigned cpais)
+{
+	EXIGE_END(end);
+	if (cpais > 9999u)
+		return E_VALOR;
+	end->cPais = cpais;
+	return 0;
+}
+
+int nfe_endereco_set_xpais(nfe_endereco *end, const char *xpais)
+{
+	EXIGE_END(end);
+	if (!xpais) {
+		end->xPais[0] = '\0';
+		return 0;
+	}
+	return nfe_copia_texto_validado(end->xPais, sizeof end->xPais, xpais, 2,
+	                                NFE_TAM_XPAIS);
+}
+
+int nfe_endereco_set_fone(nfe_endereco *end, const char *fone)
+{
+	EXIGE_END(end);
+	return copia_opcional(end->fone, sizeof end->fone, fone, "[0-9]{6,14}");
+}
+
+/* Escreve <tag>valor</tag>; retorna 0 ou E_XML */
+static int escreve(xmlTextWriterPtr writer, const char *tag,
+                   const char *formato, ...)
+{
+	va_list ap;
 	int rc;
-	rc = nfe_ptrnull(end);
-	if (rc == 0) {
-		end->fone = fone;
-		return 0;
-	} else {
-		return rc;
-	}
+
+	va_start(ap, formato);
+	rc = xmlTextWriterWriteVFormatElement(writer, BAD_CAST tag, formato,
+	                                      ap);
+	va_end(ap);
+	return rc < 0 ? E_XML : 0;
 }
 
-uint64_t GetFone(const Endereco *end)
+#define ESCREVE(...)                                                           \
+	do {                                                                   \
+		rc = escreve(writer, __VA_ARGS__);                             \
+		if (rc != 0)                                                   \
+			return rc;                                             \
+	} while (0)
+
+int nfe_endereco_write_xml(xmlTextWriterPtr writer, nfe_endereco_tipo tipo,
+                           const nfe_endereco *end)
 {
+	const char *tag;
 	int rc;
-	rc = nfe_ptrnull(end);
-	if (rc == 0) {
-		return end->fone;
-	} else {
-		return 0;
-	}
-}
 
-const char *GetLgr(const Endereco *end)
-{
-	if (nfe_ptrnull(end) != 0) {
-		return NULL;
+	if (!writer || !end)
+		return E_ISNULL;
+	switch (tipo) {
+	case NFE_ENDERECO_EMITENTE:
+		tag = "enderEmit";
+		break;
+	case NFE_ENDERECO_DESTINATARIO:
+		tag = "enderDest";
+		break;
+	default:
+		return E_VALOR;
 	}
-	return end->xLgr;
-}
 
-const char *GetNro(const Endereco *end)
-{
-	if (nfe_ptrnull(end) != 0) {
-		return NULL;
-	}
-	return end->nro;
-}
+	/* Campos obrigatórios */
+	if (end->xLgr[0] == '\0' || end->nro[0] == '\0' ||
+	    end->xBairro[0] == '\0' || end->cMun == 0 || end->xMun[0] == '\0' ||
+	    end->UF[0] == '\0')
+		return E_VALOR;
 
-const char *GetCpl(const Endereco *end)
-{
-	if (nfe_ptrnull(end) != 0) {
-		return NULL;
-	}
-	return end->Cpl;
-}
+	/* Emitente (TEnderEmi): CEP obrigatório, UF sem "EX" e país só o
+	 * Brasil */
+	if (tipo == NFE_ENDERECO_EMITENTE &&
+	    (end->CEP[0] == '\0' || strcmp(end->UF, NFE_UF_EXTERIOR) == 0 ||
+	     (end->cPais != 0 && end->cPais != NFE_CPAIS_BRASIL) ||
+	     (end->xPais[0] != '\0' && strcmp(end->xPais, "Brasil") != 0 &&
+	      strcmp(end->xPais, "BRASIL") != 0)))
+		return E_VALOR;
 
-const char *GetBairro(const Endereco *end)
-{
-	if (nfe_ptrnull(end) != 0) {
-		return NULL;
-	}
-	return end->xBairro;
-}
-
-Municipio *GetMunicipio(Endereco *end)
-{
-	if (nfe_ptrnull(end) != 0) {
-		return NULL;
-	}
-	return end->municipio;
-}
-
-int SetLgr(Endereco *end, const char *xlgr)
-{
-	int rc = nfe_ptrnull(end);
-	if (rc != 0) {
-		return rc;
-	}
-	return nfe_copia_texto(end->xLgr, sizeof end->xLgr, xlgr, 2,
-	                       NFE_TAM_XLGR);
-}
-
-int SetNro(Endereco *end, const char *nro)
-{
-	int rc = nfe_ptrnull(end);
-	if (rc != 0) {
-		return rc;
-	}
-	return nfe_copia_texto(end->nro, sizeof end->nro, nro, 1, NFE_TAM_NRO);
-}
-
-int SetCpl(Endereco *end, const char *cpl)
-{
-	int rc = nfe_ptrnull(end);
-	if (rc != 0) {
-		return rc;
-	}
-	return nfe_copia_texto(end->Cpl, sizeof end->Cpl, cpl, 1, NFE_TAM_XCPL);
-}
-
-int SetBairro(Endereco *end, const char *bairro)
-{
-	int rc = nfe_ptrnull(end);
-	if (rc != 0) {
-		return rc;
-	}
-	return nfe_copia_texto(end->xBairro, sizeof end->xBairro, bairro, 2,
-	                       NFE_TAM_XBAIRRO);
-}
-
-/* O endereço passa a ser dono de muni, e o município anterior é liberado */
-int SetMunicipio(Endereco *end, Municipio *muni)
-{
-	int rc = nfe_ptrnull(end);
-	if (rc != 0) {
-		return rc;
-	}
-	rc = nfe_ptrnull(muni);
-	if (rc != 0) {
-		return rc;
-	}
-	if (end->municipio != muni) {
-		_delMunicipio(end->municipio);
-		end->municipio = muni;
-	}
+	if (xmlTextWriterStartElement(writer, BAD_CAST tag) < 0)
+		return E_XML;
+	ESCREVE("xLgr", "%s", end->xLgr);
+	ESCREVE("nro", "%s", end->nro);
+	if (end->xCpl[0] != '\0')
+		ESCREVE("xCpl", "%s", end->xCpl);
+	ESCREVE("xBairro", "%s", end->xBairro);
+	ESCREVE("cMun", "%07u", (unsigned)end->cMun);
+	ESCREVE("xMun", "%s", end->xMun);
+	ESCREVE("UF", "%s", end->UF);
+	if (end->CEP[0] != '\0')
+		ESCREVE("CEP", "%s", end->CEP);
+	if (end->cPais != 0)
+		ESCREVE("cPais", "%u", end->cPais);
+	if (end->xPais[0] != '\0')
+		ESCREVE("xPais", "%s", end->xPais);
+	if (end->fone[0] != '\0')
+		ESCREVE("fone", "%s", end->fone);
+	if (xmlTextWriterEndElement(writer) < 0)
+		return E_XML;
 	return 0;
 }

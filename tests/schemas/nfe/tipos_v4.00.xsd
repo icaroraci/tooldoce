@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Schema dos testes: declara como elementos globais os tipos complexos do
+     leiaute que a biblioteca já gera sozinhos, para validá-los enquanto a
+     nota completa não existe. Não faz parte dos schemas oficiais. -->
+<xs:schema xmlns="http://www.portalfiscal.inf.br/nfe" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.portalfiscal.inf.br/nfe" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="leiauteNFe_v4.00.xsd"/>
+	<xs:element name="enderEmit" type="TEnderEmi"/>
+	<xs:element name="enderDest" type="TEndereco"/>
+</xs:schema>

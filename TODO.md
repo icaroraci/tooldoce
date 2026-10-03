@@ -13,13 +13,13 @@ Marque `[x]` quando a estrutura tiver: criação/liberação, setters com valida
         - [x] [**refNF**](docs/diagramas/NFe/infNFe/ide/NFref/refNF.svg)
         - [ ] [**refNFP**](docs/diagramas/NFe/infNFe/ide/NFref/refNFP.svg)
         - [ ] [**refECF**](docs/diagramas/NFe/infNFe/ide/NFref/refECF.svg)
-      - [ ] [**gCompraGov**](docs/diagramas/NFe/infNFe/ide/gCompraGov.svg) `0..1` _(opcional)_
-      - [ ] [**gPagAntecipado**](docs/diagramas/NFe/infNFe/ide/gPagAntecipado.svg) `0..1` _(opcional)_
+      - [x] [**gCompraGov**](docs/diagramas/NFe/infNFe/ide/gCompraGov.svg) `0..1` _(opcional)_
+      - [x] [**gPagAntecipado**](docs/diagramas/NFe/infNFe/ide/gPagAntecipado.svg) `0..1` _(opcional)_
     - [ ] [**emit**](docs/diagramas/NFe/infNFe/emit.svg)
-      - [ ] [**enderEmit**](docs/diagramas/NFe/infNFe/emit/enderEmit.svg)
+      - [x] [**enderEmit**](docs/diagramas/NFe/infNFe/emit/enderEmit.svg)
     - [ ] [**avulsa**](docs/diagramas/NFe/infNFe/avulsa.svg) `0..1` _(opcional)_
     - [ ] [**dest**](docs/diagramas/NFe/infNFe/dest.svg) `0..1` _(opcional)_
-      - [ ] [**enderDest**](docs/diagramas/NFe/infNFe/dest/enderDest.svg) `0..1` _(opcional)_
+      - [x] [**enderDest**](docs/diagramas/NFe/infNFe/dest/enderDest.svg) `0..1` _(opcional)_
     - [ ] [**retirada**](docs/diagramas/NFe/infNFe/retirada.svg) `0..1` _(opcional)_
     - [ ] [**entrega**](docs/diagramas/NFe/infNFe/entrega.svg) `0..1` _(opcional)_
     - [ ] [**autXML**](docs/diagramas/NFe/infNFe/autXML.svg) `0..10` _(opcional)_

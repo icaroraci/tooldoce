@@ -10,6 +10,8 @@
 
 `nfe/ide_v4.00.xsd` **não é oficial**: é gerado por `gerar_ide_xsd.py` a partir de `leiauteNFe_v4.00.xsd`, para validar o grupo `<ide>` isoladamente enquanto a biblioteca ainda não gera a nota completa.
 
+`nfe/tipos_v4.00.xsd` também **não é oficial**: escrito à mão, inclui o leiaute e declara como elementos globais os tipos complexos que a biblioteca já gera sozinhos (`enderEmit` → `TEnderEmi`, `enderDest` → `TEndereco`), para validá-los nos testes.
+
 Os diagramas de `docs/diagramas/` e o `TODO.md` também são gerados a partir destes schemas (`tools/gerar_diagramas.py`).
 
 ## Atualizar
