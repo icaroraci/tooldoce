@@ -42,7 +42,7 @@ Marque `[x]` quando a estrutura tiver: criação/liberação, setters com valida
           - [ ] [**origComb**](docs/diagramas/NFe/infNFe/det/prod/comb/origComb.svg) `0..30` _(opcional)_
       - [ ] [**imposto**](docs/diagramas/NFe/infNFe/det/imposto.svg)
         - [ ] [**ICMS**](docs/diagramas/NFe/infNFe/det/imposto/ICMS.svg)
-          - [ ] [**ICMS00**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMS00.svg)
+          - [x] [**ICMS00**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMS00.svg)
           - [ ] [**ICMS02**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMS02.svg)
           - [ ] [**ICMS10**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMS10.svg)
           - [ ] [**ICMS15**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMS15.svg)
@@ -58,7 +58,7 @@ Marque `[x]` quando a estrutura tiver: criação/liberação, setters com valida
           - [ ] [**ICMSPart**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMSPart.svg)
           - [ ] [**ICMSST**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMSST.svg)
           - [ ] [**ICMSSN101**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMSSN101.svg)
-          - [ ] [**ICMSSN102**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMSSN102.svg)
+          - [x] [**ICMSSN102**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMSSN102.svg)
           - [ ] [**ICMSSN201**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMSSN201.svg)
           - [ ] [**ICMSSN202**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMSSN202.svg)
           - [ ] [**ICMSSN500**](docs/diagramas/NFe/infNFe/det/imposto/ICMS/ICMSSN500.svg)
@@ -69,15 +69,15 @@ Marque `[x]` quando a estrutura tiver: criação/liberação, setters com valida
         - [ ] [**II**](docs/diagramas/NFe/infNFe/det/imposto/II.svg) `0..1` _(opcional)_
         - [ ] [**ISSQN**](docs/diagramas/NFe/infNFe/det/imposto/ISSQN.svg)
         - [ ] [**PIS**](docs/diagramas/NFe/infNFe/det/imposto/PIS.svg) `0..1` _(opcional)_
-          - [ ] [**PISAliq**](docs/diagramas/NFe/infNFe/det/imposto/PIS/PISAliq.svg)
+          - [x] [**PISAliq**](docs/diagramas/NFe/infNFe/det/imposto/PIS/PISAliq.svg)
           - [ ] [**PISQtde**](docs/diagramas/NFe/infNFe/det/imposto/PIS/PISQtde.svg)
-          - [ ] [**PISNT**](docs/diagramas/NFe/infNFe/det/imposto/PIS/PISNT.svg)
+          - [x] [**PISNT**](docs/diagramas/NFe/infNFe/det/imposto/PIS/PISNT.svg)
           - [ ] [**PISOutr**](docs/diagramas/NFe/infNFe/det/imposto/PIS/PISOutr.svg)
         - [ ] [**PISST**](docs/diagramas/NFe/infNFe/det/imposto/PISST.svg) `0..1` _(opcional)_
         - [ ] [**COFINS**](docs/diagramas/NFe/infNFe/det/imposto/COFINS.svg) `0..1` _(opcional)_
-          - [ ] [**COFINSAliq**](docs/diagramas/NFe/infNFe/det/imposto/COFINS/COFINSAliq.svg)
+          - [x] [**COFINSAliq**](docs/diagramas/NFe/infNFe/det/imposto/COFINS/COFINSAliq.svg)
           - [ ] [**COFINSQtde**](docs/diagramas/NFe/infNFe/det/imposto/COFINS/COFINSQtde.svg)
-          - [ ] [**COFINSNT**](docs/diagramas/NFe/infNFe/det/imposto/COFINS/COFINSNT.svg)
+          - [x] [**COFINSNT**](docs/diagramas/NFe/infNFe/det/imposto/COFINS/COFINSNT.svg)
           - [ ] [**COFINSOutr**](docs/diagramas/NFe/infNFe/det/imposto/COFINS/COFINSOutr.svg)
         - [ ] [**COFINSST**](docs/diagramas/NFe/infNFe/det/imposto/COFINSST.svg) `0..1` _(opcional)_
         - [ ] [**ICMSUFDest**](docs/diagramas/NFe/infNFe/det/imposto/ICMSUFDest.svg) `0..1` _(opcional)_

@@ -273,6 +273,50 @@ typedef enum nfe_cred_pres_zfm {
 	                                         (100%) */
 } nfe_cred_pres_zfm;
 
+/* orig: origem da mercadoria */
+typedef enum nfe_origem {
+	NFE_ORIGEM_NAO_INFORMADA = -1, /* só no ICMSSN102, onde é opcional */
+	NFE_ORIGEM_NACIONAL = 0,
+	NFE_ORIGEM_ESTRANGEIRA_IMPORTACAO = 1, /* importação direta */
+	NFE_ORIGEM_ESTRANGEIRA_MERCADO_INTERNO = 2,
+	NFE_ORIGEM_NACIONAL_IMPORTACAO_40_70 = 3, /* conteúdo de importação
+	                                             acima de 40% e até 70% */
+	NFE_ORIGEM_NACIONAL_PROCESSO_BASICO = 4,  /* processos produtivos
+	                                             básicos */
+	NFE_ORIGEM_NACIONAL_IMPORTACAO_ATE_40 = 5,
+	NFE_ORIGEM_ESTRANGEIRA_IMPORTACAO_SEM_SIMILAR = 6, /* lista CAMEX */
+	NFE_ORIGEM_ESTRANGEIRA_MERCADO_INTERNO_SEM_SIMILAR = 7,
+	NFE_ORIGEM_NACIONAL_IMPORTACAO_ACIMA_70 = 8
+} nfe_origem;
+
+/* modBC: modalidade de determinação da base de cálculo do ICMS */
+typedef enum nfe_mod_bc {
+	NFE_MOD_BC_MVA = 0,            /* margem de valor agregado (%) */
+	NFE_MOD_BC_PAUTA = 1,          /* pauta (valor) */
+	NFE_MOD_BC_PRECO_TABELADO = 2, /* preço tabelado máximo (valor) */
+	NFE_MOD_BC_VALOR_OPERACAO = 3
+} nfe_mod_bc;
+
+/* CSOSN do grupo ICMSSN102 (Simples Nacional sem crédito) */
+typedef enum nfe_csosn_102 {
+	NFE_CSOSN_102 = 102, /* tributada sem permissão de crédito */
+	NFE_CSOSN_103 = 103, /* isenção do ICMS para faixa de receita bruta */
+	NFE_CSOSN_300 = 300, /* imune */
+	NFE_CSOSN_400 = 400  /* não tributada */
+} nfe_csosn_102;
+
+/* CST do PIS e da COFINS */
+typedef enum nfe_cst_pis_cofins {
+	NFE_CST_PC_ALIQUOTA_BASICA = 1, /* alíquota básica */
+	NFE_CST_PC_ALIQUOTA_DIFERENCIADA = 2,
+	NFE_CST_PC_MONOFASICA_ZERO = 4, /* monofásica, revenda a alíquota
+	                                   zero */
+	NFE_CST_PC_SUBSTITUICAO = 5,    /* substituição tributária */
+	NFE_CST_PC_ALIQUOTA_ZERO = 6,
+	NFE_CST_PC_ISENTA = 7,
+	NFE_CST_PC_SEM_INCIDENCIA = 8
+} nfe_cst_pis_cofins;
+
 /**
  * nfe_tzd:
  * @NFE_TZD_FERNANDO_NORONHA: horário de Fernando de Noronha (UTC-02:00)
