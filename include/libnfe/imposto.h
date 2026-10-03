@@ -28,10 +28,22 @@
 /*
  * Tributos de um item da nota (grupo det/imposto).
  *
- * Implementados até agora: ICMS00 (tributação integral) e ICMSSN102
- * (Simples Nacional sem crédito) no ICMS; PISAliq e PISNT no PIS; COFINSAliq
- * e COFINSNT na COFINS. Os demais grupos (outros CST/CSOSN, IPI, II, ISSQN,
- * PISST, COFINSST, ICMSUFDest, IS e IBSCBS) ainda não.
+ * Todos os grupos do leiaute são aceitos por nfe_imposto_set, que grava um
+ * campo pelo caminho (nomes de elementos do leiaute separados por "/"):
+ *   nfe_imposto_set(imp, "ICMS10/orig", "0");
+ *   nfe_imposto_set(imp, "ICMS10/modBC", "3");
+ *   nfe_imposto_set(imp, "ICMS10/vBC", "100.00");
+ *   ...
+ *   nfe_imposto_set(imp, "IBSCBS/gIBSCBS/vBC", "100.00");
+ * O caminho só precisa ter os nomes suficientes para identificar o campo,
+ * na ordem (ex.: "ICMS10/vBC" em vez de "ICMS/ICMS10/vBC"). Ao gravar um
+ * campo de um grupo que é uma escolha no leiaute (ICMS00, ICMS10... dentro
+ * de ICMS), os campos dos outros grupos da escolha são apagados. Campos com
+ * um único valor possível (como o CST de ICMS10) são preenchidos sozinhos.
+ * Os campos obrigatórios de cada grupo são conferidos ao gerar o XML.
+ *
+ * Há também atalhos para os grupos mais usados: ICMS00, ICMSSN102,
+ * PISAliq/PISNT e COFINSAliq/COFINSNT.
  *
  * Uso típico:
  *   nfe_imposto *imp = nfe_imposto_new();
@@ -51,9 +63,10 @@
  * A biblioteca confere o formato, mas não refaz as contas (vICMS = vBC x
  * pICMS etc.).
  *
- * Os setters retornam 0, E_ISNULL ou E_VALOR (valor fora do domínio ou do
- * formato); em caso de erro o grupo não é alterado. Cada setter de um
- * tributo substitui o grupo anterior do mesmo tributo.
+ * Os setters retornam 0, E_ISNULL, E_TAMANHO, E_VALOR (campo inexistente
+ * ou valor fora do domínio ou do formato) ou E_MALLOC; em caso de erro o
+ * imposto não é alterado. Cada atalho substitui o grupo anterior do mesmo
+ * tributo.
  */
 
 typedef struct nfe_imposto nfe_imposto;
@@ -63,6 +76,14 @@ nfe_imposto *nfe_imposto_new(void);
 
 /* Libera o imposto; aceita NULL */
 void nfe_imposto_free(nfe_imposto *imp);
+
+/* Grava um campo qualquer de <imposto> pelo caminho; NULL apaga o campo */
+int nfe_imposto_set(nfe_imposto *imp, const char *caminho, const char *valor);
+/* Valor do campo, ou NULL se não informado (texto pertencente ao imposto) */
+const char *nfe_imposto_get(const nfe_imposto *imp, const char *caminho);
+/* Apaga todos os campos de um grupo (ex.: "ICMS", "IPI", "IBSCBS").
+ * Retorna 0, E_ISNULL ou E_VALOR (grupo inexistente). */
+int nfe_imposto_remove(nfe_imposto *imp, const char *caminho);
 
 /* vTotTrib: valor aproximado total dos tributos (Lei 12.741/2012); NULL
  * remove */
@@ -88,7 +109,7 @@ int nfe_imposto_set_cofinsaliq(nfe_imposto *imp, nfe_cst_pis_cofins cst,
                                const char *vbc, const char *pcofins,
                                const char *vcofins);
 
-/* PISNT / COFINSNT: CST 04 a 08 (não tributado) */
+/* PISNT / COFINSNT: CST 04 a 09 (não tributado) */
 int nfe_imposto_set_pisnt(nfe_imposto *imp, nfe_cst_pis_cofins cst);
 int nfe_imposto_set_cofinsnt(nfe_imposto *imp, nfe_cst_pis_cofins cst);
 
@@ -97,7 +118,9 @@ int nfe_imposto_remove_icms(nfe_imposto *imp);
 int nfe_imposto_remove_pis(nfe_imposto *imp);
 int nfe_imposto_remove_cofins(nfe_imposto *imp);
 
-/* Escreve o elemento <imposto>. Retorna 0, E_ISNULL ou E_XML. */
+/* Escreve o elemento <imposto>. Retorna 0, E_ISNULL, E_VALOR (falta campo
+ * obrigatório em algum grupo informado, ou grupos incompatíveis) ou
+ * E_XML. */
 int nfe_imposto_write_xml(xmlTextWriterPtr writer, const nfe_imposto *imp);
 
 /* Uso interno (cálculo dos totais) */
@@ -107,7 +130,13 @@ enum nfe_imposto_valor_e {
 	NFE_IMP_VFCP,
 	NFE_IMP_VPIS,
 	NFE_IMP_VCOFINS,
-	NFE_IMP_VTOTTRIB
+	NFE_IMP_VTOTTRIB,
+	NFE_IMP_VST, /* ICMS ST */
+	NFE_IMP_VFCPST,
+	NFE_IMP_VICMSDESON,
+	NFE_IMP_VII,
+	NFE_IMP_VIPI,
+	NFE_IMP_VBCST
 };
 /* Valor do campo ("" se não informado ou se o grupo não o tem) */
 NFE_INTERNO const char *nfe_imposto_valor(const nfe_imposto *imp,

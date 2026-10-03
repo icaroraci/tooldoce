@@ -254,19 +254,24 @@ int nfe_nfe_calcular_totais(nfe_nfe *nfe)
 		VPIS,
 		VCOFINS,
 		VTOTTRIB,
+		VST,
+		VFCPST,
+		VICMSDESON,
+		VII,
+		VIPI,
+		VBCST,
 		N
 	};
 	static const nfe_campo_icmstot destino[N] = {
-		NFE_TOT_VBC,     NFE_TOT_VICMS,    NFE_TOT_VFCP,
-		NFE_TOT_VPROD,   NFE_TOT_VFRETE,   NFE_TOT_VSEG,
-		NFE_TOT_VDESC,   NFE_TOT_VOUTRO,   NFE_TOT_VPIS,
-		NFE_TOT_VCOFINS, NFE_TOT_VTOTTRIB,
+		NFE_TOT_VBC,     NFE_TOT_VICMS,      NFE_TOT_VFCP,
+		NFE_TOT_VPROD,   NFE_TOT_VFRETE,     NFE_TOT_VSEG,
+		NFE_TOT_VDESC,   NFE_TOT_VOUTRO,     NFE_TOT_VPIS,
+		NFE_TOT_VCOFINS, NFE_TOT_VTOTTRIB,   NFE_TOT_VST,
+		NFE_TOT_VFCPST,  NFE_TOT_VICMSDESON, NFE_TOT_VII,
+		NFE_TOT_VIPI,    NFE_TOT_VBCST,
 	};
-	/* Campos do total que entram no vNF além dos somados */
-	static const nfe_campo_icmstot extras[] = {
-		NFE_TOT_VST,  NFE_TOT_VFCPST,    NFE_TOT_VII,
-		NFE_TOT_VIPI, NFE_TOT_VIPIDEVOL,
-	};
+	/* Campo do total que entra no vNF além dos somados */
+	static const nfe_campo_icmstot extras[] = { NFE_TOT_VIPIDEVOL };
 	long long v[N] = { 0 }, vnf, x;
 	int temTotTrib = 0, i, rc = 0;
 	nfe_total *tot;
@@ -303,6 +308,18 @@ int nfe_nfe_calcular_totais(nfe_nfe *nfe)
 			rc |= soma(&v[VCOFINS],
 			           nfe_imposto_valor(imp, NFE_IMP_VCOFINS));
 			rc |= soma(&v[VTOTTRIB], tt);
+			rc |= soma(&v[VST],
+			           nfe_imposto_valor(imp, NFE_IMP_VST));
+			rc |= soma(&v[VFCPST],
+			           nfe_imposto_valor(imp, NFE_IMP_VFCPST));
+			rc |= soma(&v[VICMSDESON],
+			           nfe_imposto_valor(imp, NFE_IMP_VICMSDESON));
+			rc |= soma(&v[VII],
+			           nfe_imposto_valor(imp, NFE_IMP_VII));
+			rc |= soma(&v[VIPI],
+			           nfe_imposto_valor(imp, NFE_IMP_VIPI));
+			rc |= soma(&v[VBCST],
+			           nfe_imposto_valor(imp, NFE_IMP_VBCST));
 			temTotTrib |= tt[0] != '\0';
 		}
 	}
@@ -313,7 +330,8 @@ int nfe_nfe_calcular_totais(nfe_nfe *nfe)
 	if (!tot)
 		return E_MALLOC;
 
-	vnf = v[VPROD] - v[VDESC] + v[VFRETE] + v[VSEG] + v[VOUTRO];
+	vnf = v[VPROD] - v[VDESC] + v[VFRETE] + v[VSEG] + v[VOUTRO] + v[VST] +
+	      v[VFCPST] + v[VII] + v[VIPI];
 	for (i = 0; i < (int)(sizeof extras / sizeof extras[0]); i++) {
 		rc = nfe_dec2_ler(nfe_total_valor(tot, extras[i]), &x);
 		if (rc != 0)

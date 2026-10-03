@@ -53,6 +53,7 @@ int      nfe_ide_write_xml(xmlTextWriterPtr writer, const nfe_ide *ide);
 - Use as funções de `valida.h` em vez de reescrever validações: `nfe_valida_padrao` (expressão regular na sintaxe do XML Schema, a mesma do leiaute), `nfe_valida_lista` (valores enumerados), `nfe_valida_texto` (campos `TString`: tamanho em caracteres e faixa de caracteres) e as versões que já copiam o valor (`nfe_copia_padrao`, `nfe_copia_texto_validado`).
 - Padrões de campos sem tipo nomeado (definidos dentro do próprio elemento no XSD) são escritos no código copiando o `xs:pattern` do leiaute, sem adaptar.
 - Valores decimais (`TDec_*`) são recebidos e guardados como texto já no formato do XML (ponto como separador, casas decimais exigidas pelo tipo).
+- Grupos com muitos campos usam o motor genérico (`esquema.h`, interno): `tools/gerar_esquemas.py` gera `src/libnfe/esquemas.c` com a estrutura do XSD (elementos, sequências, escolhas e regras de cada campo), e `nfe_grupo` grava campos pelo caminho (`"ICMS10/vBC"`), valida cada valor e escreve o XML na ordem do leiaute, conferindo campos obrigatórios e escolhas. Para descrever outra raiz, acrescente-a a `RAIZES` no gerador. O CI confere se o arquivo gerado está atualizado.
 
 ## Headers
 

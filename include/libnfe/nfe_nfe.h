@@ -110,13 +110,13 @@ int nfe_nfe_add_det(nfe_nfe *nfe, nfe_det *det);
 /* Calcula os totais (ICMSTot) a partir dos itens e os grava no total da
  * nota (que é criado se não existir). Soma, de todos os itens:
  *   vProd (só dos itens com indTot 1), vFrete, vSeg, vDesc e vOutro (prod);
- *   vBC, vICMS e vFCP (ICMS00), vPIS e vCOFINS (PISAliq/COFINSAliq) e
- *   vTotTrib (informado só se algum item tiver vTotTrib).
- * Os demais campos do ICMSTot ficam como estão, e vNF é recalculado:
- *   vNF = vProd - vDesc + vST + vFCPST + vFrete + vSeg + vOutro + vII +
- *         vIPI + vIPIDevol.
- * Retorna 0, E_ISNULL, E_VALOR (nenhum item, item sem produto ou vNF
- * negativo) ou E_MALLOC. */
+ *   vBC, vICMS, vFCP, vICMSDeson, vBCST, vST (vICMSST) e vFCPST de
+ *   qualquer grupo de ICMS; vII; vIPI; vPIS e vCOFINS; e vTotTrib (informado só
+ * se algum item tiver vTotTrib). Os demais campos do ICMSTot ficam como estão,
+ * e vNF é recalculado (o ICMS desonerado não é deduzido): vNF = vProd - vDesc +
+ * vST + vFCPST + vFrete + vSeg + vOutro + vII + vIPI + vIPIDevol. Retorna 0,
+ * E_ISNULL, E_VALOR (nenhum item, item sem produto ou vNF negativo) ou
+ * E_MALLOC. */
 int nfe_nfe_calcular_totais(nfe_nfe *nfe);
 
 /* Gera a chave de acesso (44 caracteres) em chave (tam >= 45), a partir do

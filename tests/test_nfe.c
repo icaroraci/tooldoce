@@ -310,13 +310,15 @@ static void teste_calcular_totais(void)
 	}
 	free(xml);
 
-	/* indTot 0: o item não entra em vProd; vST informado entra em vNF */
+	/* indTot 0: o item não entra em vProd; vIPIDevol informado entra em
+	 * vNF */
 	VERIFICA_INT(nfe_prod_set_indtot(prod, 0), 0);
 	VERIFICA_INT(nfe_imposto_set_vtottrib(imp, NULL), 0);
 	{
 		nfe_total *tot = nfe_total_new();
-		VERIFICA_INT(nfe_total_set_icmstot(tot, NFE_TOT_VST, "3.00"),
-		             0);
+		VERIFICA_INT(
+		        nfe_total_set_icmstot(tot, NFE_TOT_VIPIDEVOL, "3.00"),
+		        0);
 		VERIFICA_INT(nfe_nfe_set_total(nfe, tot), 0);
 	}
 	VERIFICA_INT(nfe_nfe_calcular_totais(nfe), 0);
@@ -324,7 +326,7 @@ static void teste_calcular_totais(void)
 	VERIFICA_INT(nfe_nfe_xml(nfe, &xml, NULL), 0);
 	if (xml) {
 		VERIFICA(strstr(xml, "<vProd>30.00</vProd>") != NULL);
-		VERIFICA(strstr(xml, "<vST>3.00</vST>") != NULL);
+		VERIFICA(strstr(xml, "<vIPIDevol>3.00</vIPIDevol>") != NULL);
 		/* 30 - 5.50 + 3 + 10 */
 		VERIFICA(strstr(xml, "<vNF>37.50</vNF></ICMSTot>") != NULL);
 		VERIFICA_INT(valida_infnfe(xml), 0);
@@ -334,6 +336,84 @@ static void teste_calcular_totais(void)
 	/* Desconto maior que o total: vNF negativo é recusado */
 	VERIFICA_INT(nfe_prod_set_vdesc(prod, "99.00"), 0);
 	VERIFICA_INT(nfe_nfe_calcular_totais(nfe), E_VALOR);
+	nfe_nfe_free(nfe);
+
+	/* ICMS-ST, FCP-ST, IPI e II de outros grupos entram nos totais */
+	nfe = nota(NFE_MODELO_NFE);
+	{
+		nfe_imposto *st = nfe_imposto_new();
+		nfe_det *d = item("004");
+		static const char *const campos[] = {
+			"ICMS10/orig",
+			"0",
+			"ICMS10/modBC",
+			"3",
+			"ICMS10/vBC",
+			"10.00",
+			"ICMS10/pICMS",
+			"18.00",
+			"ICMS10/vICMS",
+			"1.80",
+			"ICMS10/modBCST",
+			"4",
+			"ICMS10/vBCST",
+			"14.00",
+			"ICMS10/pICMSST",
+			"18.00",
+			"ICMS10/vICMSST",
+			"0.72",
+			"ICMS10/vBCFCPST",
+			"14.00",
+			"ICMS10/pFCPST",
+			"2.00",
+			"ICMS10/vFCPST",
+			"0.28",
+			"IPI/cEnq",
+			"999",
+			"IPITrib/CST",
+			"50",
+			"IPITrib/vBC",
+			"15.00",
+			"IPITrib/pIPI",
+			"10.00",
+			"IPITrib/vIPI",
+			"1.50",
+			"II/vBC",
+			"15.00",
+			"II/vDespAdu",
+			"0",
+			"II/vII",
+			"2.00",
+			"II/vIOF",
+			"0",
+			"PISNT/CST",
+			"07",
+			"COFINSNT/CST",
+			"07",
+			NULL,
+		};
+		const char *const *c;
+
+		rc = 0;
+		for (c = campos; c[0]; c += 2)
+			rc |= nfe_imposto_set(st, c[0], c[1]);
+		rc |= nfe_det_set_imposto(d, st);
+		rc |= nfe_nfe_add_det(nfe, d);
+		VERIFICA_INT(rc, 0);
+	}
+	VERIFICA_INT(nfe_nfe_calcular_totais(nfe), 0);
+	xml = NULL;
+	VERIFICA_INT(nfe_nfe_xml(nfe, &xml, NULL), 0);
+	if (xml) {
+		/* 45 + 0.72 + 0.28 + 1.50 + 2.00 */
+		VERIFICA(strstr(xml, "<vBCST>14.00</vBCST><vST>0.72</vST>"
+		                     "<vFCPST>0.28</vFCPST>") != NULL);
+		VERIFICA(strstr(xml, "<vII>2.00</vII><vIPI>1.50</vIPI>") !=
+		         NULL);
+		VERIFICA(strstr(xml, "<vNF>49.50</vNF>") != NULL);
+		VERIFICA_INT(valida_infnfe(xml), 0);
+	}
+	free(xml);
 	nfe_nfe_free(nfe);
 
 	/* Sem itens, ou item sem produto */
