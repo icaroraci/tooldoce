@@ -30,6 +30,7 @@
 #include <libnfe/defs.h>
 #include <libnfe/erros.h>
 #include <libnfe/escrita.h>
+#include <libnfe/esquema.h>
 #include <libnfe/ide.h>
 #include <libnfe/refNF.h>
 #include <libnfe/refNFe.h>
@@ -38,8 +39,9 @@
 
 /* Documento referenciado: um item do grupo NFref */
 enum tipo_ref_e {
-	REF_NFE, /* refNFe: NF-e ou NFC-e, pela chave de acesso */
-	REF_NF   /* refNF: nota fiscal modelo 1/1A */
+	REF_NFE,  /* refNFe: NF-e ou NFC-e, pela chave de acesso */
+	REF_NF,   /* refNF: nota fiscal modelo 1/1A */
+	REF_GRUPO /* grupo genérico NFref (refNFP, refECF, refCTe...) */
 };
 
 struct ref_s {
@@ -47,6 +49,7 @@ struct ref_s {
 	union {
 		struct refNFe_s *nfe;
 		struct refNF_s *nf;
+		nfe_grupo *g;
 	} doc;
 	struct ref_s *prox;
 };
@@ -166,8 +169,10 @@ void nfe_ide_free(nfe_ide *ide)
 		struct ref_s *prox = ide->refs->prox;
 		if (ide->refs->tipo == REF_NFE)
 			RefNFeDel(ide->refs->doc.nfe);
-		else
+		else if (ide->refs->tipo == REF_NF)
 			RefNFDel(ide->refs->doc.nf);
+		else
+			nfe_grupo_free(ide->refs->doc.g);
 		free(ide->refs);
 		ide->refs = prox;
 	}
@@ -527,8 +532,10 @@ static int nfe_ide_add_ref(nfe_ide *ide, enum tipo_ref_e tipo, void *doc)
 	novo->tipo = tipo;
 	if (tipo == REF_NFE)
 		novo->doc.nfe = (struct refNFe_s *)doc;
-	else
+	else if (tipo == REF_NF)
 		novo->doc.nf = (struct refNF_s *)doc;
+	else
+		novo->doc.g = (nfe_grupo *)doc;
 	novo->prox = NULL;
 	if (ide->refsFim)
 		ide->refsFim->prox = novo;
@@ -547,6 +554,25 @@ int nfe_ide_add_refnfe(nfe_ide *ide, struct refNFe_s *ref)
 int nfe_ide_add_refnf(nfe_ide *ide, struct refNF_s *ref)
 {
 	return nfe_ide_add_ref(ide, REF_NF, ref);
+}
+
+int nfe_ide_add_nfref(nfe_ide *ide, nfe_grupo **nfref)
+{
+	nfe_grupo *g;
+	int rc;
+
+	if (!ide || !nfref)
+		return E_ISNULL;
+	g = nfe_grupo_new(&esq_NFref);
+	if (!g)
+		return E_MALLOC;
+	rc = nfe_ide_add_ref(ide, REF_GRUPO, g);
+	if (rc != 0) {
+		nfe_grupo_free(g);
+		return rc;
+	}
+	*nfref = g;
+	return 0;
 }
 
 int nfe_ide_set_compragov(nfe_ide *ide, nfe_ente_gov tpentegov,
@@ -726,6 +752,12 @@ int nfe_ide_write_xml(xmlTextWriterPtr writer, const nfe_ide *ide)
 
 	/* NFref: um grupo para cada documento referenciado */
 	for (ref = ide->refs; ref; ref = ref->prox) {
+		if (ref->tipo == REF_GRUPO) {
+			rc = nfe_grupo_write_xml(writer, ref->doc.g);
+			if (rc != 0)
+				return rc;
+			continue;
+		}
 		if (xmlTextWriterStartElement(writer, BAD_CAST "NFref") < 0)
 			return E_XML;
 		if (ref->tipo == REF_NFE)

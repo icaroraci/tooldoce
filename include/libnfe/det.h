@@ -22,6 +22,7 @@
 #include <libxml/encoding.h>
 #include <libxml/xmlwriter.h>
 
+#include <libnfe/grupo.h>
 #include <libnfe/imposto.h>
 #include <libnfe/prod.h>
 
@@ -29,7 +30,9 @@
  * Item da nota (grupo det): número do item, produto (prod) e tributos
  * (imposto).
  *
- * Ainda não implementados: impostoDevol, obsItem e DFeReferenciado.
+ * Os grupos opcionais impostoDevol, obsItem e DFeReferenciado são
+ * preenchidos pelo grupo genérico (grupo.h) devolvido por nfe_det_grupo:
+ *   nfe_grupo_set(nfe_det_grupo(det, "obsItem"), "obsCont/xCampo", "lote");
  *
  * Uso típico:
  *   nfe_det *det = nfe_det_new();
@@ -66,6 +69,12 @@ int nfe_det_set_infadprod(nfe_det *det, const char *infadprod);
 /* vItem: valor total do item (participação no total da nota), como texto
  * com 2 casas ("15.00"); NULL remove */
 int nfe_det_set_vitem(nfe_det *det, const char *vitem);
+
+/* Grupo genérico de um grupo opcional do item: "impostoDevol", "obsItem"
+ * ou "DFeReferenciado" (criado vazio na primeira chamada; pertence ao
+ * item e só é escrito se tiver algum campo). NULL se o nome não existir ou
+ * faltar memória. */
+nfe_grupo *nfe_det_grupo(nfe_det *det, const char *nome);
 
 /* Escreve o elemento <det nItem="...">. Retorna 0, E_ISNULL, E_VALOR (falta
  * nItem, prod ou imposto, ou prod incompleto; ver nfe_prod_write_xml) ou

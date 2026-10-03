@@ -17,11 +17,13 @@
  ** */
 
 #include <stdlib.h>
+#include <string.h>
 
 #include <libnfe/defs.h>
 #include <libnfe/det.h>
 #include <libnfe/erros.h>
 #include <libnfe/escrita.h>
+#include <libnfe/esquema.h>
 #include <libnfe/padroes.h>
 #include <libnfe/valida.h>
 
@@ -31,6 +33,17 @@ struct nfe_det {
 	nfe_imposto *imposto;
 	char infAdProd[NFE_TAM_UTF8(NFE_TAM_INFADPROD)]; /* "": não informado */
 	char vItem[NFE_TAM_ASCII(NFE_TAM_DEC)]; /* "": não informado */
+	nfe_grupo *grupo[3]; /* impostoDevol, obsItem, DFeReferenciado */
+};
+
+/* Grupos genéricos do item, na ordem de nfe_det.grupo */
+static const struct {
+	const char *nome;
+	const struct nfe_esq *esq;
+} grupos[3] = {
+	{ "impostoDevol", &esq_impostoDevol },
+	{ "obsItem", &esq_obsItem },
+	{ "DFeReferenciado", &esq_DFeReferenciado },
 };
 
 nfe_det *nfe_det_new(void)
@@ -44,6 +57,9 @@ void nfe_det_free(nfe_det *det)
 		return;
 	nfe_prod_free(det->prod);
 	nfe_imposto_free(det->imposto);
+	nfe_grupo_free(det->grupo[0]);
+	nfe_grupo_free(det->grupo[1]);
+	nfe_grupo_free(det->grupo[2]);
 	free(det);
 }
 
@@ -118,6 +134,30 @@ const nfe_imposto *nfe_det_imposto(const nfe_det *det)
 	return det->imposto;
 }
 
+nfe_grupo *nfe_det_grupo(nfe_det *det, const char *nome)
+{
+	int i;
+
+	if (!det || !nome)
+		return NULL;
+	for (i = 0; i < 3; i++) {
+		if (strcmp(nome, grupos[i].nome) != 0)
+			continue;
+		if (!det->grupo[i])
+			det->grupo[i] = nfe_grupo_new(grupos[i].esq);
+		return det->grupo[i];
+	}
+	return NULL;
+}
+
+/* Escreve o grupo genérico i, se tiver algum campo */
+static int escreve_grupo(xmlTextWriterPtr writer, const nfe_det *det, int i)
+{
+	if (nfe_grupo_vazio(det->grupo[i]))
+		return 0;
+	return nfe_grupo_write_xml(writer, det->grupo[i]);
+}
+
 int nfe_det_write_xml(xmlTextWriterPtr writer, const nfe_det *det)
 {
 	int rc;
@@ -137,11 +177,19 @@ int nfe_det_write_xml(xmlTextWriterPtr writer, const nfe_det *det)
 	if (rc != 0)
 		return rc;
 	rc = nfe_imposto_write_xml(writer, det->imposto);
+	if (rc == 0)
+		rc = escreve_grupo(writer, det, 0);
 	if (rc != 0)
 		return rc;
 	if (det->infAdProd[0] != '\0')
 		NFE_ESCREVE("infAdProd", "%s", det->infAdProd);
+	rc = escreve_grupo(writer, det, 1);
+	if (rc != 0)
+		return rc;
 	if (det->vItem[0] != '\0')
 		NFE_ESCREVE("vItem", "%s", det->vItem);
+	rc = escreve_grupo(writer, det, 2);
+	if (rc != 0)
+		return rc;
 	return nfe_fecha(writer);
 }

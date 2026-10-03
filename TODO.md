@@ -7,23 +7,23 @@ Marque `[x]` quando a estrutura tiver: criação/liberação, setters com valida
 ## Estruturas da NF-e
 
 - [ ] [**NFe**](docs/diagramas/NFe.svg)
-  - [ ] [**infNFe**](docs/diagramas/NFe/infNFe.svg)
-    - [ ] [**ide**](docs/diagramas/NFe/infNFe/ide.svg)
-      - [ ] [**NFref**](docs/diagramas/NFe/infNFe/ide/NFref.svg) `0..999` _(opcional)_
+  - [x] [**infNFe**](docs/diagramas/NFe/infNFe.svg)
+    - [x] [**ide**](docs/diagramas/NFe/infNFe/ide.svg)
+      - [x] [**NFref**](docs/diagramas/NFe/infNFe/ide/NFref.svg) `0..999` _(opcional)_
         - [x] [**refNF**](docs/diagramas/NFe/infNFe/ide/NFref/refNF.svg)
-        - [ ] [**refNFP**](docs/diagramas/NFe/infNFe/ide/NFref/refNFP.svg)
-        - [ ] [**refECF**](docs/diagramas/NFe/infNFe/ide/NFref/refECF.svg)
+        - [x] [**refNFP**](docs/diagramas/NFe/infNFe/ide/NFref/refNFP.svg)
+        - [x] [**refECF**](docs/diagramas/NFe/infNFe/ide/NFref/refECF.svg)
       - [x] [**gCompraGov**](docs/diagramas/NFe/infNFe/ide/gCompraGov.svg) `0..1` _(opcional)_
       - [x] [**gPagAntecipado**](docs/diagramas/NFe/infNFe/ide/gPagAntecipado.svg) `0..1` _(opcional)_
     - [x] [**emit**](docs/diagramas/NFe/infNFe/emit.svg)
       - [x] [**enderEmit**](docs/diagramas/NFe/infNFe/emit/enderEmit.svg)
-    - [ ] [**avulsa**](docs/diagramas/NFe/infNFe/avulsa.svg) `0..1` _(opcional)_
+    - [x] [**avulsa**](docs/diagramas/NFe/infNFe/avulsa.svg) `0..1` _(opcional)_
     - [x] [**dest**](docs/diagramas/NFe/infNFe/dest.svg) `0..1` _(opcional)_
       - [x] [**enderDest**](docs/diagramas/NFe/infNFe/dest/enderDest.svg) `0..1` _(opcional)_
     - [x] [**retirada**](docs/diagramas/NFe/infNFe/retirada.svg) `0..1` _(opcional)_
     - [x] [**entrega**](docs/diagramas/NFe/infNFe/entrega.svg) `0..1` _(opcional)_
     - [x] [**autXML**](docs/diagramas/NFe/infNFe/autXML.svg) `0..10` _(opcional)_
-    - [ ] [**det**](docs/diagramas/NFe/infNFe/det.svg) `1..990`
+    - [x] [**det**](docs/diagramas/NFe/infNFe/det.svg) `1..990`
       - [x] [**prod**](docs/diagramas/NFe/infNFe/det/prod.svg)
         - [x] [**gCred**](docs/diagramas/NFe/infNFe/det/prod/gCred.svg) `0..4` _(opcional)_
         - [x] [**DI**](docs/diagramas/NFe/infNFe/det/prod/DI.svg) `0..100` _(opcional)_
@@ -127,12 +127,12 @@ Marque `[x]` quando a estrutura tiver: criação/liberação, setters com valida
             - [x] [**gIBSCredPres**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gCredPresOper/gIBSCredPres.svg) `0..1` _(opcional)_
             - [x] [**gCBSCredPres**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gCredPresOper/gCBSCredPres.svg) `0..1` _(opcional)_
           - [x] [**gCredPresIBSZFM**](docs/diagramas/NFe/infNFe/det/imposto/IBSCBS/gCredPresIBSZFM.svg)
-      - [ ] [**impostoDevol**](docs/diagramas/NFe/infNFe/det/impostoDevol.svg) `0..1` _(opcional)_
-        - [ ] [**IPI**](docs/diagramas/NFe/infNFe/det/impostoDevol/IPI.svg)
-      - [ ] [**obsItem**](docs/diagramas/NFe/infNFe/det/obsItem.svg) `0..1` _(opcional)_
-        - [ ] [**obsCont**](docs/diagramas/NFe/infNFe/det/obsItem/obsCont.svg) `0..1` _(opcional)_
-        - [ ] [**obsFisco**](docs/diagramas/NFe/infNFe/det/obsItem/obsFisco.svg) `0..1` _(opcional)_
-      - [ ] [**DFeReferenciado**](docs/diagramas/NFe/infNFe/det/DFeReferenciado.svg) `0..1` _(opcional)_
+      - [x] [**impostoDevol**](docs/diagramas/NFe/infNFe/det/impostoDevol.svg) `0..1` _(opcional)_
+        - [x] [**IPI**](docs/diagramas/NFe/infNFe/det/impostoDevol/IPI.svg)
+      - [x] [**obsItem**](docs/diagramas/NFe/infNFe/det/obsItem.svg) `0..1` _(opcional)_
+        - [x] [**obsCont**](docs/diagramas/NFe/infNFe/det/obsItem/obsCont.svg) `0..1` _(opcional)_
+        - [x] [**obsFisco**](docs/diagramas/NFe/infNFe/det/obsItem/obsFisco.svg) `0..1` _(opcional)_
+      - [x] [**DFeReferenciado**](docs/diagramas/NFe/infNFe/det/DFeReferenciado.svg) `0..1` _(opcional)_
     - [x] [**total**](docs/diagramas/NFe/infNFe/total.svg)
       - [x] [**ICMSTot**](docs/diagramas/NFe/infNFe/total/ICMSTot.svg)
       - [x] [**ISSQNtot**](docs/diagramas/NFe/infNFe/total/ISSQNtot.svg) `0..1` _(opcional)_
@@ -163,20 +163,20 @@ Marque `[x]` quando a estrutura tiver: criação/liberação, setters com valida
       - [x] [**obsCont**](docs/diagramas/NFe/infNFe/infAdic/obsCont.svg) `0..10` _(opcional)_
       - [x] [**obsFisco**](docs/diagramas/NFe/infNFe/infAdic/obsFisco.svg) `0..10` _(opcional)_
       - [x] [**procRef**](docs/diagramas/NFe/infNFe/infAdic/procRef.svg) `0..100` _(opcional)_
-    - [ ] [**exporta**](docs/diagramas/NFe/infNFe/exporta.svg) `0..1` _(opcional)_
-    - [ ] [**compra**](docs/diagramas/NFe/infNFe/compra.svg) `0..1` _(opcional)_
-    - [ ] [**cana**](docs/diagramas/NFe/infNFe/cana.svg) `0..1` _(opcional)_
-      - [ ] [**forDia**](docs/diagramas/NFe/infNFe/cana/forDia.svg) `1..31`
-      - [ ] [**deduc**](docs/diagramas/NFe/infNFe/cana/deduc.svg) `0..10` _(opcional)_
+    - [x] [**exporta**](docs/diagramas/NFe/infNFe/exporta.svg) `0..1` _(opcional)_
+    - [x] [**compra**](docs/diagramas/NFe/infNFe/compra.svg) `0..1` _(opcional)_
+    - [x] [**cana**](docs/diagramas/NFe/infNFe/cana.svg) `0..1` _(opcional)_
+      - [x] [**forDia**](docs/diagramas/NFe/infNFe/cana/forDia.svg) `1..31`
+      - [x] [**deduc**](docs/diagramas/NFe/infNFe/cana/deduc.svg) `0..10` _(opcional)_
     - [x] [**infRespTec**](docs/diagramas/NFe/infNFe/infRespTec.svg) `0..1` _(opcional)_
-    - [ ] [**infSolicNFF**](docs/diagramas/NFe/infNFe/infSolicNFF.svg) `0..1` _(opcional)_
-    - [ ] [**agropecuario**](docs/diagramas/NFe/infNFe/agropecuario.svg) `0..1` _(opcional)_
-      - [ ] [**defensivo**](docs/diagramas/NFe/infNFe/agropecuario/defensivo.svg) `1..20`
-      - [ ] [**guiaTransito**](docs/diagramas/NFe/infNFe/agropecuario/guiaTransito.svg)
-    - [ ] [**infPAA**](docs/diagramas/NFe/infNFe/infPAA.svg) `0..1` _(opcional)_
-      - [ ] [**PAASignature**](docs/diagramas/NFe/infNFe/infPAA/PAASignature.svg)
-        - [ ] [**RSAKeyValue**](docs/diagramas/NFe/infNFe/infPAA/PAASignature/RSAKeyValue.svg)
-  - [ ] [**infNFeSupl**](docs/diagramas/NFe/infNFeSupl.svg) `0..1` _(opcional)_
+    - [x] [**infSolicNFF**](docs/diagramas/NFe/infNFe/infSolicNFF.svg) `0..1` _(opcional)_
+    - [x] [**agropecuario**](docs/diagramas/NFe/infNFe/agropecuario.svg) `0..1` _(opcional)_
+      - [x] [**defensivo**](docs/diagramas/NFe/infNFe/agropecuario/defensivo.svg) `1..20`
+      - [x] [**guiaTransito**](docs/diagramas/NFe/infNFe/agropecuario/guiaTransito.svg)
+    - [x] [**infPAA**](docs/diagramas/NFe/infNFe/infPAA.svg) `0..1` _(opcional)_
+      - [x] [**PAASignature**](docs/diagramas/NFe/infNFe/infPAA/PAASignature.svg)
+        - [x] [**RSAKeyValue**](docs/diagramas/NFe/infNFe/infPAA/PAASignature/RSAKeyValue.svg)
+  - [x] [**infNFeSupl**](docs/diagramas/NFe/infNFeSupl.svg) `0..1` _(opcional)_
 
 ## Além do leiaute
 

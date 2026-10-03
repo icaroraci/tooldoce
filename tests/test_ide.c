@@ -559,6 +559,57 @@ static void teste_compragov_pagantecipado(void)
 }
 
 /* Sem os campos obrigatórios, o XML não é gerado */
+/* Referências genéricas: produtor rural (refNFP), cupom (refECF) e CT-e */
+static void teste_nfref_generico(void)
+{
+	nfe_ide *ide = novo(NFE_SEM_DATA, NFE_EMISSAO_NORMAL, NFE_TZD_BRASILIA);
+	struct refNFe_s *r = RefNFeNew();
+	nfe_grupo *nfp, *ecf, *cte, *vazio;
+	char *xml;
+	int rc = 0;
+
+	rc |= RefNFeSetrefNFe(r, CHAVE);
+	rc |= nfe_ide_add_refnfe(ide, r);
+	rc |= nfe_ide_add_nfref(ide, &nfp);
+	rc |= nfe_grupo_set(nfp, "refNFP/cUF", "35");
+	rc |= nfe_grupo_set(nfp, "refNFP/AAMM", "2609");
+	rc |= nfe_grupo_set(nfp, "refNFP/CPF", "12345678909");
+	rc |= nfe_grupo_set(nfp, "refNFP/IE", "ISENTO");
+	rc |= nfe_grupo_set(nfp, "refNFP/mod", "04");
+	rc |= nfe_grupo_set(nfp, "refNFP/serie", "1");
+	rc |= nfe_grupo_set(nfp, "refNFP/nNF", "123");
+	rc |= nfe_ide_add_nfref(ide, &ecf);
+	rc |= nfe_grupo_set(ecf, "refECF/mod", "2D");
+	rc |= nfe_grupo_set(ecf, "refECF/nECF", "1");
+	rc |= nfe_grupo_set(ecf, "refECF/nCOO", "456");
+	rc |= nfe_ide_add_nfref(ide, &cte);
+	rc |= nfe_grupo_set(cte, "refCTe", CHAVE);
+	VERIFICA_INT(rc, 0);
+	xml = gera(ide);
+	VERIFICA(xml != NULL);
+	if (xml) {
+		VERIFICA(strstr(xml, "<NFref><refNFe>" CHAVE "</refNFe></NFref>"
+		                     "<NFref><refNFP><cUF>35</cUF>") != NULL);
+		VERIFICA(strstr(xml, "<CPF>12345678909</CPF><IE>ISENTO</IE>") !=
+		         NULL);
+		VERIFICA(strstr(xml,
+		                "<NFref><refECF><mod>2D</mod><nECF>1</nECF>"
+		                "<nCOO>456</nCOO></refECF></NFref><NFref>"
+		                "<refCTe>") != NULL);
+		VERIFICA_INT(valida(xml, 1), 0);
+	}
+	free(xml);
+
+	/* NFref vazio não é aceito na geração */
+	VERIFICA_INT(nfe_ide_add_nfref(ide, &vazio), 0);
+	xml = gera(ide);
+	VERIFICA(xml == NULL);
+	free(xml);
+	VERIFICA_INT(nfe_ide_add_nfref(NULL, &vazio), E_ISNULL);
+	VERIFICA_INT(nfe_ide_add_nfref(ide, NULL), E_ISNULL);
+	nfe_ide_free(ide);
+}
+
 static void teste_obrigatorios(void)
 {
 	nfe_ide *ide = nfe_ide_new();
@@ -627,6 +678,7 @@ int main(int argc, char **argv)
 	teste_valores_invalidos();
 	teste_campos_pl010f();
 	teste_compragov_pagantecipado();
+	teste_nfref_generico();
 	teste_obrigatorios();
 	teste_validador();
 
