@@ -1,4 +1,4 @@
-/* Copyright (c) 2017, 2018 Gabriel Lampa da Cunha <gabriellampa@gmail.com>
+/* Copyright (c) 2017-2026 Gabriel Lampa da Cunha <gabriellampa@gmail.com>
  *
  * This file is part of tooldoce.
  *
@@ -14,27 +14,24 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with tooldoce.  If not, see <http://www.gnu.org/licenses/>.
- * */
+ */
 
 #include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+
 #include <libnfe/refNFe.h>
 #include <libnfe/chave.h>
 #include <libnfe/defs.h>
 #include <libnfe/erros.h>
+#include <libnfe/escrita.h>
 #include <libnfe/utils.h>
 
 struct refNFe_s {
-	char refNFe[NFE_TAM_ASCII(NFE_TAM_CHAVE)];
+	char chave[NFE_TAM_ASCII(NFE_TAM_CHAVE)];
 };
 
 struct refNFe_s *RefNFeNew(void)
 {
-	/* calloc: campos começam vazios; NULL se faltar memória */
-	struct refNFe_s *nf =
-	        (struct refNFe_s *)calloc(1, sizeof(struct refNFe_s));
-	return nf;
+	return calloc(1, sizeof(struct refNFe_s));
 }
 
 void RefNFeDel(struct refNFe_s *nf)
@@ -44,36 +41,26 @@ void RefNFeDel(struct refNFe_s *nf)
 
 int RefNFeSetrefNFe(struct refNFe_s *nf, const char *ref)
 {
-	int rc;
+	int erro;
 
 	if (!nf)
 		return E_ISNULL;
-	rc = nfe_chave_validar(ref);
-	if (rc != 0)
-		return rc;
-	return nfe_copia_texto(nf->refNFe, sizeof nf->refNFe, ref,
-	                       NFE_TAM_CHAVE, NFE_TAM_CHAVE);
+	/* Valida antes de copiar, para não deixar uma chave inválida gravada */
+	erro = nfe_chave_validar(ref);
+	if (erro)
+		return erro;
+	return nfe_copia_texto(nf->chave, sizeof nf->chave, ref, NFE_TAM_CHAVE,
+	                       NFE_TAM_CHAVE);
 }
 
 const char *RefNFeGetrefNFe(const struct refNFe_s *nf)
 {
-	if (!nf)
-		return NULL;
-	return nf->refNFe;
+	return nf ? nf->chave : NULL;
 }
 
-/* Escreve o elemento <refNFe>; o grupo <NFref> que o contém é aberto por
- * quem chama (nfe_ide_write_xml) */
 int xmlGenRefNFeNode(xmlTextWriterPtr writer, const struct refNFe_s *nf)
 {
-	int rc;
-
 	if (!writer || !nf)
 		return E_ISNULL;
-	rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "refNFe", "%s",
-	                                     nf->refNFe);
-	if (rc < 0) {
-		return E_XML;
-	}
-	return 0;
+	return nfe_escreve(writer, "refNFe", "%s", nf->chave);
 }

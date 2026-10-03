@@ -1,4 +1,4 @@
-/* Copyright (c) 2017, 2018 Gabriel Lampa da Cunha <gabriellampa@gmail.com>
+/* Copyright (c) 2017-2026 Gabriel Lampa da Cunha <gabriellampa@gmail.com>
  *
  * This file is part of tooldoce.
  *
@@ -14,7 +14,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with tooldoce.  If not, see <http://www.gnu.org/licenses/>.
- * */
+ */
 
 #ifndef LIBNFE_IDE_H
 #define LIBNFE_IDE_H
@@ -22,10 +22,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <time.h>
-
-#include <libxml/encoding.h>
 #include <libxml/xmlwriter.h>
-
 #include <libnfe/grupo.h>
 #include <libnfe/nfe.h>
 
