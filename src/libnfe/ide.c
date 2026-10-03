@@ -72,7 +72,7 @@ struct ide_s{
   nfe_finalidade finNFe;   // 1 caractere
   nfe_consumidor indFinal;         // 1 caractere
   nfe_presenca indPres;        // 1 caractere
-  nfe_processo_emissao procEmis;  // 1 caractere
+  nfe_processo_emissao procEmi;  // 1 caractere
   char verProc[NFE_TAM_UTF8(NFE_TAM_VERPROC)]; // 20 caracteres
   struct Cont_s *cont;             // Default NULL
   struct ref_s *refs;              // NFref, na ordem de inclusão
@@ -198,7 +198,7 @@ struct ide_s *ideNew(struct ide_s *this,
                      nfe_finalidade finnfe,
                      nfe_consumidor indfinal, 
                      nfe_presenca indpres,
-                     nfe_processo_emissao procemis, 
+                     nfe_processo_emissao procemi, 
                      char *verproc,
                      struct Cont_s *cont,
                      nfe_tzd tzd )
@@ -235,7 +235,7 @@ struct ide_s *ideNew(struct ide_s *this,
   ide->finNFe = finnfe;
   ide->indFinal = indfinal;
   ide->indPres = indpres;
-  ide->procEmis = procemis;
+  ide->procEmi = procemi;
   ide->cont = cont;
   return ide;
 }
@@ -451,10 +451,10 @@ int xmlGenideNode(xmlTextWriterPtr writer,struct ide_s *ide)
     return -1;
   }
 
-  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "procEmis","%d", 
-                                               (int)ide->procEmis);
+  rc = xmlTextWriterWriteFormatElement(writer, BAD_CAST "procEmi","%d", 
+                                               (int)ide->procEmi);
   if (rc < 0) {
-    printf("ide->procEmis: Erro em xmlTextWriterWriteFormatElement\n");
+    printf("ide->procEmi: Erro em xmlTextWriterWriteFormatElement\n");
     return -1;
   }
 

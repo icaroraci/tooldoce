@@ -81,7 +81,7 @@ void ideContDel(struct Cont_s *cont);
  * finnfe   = finalidade (nfe_finalidade);
  * indfinal = consumidor final (nfe_consumidor);
  * indpres  = presença do comprador (nfe_presenca);
- * procemis = processo de emissão (nfe_processo_emissao);
+ * procemi  = processo de emissão (nfe_processo_emissao);
  * verproc  = Versão do protocolo de emissao: 20 caracteres
  * tzd      = fuso horário em que as datas serão escritas (nfe_tzd);
  *
@@ -108,7 +108,7 @@ struct ide_s *ideNew(struct ide_s *this,
                      nfe_finalidade finnfe,
                      nfe_consumidor indfinal, 
                      nfe_presenca indpres,
-                     nfe_processo_emissao procemis, 
+                     nfe_processo_emissao procemi, 
                      char *verproc,
                      struct Cont_s *cont,
                      nfe_tzd tzd );
