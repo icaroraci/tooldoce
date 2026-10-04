@@ -71,7 +71,7 @@ Para conferir a nota antes de assinar e transmitir, `validar.h` valida o XML con
 
 Para compilar um programa seu com a biblioteca instalada:
 
-    $ cc meu_programa.c $(xml2-config --cflags) -lnfe $(xml2-config --libs)
+    $ cc meu_programa.c $(pkg-config --cflags --libs libnfe)
 
 
 ## Como compilar
@@ -101,7 +101,7 @@ Se o `xml2-config` estiver fora do `PATH`, informe o caminho: `make XML2_CONFIG=
 
     $ sudo make install
 
-Instala a biblioteca em `/usr/local/lib` e os headers em `/usr/local/include/libnfe`. O destino pode ser alterado com `PREFIX` (ex.: `make install PREFIX=/usr`) e `DESTDIR` (útil para empacotamento). Para remover, use `make uninstall` com os mesmos parâmetros.
+Instala a biblioteca em `/usr/local/lib` e os headers em `/usr/local/include/libnfe`. O destino pode ser alterado com `PREFIX` (ex.: `make install PREFIX=/usr`) e `DESTDIR` (útil para empacotamento). O `make install` também instala o `libnfe.pc` em `$(LIBDIR)/pkgconfig`, usado pelo `pkg-config`; se o prefixo não estiver no caminho de busca dele, exporte `PKG_CONFIG_PATH` (ex.: `export PKG_CONFIG_PATH=/opt/libnfe/lib/pkgconfig`). Para remover, use `make uninstall` com os mesmos parâmetros.
 
 ### Testes
 

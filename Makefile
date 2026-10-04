@@ -47,6 +47,8 @@ versao = $(shell sed -n 's/^\#define NFE_VERSAO_$(1) *\([0-9]*\).*/\1/p' $(INCLU
 VERSAO_MAIOR   := $(call versao,MAIOR)
 VERSAO_MENOR   := $(call versao,MENOR)
 VERSAO_REVISAO := $(call versao,REVISAO)
+#Versão completa, com a pré-versão (ex.: 1.0.0-rc1), para o libnfe.pc
+VERSAO := $(shell sed -n 's/^\#define NFE_VERSAO  *"\(.*\)".*/\1/p' $(INCLUDE)/libnfe/versao.h)
 
 
 #Nomes da biblioteca compartilhada (o SONAME muda com a versão maior)
@@ -60,6 +62,7 @@ PREFIX     ?= /usr/local
 LIBDIR     ?= $(PREFIX)/lib
 INCLUDEDIR ?= $(PREFIX)/include
 SCHEMADIR  ?= $(PREFIX)/share/tooldoce/schemas
+PKGCONFIGDIR ?= $(LIBDIR)/pkgconfig
 
 #Schemas oficiais instalados para a validação (nfe_validador_new)
 SCHEMAS = $(addprefix tests/schemas/nfe/,nfe_v4.00.xsd leiauteNFe_v4.00.xsd tiposBasico_v4.00.xsd DFeTiposBasicos_v1.00.xsd xmldsig-core-schema_v1.01.xsd)
@@ -109,10 +112,38 @@ install: libnfe
 	install -m 644 $(INCLUDE)/libnfe/*.h $(DESTDIR)$(INCLUDEDIR)/libnfe/
 	install -d $(DESTDIR)$(SCHEMADIR)
 	install -m 644 $(SCHEMAS) $(DESTDIR)$(SCHEMADIR)/
+	install -d $(DESTDIR)$(PKGCONFIGDIR)
+	$(call libnfe_pc) > $(DESTDIR)$(PKGCONFIGDIR)/libnfe.pc
+	chmod 644 $(DESTDIR)$(PKGCONFIGDIR)/libnfe.pc
+
+
+#libnfe.pc para o pkg-config. A libxml2 fica em Requires porque os headers
+#públicos incluem libxml/xmlwriter.h e expõem xmlTextWriterPtr; xmlsec1 e
+#libcurl só são usadas dentro da biblioteca (Requires.private serve à
+#ligação estática). Diretórios dentro de PREFIX são escritos em relação a
+#$${prefix}.
+relativo_prefix = $(patsubst $(PREFIX)/%,$${prefix}/%,$(1))
+define libnfe_pc
+	printf '%s\n' \
+		'prefix=$(PREFIX)' \
+		'libdir=$(call relativo_prefix,$(LIBDIR))' \
+		'includedir=$(call relativo_prefix,$(INCLUDEDIR))' \
+		'' \
+		'Name: libnfe' \
+		'Description: Biblioteca C para emissão da NF-e e da NFC-e (tooldoce)' \
+		'URL: https://github.com/icaroraci/tooldoce' \
+		'Version: $(VERSAO)' \
+		'Requires: libxml-2.0' \
+		'Requires.private: xmlsec1-openssl libcurl' \
+		'Cflags: -I$${includedir}' \
+		'Libs: -L$${libdir} -lnfe'
+endef
 
 
 uninstall:
 	rm -fv $(DESTDIR)$(LIBDIR)/$(LIBNAME) $(DESTDIR)$(LIBDIR)/$(SONAME) $(DESTDIR)$(LIBDIR)/$(REALNAME)
+	rm -fv $(DESTDIR)$(PKGCONFIGDIR)/libnfe.pc
+	-rmdir $(DESTDIR)$(PKGCONFIGDIR) 2>/dev/null
 	rm -rfv $(DESTDIR)$(INCLUDEDIR)/libnfe
 	rm -rfv $(DESTDIR)$(SCHEMADIR)
 	-rmdir $(DESTDIR)$(PREFIX)/share/tooldoce 2>/dev/null
