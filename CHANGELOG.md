@@ -19,6 +19,8 @@ As mudanças relevantes de cada versão ficam registradas aqui. O formato segue 
 
 - As regras de NFC-e que devolviam código 0 passam a devolver o cStat da SEFAZ: idDest (707), tpImp (709) e indFinal (716).
 
+- No motor de grupos, quando mais de um campo casa com o caminho, vale o que casa exatamente, com os elementos do caminho consecutivos. Antes valia o primeiro do leiaute: no modal rodoviário do MDF-e, `"veicTracao/UF"` gravava a UF do proprietário (`veicTracao/prop/UF`) em vez da UF do veículo. `nfe_grupo_get` e `nfe_grupo_remove` seguem a mesma regra.
+
 - As tabelas geradas da NF-e (`esq_*`) deixam de ser exportadas pela `libnfe.so`; eram de uso interno e passam a ser declaradas em `src/libnfe/esquemas.h`, também gerado.
 
 ## [1.0.0-rc2] - 2026-10-04

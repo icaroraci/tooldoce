@@ -10,6 +10,7 @@ Marque `[x]` quando a estrutura tiver: criação/liberação, setters com valida
   - [ ] [**infEx**](diagramas/exemplo/infEx.svg)
     - [ ] [**ide**](diagramas/exemplo/infEx/ide.svg)
     - [ ] [**veiculo**](diagramas/exemplo/infEx/veiculo.svg)
+      - [ ] [**prop**](diagramas/exemplo/infEx/veiculo/prop.svg) `0..1` _(opcional)_
     - [ ] [**condutor**](diagramas/exemplo/infEx/condutor.svg) `1..10`
     - [ ] [**contratante**](diagramas/exemplo/infEx/contratante.svg) `0..1` _(opcional)_
 

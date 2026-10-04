@@ -8,5 +8,6 @@ Em cada diagrama: caixa tracejada = opcional; `0..1`, `1..∞` = ocorrências; *
   - [infEx](exemplo/infEx.svg) — Informações do documento
     - [ide](exemplo/infEx/ide.svg) — Identificação
     - [veiculo](exemplo/infEx/veiculo.svg) — Veículo de tração
+      - [prop](exemplo/infEx/veiculo/prop.svg) `0..1` — Proprietário do veículo, quando não é o emitente
     - [condutor](exemplo/infEx/condutor.svg) `1..10` — Condutores
     - [contratante](exemplo/infEx/contratante.svg) `0..1` — Contratante do serviço
