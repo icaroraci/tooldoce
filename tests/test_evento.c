@@ -234,12 +234,34 @@ int main(int argc, char **argv)
 	free(ev);
 	ev = NULL;
 
-	/* Cancelamento por substituição (NFC-e), por CPF */
+	/* Cancelamento por substituição (NFC-e), por CPF: a substituta tem de
+	 * ser de contingência offline (tpEmis 9) */
 	memcpy(subst, CHAVE, 43);
 	subst[33] = '2'; /* outra nNF */
 	subst[43] = (char)('0' + nfe_chave_dv(subst));
 	subst[44] = '\0';
 	info.cnpjcpf = "52998224725";
+	VERIFICA_INT(nfe_evento_cancelamento_subst(&info, PROT, JUST, subst,
+	                                           "app 1.0", &ev, &tam),
+	             E_VALOR);
+	VERIFICA(ev == NULL);
+	subst[34] = '9';
+	subst[43] = (char)('0' + nfe_chave_dv(subst));
+	{
+		/* A cancelada também offline: recusada */
+		nfe_evento_info offline = info;
+		char chave_off[45];
+
+		memcpy(chave_off, CHAVE, 45);
+		chave_off[34] = '9';
+		chave_off[43] = (char)('0' + nfe_chave_dv(chave_off));
+		offline.chave = chave_off;
+		VERIFICA_INT(nfe_evento_cancelamento_subst(&offline, PROT, JUST,
+		                                           subst, "app 1.0",
+		                                           &ev, &tam),
+		             E_VALOR);
+		VERIFICA(ev == NULL);
+	}
 	VERIFICA_INT(nfe_evento_cancelamento_subst(&info, PROT, JUST, subst,
 	                                           "app 1.0", &ev, &tam),
 	             0);

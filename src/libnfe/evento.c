@@ -247,12 +247,15 @@ int nfe_evento_cancelamento_subst(const nfe_evento_info *info,
 	if (rc != 0)
 		return rc;
 	/* Só NFC-e (modelo 65, posições 21 e 22 da chave), substituída por
-	 * outra NFC-e */
+	 * outra NFC-e. A cancelada não pode ser de contingência offline e a
+	 * substituta tem de ser (tpEmis, posição 35: 9); senão a SEFAZ rejeita
+	 * com cStat 920 */
 	if (chave_valida(chave_subst) != 0 ||
 	    strcmp(chave_subst, info->chave) == 0 ||
 	    strlen(info->chave) != 44 ||
 	    memcmp(info->chave + 20, "65", 2) != 0 ||
-	    memcmp(chave_subst + 20, "65", 2) != 0)
+	    memcmp(chave_subst + 20, "65", 2) != 0 || info->chave[34] == '9' ||
+	    chave_subst[34] != '9')
 		return E_VALOR;
 	return gera(info, &d, xml, tam);
 }
