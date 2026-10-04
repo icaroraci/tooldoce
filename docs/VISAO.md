@@ -43,14 +43,15 @@ Regra: **os documentos mais usados primeiro**. A NF-e vem à frente.
 
 | Prioridade | Documento | Modelo | Situação |
 |---|---|---|---|
-| 1 | NF-e — Nota Fiscal Eletrônica | 55 | Em desenvolvimento |
-| 2 | NFC-e — Nota Fiscal de Consumidor Eletrônica | 65 | Planejado (compartilha a maior parte do layout com a NF-e) |
-| 3 | NFS-e — Nota Fiscal de Serviço Eletrônica (padrão nacional) | — | Planejado |
-| 4 | CT-e — Conhecimento de Transporte Eletrônico | 57 | Planejado |
-| 5 | MDF-e — Manifesto Eletrônico de Documentos Fiscais | 58 | Planejado |
-| 6+ | Demais documentos de uso comercial (CT-e OS, BP-e, NF3e, NFCom etc.) | — | Futuro |
+| 1 | NF-e — Nota Fiscal Eletrônica | 55 | Pronta (1.0.0-rc1) |
+| 2 | NFS-e — Nota Fiscal de Serviço Eletrônica (padrão nacional) | — | Planejado |
+| 3 | CT-e — Conhecimento de Transporte Eletrônico | 57 | Planejado |
+| 4 | MDF-e — Manifesto Eletrônico de Documentos Fiscais | 58 | Planejado |
+| 5+ | Demais documentos de uso comercial (CT-e OS, BP-e, NF3e, NFCom etc.) | — | Futuro |
 
 A ordem a partir do item 2 é uma proposta e pode ser revista conforme a demanda dos usuários.
+
+A **NFC-e** (modelo 65) será um projeto à parte (decisão de 04/10/2026).
 
 ## 5. Plataforma e dependências
 
@@ -87,7 +88,7 @@ programa (ERP)
       │
       ▼
 ┌──────────────────────────────────────────────┐
-│ Módulos por documento: NF-e, NFC-e, NFS-e... │  ← montagem e leitura de cada leiaute
+│ Módulos por documento: NF-e, NFS-e, CT-e...  │  ← montagem e leitura de cada leiaute
 ├──────────────────────────────────────────────┤
 │ Núcleo comum: XML, validação, assinatura,    │
 │ certificados, transporte, erros, utilitários │
@@ -105,6 +106,6 @@ O núcleo comum evita reescrever assinatura, transmissão e validação em cada 
 ## 10. Decisões pendentes
 
 - [x] Impressão da DANFE: **fora** do escopo (projeto à parte; decisão de 03/10/2026).
-- [ ] Suporte a certificado A3 (token/cartão, via PKCS#11) além do A1 (arquivo). Proposta: começar com A1 e deixar a fonte da chave trocável (ver `docs/DUVIDAS.md`).
+- [x] Certificado A3 (token/cartão, via PKCS#11): **fora** do escopo; a biblioteca assina só com A1 (decisão de 04/10/2026).
 - [ ] Nome final da biblioteca quando houver mais de um documento (hoje `libnfe`).
-- [ ] Ordem de prioridade dos documentos a partir da NFC-e.
+- [ ] Ordem de prioridade dos documentos a partir da NFS-e.

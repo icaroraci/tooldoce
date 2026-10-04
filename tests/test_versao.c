@@ -28,8 +28,9 @@ int main(void)
 {
 	char esperado[32];
 
-	snprintf(esperado, sizeof esperado, "%d.%d.%d", NFE_VERSAO_MAIOR,
-	         NFE_VERSAO_MENOR, NFE_VERSAO_REVISAO);
+	snprintf(esperado, sizeof esperado, "%d.%d.%d%s%s", NFE_VERSAO_MAIOR,
+	         NFE_VERSAO_MENOR, NFE_VERSAO_REVISAO,
+	         NFE_VERSAO_PRE[0] ? "-" : "", NFE_VERSAO_PRE);
 	VERIFICA_STR(NFE_VERSAO, esperado);
 	VERIFICA_STR(nfe_versao(), NFE_VERSAO);
 	TESTE_FIM();

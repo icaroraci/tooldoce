@@ -4,16 +4,16 @@ As mudanças relevantes de cada versão ficam registradas aqui. O formato segue 
 
 ## [Não lançado]
 
-## [1.0.0] - 2026-10-03
+## [1.0.0-rc1] - 2026-10-04
 
-Primeira versão estável. Cobre a emissão da NF-e modelo 55, do XML à SEFAZ, testada na homologação real (ver [`docs/HOMOLOGACAO.md`](docs/HOMOLOGACAO.md)).
+Candidata à primeira versão estável (1.0.0). Cobre a emissão da NF-e modelo 55, do XML à SEFAZ, testada na homologação real (ver [`docs/HOMOLOGACAO.md`](docs/HOMOLOGACAO.md)).
 
 ### Adicionado
 
 - Todos os grupos da NF-e/NFC-e do leiaute 4.00 no PL_010f, com a Reforma Tributária (IBS, CBS e IS) e o CNPJ alfanumérico; o XML gerado valida contra o XSD oficial.
 - Chave de acesso e dígito verificador; totais calculados a partir dos itens (`nfe_nfe_calcular_totais`).
 - Validação contra os schemas oficiais e regras da SEFAZ que o schema não cobre (`validar.h`), com os schemas instalados por `make install`.
-- Assinatura digital XMLDSig com certificado A1 (`assinatura.h`).
+- Assinatura digital XMLDSig com certificado A1 (`assinatura.h`). O certificado A3 (token/cartão) não faz parte do roteiro.
 - Comunicação SOAP/TLS com a SEFAZ (`sefaz.h`): status do serviço, autorização síncrona e assíncrona, consulta do recibo e do protocolo, e montagem do `nfeProc`.
 - Tabela de endereços dos webservices por UF, ambiente e emissão (normal e SVC).
 - Eventos (`evento.h`): cancelamento, cancelamento por substituição e carta de correção.
@@ -27,5 +27,5 @@ Primeira versão estável. Cobre a emissão da NF-e modelo 55, do XML à SEFAZ, 
 - `SONAME` passa de `libnfe.so.0` para `libnfe.so.1`.
 - Licença trocada de GPLv3+ para LGPLv3+, o que permite usar a biblioteca em programas de qualquer licença.
 
-[Não lançado]: https://github.com/icaroraci/tooldoce/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/icaroraci/tooldoce/releases/tag/v1.0.0
+[Não lançado]: https://github.com/icaroraci/tooldoce/compare/v1.0.0-rc1...HEAD
+[1.0.0-rc1]: https://github.com/icaroraci/tooldoce/releases/tag/v1.0.0-rc1

@@ -19,15 +19,18 @@
 #ifndef LIBNFE_VERSAO_H
 #define LIBNFE_VERSAO_H
 
-/* Versão da biblioteca, no formato MAIOR.MENOR.REVISÃO (versionamento
+/* Versão da biblioteca, no formato MAIOR.MENOR.REVISÃO[-PRÉ] (versionamento
  * semântico): a versão maior muda quando a API ou a ABI deixam de ser
- * compatíveis. O Makefile lê estas macros para nomear libnfe.so. */
+ * compatíveis. NFE_VERSAO_PRE marca uma pré-versão (ex.: "rc1") e fica
+ * vazio numa versão final. O Makefile lê estas macros para nomear
+ * libnfe.so. */
 #define NFE_VERSAO_MAIOR   1
 #define NFE_VERSAO_MENOR   0
 #define NFE_VERSAO_REVISAO 0
-#define NFE_VERSAO         "1.0.0"
+#define NFE_VERSAO_PRE     "rc1"
+#define NFE_VERSAO         "1.0.0-rc1"
 
-/* Versão da biblioteca carregada em tempo de execução (ex.: "1.0.0"), que
+/* Versão da biblioteca carregada em tempo de execução (ex.: "1.0.0-rc1"), que
  * pode diferir de NFE_VERSAO, a dos headers usados na compilação. */
 const char *nfe_versao(void);
 
