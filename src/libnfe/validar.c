@@ -185,18 +185,12 @@ const char *nfe_dir_schemas(void)
 	return NFE_DIR_SCHEMAS;
 }
 
-nfe_validador *nfe_validador_new(const char *dir_schemas)
+/* Carrega o schema do arquivo caminho; NULL se não der */
+static nfe_validador *carrega(const char *caminho)
 {
-	char caminho[4096];
 	xmlSchemaParserCtxtPtr pctx;
 	nfe_validador *v;
-	int n;
 
-	if (!dir_schemas)
-		dir_schemas = nfe_dir_schemas();
-	n = snprintf(caminho, sizeof caminho, "%s/nfe_v4.00.xsd", dir_schemas);
-	if (n < 0 || (size_t)n >= sizeof caminho)
-		return NULL;
 	/* Sem o arquivo, a libxml2 imprimiria um aviso: confere antes */
 	{
 		FILE *f = fopen(caminho, "rb");
@@ -222,6 +216,24 @@ nfe_validador *nfe_validador_new(const char *dir_schemas)
 	return v;
 }
 
+nfe_validador *nfe_validador_new(const char *dir_schemas)
+{
+	char caminho[4096];
+	int n;
+
+	if (!dir_schemas)
+		dir_schemas = nfe_dir_schemas();
+	n = snprintf(caminho, sizeof caminho, "%s/nfe_v4.00.xsd", dir_schemas);
+	if (n < 0 || (size_t)n >= sizeof caminho)
+		return NULL;
+	return carrega(caminho);
+}
+
+nfe_validador *nfe_validador_xsd(const char *caminho_xsd)
+{
+	return caminho_xsd ? carrega(caminho_xsd) : NULL;
+}
+
 void nfe_validador_free(nfe_validador *v)
 {
 	if (!v)
@@ -230,17 +242,14 @@ void nfe_validador_free(nfe_validador *v)
 	free(v);
 }
 
-/* Acrescenta a assinatura de mentira ao fim de <NFe>, se não houver
- * assinatura. Retorna 0, E_XML ou E_MALLOC. */
-static int assina_de_mentira(xmlDocPtr doc)
+/* Acrescenta a assinatura de mentira ao fim da raiz, se não houver
+ * assinatura. Retorna 0 ou E_MALLOC. */
+static int completa_assinatura(xmlNodePtr raiz)
 {
-	xmlNodePtr raiz = xmlDocGetRootElement(doc), filho, assinatura = NULL;
+	xmlNodePtr filho, assinatura = NULL;
 	xmlDocPtr frag;
 	xmlNodePtr copia_no;
 
-	if (!raiz || !xmlStrEqual(raiz->name, BAD_CAST "NFe") || !raiz->ns ||
-	    !xmlStrEqual(raiz->ns->href, BAD_CAST NS_NFE))
-		return E_XML;
 	for (filho = raiz->children; filho; filho = filho->next)
 		if (filho->type == XML_ELEMENT_NODE &&
 		    xmlStrEqual(filho->name, BAD_CAST "Signature"))
@@ -251,7 +260,7 @@ static int assina_de_mentira(xmlDocPtr doc)
 	if (!frag)
 		return E_MALLOC;
 	assinatura = xmlDocGetRootElement(frag);
-	copia_no = xmlDocCopyNode(assinatura, doc, 1);
+	copia_no = xmlDocCopyNode(assinatura, raiz->doc, 1);
 	xmlFreeDoc(frag);
 	if (!copia_no)
 		return E_MALLOC;
@@ -260,6 +269,18 @@ static int assina_de_mentira(xmlDocPtr doc)
 		return E_MALLOC;
 	}
 	return 0;
+}
+
+/* Acrescenta a assinatura de mentira ao fim de <NFe>, se não houver
+ * assinatura. Retorna 0, E_XML ou E_MALLOC. */
+static int assina_de_mentira(xmlDocPtr doc)
+{
+	xmlNodePtr raiz = xmlDocGetRootElement(doc);
+
+	if (!raiz || !xmlStrEqual(raiz->name, BAD_CAST "NFe") || !raiz->ns ||
+	    !xmlStrEqual(raiz->ns->href, BAD_CAST NS_NFE))
+		return E_XML;
+	return completa_assinatura(raiz);
 }
 
 /* ---- Regras de validação da SEFAZ que o schema não cobre ---- */
@@ -495,22 +516,21 @@ static int regras(xmlNodePtr raiz, nfe_erros *erros)
 	return n;
 }
 
-int nfe_validar_xml(nfe_validador *v, const char *xml, size_t tam,
-                    nfe_erros *erros)
+/* Lê o documento, acrescentando o erro de leitura em erros; NULL se
+ * malformado ou sem memória (*rc: E_XML ou E_MALLOC) */
+static xmlDocPtr le(const char *xml, size_t tam, nfe_erros *erros, int *rc)
 {
-	xmlSchemaValidCtxtPtr ctx;
 	xmlParserCtxtPtr pctx;
 	xmlDocPtr doc;
-	int rc;
 
-	if (!v || !xml)
-		return E_ISNULL;
-	nfe_erros_limpa(erros);
+	*rc = E_XML;
 	if (tam > 0x7fffffff)
-		return E_XML;
+		return NULL;
 	pctx = xmlNewParserCtxt();
-	if (!pctx)
-		return E_MALLOC;
+	if (!pctx) {
+		*rc = E_MALLOC;
+		return NULL;
+	}
 	/* Sem impressão: o erro de leitura é pego do contexto */
 	doc = xmlCtxtReadMemory(pctx, xml, (int)tam, "nfe.xml", NULL,
 	                        XML_PARSE_NONET | XML_PARSE_NOERROR |
@@ -520,10 +540,37 @@ int nfe_validar_xml(nfe_validador *v, const char *xml, size_t tam,
 
 		acrescenta(erros, e ? e->message : "XML malformado", NULL,
 		           e ? e->line : 0, 0);
-		xmlFreeParserCtxt(pctx);
-		return E_XML;
 	}
 	xmlFreeParserCtxt(pctx);
+	return doc;
+}
+
+/* Valida doc contra o schema de v; 0, 1 (inválido) ou -1 (erro interno) */
+static int valida_schema(nfe_validador *v, xmlDocPtr doc, nfe_erros *erros)
+{
+	xmlSchemaValidCtxtPtr ctx = xmlSchemaNewValidCtxt(v->schema);
+	int rc;
+
+	if (!ctx)
+		return -1;
+	xmlSchemaSetValidStructuredErrors(ctx, guarda_erro, erros);
+	rc = xmlSchemaValidateDoc(ctx, doc);
+	xmlSchemaFreeValidCtxt(ctx);
+	return rc < 0 ? -1 : rc != 0;
+}
+
+int nfe_validar_xml(nfe_validador *v, const char *xml, size_t tam,
+                    nfe_erros *erros)
+{
+	xmlDocPtr doc;
+	int rc;
+
+	if (!v || !xml)
+		return E_ISNULL;
+	nfe_erros_limpa(erros);
+	doc = le(xml, tam, erros, &rc);
+	if (!doc)
+		return rc;
 	rc = assina_de_mentira(doc);
 	if (rc == E_XML)
 		acrescenta(erros, "o elemento raiz não é <NFe> da NF-e", NULL,
@@ -532,17 +579,36 @@ int nfe_validar_xml(nfe_validador *v, const char *xml, size_t tam,
 		xmlFreeDoc(doc);
 		return rc;
 	}
-	ctx = xmlSchemaNewValidCtxt(v->schema);
-	if (!ctx) {
-		xmlFreeDoc(doc);
-		return E_MALLOC;
-	}
-	xmlSchemaSetValidStructuredErrors(ctx, guarda_erro, erros);
-	rc = xmlSchemaValidateDoc(ctx, doc);
-	xmlSchemaFreeValidCtxt(ctx);
+	rc = valida_schema(v, doc, erros);
 	/* As regras supõem a estrutura do schema: só depois dele */
 	if (rc == 0 && regras(xmlDocGetRootElement(doc), erros) > 0)
 		rc = 1;
+	xmlFreeDoc(doc);
+	if (rc < 0)
+		return E_MALLOC;
+	return rc == 0 ? 0 : E_VALOR;
+}
+
+int nfe_validar_xsd(nfe_validador *v, const char *xml, size_t tam,
+                    int completar_assinatura, nfe_erros *erros)
+{
+	xmlDocPtr doc;
+	int rc;
+
+	if (!v || !xml)
+		return E_ISNULL;
+	nfe_erros_limpa(erros);
+	doc = le(xml, tam, erros, &rc);
+	if (!doc)
+		return rc;
+	if (completar_assinatura) {
+		rc = completa_assinatura(xmlDocGetRootElement(doc));
+		if (rc != 0) {
+			xmlFreeDoc(doc);
+			return rc;
+		}
+	}
+	rc = valida_schema(v, doc, erros);
 	xmlFreeDoc(doc);
 	if (rc < 0)
 		return E_MALLOC;

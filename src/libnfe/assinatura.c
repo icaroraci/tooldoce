@@ -255,25 +255,35 @@ static const struct {
 	{ "inutNFe", "infInut" },  /* inutilização de numeração */
 };
 
-/* Elemento assinado (<infNFe> da raiz <NFe>, <infEvento> de <evento>...),
- * com o seu Id registrado como ID (para a referência "#Id" da assinatura);
- * NULL se o documento não for de um dos tipos assinados */
-static xmlNodePtr infnfe(xmlDocPtr doc, xmlChar **id)
+/* Elemento assinado, filho da raiz e com o seu Id registrado como ID
+ * (para a referência "#Id" da assinatura). Com info NULL, o documento tem
+ * de ser um dos tipos da NF-e acima (<infNFe> da raiz <NFe>, <infEvento>
+ * de <evento>...); senão, é o filho info da raiz, de qualquer documento.
+ * NULL se não houver o elemento ou ele não tiver Id. */
+static xmlNodePtr elemento_assinado(xmlDocPtr doc, const char *info,
+                                    xmlChar **id)
 {
 	xmlNodePtr raiz = xmlDocGetRootElement(doc), n = NULL;
 	xmlAttrPtr atr;
 	size_t i;
 
-	if (!raiz || !raiz->ns || !xmlStrEqual(raiz->ns->href, BAD_CAST NS_NFE))
+	*id = NULL;
+	if (!raiz)
 		return NULL;
-	for (i = 0; i < sizeof assinaveis / sizeof assinaveis[0]; i++)
-		if (xmlStrEqual(raiz->name, BAD_CAST assinaveis[i].raiz))
-			break;
-	if (i == sizeof assinaveis / sizeof assinaveis[0])
-		return NULL;
+	if (!info) {
+		if (!raiz->ns || !xmlStrEqual(raiz->ns->href, BAD_CAST NS_NFE))
+			return NULL;
+		for (i = 0; i < sizeof assinaveis / sizeof assinaveis[0]; i++)
+			if (xmlStrEqual(raiz->name,
+			                BAD_CAST assinaveis[i].raiz))
+				break;
+		if (i == sizeof assinaveis / sizeof assinaveis[0])
+			return NULL;
+		info = assinaveis[i].info;
+	}
 	for (n = raiz->children; n; n = n->next)
 		if (n->type == XML_ELEMENT_NODE &&
-		    xmlStrEqual(n->name, BAD_CAST assinaveis[i].info))
+		    xmlStrEqual(n->name, BAD_CAST info))
 			break;
 	if (!n)
 		return NULL;
@@ -379,8 +389,8 @@ static int serializa(xmlDocPtr doc, char **saida, size_t *tam)
 	return 0;
 }
 
-int nfe_assinar_xml(const nfe_certificado *cert, const char *xml, size_t tam,
-                    char **assinado, size_t *tam_assinado)
+static int assina(const nfe_certificado *cert, const char *xml, size_t tam,
+                  const char *elemento, char **assinado, size_t *tam_assinado)
 {
 	xmlNodePtr assin, ref, info, x509;
 	xmlSecDSigCtxPtr ctx = NULL;
@@ -397,7 +407,7 @@ int nfe_assinar_xml(const nfe_certificado *cert, const char *xml, size_t tam,
 	doc = le_documento(xml, tam);
 	if (!doc)
 		return E_XML;
-	if (!infnfe(doc, &id) || assinatura(doc) ||
+	if (!elemento_assinado(doc, elemento, &id) || assinatura(doc) ||
 	    (size_t)snprintf(uri, sizeof uri, "#%s", (const char *)id) >=
 	            sizeof uri) {
 		xmlFree(id);
@@ -446,7 +456,7 @@ fim:
 	return rc;
 }
 
-int nfe_verificar_assinatura(const char *xml, size_t tam)
+static int verifica(const char *xml, size_t tam, const char *elemento)
 {
 	xmlSecKeysMngrPtr mngr = NULL;
 	xmlSecDSigCtxPtr ctx = NULL;
@@ -464,9 +474,11 @@ int nfe_verificar_assinatura(const char *xml, size_t tam)
 	if (!doc)
 		return E_XML;
 	rc = E_XML;
-	if (!infnfe(doc, &id) || !(assin = assinatura(doc)))
+	if (!elemento_assinado(doc, elemento, &id) ||
+	    !(assin = assinatura(doc)))
 		goto fim;
-	/* A assinatura tem de cobrir o infNFe da própria nota */
+	/* A assinatura tem de cobrir o elemento assinado do próprio
+	 * documento */
 	ref = xmlSecFindNode(assin, xmlSecNodeReference, xmlSecDSigNs);
 	uri = ref ? xmlGetProp(ref, BAD_CAST "URI") : NULL;
 	if (!uri || uri[0] != '#' || !xmlStrEqual(uri + 1, id)) {
@@ -498,6 +510,34 @@ fim:
 		xmlSecKeysMngrDestroy(mngr);
 	xmlFreeDoc(doc);
 	return rc;
+}
+
+int nfe_assinar_xml(const nfe_certificado *cert, const char *xml, size_t tam,
+                    char **assinado, size_t *tam_assinado)
+{
+	return assina(cert, xml, tam, NULL, assinado, tam_assinado);
+}
+
+int nfe_assinar_elemento(const nfe_certificado *cert, const char *xml,
+                         size_t tam, const char *elemento, char **assinado,
+                         size_t *tam_assinado)
+{
+	if (!elemento)
+		return E_ISNULL;
+	return assina(cert, xml, tam, elemento, assinado, tam_assinado);
+}
+
+int nfe_verificar_assinatura(const char *xml, size_t tam)
+{
+	return verifica(xml, tam, NULL);
+}
+
+int nfe_verificar_assinatura_elemento(const char *xml, size_t tam,
+                                      const char *elemento)
+{
+	if (!elemento)
+		return E_ISNULL;
+	return verifica(xml, tam, elemento);
 }
 
 int nfe_certificado_assinar(const nfe_certificado *cert, const void *dados,

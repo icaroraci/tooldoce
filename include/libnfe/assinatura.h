@@ -74,6 +74,17 @@ time_t nfe_certificado_validade(const nfe_certificado *cert);
 int nfe_assinar_xml(const nfe_certificado *cert, const char *xml, size_t tam,
                     char **assinado, size_t *tam_assinado);
 
+/* Como nfe_assinar_xml, para documentos de outros leiautes que seguem o
+ * mesmo padrão de assinatura (RSA-SHA1, C14N, <Signature> ao fim da raiz),
+ * como os do MDF-e e do CT-e: assina o elemento filho da raiz chamado
+ * elemento (ex.: "infMDFe" de <MDFe>, "infEvento" de <eventoMDFe>), que
+ * tem de ter o atributo Id. Não confere o namespace nem o nome da raiz.
+ * Retorna 0, E_ISNULL, E_XML (documento malformado, sem o elemento ou sem
+ * Id, ou já assinado), E_VALOR (falha ao assinar) ou E_MALLOC. */
+int nfe_assinar_elemento(const nfe_certificado *cert, const char *xml,
+                         size_t tam, const char *elemento, char **assinado,
+                         size_t *tam_assinado);
+
 /* Assina tam bytes de dados com a chave privada do certificado (RSA
  * PKCS#1 v1.5 com SHA-1, o algoritmo do leiaute) e devolve a assinatura
  * binária em *assinatura, alocada (libere com free()), com o tamanho em
@@ -92,6 +103,12 @@ int nfe_certificado_assinar(const nfe_certificado *cert, const void *dados,
  * (assinatura inválida ou documento alterado), E_XML (documento malformado
  * ou sem assinatura), E_ISNULL ou E_MALLOC. */
 int nfe_verificar_assinatura(const char *xml, size_t tam);
+
+/* Como nfe_verificar_assinatura, para documentos assinados com
+ * nfe_assinar_elemento: a assinatura tem de cobrir o filho da raiz chamado
+ * elemento. Mesmos retornos. */
+int nfe_verificar_assinatura_elemento(const char *xml, size_t tam,
+                                      const char *elemento);
 
 /* Uso interno (sefaz.c): põe o certificado, a chave e a cadeia no SSL_CTX
  * da OpenSSL (ssl_ctx). Retorna 0 ou E_VALOR. */

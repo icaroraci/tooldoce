@@ -360,8 +360,37 @@ static int le_resposta(nfe_sefaz *s, const struct buf *b, long http,
 	return rc;
 }
 
-int nfe_sefaz_enviar(nfe_sefaz *s, const char *url, nfe_servico servico,
-                     const char *msg, char **resposta, size_t *tam)
+/* Texto que pode ir num atributo entre aspas e no cabeçalho HTTP? */
+static int texto_seguro(const char *t)
+{
+	if (!*t)
+		return 0;
+	for (; *t; t++)
+		if (*t == '"' || *t == '<' || *t == '>' || *t == '&' ||
+		    (unsigned char)*t < 0x20 || *t == 0x7f)
+			return 0;
+	return 1;
+}
+
+/* Nome de elemento XML simples (letras ASCII, dígitos e _) */
+static int nome_seguro(const char *t)
+{
+	if (!((*t >= 'A' && *t <= 'Z') || (*t >= 'a' && *t <= 'z') ||
+	      *t == '_'))
+		return 0;
+	for (; *t; t++)
+		if (!((*t >= 'A' && *t <= 'Z') || (*t >= 'a' && *t <= 'z') ||
+		      (*t >= '0' && *t <= '9') || *t == '_'))
+			return 0;
+	return 1;
+}
+
+/* Envio SOAP 1.2: <elemento xmlns="ns">msg</elemento> no corpo e
+ * action="ns/operacao"; cabecalho (ou NULL) vai em <soap12:Header> */
+static int envia(nfe_sefaz *s, const char *url, const char *ns,
+                 const char *operacao, const char *elemento,
+                 const char *cabecalho_soap, const char *msg, char **resposta,
+                 size_t *tam)
 {
 	struct buf envelope = { 0 }, cabecalho = { 0 }, recebido = { 0 };
 	char errbuf[CURL_ERROR_SIZE];
@@ -374,12 +403,6 @@ int nfe_sefaz_enviar(nfe_sefaz *s, const char *url, nfe_servico servico,
 	CURL *c;
 	int rc;
 
-	if (!s || !url || !msg || !resposta)
-		return E_ISNULL;
-	s->erro[0] = '\0';
-	if ((int)servico < 0 ||
-	    (size_t)servico >= sizeof servicos / sizeof servicos[0])
-		return E_VALOR;
 	pthread_once(&inicio, inicia_curl);
 	if (inicio_rc != CURLE_OK) {
 		snprintf(s->erro, sizeof s->erro, "falha ao iniciar a libcurl");
@@ -398,17 +421,26 @@ int nfe_sefaz_enviar(nfe_sefaz *s, const char *url, nfe_servico servico,
 	               "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/"
 	               "XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/"
 	               "2001/XMLSchema\" xmlns:soap12=\"http://www.w3.org/"
-	               "2003/05/soap-envelope\"><soap12:Body>"
-	               "<nfeDadosMsg xmlns=\"" NS_WSDL);
-	poe(&envelope, servicos[servico].ns);
+	               "2003/05/soap-envelope\">");
+	if (cabecalho_soap) {
+		poe(&envelope, "<soap12:Header>");
+		poe(&envelope, cabecalho_soap);
+		poe(&envelope, "</soap12:Header>");
+	}
+	poe(&envelope, "<soap12:Body><");
+	poe(&envelope, elemento);
+	poe(&envelope, " xmlns=\"");
+	poe(&envelope, ns);
 	poe(&envelope, "\">");
 	poe_n(&envelope, corpo, n);
-	poe(&envelope, "</nfeDadosMsg></soap12:Body></soap12:Envelope>");
+	poe(&envelope, "</");
+	poe(&envelope, elemento);
+	poe(&envelope, "></soap12:Body></soap12:Envelope>");
 	poe(&cabecalho, "Content-Type: application/soap+xml; charset=utf-8; "
-	                "action=\"" NS_WSDL);
-	poe(&cabecalho, servicos[servico].ns);
+	                "action=\"");
+	poe(&cabecalho, ns);
 	poe(&cabecalho, "/");
-	poe(&cabecalho, servicos[servico].operacao);
+	poe(&cabecalho, operacao);
 	poe(&cabecalho, "\"");
 	if (envelope.erro || cabecalho.erro) {
 		free(envelope.p);
@@ -465,6 +497,38 @@ int nfe_sefaz_enviar(nfe_sefaz *s, const char *url, nfe_servico servico,
 	rc = le_resposta(s, &recebido, http, resposta, tam);
 	free(recebido.p);
 	return rc;
+}
+
+int nfe_sefaz_enviar(nfe_sefaz *s, const char *url, nfe_servico servico,
+                     const char *msg, char **resposta, size_t *tam)
+{
+	char ns[128];
+
+	if (!s || !url || !msg || !resposta)
+		return E_ISNULL;
+	s->erro[0] = '\0';
+	if ((int)servico < 0 ||
+	    (size_t)servico >= sizeof servicos / sizeof servicos[0])
+		return E_VALOR;
+	snprintf(ns, sizeof ns, "%s%s", NS_WSDL, servicos[servico].ns);
+	return envia(s, url, ns, servicos[servico].operacao, "nfeDadosMsg",
+	             NULL, msg, resposta, tam);
+}
+
+int nfe_sefaz_enviar_ws(nfe_sefaz *s, const char *url, const char *ns_wsdl,
+                        const char *operacao, const char *elemento,
+                        const char *cabecalho, const char *msg, char **resposta,
+                        size_t *tam)
+{
+	if (!s || !url || !ns_wsdl || !operacao || !elemento || !msg ||
+	    !resposta)
+		return E_ISNULL;
+	s->erro[0] = '\0';
+	if (!texto_seguro(ns_wsdl) || !texto_seguro(operacao) ||
+	    !nome_seguro(elemento))
+		return E_VALOR;
+	return envia(s, url, ns_wsdl, operacao, elemento, cabecalho, msg,
+	             resposta, tam);
 }
 
 /* ---- mensagens ---- */

@@ -12,6 +12,7 @@ Segunda candidata à 1.0.0, com o que entrou depois da rc1.
 
 - `make install` instala o `libnfe.pc` em `$(LIBDIR)/pkgconfig`: um programa externo compila com `cc programa.c $(pkg-config --cflags --libs libnfe)` (#266).
 - `nfe_certificado_assinar` (`assinatura.h`): assina dados avulsos com a chave do certificado (RSA PKCS#1 v1.5, SHA-1), para o QR Code versão 3 da NFC-e em contingência offline (NT 2025.001) (#268).
+- Peças genéricas para os outros documentos fiscais que seguem o padrão da NF-e (MDF-e, CT-e), usadas pela [libmdf](https://github.com/icaroraci/libmdf): `nfe_assinar_elemento` e `nfe_verificar_assinatura_elemento` (`assinatura.h`) assinam e conferem o filho da raiz informado (ex.: `infMDFe`); `nfe_sefaz_enviar_ws` (`sefaz.h`) envia a qualquer webservice SOAP 1.2 da SEFAZ, com namespace, operação, elemento e cabeçalho SOAP informados; `nfe_validador_xsd` e `nfe_validar_xsd` (`validar.h`) validam contra um schema qualquer, sem as regras da NF-e.
 
 ### Alterado
 

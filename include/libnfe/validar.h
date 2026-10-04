@@ -86,6 +86,11 @@ const char *nfe_dir_schemas(void);
  * ter nfe_v4.00.xsd e os arquivos que ele inclui. Retorna NULL se não for
  * possível carregá-los ou faltar memória. */
 nfe_validador *nfe_validador_new(const char *dir_schemas);
+/* Validador de outro leiaute (MDF-e, CT-e...) ou de outra mensagem: carrega
+ * o schema caminho_xsd (com os arquivos que ele inclui, na mesma pasta).
+ * Use com nfe_validar_xsd. Retorna NULL se caminho_xsd for NULL, se não
+ * for possível carregá-lo ou se faltar memória. */
+nfe_validador *nfe_validador_xsd(const char *caminho_xsd);
 void nfe_validador_free(nfe_validador *v);
 
 /* Valida o documento xml (tam bytes; não precisa terminar em '\0') e
@@ -94,5 +99,14 @@ void nfe_validador_free(nfe_validador *v);
  * (documento malformado ou que não é uma NF-e), E_ISNULL ou E_MALLOC. */
 int nfe_validar_xml(nfe_validador *v, const char *xml, size_t tam,
                     nfe_erros *erros);
+
+/* Valida o documento xml só contra o schema de v, sem as regras da NF-e
+ * nem exigir a raiz <NFe>. Com completar_assinatura diferente de 0, um
+ * documento sem <Signature> filha da raiz é validado como se a tivesse ao
+ * fim da raiz (o padrão da NF-e, do MDF-e e do CT-e); use 0 para
+ * mensagens que não são assinadas. Retorna 0 (válido), E_VALOR (inválido),
+ * E_XML (malformado), E_ISNULL ou E_MALLOC. */
+int nfe_validar_xsd(nfe_validador *v, const char *xml, size_t tam,
+                    int completar_assinatura, nfe_erros *erros);
 
 #endif

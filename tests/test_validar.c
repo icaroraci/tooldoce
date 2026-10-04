@@ -192,6 +192,51 @@ int main(int argc, char **argv)
 	VERIFICA(nfe_erros_campo(NULL, 0) == NULL);
 	VERIFICA_INT(nfe_erros_linha(erros, -1), 0);
 
+	/* Validador de um schema qualquer, sem as regras da NF-e */
+	{
+		static const char cons[] =
+		        "<consSitNFe "
+		        "xmlns=\"http://www.portalfiscal.inf.br/nfe\" "
+		        "versao=\"4.00\"><tpAmb>2</tpAmb><xServ>CONSULTAR"
+		        "</xServ><chNFe>35261000000000000000650010000000011000"
+		        "000010</chNFe></consSitNFe>";
+		char caminho[1100];
+		nfe_validador *x;
+
+		VERIFICA(nfe_validador_xsd(NULL) == NULL);
+		VERIFICA(nfe_validador_xsd("/nao/existe.xsd") == NULL);
+		snprintf(caminho, sizeof caminho, "%s/consSitNFe_v4.00.xsd",
+		         dir);
+		x = nfe_validador_xsd(caminho);
+		VERIFICA(x != NULL);
+		if (x) {
+			VERIFICA_INT(nfe_validar_xsd(x, cons, sizeof cons - 1,
+			                             0, erros),
+			             0);
+			/* A assinatura de mentira não cabe nesta mensagem */
+			VERIFICA_INT(nfe_validar_xsd(x, cons, sizeof cons - 1,
+			                             1, erros),
+			             E_VALOR);
+			VERIFICA_INT(nfe_validar_xsd(x, "<a", 2, 0, erros),
+			             E_XML);
+			VERIFICA(nfe_erros_qtd(erros) > 0);
+		}
+		nfe_validador_free(x);
+
+		/* NF-e pelo schema geral: sem assinatura, só completando */
+		snprintf(caminho, sizeof caminho, "%s/nfe_v4.00.xsd", dir);
+		x = nfe_validador_xsd(caminho);
+		VERIFICA(x != NULL);
+		if (x) {
+			VERIFICA_INT(nfe_validar_xsd(x, xml, tam, 1, erros), 0);
+			VERIFICA_INT(nfe_validar_xsd(x, xml, tam, 0, erros),
+			             E_VALOR);
+			VERIFICA_INT(nfe_validar_xsd(NULL, xml, tam, 0, erros),
+			             E_ISNULL);
+		}
+		nfe_validador_free(x);
+	}
+
 	free(xml);
 	nfe_nfe_free(nfe);
 	nfe_erros_free(erros);
