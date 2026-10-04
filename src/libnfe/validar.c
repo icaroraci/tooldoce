@@ -482,23 +482,121 @@ static void regra_uf(xmlNodePtr inf, nfe_erros *erros, int *n)
 		      "município do fato gerador fora da UF de cUF");
 }
 
-/* NFC-e: consumidor final, operação interna e DANFE NFC-e */
+/* v é um dos códigos de um caractere em opcoes ("" não é nenhum) */
+static int um_de(const char *v, const char *opcoes)
+{
+	return v[0] && !v[1] && strchr(opcoes, v[0]) != NULL;
+}
+
+/* Forma de emissão (tpEmis) e entrada em contingência (dhCont e xJust) */
+static void regra_contingencia(xmlNodePtr inf, nfe_erros *erros, int *n)
+{
+	xmlNodePtr ide = filho(inf, "ide"), tpemis = no(ide, "tpEmis");
+	xmlNodePtr dhcont = no(ide, "dhCont"), xjust = no(ide, "xJust");
+	const char *te = texto(ide, "tpEmis");
+	int nfce = strcmp(texto(ide, "mod"), "65") == 0;
+
+	if (strcmp(te, "1") == 0 && (dhcont || xjust))
+		regra(erros, n, dhcont ? dhcont : xjust,
+		      dhcont ? "dhCont" : "xJust", 556,
+		      "dhCont e xJust não devem ser informados na emissão "
+		      "normal (tpEmis=1)");
+	if (um_de(te, "2459") && (!dhcont || !xjust))
+		regra(erros, n, tpemis, "tpEmis", 557,
+		      "emissão em contingência sem dhCont e xJust");
+	if (strcmp(te, "3") == 0)
+		regra(erros, n, tpemis, "tpEmis", 570,
+		      "contingência SCAN (tpEmis=3) não existe mais");
+	if (!nfce && strcmp(te, "9") == 0)
+		regra(erros, n, tpemis, "tpEmis", 711,
+		      "NF-e não tem contingência off-line (tpEmis=9)");
+	if (nfce && um_de(te, "25"))
+		regra(erros, n, tpemis, "tpEmis", 714,
+		      "NFC-e não aceita contingência em formulário de "
+		      "segurança (tpEmis 2 ou 5)");
+	if (nfce && um_de(te, "67"))
+		regra(erros, n, tpemis, "tpEmis", 783,
+		      "NFC-e não é autorizada pela SVC (tpEmis 6 ou 7)");
+}
+
+/* Série compatível com o processo de emissão (contribuinte ou Fisco) */
+static void regra_serie(xmlNodePtr inf, nfe_erros *erros, int *n)
+{
+	xmlNodePtr ide = filho(inf, "ide");
+	int serie = atoi(texto(ide, "serie"));
+
+	if (um_de(texto(ide, "procEmi"), "12")) {
+		if (serie < 890 || serie > 919)
+			regra(erros, n, no(ide, "serie"), "serie", 451,
+			      "emissão pelo Fisco deve usar série de 890 a "
+			      "919");
+	} else if (serie > 969 || (serie >= 890 && serie <= 919)) {
+		regra(erros, n, no(ide, "serie"), "serie", 244,
+		      "série fora das faixas do contribuinte (0 a 889 e "
+		      "920 a 969)");
+	}
+}
+
+/* Indicativo do intermediador conforme o indicativo de presença */
+static void regra_intermediador(xmlNodePtr inf, nfe_erros *erros, int *n)
+{
+	xmlNodePtr ide = filho(inf, "ide"), ind = no(ide, "indIntermed");
+
+	if (um_de(texto(ide, "indPres"), "2349")) {
+		if (!ind)
+			regra(erros, n, no(ide, "indPres"), "indIntermed", 434,
+			      "indIntermed obrigatório para indPres 2, "
+			      "3, 4 ou 9");
+	} else if (ind) {
+		regra(erros, n, ind, "indIntermed", 435,
+		      "indIntermed só é informado para indPres 2, 3, 4 ou 9");
+	}
+}
+
+/* NF-e: sem o que é próprio da NFC-e (DANFE NFC-e e entrega a domicílio) */
+static void regra_nfe(xmlNodePtr ide, nfe_erros *erros, int *n)
+{
+	if (um_de(texto(ide, "tpImp"), "45"))
+		regra(erros, n, no(ide, "tpImp"), "tpImp", 710,
+		      "NF-e não usa DANFE NFC-e (tpImp 4 ou 5)");
+	if (strcmp(texto(ide, "indPres"), "4") == 0)
+		regra(erros, n, no(ide, "indPres"), "indPres", 794,
+		      "NF-e não usa entrega a domicílio (indPres=4), que é "
+		      "da NFC-e");
+}
+
+/* NFC-e: saída para consumidor final, interna, presencial e sem
+ * documento referenciado, com DANFE NFC-e */
 static void regra_nfce(xmlNodePtr inf, nfe_erros *erros, int *n)
 {
 	xmlNodePtr ide = filho(inf, "ide");
-	const char *tpimp = texto(ide, "tpImp");
 
-	if (strcmp(texto(ide, "mod"), "65") != 0)
+	if (strcmp(texto(ide, "mod"), "65") != 0) {
+		regra_nfe(ide, erros, n);
 		return;
-	if (strcmp(texto(ide, "indFinal"), "1") != 0)
-		regra(erros, n, no(ide, "indFinal"), "indFinal", 0,
-		      "NFC-e deve ser para consumidor final (indFinal=1)");
-	if (strcmp(tpimp, "4") != 0 && strcmp(tpimp, "5") != 0)
-		regra(erros, n, no(ide, "tpImp"), "tpImp", 0,
-		      "NFC-e deve ter DANFE NFC-e (tpImp 4 ou 5)");
+	}
+	if (strcmp(texto(ide, "tpNF"), "0") == 0)
+		regra(erros, n, no(ide, "tpNF"), "tpNF", 706,
+		      "NFC-e não pode ser de entrada (tpNF=0)");
 	if (strcmp(texto(ide, "idDest"), "1") != 0)
-		regra(erros, n, no(ide, "idDest"), "idDest", 0,
+		regra(erros, n, no(ide, "idDest"), "idDest", 707,
 		      "NFC-e deve ser de operação interna (idDest=1)");
+	if (no(ide, "NFref"))
+		regra(erros, n, no(ide, "NFref"), "NFref", 708,
+		      "NFC-e não pode referenciar documento fiscal (NFref)");
+	if (!um_de(texto(ide, "tpImp"), "45"))
+		regra(erros, n, no(ide, "tpImp"), "tpImp", 709,
+		      "NFC-e deve ter DANFE NFC-e (tpImp 4 ou 5)");
+	if (strcmp(texto(ide, "finNFe"), "1") != 0)
+		regra(erros, n, no(ide, "finNFe"), "finNFe", 715,
+		      "NFC-e deve ter finalidade normal (finNFe=1)");
+	if (strcmp(texto(ide, "indFinal"), "1") != 0)
+		regra(erros, n, no(ide, "indFinal"), "indFinal", 716,
+		      "NFC-e deve ser para consumidor final (indFinal=1)");
+	if (!um_de(texto(ide, "indPres"), "14"))
+		regra(erros, n, no(ide, "indPres"), "indPres", 717,
+		      "NFC-e deve ser presencial ou entrega a domicílio "
+		      "(indPres 1 ou 4)");
 }
 
 /* Aplica as regras; retorna a quantidade de problemas */
@@ -512,6 +610,9 @@ static int regras(xmlNodePtr raiz, nfe_erros *erros)
 	regra_chave(inf, erros, &n);
 	regra_totais(inf, erros, &n);
 	regra_uf(inf, erros, &n);
+	regra_contingencia(inf, erros, &n);
+	regra_serie(inf, erros, &n);
+	regra_intermediador(inf, erros, &n);
 	regra_nfce(inf, erros, &n);
 	return n;
 }

@@ -174,12 +174,77 @@ int main(int argc, char **argv)
 	regra(v, erros, xml, "<cMunFG>3550308</cMunFG>",
 	      "<cMunFG>3304557</cMunFG>", 0, "cMunFG", 1);
 	/* NFC-e */
-	regra(v, erros, xml, "<tpImp>4</tpImp>", "<tpImp>1</tpImp>", 0, "tpImp",
+	regra(v, erros, xml, "<tpNF>1</tpNF>", "<tpNF>0</tpNF>", 706, "tpNF",
 	      1);
-	regra(v, erros, xml, "<indFinal>1</indFinal>", "<indFinal>0</indFinal>",
-	      0, "indFinal", 1);
-	regra(v, erros, xml, "<idDest>1</idDest>", "<idDest>2</idDest>", 0,
+	regra(v, erros, xml, "<idDest>1</idDest>", "<idDest>2</idDest>", 707,
 	      "idDest", 1);
+	regra(v, erros, xml, "</verProc>",
+	      "</verProc><NFref><refNFe>35261012345678000195550010000000011"
+	      "123456784</refNFe></NFref>",
+	      708, "NFref", 1);
+	regra(v, erros, xml, "<tpImp>4</tpImp>", "<tpImp>1</tpImp>", 709,
+	      "tpImp", 1);
+	regra(v, erros, xml, "<finNFe>1</finNFe>", "<finNFe>4</finNFe>", 715,
+	      "finNFe", 1);
+	regra(v, erros, xml, "<indFinal>1</indFinal>", "<indFinal>0</indFinal>",
+	      716, "indFinal", 1);
+	/* Não presencial: também sem o indicativo do intermediador */
+	regra(v, erros, xml, "<indPres>1</indPres>", "<indPres>2</indPres>",
+	      717, "indPres", 2);
+	VERIFICA(tem_regra(erros, 434, "indIntermed"));
+	regra(v, erros, xml, "<indPres>1</indPres>",
+	      "<indPres>1</indPres><indIntermed>0</indIntermed>", 435,
+	      "indIntermed", 1);
+	/* Série reservada ao Fisco (a chave também deixa de corresponder) */
+	regra(v, erros, xml, "<serie>1</serie>", "<serie>890</serie>", 244,
+	      "serie", 2);
+	regra(v, erros, xml, "<procEmi>0</procEmi>", "<procEmi>1</procEmi>",
+	      451, "serie", 1);
+	/* Contingência (tpEmis muda a chave: 502 em todos) */
+	regra(v, erros, xml, "</verProc>",
+	      "</verProc><dhCont>2026-10-03T05:00:00-03:00</dhCont>"
+	      "<xJust>SEM CONEXAO COM A SEFAZ AUTORIZADORA</xJust>",
+	      556, "dhCont", 1);
+	regra(v, erros, xml, "<tpEmis>1</tpEmis>", "<tpEmis>9</tpEmis>", 557,
+	      "tpEmis", 2);
+	regra(v, erros, xml, "<tpEmis>1</tpEmis>", "<tpEmis>3</tpEmis>", 570,
+	      "tpEmis", 2);
+	regra(v, erros, xml, "<tpEmis>1</tpEmis>", "<tpEmis>5</tpEmis>", 714,
+	      "tpEmis", 3);
+	VERIFICA(tem_regra(erros, 557, "tpEmis"));
+	regra(v, erros, xml, "<tpEmis>1</tpEmis>", "<tpEmis>7</tpEmis>", 783,
+	      "tpEmis", 2);
+	{
+		/* Off-line com dhCont e xJust: só a chave */
+		char *t = troca(xml, "</verProc>",
+		                "</verProc>"
+		                "<dhCont>2026-10-03T05:00:00-03:00</dhCont>"
+		                "<xJust>SEM CONEXAO COM A SEFAZ AUTORIZADORA"
+		                "</xJust>");
+
+		VERIFICA(t != NULL);
+		if (t)
+			regra(v, erros, t, "<tpEmis>1</tpEmis>",
+			      "<tpEmis>9</tpEmis>", 502, "infNFe", 1);
+		free(t);
+	}
+	/* NF-e com o que é próprio da NFC-e */
+	{
+		char *t = troca(xml, "<mod>65</mod>", "<mod>55</mod>");
+
+		VERIFICA(t != NULL);
+		if (t) {
+			/* mod também está na chave; tpImp 4 e indPres 1 */
+			regra(v, erros, t, "<tpEmis>1</tpEmis>",
+			      "<tpEmis>9</tpEmis>", 711, "tpEmis", 4);
+			VERIFICA(tem_regra(erros, 710, "tpImp"));
+			regra(v, erros, t, "<indPres>1</indPres>",
+			      "<indPres>4</indPres><indIntermed>0</"
+			      "indIntermed>",
+			      794, "indPres", 3);
+		}
+		free(t);
+	}
 	VERIFICA_INT(nfe_erros_codigo(NULL, 0), 0);
 
 	/* XML malformado e documento que não é NF-e */
