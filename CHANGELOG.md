@@ -4,6 +4,10 @@ As mudanças relevantes de cada versão ficam registradas aqui. O formato segue 
 
 ## [Não lançado]
 
+## [1.0.0-rc2] - 2026-10-04
+
+Segunda candidata à 1.0.0, com o que entrou depois da rc1.
+
 ### Adicionado
 
 - `make install` instala o `libnfe.pc` em `$(LIBDIR)/pkgconfig`: um programa externo compila com `cc programa.c $(pkg-config --cflags --libs libnfe)` (#266).
@@ -36,5 +40,6 @@ Candidata à primeira versão estável (1.0.0). Cobre a emissão da NF-e modelo 
 - `SONAME` passa de `libnfe.so.0` para `libnfe.so.1`.
 - Licença trocada de GPLv3+ para LGPLv3+, o que permite usar a biblioteca em programas de qualquer licença.
 
-[Não lançado]: https://github.com/icaroraci/tooldoce/compare/v1.0.0-rc1...HEAD
+[Não lançado]: https://github.com/icaroraci/tooldoce/compare/v1.0.0-rc2...HEAD
+[1.0.0-rc2]: https://github.com/icaroraci/tooldoce/compare/v1.0.0-rc1...v1.0.0-rc2
 [1.0.0-rc1]: https://github.com/icaroraci/tooldoce/releases/tag/v1.0.0-rc1
