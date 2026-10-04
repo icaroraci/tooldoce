@@ -1,11 +1,17 @@
 # tooldoce
 [![CI](https://github.com/icaroraci/tooldoce/actions/workflows/ci.yml/badge.svg)](https://github.com/icaroraci/tooldoce/actions/workflows/ci.yml)
+[![Versão](https://img.shields.io/github/v/release/icaroraci/tooldoce?include_prereleases&label=vers%C3%A3o)](https://github.com/icaroraci/tooldoce/releases/latest)
+[![Licença: LGPL v3+](https://img.shields.io/badge/licen%C3%A7a-LGPL%20v3%2B-blue.svg)](COPYING.LESSER)
+[![C99](https://img.shields.io/badge/C-99-informational.svg)](docs/CONVENCOES.md)
+[![NF-e homologada](https://img.shields.io/badge/NF--e%2055-homologada%20na%20SEFAZ-brightgreen.svg)](docs/HOMOLOGACAO.md)
 
-Biblioteca livre em C para emissão de documentos fiscais eletrônicos brasileiros (NF-e, NFC-e, NFS-e, CT-e, MDF-e...), feita para ser usada por ERPs e outros sistemas. A plataforma nativa é Linux.
+Biblioteca livre em C para emissão de documentos fiscais eletrônicos brasileiros (NF-e, NFS-e, CT-e, MDF-e...), feita para ser usada por ERPs e outros sistemas. A plataforma nativa é Linux.
 
 ## Situação
 
-**Em desenvolvimento.** O que existe hoje:
+**Versão 1.0.0-rc1**, candidata à 1.0 (ver o [histórico de mudanças](CHANGELOG.md)): a emissão da NF-e modelo 55 está completa, da montagem do XML à autorização, aos eventos e à inutilização na SEFAZ. A partir da 1.0, a API segue o [versionamento semântico](https://semver.org/lang/pt-BR/): mudanças incompatíveis só numa nova versão maior, que também troca o `SONAME` (`libnfe.so.1`). A versão fica em `<libnfe/versao.h>` (`NFE_VERSAO`) e, em tempo de execução, em `nfe_versao()`.
+
+O que existe hoje:
 
 | Parte | Situação |
 |---|---|
@@ -17,8 +23,8 @@ Biblioteca livre em C para emissão de documentos fiscais eletrônicos brasileir
 | Eventos: cancelamento, cancelamento por substituição e carta de correção (`evento.h`) | Prontos; validados contra os schemas oficiais; cancelamento e carta de correção testados na homologação |
 | Tabela de endereços por UF e ambiente (NF-e 55, emissão normal e SVC) | Pronta; ver [endereços e atualização](docs/WEBSERVICES.md) |
 | Inutilização de numeração (`inutilizacao.h`) | Pronta; validada contra o schema oficial e testada na homologação |
-| Certificado A3 (token/cartão) | A fazer |
-| NFS-e, CT-e, MDF-e | Planejados (ver [visão do projeto](docs/VISAO.md)) |
+| Certificado A3 (token/cartão) | Fora do roteiro; a assinatura usa certificado A1 |
+| NFS-e, CT-e, MDF-e | Planejados (ver [visão do projeto](docs/VISAO.md)); a NFC-e será um projeto à parte |
 
 O roteiro detalhado está nas [issues](https://github.com/icaroraci/tooldoce/issues).
 

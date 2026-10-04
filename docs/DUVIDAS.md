@@ -12,8 +12,8 @@ caminho marcado como **provisório**.
    Implicações do A3: o token precisa estar conectado e o PIN digitado na
    hora de assinar (difícil em servidores/nuvem), cada fabricante tem seu
    driver PKCS#11, e os testes precisam de token real (no CI dá para
-   simular com SoftHSM). **Provisório:** só A1, com o ponto de troca
-   preparado. Confirma?
+   simular com SoftHSM). **Decisão (04/10):** o A3 não será implantado;
+   a biblioteca assina só com A1.
 2. **Totais automáticos.** `nfe_nfe_calcular_totais` soma os itens e
    preenche o `ICMSTot`, como função opcional; quem preferir continua
    informando os totais. **Decisão (03/10):** deixar assim por enquanto e
