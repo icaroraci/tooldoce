@@ -203,6 +203,68 @@ int main(int argc, char **argv)
 	VERIFICA_INT(nfe_assinar_xml(NULL, xml, tam, &outro, NULL), E_ISNULL);
 	VERIFICA_INT(nfe_verificar_assinatura(NULL, 0), E_ISNULL);
 
+	/* Documento de outro leiaute, assinado pelo elemento */
+	{
+		static const char mdfe[] =
+		        "<MDFe xmlns=\"http://www.portalfiscal.inf.br/mdfe\">"
+		        "<infMDFe versao=\"3.00\" Id=\"MDFe3526100000000000"
+		        "0000580010000000011000000010\"><ide><cUF>35</cUF>"
+		        "</ide></infMDFe><infMDFeSupl><qrCodMDFe>x</qrCodMDFe>"
+		        "</infMDFeSupl></MDFe>";
+		char *m = NULL, *alterado;
+		size_t tam_m = 0;
+
+		VERIFICA_INT(
+		        nfe_assinar_xml(cert, mdfe, sizeof mdfe - 1, &m, NULL),
+		        E_XML);
+		VERIFICA_INT(nfe_assinar_elemento(cert, mdfe, sizeof mdfe - 1,
+		                                  "infMDFe", &m, &tam_m),
+		             0);
+		VERIFICA(m != NULL);
+		if (m) {
+			VERIFICA_INT(tam_m, strlen(m));
+			VERIFICA(strstr(m, "<Reference URI=\"#MDFe3526") !=
+			         NULL);
+			VERIFICA(strstr(m, "</infMDFeSupl><Signature") != NULL);
+			VERIFICA(strstr(m, "</Signature></MDFe>") != NULL);
+			VERIFICA_INT(nfe_verificar_assinatura_elemento(
+			                     m, tam_m, "infMDFe"),
+			             0);
+			/* Só com o elemento informado */
+			VERIFICA_INT(nfe_verificar_assinatura(m, tam_m), E_XML);
+			VERIFICA_INT(nfe_verificar_assinatura_elemento(
+			                     m, tam_m, "infMDFeSupl"),
+			             E_XML);
+			alterado = troca(m, "<cUF>35</cUF>", "<cUF>33</cUF>");
+			VERIFICA(alterado != NULL);
+			if (alterado)
+				VERIFICA_INT(nfe_verificar_assinatura_elemento(
+				                     alterado, strlen(alterado),
+				                     "infMDFe"),
+				             E_VALOR);
+			free(alterado);
+			alterado = NULL;
+			VERIFICA_INT(nfe_assinar_elemento(cert, m, tam_m,
+			                                  "infMDFe", &alterado,
+			                                  NULL),
+			             E_XML);
+		}
+		free(m);
+		/* Sem o elemento, sem Id */
+		VERIFICA_INT(nfe_assinar_elemento(cert, mdfe, sizeof mdfe - 1,
+		                                  "infCTe", &m, NULL),
+		             E_XML);
+		VERIFICA_INT(nfe_assinar_elemento(cert, mdfe, sizeof mdfe - 1,
+		                                  "infMDFeSupl", &m, NULL),
+		             E_XML);
+		VERIFICA_INT(nfe_assinar_elemento(cert, mdfe, sizeof mdfe - 1,
+		                                  NULL, &m, NULL),
+		             E_ISNULL);
+		VERIFICA_INT(nfe_verificar_assinatura_elemento(
+		                     mdfe, sizeof mdfe - 1, NULL),
+		             E_ISNULL);
+	}
+
 	free(assinado);
 	free(xml);
 	nfe_nfe_free(nfe);

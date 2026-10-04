@@ -59,6 +59,19 @@ def autorizacao(chave):
         '</n:protNFe></n:retEnviNFe></nfeResultMsg>')
 
 
+MDFE = "http://www.portalfiscal.inf.br/mdfe"
+WSDL_MDFE_STATUS = MDFE + "/wsdl/MDFeStatusServico"
+
+
+def status_mdfe():
+    return envelope(
+        '<mdfeStatusServicoMDFResult xmlns="' + WSDL_MDFE_STATUS + '">'
+        '<retConsStatServMDFe xmlns="' + MDFE + '" versao="3.00">'
+        '<tpAmb>2</tpAmb><verAplic>TESTE</verAplic><cStat>107</cStat>'
+        '<xMotivo>Servico em Operacao</xMotivo><cUF>43</cUF>'
+        '</retConsStatServMDFe></mdfeStatusServicoMDFResult>')
+
+
 class Tratador(http.server.BaseHTTPRequestHandler):
     def responde(self, codigo, corpo):
         dados = corpo.encode("utf-8")
@@ -86,6 +99,11 @@ class Tratador(http.server.BaseHTTPRequestHandler):
               '<nfeDadosMsg xmlns="' + WSDL + 'NFeStatusServico4">'
               '<consStatServ' in corpo):
             self.responde(200, status())
+        elif (acao == WSDL_MDFE_STATUS + "/mdfeStatusServicoMDF" and
+              '<soap12:Header><mdfeCabecMsg>' in corpo and
+              '<soap12:Body><mdfeDadosMsg xmlns="' + WSDL_MDFE_STATUS +
+              '"><consStatServMDFe' in corpo):
+            self.responde(200, status_mdfe())
         elif acao == WSDL + "NFeAutorizacao4/nfeAutorizacaoLote":
             m = re.search(r'Id="NFe([0-9]{44})"', corpo)
             if m and "<enviNFe" in corpo:

@@ -113,8 +113,25 @@ int nfe_sefaz_set_timeout(nfe_sefaz *s, long segundos);
 int nfe_sefaz_enviar(nfe_sefaz *s, const char *url, nfe_servico servico,
                      const char *msg, char **resposta, size_t *tam);
 
-/* Descrição da última falha de nfe_sefaz_enviar ("" se não houve);
- * texto pertencente à conexão */
+/* Como nfe_sefaz_enviar, para webservices de outros leiautes no mesmo
+ * padrão SOAP 1.2 (MDF-e, CT-e...). O corpo leva
+ * <elemento xmlns="ns_wsdl">msg</elemento> e o cabeçalho HTTP,
+ * action="ns_wsdl/operacao". Ex., autorização do MDF-e:
+ *   nfe_sefaz_enviar_ws(s, url,
+ *       "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoSinc",
+ *       "mdfeRecepcao", "mdfeDadosMsg", NULL, msg, &ret, &tam);
+ * msg vai como está (XML, ou texto como o gzip em base64 do MDF-e);
+ * cabecalho, se não for NULL, vai como está dentro de <soap12:Header>.
+ * Retorna os mesmos códigos de nfe_sefaz_enviar; E_VALOR se ns_wsdl ou
+ * operacao tiverem aspas, <, >, & ou caracteres de controle, ou se
+ * elemento não for um nome simples (letras, dígitos e _). */
+int nfe_sefaz_enviar_ws(nfe_sefaz *s, const char *url, const char *ns_wsdl,
+                        const char *operacao, const char *elemento,
+                        const char *cabecalho, const char *msg, char **resposta,
+                        size_t *tam);
+
+/* Descrição da última falha de nfe_sefaz_enviar ou nfe_sefaz_enviar_ws
+ * ("" se não houve); texto pertencente à conexão */
 const char *nfe_sefaz_erro(const nfe_sefaz *s);
 
 /* ---- Mensagens (alocadas, terminadas em '\0'; libere com free()) ----

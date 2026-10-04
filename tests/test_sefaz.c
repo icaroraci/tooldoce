@@ -276,6 +276,23 @@ int main(int argc, char **argv)
 	VERIFICA_INT(
 	        nfe_sefaz_enviar(s, NULL, NFE_SERVICO_STATUS, msg, &ret, NULL),
 	        E_ISNULL);
+	/* Nomes que quebrariam o envelope ou o cabeçalho HTTP */
+	VERIFICA_INT(nfe_sefaz_enviar_ws(s, "https://127.0.0.1:1/", "urn:a\"b",
+	                                 "op", "dados", NULL, msg, &ret, NULL),
+	             E_VALOR);
+	VERIFICA_INT(nfe_sefaz_enviar_ws(s, "https://127.0.0.1:1/", "urn:a",
+	                                 "op\r\nX: y", "dados", NULL, msg, &ret,
+	                                 NULL),
+	             E_VALOR);
+	VERIFICA_INT(nfe_sefaz_enviar_ws(s, "https://127.0.0.1:1/", "urn:a",
+	                                 "op", "a b", NULL, msg, &ret, NULL),
+	             E_VALOR);
+	VERIFICA_INT(nfe_sefaz_enviar_ws(s, "https://127.0.0.1:1/", "urn:a",
+	                                 "op", "", NULL, msg, &ret, NULL),
+	             E_VALOR);
+	VERIFICA_INT(nfe_sefaz_enviar_ws(s, "https://127.0.0.1:1/", "urn:a",
+	                                 "op", NULL, NULL, msg, &ret, NULL),
+	             E_ISNULL);
 
 	pid = inicia_servidor(argv[1], &porta);
 	VERIFICA(porta > 0);
@@ -297,6 +314,27 @@ int main(int argc, char **argv)
 		VERIFICA(contem(ret, "<retConsStatServ"));
 		VERIFICA_INT(nfe_sefaz_cstat(ret, tam_ret, &cstat, NULL, 0), 0);
 		VERIFICA_INT(cstat, 107);
+		VERIFICA_STR(nfe_sefaz_erro(s), "");
+		free(ret);
+		ret = NULL;
+
+		/* Webservice de outro leiaute (MDF-e), com cabeçalho SOAP */
+		rc = nfe_sefaz_enviar_ws(
+		        s, url,
+		        "http://www.portalfiscal.inf.br/mdfe/wsdl/"
+		        "MDFeStatusServico",
+		        "mdfeStatusServicoMDF", "mdfeDadosMsg",
+		        "<mdfeCabecMsg><cUF>43</cUF><versaoDados>3.00"
+		        "</versaoDados></mdfeCabecMsg>",
+		        "<consStatServMDFe "
+		        "xmlns=\"http://www.portalfiscal.inf.br/"
+		        "mdfe\" versao=\"3.00\"><tpAmb>2</tpAmb><xServ>STATUS"
+		        "</xServ></consStatServMDFe>",
+		        &ret, &tam_ret);
+		VERIFICA_INT(rc, 0);
+		if (rc != 0)
+			fprintf(stderr, "erro: %s\n", nfe_sefaz_erro(s));
+		VERIFICA(contem(ret, "<retConsStatServMDFe"));
 		VERIFICA_STR(nfe_sefaz_erro(s), "");
 		free(ret);
 		ret = NULL;
