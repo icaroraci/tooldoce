@@ -27,6 +27,10 @@
  * dos elementos do leiaute, separados por "/", a partir do grupo. O caminho
  * só precisa ter os nomes suficientes para identificar o campo, na ordem:
  *   nfe_grupo_set(g, "ICMS10/vBC", "100.00");
+ * Quando mais de um campo casa com o caminho, vale o que casa exatamente,
+ * com os elementos do caminho consecutivos: no modal rodoviário do MDF-e,
+ * "veicTracao/UF" é a UF do veículo, e não a do proprietário
+ * (veicTracao/prop/UF).
  * Atributos de um elemento são gravados como campos do elemento.
  *
  * Ao gravar um campo de um ramo de uma escolha do leiaute, os campos dos

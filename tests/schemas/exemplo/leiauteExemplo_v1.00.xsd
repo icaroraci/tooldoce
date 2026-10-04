@@ -41,6 +41,18 @@
 								<xs:sequence>
 									<xs:element name="placa" type="TPlaca"/>
 									<xs:element name="tara" type="TDec_1302" minOccurs="0"/>
+									<xs:element name="prop" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Proprietário do veículo, quando não é o emitente</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="CPF" type="TCpf"/>
+												<xs:element name="UF" type="TUf"/>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="UF" type="TUf"/>
 								</xs:sequence>
 							</xs:complexType>
 						</xs:element>

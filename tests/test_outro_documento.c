@@ -95,6 +95,18 @@ int main(int argc, char **argv)
 	VERIFICA_INT(nfe_grupo_set(g, "ide/xNome", "Transportes Exemplo"), 0);
 	VERIFICA_INT(nfe_grupo_set(g, "placa", "ABC1D23"), 0);
 	VERIFICA_INT(nfe_grupo_set(g, "vCarga", "1500.00"), 0);
+
+	/* Dois campos casam com "veiculo/UF" (veiculo/UF e veiculo/prop/UF):
+	 * vale o que casa exatamente, com os elementos consecutivos */
+	VERIFICA_INT(nfe_grupo_set(g, "veiculo/UF", "RJ"), 0);
+	VERIFICA(nfe_grupo_get(g, "prop/UF") == NULL);
+	VERIFICA_INT(nfe_grupo_set(g, "prop/UF", "SP"), 0);
+	VERIFICA_STR(nfe_grupo_get(g, "veiculo/UF"), "RJ");
+	VERIFICA_STR(nfe_grupo_get(g, "veiculo/prop/UF"), "SP");
+	/* Só a UF do proprietário é apagada; prop fica sem CPF e é retirado */
+	VERIFICA_INT(nfe_grupo_remove(g, "prop/UF"), 0);
+	VERIFICA_STR(nfe_grupo_get(g, "veiculo/UF"), "RJ");
+	VERIFICA(nfe_grupo_get(g, "prop/UF") == NULL);
 	VERIFICA(!nfe_grupo_vazio(g));
 
 	/* Falta o condutor (1..10): não escreve */
@@ -117,6 +129,8 @@ int main(int argc, char **argv)
 	VERIFICA_INT(valida(v, xml), 0);
 	VERIFICA(strstr((const char *)xmlBufferContent(xml),
 	                "<infEx versao=\"1.00\"><ide><cUF>RJ</cUF>") != NULL);
+	VERIFICA(strstr((const char *)xmlBufferContent(xml),
+	                "<placa>ABC1D23</placa><UF>RJ</UF></veiculo>") != NULL);
 	xmlBufferFree(xml);
 
 	/* Limite da lista vem de maxOccurs */
