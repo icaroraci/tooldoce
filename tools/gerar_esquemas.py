@@ -14,48 +14,53 @@ tabela do pai como listas (ESQ_LISTA); atributos são folhas (ESQ_ATTR).
 Conteúdo misto, simpleContent e sequências repetidas não são suportados (o
 gerador falha se encontrar algum).
 
-Uso: python3 tools/gerar_esquemas.py [--verificar]
+As raízes, os XSD e os arquivos de saída vêm da configuração do documento
+(tools/documento.py; padrão: a NF-e, em tools/documentos/nfe.json). Além do
+.c com as tabelas é gerado um header com as declarações das estruturas
+públicas, com visibilidade oculta (NFE_INTERNO): as tabelas são usadas
+dentro da biblioteca do documento, com o motor de grupos da libnfe
+(<libnfe/esquema.h>), e não entram na API dela.
+
+Uso: python3 tools/gerar_esquemas.py [--config DOC.json] [--verificar]
 """
 
+import argparse
 import os
+import re
 import sys
 import xml.etree.ElementTree as ET
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from gerar_padroes import literal_c, PRIMITIVOS  # noqa: E402
+from documento import Documento, argumento  # noqa: E402
 
-RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SCHEMAS = os.path.join(RAIZ, "tests", "schemas", "nfe")
-ARQUIVOS = ("tiposBasico_v4.00.xsd", "DFeTiposBasicos_v1.00.xsd",
-            "leiauteNFe_v4.00.xsd")
-SAIDA = os.path.join(RAIZ, "src", "libnfe", "esquemas.c")
 XS = "{http://www.w3.org/2001/XMLSchema}"
 
-# (nome C, nome do elemento no leiaute) das raízes descritas
-RAIZES = (
-    ("imposto", "imposto"),
-    ("prod", "prod"),
-    ("transp", "transp"),
-    ("total", "total"),
-    ("NFref", "NFref"),
-    ("impostoDevol", "impostoDevol"),
-    ("obsItem", "obsItem"),
-    ("DFeReferenciado", "DFeReferenciado"),
-    ("avulsa", "avulsa"),
-    ("exporta", "exporta"),
-    ("compra", "compra"),
-    ("cana", "cana"),
-    ("infSolicNFF", "infSolicNFF"),
-    ("agropecuario", "agropecuario"),
-    ("infPAA", "infPAA"),
-    ("infNFeSupl", "infNFeSupl"),
-)
+# Versão do leiaute de struct nfe_esq_no; tem de ser igual a NFE_ESQ_VERSAO
+# (<libnfe/esquema.h>)
+VERSAO_ESQ = 1
 
-CABECALHO = """\
-/* Gerado por tools/gerar_esquemas.py a partir de tests/schemas/nfe.
- * Não edite à mão: rode `python3 tools/gerar_esquemas.py`. */
+CABECALHO_C = """\
+/* Gerado por tools/gerar_esquemas.py a partir de {schemas}.
+ * Não edite à mão: rode `{comando}`. */
 
 #include <stddef.h>
+
+#include "{cabecalho}"
+
+#if NFE_ESQ_VERSAO != {versao}
+#error "tabelas geradas para outra versão do motor de grupos da libnfe"
+#endif
+
+/* clang-format off */
+"""
+
+CABECALHO_H = """\
+/* Gerado por tools/gerar_esquemas.py a partir de {schemas}.
+ * Não edite à mão: rode `{comando}`. */
+
+#ifndef {guarda}
+#define {guarda}
 
 #include <libnfe/esquema.h>
 
@@ -63,17 +68,20 @@ CABECALHO = """\
 """
 
 RODAPE = "/* clang-format on */\n"
+RODAPE_H = RODAPE + "\n#endif\n"
 
 
 class Tipos:
-    def __init__(self):
+    def __init__(self, doc):
         self.simples = {}
         self.complexos = {}
         self.leiaute = None
-        for arquivo in ARQUIVOS:
-            raiz = ET.parse(os.path.join(SCHEMAS, arquivo)).getroot()
-            if arquivo.startswith("leiaute"):
+        self.raizes = []
+        for arquivo in doc.arquivos:
+            raiz = ET.parse(doc.xsd(arquivo)).getroot()
+            if arquivo == doc["leiaute"]:
                 self.leiaute = raiz
+            self.raizes.append(raiz)
             for t in raiz.findall(XS + "simpleType"):
                 self.simples.setdefault(t.get("name"), t)
             for t in raiz.findall(XS + "complexType"):
@@ -171,7 +179,8 @@ class Gerador:
     nós ESQ_LISTA que apontam para a tabela própria do elemento, gerada
     antes (em tabelas)."""
 
-    def __init__(self, tipos, nome_c, tabelas, listas):
+    def __init__(self, tipos, nome_c, tabelas, listas, prefixo):
+        self.prefixo = prefixo
         self.tipos = tipos
         self.nome_c = nome_c
         self.tabelas = tabelas
@@ -220,7 +229,7 @@ class Gerador:
         if not raiz and maximo not in (None, "1"):
             sub = gera_raiz(self.tipos, "%s_%s" % (self.nome_c,
                                                    el.get("name")),
-                            el, self.tabelas, self.listas)
+                            el, self.tabelas, self.listas, self.prefixo)
             i = self.no(pai, "ESQ_LISTA", el.get("name"),
                         0 if el.get("minOccurs") == "0" else 1)
             self.nos[i]["max"] = 0 if maximo == "unbounded" else int(maximo)
@@ -265,36 +274,52 @@ class Gerador:
         return i
 
 
-def gera_raiz(tipos, nome_c, el, tabelas, listas):
+def gera_raiz(tipos, nome_c, el, tabelas, listas, prefixo):
     """Gera a tabela do elemento el (e, antes, as das suas listas) e a
     acrescenta a tabelas; retorna o nome C da estrutura"""
-    g = Gerador(tipos, nome_c, tabelas, listas)
+    g = Gerador(tipos, nome_c, tabelas, listas, prefixo)
     g.elemento(el, -1, raiz=True)
     tabelas.append((nome_c, el.get("name"), g))
-    return "esq_" + nome_c
+    return prefixo + nome_c
 
 
-def procura(raiz, nome):
-    for e in raiz.iter(XS + "element"):
-        if e.get("name") == nome:
-            return e
+def procura(tipos, nome):
+    """Primeiro elemento com o nome no leiaute ou, se não houver, nos XSD
+    de tipos (na ordem da configuração)"""
+    for raiz in [tipos.leiaute] + tipos.raizes:
+        for e in raiz.iter(XS + "element"):
+            if e.get("name") == nome:
+                return e
     sys.exit("elemento %s não encontrado" % nome)
+
+
+def guarda(caminho):
+    """src/libnfe/esquemas.h -> LIBNFE_ESQUEMAS_H"""
+    partes = os.path.normpath(caminho).split(os.sep)[-2:]
+    return re.sub(r"[^A-Za-z0-9]", "_", "_".join(partes)).upper()
 
 
 def c_texto(s):
     return "NULL" if s is None else literal_c(s)
 
 
-def gerar():
-    tipos = Tipos()
-    partes = [CABECALHO]
+def gerar(doc):
+    """(conteúdo do .c, conteúdo do header)"""
+    prefixo = doc.secao("esquemas", "prefixo")
+    cabecalho = doc.secao("esquemas", "cabecalho")
+    comando = doc.comando("gerar_esquemas.py")
+    tipos = Tipos(doc)
+    partes = [CABECALHO_C.format(schemas=doc["schemas"], comando=comando,
+                                 cabecalho=os.path.basename(cabecalho),
+                                 versao=VERSAO_ESQ)]
     tabelas = []
     listas = {}
-    publicas = set()
-    for nome_c, nome in RAIZES:
-        gera_raiz(tipos, nome_c, procura(tipos.leiaute, nome), tabelas,
-                  listas)
-        publicas.add(nome_c)
+    publicas = []
+    for raiz in doc.secao("esquemas", "raizes"):
+        nome_c, nome = (raiz, raiz) if isinstance(raiz, str) else raiz
+        gera_raiz(tipos, nome_c, procura(tipos, nome), tabelas, listas,
+                  prefixo)
+        publicas.append(nome_c)
     corpo = []
     for nome_c, nome, g in tabelas:
         corpo.append("static const struct nfe_esq_no nos_%s[] = {\n"
@@ -314,9 +339,10 @@ def gerar():
                    n["lini"], n["lfim"],
                    "&" + n["sub"] if n["sub"] else "NULL"))
         corpo.append("};\n\n")
-        corpo.append("%sconst struct nfe_esq esq_%s = { %s, nos_%s, %d,"
+        corpo.append("%sconst struct nfe_esq %s%s = { %s, nos_%s, %d,"
                      " %d, %d };\n\n"
-                     % ("" if nome_c in publicas else "static ", nome_c,
+                     % ("" if nome_c in publicas else "static ", prefixo,
+                        nome_c,
                         literal_c(nome), nome_c, len(g.nos), g.folhas,
                         g.nlistas))
     for valores, nome in sorted(listas.items(),
@@ -326,21 +352,39 @@ def gerar():
     partes.append("\n")
     partes.extend(corpo)
     partes.append(RODAPE)
-    return "".join(partes)
+    h = [CABECALHO_H.format(schemas=doc["schemas"], comando=comando,
+                            guarda=guarda(cabecalho))]
+    h.extend("NFE_INTERNO extern const struct nfe_esq %s%s;\n"
+             % (prefixo, n) for n in publicas)
+    h.append(RODAPE_H)
+    return "".join(partes), "".join(h)
 
 
 def main():
-    conteudo = gerar()
-    if "--verificar" in sys.argv[1:]:
-        atual = open(SAIDA, encoding="utf-8").read() \
-            if os.path.exists(SAIDA) else ""
-        if atual != conteudo:
-            print(f"{SAIDA} desatualizado: rode python3 tools/gerar_esquemas.py")
-            return 1
-        return 0
-    with open(SAIDA, "w", encoding="utf-8") as f:
-        f.write(conteudo)
-    print(f"gerado {SAIDA}")
+    ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+    argumento(ap)
+    ap.add_argument("--verificar", action="store_true",
+                    help="não grava; sai com 1 se algum arquivo estiver "
+                         "desatualizado")
+    args = ap.parse_args()
+    doc = Documento(args.config)
+    saidas = (doc.caminho(doc.secao("esquemas", "saida")),
+              doc.caminho(doc.secao("esquemas", "cabecalho")))
+    conteudos = gerar(doc)
+    if args.verificar:
+        rc = 0
+        for saida, conteudo in zip(saidas, conteudos):
+            atual = open(saida, encoding="utf-8").read() \
+                if os.path.exists(saida) else ""
+            if atual != conteudo:
+                print(f"{saida} desatualizado: rode "
+                      + doc.comando("gerar_esquemas.py"))
+                rc = 1
+        return rc
+    for saida, conteudo in zip(saidas, conteudos):
+        with open(saida, "w", encoding="utf-8") as f:
+            f.write(conteudo)
+        print(f"gerado {saida}")
     return 0
 
 

@@ -4,6 +4,15 @@ As mudanças relevantes de cada versão ficam registradas aqui. O formato segue 
 
 ## [Não lançado]
 
+### Adicionado
+
+- Motor de grupos para outros documentos: `nfe_grupo_new`, `nfe_grupo_free`, `nfe_grupo_valida`, `nfe_grupo_vazio`, `nfe_grupo_remove_ultimo` e `nfe_grupo_write_xml` (`esquema.h`) passam a fazer parte da API, com `NFE_ESQ_VERSAO`. Uma biblioteca de outro documento (libmdf, libcte) gera as tabelas dos seus schemas e monta os grupos com o mesmo motor ([`docs/ESQUEMAS.md`](docs/ESQUEMAS.md)).
+- Os geradores `tools/gerar_esquemas.py`, `gerar_padroes.py`, `gerar_diagramas.py` e `gerar_issues.py` aceitam `--config`, com os schemas, as raízes, os prefixos e as saídas de outro documento (`tools/documento.py`); sem ele, geram os da NF-e como antes. O `make install` os instala em `share/tooldoce/ferramentas`, indicada pela variável `ferramentas` do `libnfe.pc`.
+
+### Alterado
+
+- As tabelas geradas da NF-e (`esq_*`) deixam de ser exportadas pela `libnfe.so`; eram de uso interno e passam a ser declaradas em `src/libnfe/esquemas.h`, também gerado.
+
 ## [1.0.0-rc2] - 2026-10-04
 
 Segunda candidata à 1.0.0, com o que entrou depois da rc1.

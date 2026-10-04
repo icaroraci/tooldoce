@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Gera include/libnfe/padroes.h a partir dos tipos simples nomeados do XSD.
 
-Para cada xs:simpleType de tiposBasico_v4.00.xsd, DFeTiposBasicos_v1.00.xsd
-e leiauteNFe_v4.00.xsd são gerados, conforme as facetas do tipo:
+Para cada xs:simpleType dos XSD de tipos e do leiaute do documento (na NF-e,
+tiposBasico_v4.00.xsd, DFeTiposBasicos_v1.00.xsd e leiauteNFe_v4.00.xsd)
+são gerados, conforme as facetas do tipo (NFE_ é o prefixo da NF-e):
 
   NFE_PADRAO_<tipo>    o xs:pattern, como string C (sintaxe do XML Schema,
                        usada por nfe_valida_padrao)
@@ -11,19 +12,20 @@ e leiauteNFe_v4.00.xsd são gerados, conforme as facetas do tipo:
   NFE_VALORES_<tipo>   os xs:enumeration, separados por vírgula, para montar
                        uma lista: { NFE_VALORES_TUf, NULL }
 
-Uso: python3 tools/gerar_padroes.py [--verificar]
+Uso: python3 tools/gerar_padroes.py [--config DOC.json] [--verificar]
+  --config: outro documento (ver tools/documento.py); padrão: a NF-e
   --verificar: não grava; sai com código 1 se o arquivo estiver desatualizado
 """
 
+import argparse
 import os
+import re
 import sys
 import xml.etree.ElementTree as ET
 
-RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SCHEMAS = os.path.join(RAIZ, "tests", "schemas", "nfe")
-ARQUIVOS = ("tiposBasico_v4.00.xsd", "DFeTiposBasicos_v1.00.xsd",
-            "leiauteNFe_v4.00.xsd")
-SAIDA = os.path.join(RAIZ, "include", "libnfe", "padroes.h")
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from documento import Documento, argumento  # noqa: E402
+
 XS = "{http://www.w3.org/2001/XMLSchema}"
 
 # Tipos cuja base é um tipo primitivo do XML Schema sem padrão equivalente
@@ -33,14 +35,14 @@ PRIMITIVOS = {
 }
 
 CABECALHO = """\
-/* Gerado por tools/gerar_padroes.py a partir de tests/schemas/nfe.
- * Não edite à mão: rode `python3 tools/gerar_padroes.py`.
+/* Gerado por tools/gerar_padroes.py a partir de {schemas}.
+ * Não edite à mão: rode `{comando}`.
  *
- * Padrões (NFE_PADRAO_*) na sintaxe de expressões regulares do XML Schema,
+ * Padrões ({p}PADRAO_*) na sintaxe de expressões regulares do XML Schema,
  * já ancorados ao valor inteiro; use com nfe_valida_padrao() (valida.h). */
 
-#ifndef LIBNFE_PADROES_H
-#define LIBNFE_PADROES_H
+#ifndef {guarda}
+#define {guarda}
 
 /* clang-format off */
 """
@@ -50,6 +52,12 @@ RODAPE = """\
 
 #endif
 """
+
+
+def guarda(saida):
+    """include/libnfe/padroes.h -> LIBNFE_PADROES_H"""
+    partes = os.path.normpath(saida).split(os.sep)[-2:]
+    return re.sub(r"[^A-Za-z0-9]", "_", "_".join(partes)).upper()
 
 
 def literal_c(texto):
@@ -71,13 +79,13 @@ def literal_c(texto):
     return " ".join('"%s"' % p for p in partes)
 
 
-def tipos():
+def tipos(doc):
     """[(nome, base, facetas)] na ordem dos arquivos; nomes repetidos com
     definição diferente são erro."""
     vistos = {}
     saida = []
-    for arquivo in ARQUIVOS:
-        raiz = ET.parse(os.path.join(SCHEMAS, arquivo)).getroot()
+    for arquivo in doc.arquivos:
+        raiz = ET.parse(doc.xsd(arquivo)).getroot()
         for t in raiz.findall(XS + "simpleType"):
             nome = t.get("name")
             r = t.find(XS + "restriction")
@@ -102,30 +110,33 @@ def tipos():
     return saida
 
 
-def gerar():
-    linhas = [CABECALHO]
-    nomes = {t[0] for t in tipos()}
+def gerar(doc):
+    p = doc.secao("padroes", "prefixo")
+    linhas = [CABECALHO.format(schemas=doc["schemas"],
+                               comando=doc.comando("gerar_padroes.py"), p=p,
+                               guarda=guarda(doc.secao("padroes", "saida")))]
+    nomes = {t[0] for t in tipos(doc)}
     com_padrao = []
-    for nome, base, f in tipos():
+    for nome, base, f in tipos(doc):
         defs = []
         base_local = base.split(":")[-1]
         if "pattern" in f:
-            defs.append(("NFE_PADRAO_" + nome, literal_c(f["pattern"])))
+            defs.append((p + "PADRAO_" + nome, literal_c(f["pattern"])))
         elif base in PRIMITIVOS:
-            defs.append(("NFE_PADRAO_" + nome, literal_c(PRIMITIVOS[base])))
+            defs.append((p + "PADRAO_" + nome, literal_c(PRIMITIVOS[base])))
         elif base_local in nomes:
             # tipo derivado sem padrão próprio: herda o da base
-            defs.append(("NFE_PADRAO_" + nome, "NFE_PADRAO_" + base_local))
+            defs.append((p + "PADRAO_" + nome, p + "PADRAO_" + base_local))
         minimo = f.get("length", f.get("minLength"))
         maximo = f.get("length", f.get("maxLength"))
         if minimo is not None:
-            defs.append(("NFE_TAM_MIN_" + nome, minimo))
+            defs.append((p + "TAM_MIN_" + nome, minimo))
         if maximo is not None:
-            defs.append(("NFE_TAM_MAX_" + nome, maximo))
+            defs.append((p + "TAM_MAX_" + nome, maximo))
         if f["enumeration"]:
-            defs.append(("NFE_VALORES_" + nome,
+            defs.append((p + "VALORES_" + nome,
                          ", ".join(literal_c(v) for v in f["enumeration"])))
-        if defs and defs[0][0].startswith("NFE_PADRAO_"):
+        if defs and defs[0][0].startswith(p + "PADRAO_"):
             com_padrao.append(nome)
         if not defs:
             continue
@@ -134,9 +145,9 @@ def gerar():
             linhas.append(f"#define {macro} {valor}\n")
         linhas.append("\n")
     # lista X-macro de todos os tipos com padrão (usada nos testes)
-    linhas.append("/* Todos os tipos com NFE_PADRAO_*: NFE_TIPOS_COM_PADRAO(X) chama\n"
+    linhas.append(f"/* Todos os tipos com {p}PADRAO_*: {p}TIPOS_COM_PADRAO(X) chama\n"
                   " * X(tipo) para cada um */\n")
-    linhas.append("#define NFE_TIPOS_COM_PADRAO(X) \\\n")
+    linhas.append(f"#define {p}TIPOS_COM_PADRAO(X) \\\n")
     linhas.append(" \\\n".join(f"\tX({n})" for n in com_padrao))
     linhas.append("\n\n")
     linhas.append(RODAPE)
@@ -144,17 +155,26 @@ def gerar():
 
 
 def main():
-    conteudo = gerar()
-    if "--verificar" in sys.argv[1:]:
-        atual = open(SAIDA, encoding="utf-8").read() \
-            if os.path.exists(SAIDA) else ""
+    ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+    argumento(ap)
+    ap.add_argument("--verificar", action="store_true",
+                    help="não grava; sai com 1 se o arquivo estiver "
+                         "desatualizado")
+    args = ap.parse_args()
+    doc = Documento(args.config)
+    saida = doc.caminho(doc.secao("padroes", "saida"))
+    conteudo = gerar(doc)
+    if args.verificar:
+        atual = open(saida, encoding="utf-8").read() \
+            if os.path.exists(saida) else ""
         if atual != conteudo:
-            print(f"{SAIDA} desatualizado: rode python3 tools/gerar_padroes.py")
+            print(f"{saida} desatualizado: rode "
+                  + doc.comando("gerar_padroes.py"))
             return 1
         return 0
-    with open(SAIDA, "w", encoding="utf-8") as f:
+    with open(saida, "w", encoding="utf-8") as f:
         f.write(conteudo)
-    print(f"gerado {SAIDA}")
+    print(f"gerado {saida}")
     return 0
 
 

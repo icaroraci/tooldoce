@@ -42,9 +42,14 @@ jobs:
           python3 tools/gerar_enderecos.py --verificar
           python3 tools/gerar_padroes.py --verificar
           python3 tools/gerar_esquemas.py --verificar
+          # Outro documento (schema fictício de tests/schemas/exemplo)
+          doc=tests/outro_documento/documento.json
+          python3 tools/gerar_padroes.py --config "$doc" --verificar
+          python3 tools/gerar_esquemas.py --config "$doc" --verificar
+          python3 tools/gerar_diagramas.py --config "$doc" --todo
           python3 tools/gerar_diagramas.py --todo
           python3 tests/schemas/gerar_tipos_xsd.py
-          git diff --exit-code -- docs/diagramas TODO.md tests/schemas || {
+          git diff --exit-code -- docs/diagramas TODO.md tests/schemas tests/outro_documento || {
             echo "::error::Arquivos gerados desatualizados: rode python3 tools/gerar_diagramas.py --todo e python3 tests/schemas/gerar_tipos_xsd.py"
             exit 1
           }
@@ -74,6 +79,10 @@ jobs:
           test -f "$destino/usr/lib/pkgconfig/libnfe.pc"
           grep -qx 'prefix=/usr' "$destino/usr/lib/pkgconfig/libnfe.pc"
           readelf -d "$destino/usr/lib/libnfe.so.1.0.0" | grep -q 'SONAME.*libnfe\.so\.1'
+          # Motor de grupos exportado; as tabelas da NF-e, não
+          nm -D --defined-only "$destino/usr/lib/libnfe.so.1.0.0" | grep -q ' nfe_grupo_new$'
+          ! nm -D --defined-only "$destino/usr/lib/libnfe.so.1.0.0" | grep -q ' esq_'
+          test -f "$destino/usr/share/tooldoce/ferramentas/gerar_esquemas.py"
           make uninstall DESTDIR="$destino" PREFIX=/usr
           test -z "$(find "$destino" -type f -o -type l)"
 
@@ -89,5 +98,9 @@ jobs:
           test "$(pkg-config --modversion libnfe)" = "$versao"
           $CC -std=c99 -Wall -Werror examples/gerar_nfe.c $(pkg-config --cflags --libs libnfe) -Wl,-rpath,"$prefixo/lib" -o "$RUNNER_TEMP/gerar_nfe"
           "$RUNNER_TEMP/gerar_nfe" > /dev/null
+          # Geradores instalados, como uma biblioteca de outro documento os usa
+          ferramentas=$(pkg-config --variable=ferramentas libnfe)
+          python3 "$ferramentas/gerar_esquemas.py" --config tests/outro_documento/documento.json --verificar
+          python3 "$ferramentas/gerar_padroes.py" --config tests/outro_documento/documento.json --verificar
           make uninstall PREFIX="$prefixo"
           test -z "$(find "$prefixo" -type f -o -type l)"

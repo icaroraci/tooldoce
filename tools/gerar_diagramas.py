@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Gera diagramas SVG das estruturas da NF-e a partir dos schemas oficiais.
+"""Gera diagramas SVG das estruturas de um documento a partir dos schemas.
 
-Lê tests/schemas/nfe/leiauteNFe_v4.00.xsd (e os tipos que ele inclui)
-e produz, em docs/diagramas/:
+Na NF-e (padrão), lê tests/schemas/nfe/leiauteNFe_v4.00.xsd (e os tipos que
+ele inclui) e produz, em docs/diagramas/:
 
   - um SVG por estrutura (elemento com filhos), em pastas que seguem a
     hierarquia da nota: NFe/infNFe/det/prod/arma.svg;
@@ -15,6 +15,9 @@ Uso (na raiz do projeto):
     python3 tools/gerar_diagramas.py           # diagramas e índice
     python3 tools/gerar_diagramas.py --todo    # também o TODO.md
 
+Outro documento (MDF-e, CT-e...) é descrito num arquivo de configuração
+(ver tools/documento.py), passado com --config.
+
 Só usa a biblioteca padrão do Python 3.
 """
 import argparse
@@ -26,13 +29,41 @@ import sys
 import textwrap
 import xml.etree.ElementTree as ET
 
-RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SCHEMAS = os.path.join(RAIZ, "tests", "schemas", "nfe")
-LEIAUTE = os.path.join(SCHEMAS, "leiauteNFe_v4.00.xsd")
-TIPOS = os.path.join(SCHEMAS, "tiposBasico_v4.00.xsd")
-TIPOS_DFE = os.path.join(SCHEMAS, "DFeTiposBasicos_v1.00.xsd")
-SAIDA = os.path.join(RAIZ, "docs", "diagramas")
-TODO = os.path.join(RAIZ, "TODO.md")
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from documento import Documento, argumento  # noqa: E402
+
+# Documento em uso (configurar()); a NF-e, se nada for configurado
+DOC = None
+SAIDA = TODO = None
+
+
+def configurar(config=None):
+    """Lê a configuração do documento (None: a NF-e)"""
+    global DOC, SAIDA, TODO
+    DOC = Documento(config)
+    SAIDA = DOC.caminho(DOC.secao("diagramas", "saida"))
+    TODO = DOC.caminho(DOC.secao("diagramas", "todo"))
+    return DOC
+
+
+def doc_atual():
+    return DOC or configurar()
+
+
+def nome_doc():
+    """Ex.: NF-e (leiaute 4.00)"""
+    return f"{doc_atual()['documento']} (leiaute {doc_atual()['versao']})"
+
+
+def da():
+    """Artigo antes do nome do documento (da NF-e, do CT-e)"""
+    return doc_atual().get("artigo", "da")
+
+
+def link_todo():
+    """Pasta dos diagramas em relação ao TODO.md (ex.: docs/diagramas)"""
+    return os.path.relpath(SAIDA, os.path.dirname(TODO) or ".").replace(
+        os.sep, "/")
 
 XS = "{http://www.w3.org/2001/XMLSchema}"
 
@@ -82,8 +113,8 @@ class Leiaute:
     def __init__(self):
         self.simples = {}
         self.complexos = {}
-        for arquivo in (TIPOS, TIPOS_DFE, LEIAUTE):
-            raiz = ET.parse(arquivo).getroot()
+        for arquivo in doc_atual().arquivos:
+            raiz = ET.parse(doc_atual().xsd(arquivo)).getroot()
             for t in raiz.findall(XS + "simpleType"):
                 self.simples[t.get("name")] = t
             for t in raiz.findall(XS + "complexType"):
@@ -188,8 +219,10 @@ class Leiaute:
         return g
 
     def raiz(self):
-        """Elemento <NFe> (tipo TNFe)."""
-        no = ET.Element(XS + "element", {"name": "NFe", "type": "TNFe"})
+        """Elemento raiz do documento (na NF-e, <NFe>, do tipo TNFe)."""
+        r = doc_atual()["raiz"]
+        no = ET.Element(XS + "element", {"name": r["elemento"],
+                                         "type": r["tipo"]})
         return self.elemento(no, "")
 
 
@@ -419,7 +452,7 @@ def diagrama(e, links, titulo):
     cab = (f"<text x='20' y='26' {FONTE} font-size='15' font-weight='bold' "
            f"fill='{COR_TEXTO}'>{esc(titulo)}</text>"
            f"<text x='20' y='42' {FONTE} font-size='11' fill='{COR_DOC}'>"
-           f"Gerado de leiauteNFe_v4.00.xsd por tools/gerar_diagramas.py — "
+           f"Gerado de {doc_atual()['leiaute']} por tools/gerar_diagramas.py — "
            f"caixa tracejada: opcional; ⊞: estrutura com diagrama próprio"
            f"</text>")
     return ("<?xml version='1.0' encoding='UTF-8'?>\n"
@@ -446,12 +479,12 @@ def linhas_arvore(e, nivel=0, vistos=None):
 
 def indice(raiz):
     partes = [
-        "# Diagramas das estruturas da NF-e (leiaute 4.00)",
+        f"# Diagramas das estruturas {da()} {nome_doc()}",
         "",
         "Gerados automaticamente a partir do schema oficial "
-        "(`tests/schemas/nfe/leiauteNFe_v4.00.xsd`) por "
+        f"(`{doc_atual()['schemas']}/{doc_atual()['leiaute']}`) por "
         "`tools/gerar_diagramas.py`. **Não edite os SVGs**: atualize o "
-        "schema e rode `python3 tools/gerar_diagramas.py`.",
+        f"schema e rode `{doc_atual().comando('gerar_diagramas.py')}`.",
         "",
         "Em cada diagrama: caixa tracejada = opcional; `0..1`, `1..∞` = "
         "ocorrências; **seq.** = os filhos aparecem nessa ordem; "
@@ -474,8 +507,8 @@ def marcados_todo():
     if os.path.exists(TODO):
         with open(TODO, encoding="utf-8") as f:
             for linha in f:
-                m = re.search(r"- \[x\].*\(docs/diagramas/(.+?)\.svg\)",
-                              linha)
+                m = re.search(r"- \[x\].*\(%s/(.+?)\.svg\)"
+                              % re.escape(link_todo()), linha)
                 if m:
                     feitos.add(m.group(1))
     return feitos
@@ -486,15 +519,16 @@ def todo(raiz, extras):
     partes = [
         "# TODO",
         "",
-        "Estruturas da NF-e (leiaute 4.00) a implementar, na ordem do "
+        f"Estruturas {da()} {nome_doc()} a implementar, na ordem do "
         "schema oficial. Cada item leva ao diagrama da estrutura.",
         "",
         "Marque `[x]` quando a estrutura tiver: criação/liberação, setters "
         "com validação, geração do XML e testes validando contra o XSD. A "
-        "lista é gerada por `python3 tools/gerar_diagramas.py --todo`, que "
+        "lista é gerada por "
+        f"`{doc_atual().comando('gerar_diagramas.py', ' --todo')}`, que "
         "preserva os itens marcados.",
         "",
-        "## Estruturas da NF-e",
+        f"## Estruturas {da()} {doc_atual()['documento']}",
         "",
     ]
     for nivel, e in linhas_arvore(raiz):
@@ -503,7 +537,7 @@ def todo(raiz, extras):
         oc = f" `{oc}`" if oc else ""
         opc = " _(opcional)_" if e.minimo == "0" else ""
         partes.append(f"{'  ' * nivel}- [{x}] [**{e.nome}**]"
-                      f"(docs/diagramas/{e.caminho}.svg){oc}{opc}")
+                      f"({link_todo()}/{e.caminho}.svg){oc}{opc}")
     partes.append("")
     partes.extend(extras)
     return "\n".join(partes) + "\n"
@@ -521,15 +555,22 @@ EXTRAS_PADRAO = [
 ]
 
 
+def extras_padrao():
+    if doc_atual().padrao:
+        return EXTRAS_PADRAO
+    return ["## Além do leiaute", "",
+            "- [ ] Assinatura, transmissão e eventos"]
+
+
 def extras_todo():
     """Mantém a seção 'Além do leiaute' do TODO.md atual, se existir."""
     if not os.path.exists(TODO):
-        return EXTRAS_PADRAO
+        return extras_padrao()
     with open(TODO, encoding="utf-8") as f:
         texto = f.read()
     i = texto.find("## Além do leiaute")
     if i < 0:
-        return EXTRAS_PADRAO
+        return extras_padrao()
     return texto[i:].rstrip("\n").split("\n")
 
 
@@ -538,9 +579,11 @@ def extras_todo():
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+    argumento(ap)
     ap.add_argument("--todo", action="store_true",
                     help="regenera também o TODO.md")
     args = ap.parse_args()
+    configurar(args.config)
 
     leiaute = Leiaute()
     raiz = leiaute.raiz()
@@ -571,8 +614,8 @@ def main():
         with open(TODO, "w", encoding="utf-8") as f:
             f.write(conteudo)
 
-    print(f"{len(todas)} diagramas em {os.path.relpath(SAIDA, RAIZ)}/"
-          + (" e TODO.md atualizado" if args.todo else ""))
+    print(f"{len(todas)} diagramas em {os.path.relpath(SAIDA)}/"
+          + (f" e {os.path.relpath(TODO)} atualizado" if args.todo else ""))
     return 0
 
 

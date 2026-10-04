@@ -38,8 +38,11 @@ struct nfe_grupo {
 
 nfe_grupo *nfe_grupo_new(const struct nfe_esq *esq)
 {
-	nfe_grupo *g = (nfe_grupo *)calloc(1, sizeof(nfe_grupo));
+	nfe_grupo *g;
 
+	if (!esq)
+		return NULL;
+	g = (nfe_grupo *)calloc(1, sizeof(nfe_grupo));
 	if (!g)
 		return NULL;
 	g->esq = esq;
