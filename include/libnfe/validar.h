@@ -52,8 +52,21 @@
  *     vIPI + vIPIDevol + vServ, com ou sem a dedução de vICMSDeson (610);
  *   - UF e município do emitente e município do fato gerador (cMunFG) na
  *     UF de cUF (0);
- *   - NFC-e (mod 65): consumidor final (indFinal=1), operação interna
- *     (idDest=1) e DANFE NFC-e (tpImp 4 ou 5) (0).
+ *   - forma de emissão: dhCont e xJust proibidos na emissão normal (556)
+ *     e obrigatórios nas contingências tpEmis 2, 4, 5 e 9 (557); SCAN
+ *     (tpEmis=3) extinta (570); NF-e sem contingência off-line (711);
+ *     NFC-e sem formulário de segurança (tpEmis 2 ou 5) (714) e sem SVC
+ *     (tpEmis 6 ou 7) (783);
+ *   - série: 890 a 919 só na emissão pelo Fisco, procEmi 1 ou 2 (451); o
+ *     contribuinte usa 0 a 889 e 920 a 969 (244);
+ *   - indIntermed obrigatório com indPres 2, 3, 4 ou 9 (434) e proibido
+ *     nos demais (435);
+ *   - NF-e (mod 55): sem DANFE NFC-e, tpImp 4 ou 5 (710), e sem entrega a
+ *     domicílio, indPres=4 (794);
+ *   - NFC-e (mod 65): saída (tpNF=1) (706), operação interna (idDest=1)
+ *     (707), sem NFref (708), DANFE NFC-e (tpImp 4 ou 5) (709), finalidade
+ *     normal (finNFe=1) (715), consumidor final (indFinal=1) (716) e
+ *     presencial ou entrega a domicílio (indPres 1 ou 4) (717).
  * As demais regras (datas, campos obrigatórios por condição, cadastros da
  * SEFAZ etc.) ficam para a SEFAZ, que devolve a rejeição na transmissão.
  */

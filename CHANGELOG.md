@@ -8,8 +8,16 @@ As mudanças relevantes de cada versão ficam registradas aqui. O formato segue 
 
 - Motor de grupos para outros documentos: `nfe_grupo_new`, `nfe_grupo_free`, `nfe_grupo_valida`, `nfe_grupo_vazio`, `nfe_grupo_remove_ultimo` e `nfe_grupo_write_xml` (`esquema.h`) passam a fazer parte da API, com `NFE_ESQ_VERSAO`. Uma biblioteca de outro documento (libmdf, libcte) gera as tabelas dos seus schemas e monta os grupos com o mesmo motor ([`docs/ESQUEMAS.md`](docs/ESQUEMAS.md)).
 - Os geradores `tools/gerar_esquemas.py`, `gerar_padroes.py`, `gerar_diagramas.py` e `gerar_issues.py` aceitam `--config`, com os schemas, as raízes, os prefixos e as saídas de outro documento (`tools/documento.py`); sem ele, geram os da NF-e como antes. O `make install` os instala em `share/tooldoce/ferramentas`, indicada pela variável `ferramentas` do `libnfe.pc`.
+- `nfe_validar_xml` confere mais regras do MOC 7.0 (Anexo I) antes da transmissão:
+  - contingência: 556, 557, 570, 711, 714 e 783;
+  - séries do contribuinte e do Fisco: 244 e 451;
+  - indicativo do intermediador: 434 e 435;
+  - NF-e com DANFE NFC-e ou entrega a domicílio: 710 e 794;
+  - NFC-e de entrada, com NFref, com finalidade diferente de normal ou não presencial: 706, 708, 715 e 717.
 
 ### Alterado
+
+- As regras de NFC-e que devolviam código 0 passam a devolver o cStat da SEFAZ: idDest (707), tpImp (709) e indFinal (716).
 
 - As tabelas geradas da NF-e (`esq_*`) deixam de ser exportadas pela `libnfe.so`; eram de uso interno e passam a ser declaradas em `src/libnfe/esquemas.h`, também gerado.
 
