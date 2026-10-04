@@ -4,6 +4,10 @@ As mudanças relevantes de cada versão ficam registradas aqui. O formato segue 
 
 ## [Não lançado]
 
+## [1.0.0-rc3] - 2026-10-04
+
+Terceira candidata à 1.0.0. Traz o motor de grupos como API para os outros documentos, usado pela [libmdf](https://github.com/icaroraci/libmdf) (MDF-e), e mais regras da SEFAZ na validação.
+
 ### Adicionado
 
 - Motor de grupos para outros documentos: `nfe_grupo_new`, `nfe_grupo_free`, `nfe_grupo_valida`, `nfe_grupo_vazio`, `nfe_grupo_remove_ultimo` e `nfe_grupo_write_xml` (`esquema.h`) passam a fazer parte da API, com `NFE_ESQ_VERSAO`. Uma biblioteca de outro documento (libmdf, libcte) gera as tabelas dos seus schemas e monta os grupos com o mesmo motor ([`docs/ESQUEMAS.md`](docs/ESQUEMAS.md)).
@@ -18,9 +22,7 @@ As mudanças relevantes de cada versão ficam registradas aqui. O formato segue 
 ### Alterado
 
 - As regras de NFC-e que devolviam código 0 passam a devolver o cStat da SEFAZ: idDest (707), tpImp (709) e indFinal (716).
-
 - No motor de grupos, quando mais de um campo casa com o caminho, vale o que casa exatamente, com os elementos do caminho consecutivos. Antes valia o primeiro do leiaute: no modal rodoviário do MDF-e, `"veicTracao/UF"` gravava a UF do proprietário (`veicTracao/prop/UF`) em vez da UF do veículo. `nfe_grupo_get` e `nfe_grupo_remove` seguem a mesma regra.
-
 - As tabelas geradas da NF-e (`esq_*`) deixam de ser exportadas pela `libnfe.so`; eram de uso interno e passam a ser declaradas em `src/libnfe/esquemas.h`, também gerado.
 
 ## [1.0.0-rc2] - 2026-10-04
@@ -60,6 +62,7 @@ Candidata à primeira versão estável (1.0.0). Cobre a emissão da NF-e modelo 
 - `SONAME` passa de `libnfe.so.0` para `libnfe.so.1`.
 - Licença trocada de GPLv3+ para LGPLv3+, o que permite usar a biblioteca em programas de qualquer licença.
 
-[Não lançado]: https://github.com/icaroraci/tooldoce/compare/v1.0.0-rc2...HEAD
+[Não lançado]: https://github.com/icaroraci/tooldoce/compare/v1.0.0-rc3...HEAD
+[1.0.0-rc3]: https://github.com/icaroraci/tooldoce/compare/v1.0.0-rc2...v1.0.0-rc3
 [1.0.0-rc2]: https://github.com/icaroraci/tooldoce/compare/v1.0.0-rc1...v1.0.0-rc2
 [1.0.0-rc1]: https://github.com/icaroraci/tooldoce/releases/tag/v1.0.0-rc1

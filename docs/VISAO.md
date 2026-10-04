@@ -43,10 +43,10 @@ Regra: **os documentos mais usados primeiro**. A NF-e vem à frente.
 
 | Prioridade | Documento | Modelo | Situação |
 |---|---|---|---|
-| 1 | NF-e — Nota Fiscal Eletrônica | 55 | Pronta (1.0.0-rc2) |
+| 1 | NF-e — Nota Fiscal Eletrônica | 55 | Pronta (1.0.0-rc3) |
 | 2 | NFS-e — Nota Fiscal de Serviço Eletrônica (padrão nacional) | — | Planejado |
 | 3 | CT-e — Conhecimento de Transporte Eletrônico | 57 | Planejado |
-| 4 | MDF-e — Manifesto Eletrônico de Documentos Fiscais | 58 | Em início, como projeto à parte: [libmdf](https://github.com/icaroraci/libmdf) |
+| 4 | MDF-e — Manifesto Eletrônico de Documentos Fiscais | 58 | Homologado, candidata 1.0.0-rc1, como projeto à parte: [libmdf](https://github.com/icaroraci/libmdf) |
 | 5+ | Demais documentos de uso comercial (CT-e OS, BP-e, NF3e, NFCom etc.) | — | Futuro |
 
 A ordem a partir do item 2 é uma proposta e pode ser revista conforme a demanda dos usuários.

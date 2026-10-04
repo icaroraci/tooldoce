@@ -9,7 +9,7 @@ Biblioteca livre em C para emissão de documentos fiscais eletrônicos brasileir
 
 ## Situação
 
-**Versão 1.0.0-rc2**, candidata à 1.0 (ver o [histórico de mudanças](CHANGELOG.md)): a emissão da NF-e modelo 55 está completa, da montagem do XML à autorização, aos eventos e à inutilização na SEFAZ. A partir da 1.0, a API segue o [versionamento semântico](https://semver.org/lang/pt-BR/): mudanças incompatíveis só numa nova versão maior, que também troca o `SONAME` (`libnfe.so.1`). A versão fica em `<libnfe/versao.h>` (`NFE_VERSAO`) e, em tempo de execução, em `nfe_versao()`.
+**Versão 1.0.0-rc3**, candidata à 1.0 (ver o [histórico de mudanças](CHANGELOG.md)): a emissão da NF-e modelo 55 está completa, da montagem do XML à autorização, aos eventos e à inutilização na SEFAZ. A partir da 1.0, a API segue o [versionamento semântico](https://semver.org/lang/pt-BR/): mudanças incompatíveis só numa nova versão maior, que também troca o `SONAME` (`libnfe.so.1`). A versão fica em `<libnfe/versao.h>` (`NFE_VERSAO`) e, em tempo de execução, em `nfe_versao()`.
 
 O que existe hoje:
 
