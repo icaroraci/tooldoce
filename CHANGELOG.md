@@ -6,6 +6,7 @@ As mudanças relevantes de cada versão ficam registradas aqui. O formato segue 
 
 ### Adicionado
 
+- `make install` instala o `libnfe.pc` em `$(LIBDIR)/pkgconfig`: um programa externo compila com `cc programa.c $(pkg-config --cflags --libs libnfe)` (#266).
 - `nfe_certificado_assinar` (`assinatura.h`): assina dados avulsos com a chave do certificado (RSA PKCS#1 v1.5, SHA-1), para o QR Code versão 3 da NFC-e em contingência offline (NT 2025.001) (#268).
 
 ### Alterado

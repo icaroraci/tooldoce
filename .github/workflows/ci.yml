@@ -71,6 +71,23 @@ jobs:
           test -L "$destino/usr/lib/libnfe.so.1"
           test -L "$destino/usr/lib/libnfe.so"
           test -f "$destino/usr/include/libnfe/nfe.h"
+          test -f "$destino/usr/lib/pkgconfig/libnfe.pc"
+          grep -qx 'prefix=/usr' "$destino/usr/lib/pkgconfig/libnfe.pc"
           readelf -d "$destino/usr/lib/libnfe.so.1.0.0" | grep -q 'SONAME.*libnfe\.so\.1'
           make uninstall DESTDIR="$destino" PREFIX=/usr
           test -z "$(find "$destino" -type f -o -type l)"
+
+      # Programa externo compilado só com as flags do libnfe.pc. A instalação
+      # vai para um prefixo real (sem DESTDIR) para que os caminhos do .pc
+      # apontem para os arquivos instalados.
+      - name: pkg-config
+        run: |
+          prefixo="$RUNNER_TEMP/prefixo"
+          make install PREFIX="$prefixo" C_SOURCE="$(ls obj/*.o | sed 's|^obj/|src/libnfe/|; s|\.o$|.c|')"
+          export PKG_CONFIG_PATH="$prefixo/lib/pkgconfig"
+          versao=$(sed -n 's/^#define NFE_VERSAO  *"\(.*\)"/\1/p' include/libnfe/versao.h)
+          test "$(pkg-config --modversion libnfe)" = "$versao"
+          $CC -std=c99 -Wall -Werror examples/gerar_nfe.c $(pkg-config --cflags --libs libnfe) -Wl,-rpath,"$prefixo/lib" -o "$RUNNER_TEMP/gerar_nfe"
+          "$RUNNER_TEMP/gerar_nfe" > /dev/null
+          make uninstall PREFIX="$prefixo"
+          test -z "$(find "$prefixo" -type f -o -type l)"
