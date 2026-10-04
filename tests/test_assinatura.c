@@ -30,6 +30,8 @@
 #include <libnfe/nfe_nfe.h>
 #include <libnfe/validar.h>
 
+#include <openssl/evp.h>
+
 #include "teste.h"
 #include "nota_teste.h"
 
@@ -82,6 +84,58 @@ int main(int argc, char **argv)
 	             "EMPRESA DE TESTE LTDA:12345678000195");
 	/* Válido até 2056: depois de 2050-01-01 */
 	VERIFICA(nfe_certificado_validade(cert) > (time_t)2524608000);
+
+	/* Assinatura de dados avulsos (QR Code v3 offline da NFC-e); o
+	 * esperado foi gerado com:
+	 *   printf '%s' 'chave|3|2|04|30.00|2|12345678909' |
+	 *   openssl dgst -sha1 -sign chave.pem | base64 -w0 */
+	{
+		static const char dados[] = "chave|3|2|04|30.00|2|12345678909";
+		static const char esperado[] =
+		        "BD2GzWZM77tvYbkbyB+B1UOxNMrIx+/"
+		        "qvV2ZUq0CQJBtTGCesyjrgoU"
+		        "TPBipgE8LpdTfj56Fi/"
+		        "MgOB6wprvcv3yfbJgcCjRAry3i7vuwzvA5ze"
+		        "mKm7WQ7PeRH5Ty1gFp9jNd7MbE6R2SLKiRoj8nxtkAXlqT+"
+		        "Tc1SxkS1"
+		        "fZq+"
+		        "7G2KBevNZ9YUNvhdbYHbkVe5uh8fKqYyqBx8u6MlbXvYiqdfGZJ"
+		        "G1CRhjoanlUjZcpiG7IIMBOZbQiFjqArfp+gDxHpdeDdB+"
+		        "BjcruCWSz"
+		        "zMzVyWDf8b9T1Zf+M+N19PrXWKt/"
+		        "dqy4eVMI3JL0gORby1lzC3vOmoH"
+		        "CX9cuyImkzMw==";
+		unsigned char *sig = NULL, b64[400];
+		size_t tam_sig = 0;
+
+		VERIFICA_INT(nfe_certificado_assinar(cert, dados, strlen(dados),
+		                                     &sig, &tam_sig),
+		             0);
+		VERIFICA_INT(tam_sig, 256);
+		if (sig && tam_sig == 256) {
+			EVP_EncodeBlock(b64, sig, (int)tam_sig);
+			VERIFICA_STR((char *)b64, esperado);
+		}
+		free(sig);
+		sig = NULL;
+		/* Dados vazios também são assinados */
+		VERIFICA_INT(
+		        nfe_certificado_assinar(cert, "", 0, &sig, &tam_sig),
+		        0);
+		free(sig);
+		VERIFICA_INT(
+		        nfe_certificado_assinar(NULL, dados, 1, &sig, &tam_sig),
+		        E_ISNULL);
+		VERIFICA_INT(
+		        nfe_certificado_assinar(cert, NULL, 1, &sig, &tam_sig),
+		        E_ISNULL);
+		VERIFICA_INT(
+		        nfe_certificado_assinar(cert, dados, 1, NULL, &tam_sig),
+		        E_ISNULL);
+		VERIFICA_INT(
+		        nfe_certificado_assinar(cert, dados, 1, &sig, NULL),
+		        E_ISNULL);
+	}
 
 	/* Assina a nota gerada pela biblioteca */
 	nfe = nota(NFE_MODELO_NFE);
