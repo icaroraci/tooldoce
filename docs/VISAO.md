@@ -101,7 +101,7 @@ O núcleo comum evita reescrever assinatura, transmissão e validação em cada 
 
 1. **NF-e:** corrigir a base atual (fases 1 a 6 das issues), depois completar os grupos do leiaute, a assinatura e a transmissão (fase 7).
 2. Extrair o núcleo comum à medida que a NF-e ficar pronta.
-3. Seguir para os demais documentos na ordem da seção 4.
+3. Seguir para os demais documentos na ordem da seção 4. Cada documento novo começa pelo roteiro de [`NOVO-SUBPROJETO.md`](NOVO-SUBPROJETO.md).
 
 ## 10. Decisões pendentes
 
