@@ -24,7 +24,9 @@ O que existe hoje:
 | Tabela de endereços por UF e ambiente (NF-e 55, emissão normal e SVC) | Pronta; ver [endereços e atualização](docs/WEBSERVICES.md) |
 | Inutilização de numeração (`inutilizacao.h`) | Pronta; validada contra o schema oficial e testada na homologação |
 | Certificado A3 (token/cartão) | Fora do roteiro; a assinatura usa certificado A1 |
-| NFS-e, CT-e, MDF-e | Planejados (ver [visão do projeto](docs/VISAO.md)); a NFC-e será um projeto à parte |
+| NFS-e, CT-e | Planejados (ver [visão do projeto](docs/VISAO.md)) |
+| NFC-e (modelo 65) | Projeto à parte, sobre a libnfe: [libnfc](https://github.com/icaroraci/libnfc) |
+| MDF-e (modelo 58) | Projeto à parte, sobre a libnfe: [libmdf](https://github.com/icaroraci/libmdf) (em início) |
 
 O roteiro detalhado está nas [issues](https://github.com/icaroraci/tooldoce/issues).
 
