@@ -27,8 +27,8 @@
 #define NFE_VERSAO_MAIOR   1
 #define NFE_VERSAO_MENOR   0
 #define NFE_VERSAO_REVISAO 0
-#define NFE_VERSAO_PRE     "rc1"
-#define NFE_VERSAO         "1.0.0-rc1"
+#define NFE_VERSAO_PRE     "rc2"
+#define NFE_VERSAO         "1.0.0-rc2"
 
 /* Versão da biblioteca carregada em tempo de execução (ex.: "1.0.0-rc1"), que
  * pode diferir de NFE_VERSAO, a dos headers usados na compilação. */
