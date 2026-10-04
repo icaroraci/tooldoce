@@ -69,9 +69,13 @@ int nfe_evento_cancelamento(const nfe_evento_info *info, const char *nprot,
                             const char *xjust, char **xml, size_t *tam);
 
 /* Cancelamento por substituição (110112), só para NFC-e: cancela a nota
- * que foi substituída pela NFC-e chave_subst (emitida em contingência
- * para a mesma venda). veraplic identifica o programa emissor (1 a 20
- * caracteres). */
+ * que foi substituída pela NFC-e chave_subst, emitida em contingência
+ * offline (tpEmis 9) para a mesma venda. A nota cancelada não pode ser de
+ * contingência offline: é o caso do PDV que não recebeu a resposta da
+ * autorização, emitiu offline e depois descobre a nota normal autorizada.
+ * Uma NFC-e offline só se desfaz com o cancelamento comum (110111). Outras
+ * combinações a SEFAZ rejeita (cStat 920), e aqui dão E_VALOR. veraplic
+ * identifica o programa emissor (1 a 20 caracteres). */
 int nfe_evento_cancelamento_subst(const nfe_evento_info *info,
                                   const char *nprot, const char *xjust,
                                   const char *chave_subst, const char *veraplic,
