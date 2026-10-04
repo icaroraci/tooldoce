@@ -82,7 +82,7 @@ No tooldoce, atualizar a tabela de documentos em [`VISAO.md`](VISAO.md) com o li
 
 - Baixar o pacote de liberação oficial e guardar os XSD **sem alteração** em `tests/schemas/<documento>/`, com um `README.md` dizendo pacote, versão, data e origem (modelo: [`tests/schemas/README.md`](../tests/schemas/README.md) do tooldoce). Eventos em pastas próprias, um pacote por pasta.
 - Atualização de schema é sempre um commit separado, para a diferença do leiaute ficar visível no histórico.
-- Gerar os diagramas e a lista de estruturas (`TODO.md`) a partir dos schemas, como `tools/gerar_diagramas.py` faz para a NF-e.
+- Escrever a configuração do documento e gerar os diagramas e a lista de estruturas (`TODO.md`) a partir dos schemas, com `gerar_diagramas.py --config` ([`ESQUEMAS.md`](ESQUEMAS.md)).
 
 **Saída:** schemas versionados e o mapa do leiaute.
 
@@ -90,7 +90,7 @@ No tooldoce, atualizar a tabela de documentos em [`VISAO.md`](VISAO.md) com o li
 
 Tudo o que a fase 0 marcou como "falta na libnfe" vira um PR no tooldoce, antes do código do documento que depende dele. O mantenedor publica a versão da libnfe e o CI do subprojeto passa a compilar contra essa tag (`LIBNFE_REF`), não contra o `master`.
 
-Ponto em aberto para o próximo documento: o motor genérico de grupos (`grupo.h`, com as tabelas de `esquemas.c` geradas do XSD) é de uso interno da libnfe, e os geradores (`gerar_esquemas.py`, `gerar_padroes.py`, `gerar_diagramas.py`) leem só `tests/schemas/nfe`. Torná-los genéricos (o schema de entrada como parâmetro, o motor exposto à libmdf e à futura libcte) é o que mais economiza trabalho em cada documento novo, e deve ser feito antes de montar o leiaute do MDF-e.
+O motor genérico de grupos (`<libnfe/esquema.h>` e `<libnfe/grupo.h>`) e os geradores (`gerar_esquemas.py`, `gerar_padroes.py`, `gerar_diagramas.py`, `gerar_issues.py`) servem a qualquer documento: a biblioteca descreve os seus schemas num arquivo de configuração e gera as tabelas com os geradores instalados pela libnfe ([`ESQUEMAS.md`](ESQUEMAS.md)).
 
 ## Fase 5: fatia vertical
 

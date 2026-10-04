@@ -23,6 +23,8 @@
 #include <libnfe/esquema.h>
 #include <libnfe/total.h>
 
+#include "esquemas.h"
+
 /* Tag e obrigatoriedade de cada campo, na ordem de nfe_campo_icmstot */
 static const struct {
 	const char *tag;

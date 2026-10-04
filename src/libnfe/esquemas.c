@@ -3,7 +3,11 @@
 
 #include <stddef.h>
 
-#include <libnfe/esquema.h>
+#include "esquemas.h"
+
+#if NFE_ESQ_VERSAO != 1
+#error "tabelas geradas para outra versão do motor de grupos da libnfe"
+#endif
 
 /* clang-format off */
 static const char *const valores_0[] = { "0", "1", "2", "3", "4", "5", "6", "7", "8", NULL };

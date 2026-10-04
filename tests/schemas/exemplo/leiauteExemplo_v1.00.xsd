@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Schema de teste, NÃO oficial (ver tiposExemplo_v1.00.xsd) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.tooldoce.org/exemplo" targetNamespace="http://www.tooldoce.org/exemplo" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="tiposExemplo_v1.00.xsd"/>
+	<xs:element name="exemplo" type="TExemplo">
+		<xs:annotation>
+			<xs:documentation>Documento de exemplo</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="TExemplo">
+		<xs:sequence>
+			<xs:element name="infEx">
+				<xs:annotation>
+					<xs:documentation>Informações do documento</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ide">
+							<xs:annotation>
+								<xs:documentation>Identificação</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="cUF" type="TUf"/>
+									<xs:element name="xNome">
+										<xs:simpleType>
+											<xs:restriction base="TString">
+												<xs:minLength value="2"/>
+												<xs:maxLength value="60"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="veiculo">
+							<xs:annotation>
+								<xs:documentation>Veículo de tração</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="placa" type="TPlaca"/>
+									<xs:element name="tara" type="TDec_1302" minOccurs="0"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="condutor" maxOccurs="10">
+							<xs:annotation>
+								<xs:documentation>Condutores</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="xNome" type="TString"/>
+									<xs:element name="CPF" type="TCpf"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="contratante" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Contratante do serviço</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:choice>
+									<xs:element name="CNPJ" type="TCnpj"/>
+									<xs:element name="CPF" type="TCpf"/>
+								</xs:choice>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="vCarga" type="TDec_1302"/>
+					</xs:sequence>
+					<xs:attribute name="versao" use="required">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:pattern value="1\.00"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

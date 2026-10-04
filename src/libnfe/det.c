@@ -27,6 +27,8 @@
 #include <libnfe/padroes.h>
 #include <libnfe/valida.h>
 
+#include "esquemas.h"
+
 struct nfe_det {
 	unsigned nItem; /* 0: não informado */
 	nfe_prod *prod;

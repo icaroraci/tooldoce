@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Gera o texto das issues de implementação de cada estrutura da NF-e.
+"""Gera o texto das issues de implementação de cada estrutura do leiaute.
 
 Usa o mesmo modelo de tools/gerar_diagramas.py (lido do XSD oficial) e
 escreve um arquivo Markdown por estrutura em um diretório de saída, com:
@@ -10,6 +10,10 @@ e critérios de aceite.
 
 Uso (na raiz do projeto):
     python3 tools/gerar_issues.py SAIDA [--repo dono/repositorio]
+        [--config DOC.json]
+
+Sem --config, as estruturas da NF-e; com ele, as do documento descrito
+(ver tools/documento.py), com o repositório e o ramo dele.
 
 Cada arquivo começa com uma linha "título: ..." seguida do corpo da issue.
 Estruturas de um mesmo tipo nomeado usado em vários lugares (ex.: TDif)
@@ -131,7 +135,10 @@ def escape_tabela(t):
 
 
 def url_svg(repo, caminho):
-    return f"https://github.com/{repo}/blob/master/docs/diagramas/{caminho}.svg"
+    doc = gd.doc_atual()
+    pasta = doc.secao("diagramas", "saida").strip("/")
+    return (f"https://github.com/{repo}/blob/{doc.get('ramo', 'master')}/"
+            f"{pasta}/{caminho}.svg")
 
 
 def corpo_issue(locais, nomes, repo, pais):
@@ -300,14 +307,15 @@ def corpo_issue(locais, nomes, repo, pais):
     # aceite
     linhas.append("## Critérios de aceite")
     linhas.append("")
-    linhas.append("- [ ] Header em `include/libnfe/` e implementação em "
-                  "`src/libnfe/`, formatados (`make formatar`)")
+    lib = gd.doc_atual().get("biblioteca", "libnfe")
+    linhas.append(f"- [ ] Header em `include/{lib}/` e implementação em "
+                  f"`src/{lib}/`, formatados (`make formatar`)")
     linhas.append("- [ ] Testes em `tests/` cobrindo cada setter (valores "
                   "válidos e inválidos) e a escrita do XML")
     linhas.append("- [ ] XML gerado validado contra o XSD oficial nos testes")
     linhas.append("- [ ] Item marcado no `TODO.md`")
     linhas.append("")
-    linhas.append("_Gerado a partir de `leiauteNFe_v4.00.xsd` por "
+    linhas.append(f"_Gerado a partir de `{gd.doc_atual()['leiaute']}` por "
                   "`tools/gerar_issues.py`._")
     return "\n".join(linhas) + "\n" + RODAPE
 
@@ -315,8 +323,13 @@ def corpo_issue(locais, nomes, repo, pais):
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("saida")
-    ap.add_argument("--repo", default="icaroraci/tooldoce")
+    ap.add_argument("--repo", help="dono/repositorio (padrão: o da "
+                    "configuração)")
+    gd.argumento(ap)
     args = ap.parse_args()
+    doc = gd.configurar(args.config)
+    if not args.repo:
+        args.repo = doc.get("repositorio", "icaroraci/tooldoce")
 
     raiz = gd.Leiaute().raiz()
     todas = list(gd.estruturas(raiz))

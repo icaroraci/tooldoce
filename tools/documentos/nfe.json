@@ -1,0 +1,28 @@
+{
+  "documento": "NF-e",
+  "biblioteca": "libnfe",
+  "versao": "4.00",
+  "schemas": "tests/schemas/nfe",
+  "tipos": ["tiposBasico_v4.00.xsd", "DFeTiposBasicos_v1.00.xsd"],
+  "leiaute": "leiauteNFe_v4.00.xsd",
+  "raiz": {"elemento": "NFe", "tipo": "TNFe"},
+  "repositorio": "icaroraci/tooldoce",
+  "ramo": "master",
+  "padroes": {
+    "saida": "include/libnfe/padroes.h",
+    "prefixo": "NFE_"
+  },
+  "esquemas": {
+    "saida": "src/libnfe/esquemas.c",
+    "cabecalho": "src/libnfe/esquemas.h",
+    "prefixo": "esq_",
+    "raizes": ["imposto", "prod", "transp", "total", "NFref",
+               "impostoDevol", "obsItem", "DFeReferenciado", "avulsa",
+               "exporta", "compra", "cana", "infSolicNFF", "agropecuario",
+               "infPAA", "infNFeSupl"]
+  },
+  "diagramas": {
+    "saida": "docs/diagramas",
+    "todo": "TODO.md"
+  }
+}

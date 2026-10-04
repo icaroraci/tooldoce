@@ -37,6 +37,8 @@
 #include <libnfe/utils.h>
 #include <libnfe/valida.h>
 
+#include "esquemas.h"
+
 /* Documento referenciado: um item do grupo NFref */
 enum tipo_ref_e {
 	REF_NFE,  /* refNFe: NF-e ou NFC-e, pela chave de acesso */

@@ -24,6 +24,8 @@
 #include <libnfe/esquema.h>
 #include <libnfe/imposto.h>
 
+#include "esquemas.h"
+
 /* Os tributos ficam em um grupo genérico (esquema.h) com a estrutura de
  * <imposto> do leiaute; os setters específicos são atalhos para ele. */
 struct nfe_imposto {

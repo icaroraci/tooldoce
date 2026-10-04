@@ -62,11 +62,16 @@ PREFIX     ?= /usr/local
 LIBDIR     ?= $(PREFIX)/lib
 INCLUDEDIR ?= $(PREFIX)/include
 SCHEMADIR  ?= $(PREFIX)/share/tooldoce/schemas
+FERRAMENTASDIR ?= $(PREFIX)/share/tooldoce/ferramentas
 PKGCONFIGDIR ?= $(LIBDIR)/pkgconfig
 
 #Schemas oficiais instalados para a validação (nfe_validador_new)
 SCHEMAS = $(addprefix tests/schemas/nfe/,nfe_v4.00.xsd leiauteNFe_v4.00.xsd tiposBasico_v4.00.xsd DFeTiposBasicos_v1.00.xsd xmldsig-core-schema_v1.01.xsd)
 CFLAGS += -DNFE_DIR_SCHEMAS='"$(SCHEMADIR)"'
+
+#Geradores instalados para as bibliotecas de outros documentos (libmdf...),
+#que geram as tabelas do motor de grupos dos seus schemas (docs/ESQUEMAS.md)
+FERRAMENTAS = $(addprefix tools/,documento.py gerar_padroes.py gerar_esquemas.py gerar_diagramas.py gerar_issues.py)
 
 
 #Nome de todas os arquivos fontes com path e extensão (*.c)
@@ -112,6 +117,8 @@ install: libnfe
 	install -m 644 $(INCLUDE)/libnfe/*.h $(DESTDIR)$(INCLUDEDIR)/libnfe/
 	install -d $(DESTDIR)$(SCHEMADIR)
 	install -m 644 $(SCHEMAS) $(DESTDIR)$(SCHEMADIR)/
+	install -d $(DESTDIR)$(FERRAMENTASDIR)
+	install -m 644 $(FERRAMENTAS) $(DESTDIR)$(FERRAMENTASDIR)/
 	install -d $(DESTDIR)$(PKGCONFIGDIR)
 	$(call libnfe_pc) > $(DESTDIR)$(PKGCONFIGDIR)/libnfe.pc
 	chmod 644 $(DESTDIR)$(PKGCONFIGDIR)/libnfe.pc
@@ -128,6 +135,7 @@ define libnfe_pc
 		'prefix=$(PREFIX)' \
 		'libdir=$(call relativo_prefix,$(LIBDIR))' \
 		'includedir=$(call relativo_prefix,$(INCLUDEDIR))' \
+		'ferramentas=$(call relativo_prefix,$(FERRAMENTASDIR))' \
 		'' \
 		'Name: libnfe' \
 		'Description: Biblioteca C para emissão da NF-e e da NFC-e (tooldoce)' \
@@ -146,6 +154,7 @@ uninstall:
 	-rmdir $(DESTDIR)$(PKGCONFIGDIR) 2>/dev/null
 	rm -rfv $(DESTDIR)$(INCLUDEDIR)/libnfe
 	rm -rfv $(DESTDIR)$(SCHEMADIR)
+	rm -rfv $(DESTDIR)$(FERRAMENTASDIR)
 	-rmdir $(DESTDIR)$(PREFIX)/share/tooldoce 2>/dev/null
 
 

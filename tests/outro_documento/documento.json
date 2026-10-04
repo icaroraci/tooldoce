@@ -1,0 +1,26 @@
+{
+  "documento": "Exemplo",
+  "artigo": "do",
+  "versao": "1.00",
+  "schemas": "tests/schemas/exemplo",
+  "tipos": ["tiposExemplo_v1.00.xsd"],
+  "leiaute": "leiauteExemplo_v1.00.xsd",
+  "raiz": {"elemento": "exemplo", "tipo": "TExemplo"},
+  "repositorio": "icaroraci/tooldoce",
+  "ramo": "master",
+  "biblioteca": "libexemplo",
+  "padroes": {
+    "saida": "tests/outro_documento/padroes.h",
+    "prefixo": "EX_"
+  },
+  "esquemas": {
+    "saida": "tests/outro_documento/esquemas.c",
+    "cabecalho": "tests/outro_documento/esquemas.h",
+    "prefixo": "ex_esq_",
+    "raizes": ["infEx", ["veic", "veiculo"]]
+  },
+  "diagramas": {
+    "saida": "tests/outro_documento/diagramas",
+    "todo": "tests/outro_documento/TODO.md"
+  }
+}

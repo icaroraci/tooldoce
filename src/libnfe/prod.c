@@ -25,6 +25,8 @@
 #include <libnfe/esquema.h>
 #include <libnfe/prod.h>
 
+#include "esquemas.h"
+
 /* Os campos ficam em um grupo genérico (esquema.h) com a estrutura de
  * <prod> do leiaute; os setters específicos são atalhos para ele. */
 struct nfe_prod {

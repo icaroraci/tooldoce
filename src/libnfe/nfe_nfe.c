@@ -34,6 +34,8 @@
 #include <libnfe/nfe_nfe.h>
 #include <libnfe/valida.h>
 
+#include "esquemas.h"
+
 #define NS_NFE     "http://www.portalfiscal.inf.br/nfe"
 #define VERSAO_NFE "4.00"
 
