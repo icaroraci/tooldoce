@@ -4,6 +4,10 @@ As mudanças relevantes de cada versão ficam registradas aqui. O formato segue 
 
 ## [Não lançado]
 
+### Adicionado
+
+- `nfe_assinar_dados` (`assinatura.h`): assina um conteúdo qualquer com a chave do certificado (RSA-SHA1) e devolve a assinatura em base64, sem expor a chave. Usada pelo QR Code versão 3 da NFC-e em contingência offline (NT 2025.001; icaroraci/libnfc#3).
+
 ### Alterado
 
 - `nfe_evento_cancelamento_subst` recusa (`E_VALOR`) a combinação que a SEFAZ rejeita com cStat 920: a nota cancelada tem de ser de emissão normal e a substituta, de contingência offline (`tpEmis` 9). Regra confirmada na homologação do RJ (icaroraci/libnfc, `docs/HOMOLOGACAO.md`).

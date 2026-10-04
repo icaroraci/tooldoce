@@ -445,6 +445,54 @@ fim:
 	return rc;
 }
 
+int nfe_assinar_dados(const nfe_certificado *cert, const void *dados,
+                      size_t tam, char **assinatura, size_t *tam_assinatura)
+{
+	EVP_PKEY *pk;
+	EVP_MD_CTX *ctx;
+	unsigned char *bruta = NULL;
+	char *b64;
+	size_t tam_bruta = 0;
+	int ok, n;
+
+	if (!cert || !dados || !assinatura)
+		return E_ISNULL;
+	pk = xmlSecOpenSSLEvpKeyDataGetEvp(xmlSecKeyGetValue(cert->chave));
+	if (!pk || EVP_PKEY_base_id(pk) != EVP_PKEY_RSA)
+		return E_VALOR;
+
+	/* RSA PKCS#1 v1.5 com SHA-1: o tamanho sai da primeira chamada */
+	ctx = EVP_MD_CTX_new();
+	if (!ctx)
+		return E_MALLOC;
+	ok = EVP_DigestSignInit(ctx, NULL, EVP_sha1(), NULL, pk) == 1 &&
+	     EVP_DigestSignUpdate(ctx, dados, tam) == 1 &&
+	     EVP_DigestSignFinal(ctx, NULL, &tam_bruta) == 1;
+	if (ok) {
+		bruta = malloc(tam_bruta);
+		ok = bruta && EVP_DigestSignFinal(ctx, bruta, &tam_bruta) == 1;
+	}
+	EVP_MD_CTX_free(ctx);
+	if (!ok) {
+		free(bruta);
+		ERR_clear_error();
+		return bruta ? E_VALOR : E_MALLOC;
+	}
+
+	/* Base64 sem quebras de linha */
+	b64 = malloc(4 * ((tam_bruta + 2) / 3) + 1);
+	if (!b64) {
+		free(bruta);
+		return E_MALLOC;
+	}
+	n = EVP_EncodeBlock((unsigned char *)b64, bruta, (int)tam_bruta);
+	free(bruta);
+	*assinatura = b64;
+	if (tam_assinatura)
+		*tam_assinatura = (size_t)n;
+	return 0;
+}
+
 int nfe_verificar_assinatura(const char *xml, size_t tam)
 {
 	xmlSecKeysMngrPtr mngr = NULL;

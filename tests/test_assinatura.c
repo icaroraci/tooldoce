@@ -149,6 +149,48 @@ int main(int argc, char **argv)
 	VERIFICA_INT(nfe_assinar_xml(NULL, xml, tam, &outro, NULL), E_ISNULL);
 	VERIFICA_INT(nfe_verificar_assinatura(NULL, 0), E_ISNULL);
 
+	/* Assinatura de dados avulsos (RSA-SHA1 em base64). Vetor calculado à
+	 * parte com a chave de teste.pfx, sendo P os parâmetros de um QR Code
+	 * versão 3 offline:
+	 *   printf '%s' "$P" | openssl dgst -sha1 -sign chave.pem | base64 */
+	{
+		static const char p[] =
+		        "35261012345678000195650010000000019000000017|3|2|03|"
+		        "1.00|1|12345678000195";
+		static const char esperado[] =
+		        "a0MEks0uud8ujnOTnv/dSWzGKVxFn2bZsOji1RZd0G5C"
+		        "+fS1NNcdSVcRfx8mOdaoZepiGkHsnzR/lj3FihjYRPTb"
+		        "HNf9Ow7MAzAScH+hJNho4EeD7OrHGqfsPBZ9xCtA8Jn7"
+		        "zh+jptikbr38q/dSqLbBqTX4XdYk0kTiWRzLh3/v5fDn"
+		        "xbdNgEafLGmXG+bk8raT02mdS3R7qYYlRl9rA5ULOyPj"
+		        "KGoKkAZfDT/xgBpE4MkVRr/2l3JOAKuLphf1fW6DWMeJ"
+		        "4gHIEPh2itRZ7iQm3c9Fs1MrbOR7thDgl6xzHnZX3EHx"
+		        "DvNfLgBSY1jmW5wdCdfPeJcGBgLz+EOq9Q==";
+		char *b64 = NULL;
+		size_t tam_b64 = 0;
+
+		VERIFICA_INT(
+		        nfe_assinar_dados(cert, p, strlen(p), &b64, &tam_b64),
+		        0);
+		VERIFICA(b64 != NULL);
+		if (b64) {
+			VERIFICA_STR(b64, esperado);
+			VERIFICA_INT(tam_b64, strlen(esperado));
+		}
+		free(b64);
+		b64 = NULL;
+		/* Chave de 2048 bits: 256 bytes, 344 caracteres em base64 */
+		VERIFICA_INT(nfe_assinar_dados(cert, "", 0, &b64, NULL), 0);
+		VERIFICA(b64 != NULL && strlen(b64) == 344);
+		free(b64);
+		VERIFICA_INT(nfe_assinar_dados(NULL, p, 1, &b64, NULL),
+		             E_ISNULL);
+		VERIFICA_INT(nfe_assinar_dados(cert, NULL, 1, &b64, NULL),
+		             E_ISNULL);
+		VERIFICA_INT(nfe_assinar_dados(cert, p, 1, NULL, NULL),
+		             E_ISNULL);
+	}
+
 	free(assinado);
 	free(xml);
 	nfe_nfe_free(nfe);

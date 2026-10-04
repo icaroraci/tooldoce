@@ -74,6 +74,17 @@ time_t nfe_certificado_validade(const nfe_certificado *cert);
 int nfe_assinar_xml(const nfe_certificado *cert, const char *xml, size_t tam,
                     char **assinado, size_t *tam_assinado);
 
+/* Assina dados (tam bytes, conteúdo qualquer) com a chave privada do
+ * certificado, em RSA-SHA1 (PKCS#1 v1.5), e devolve em *assinatura o
+ * resultado em base64, sem quebras de linha, alocado e terminado em '\0'
+ * (libere com free()); o tamanho vai em *tam_assinatura, se não for NULL.
+ * A chave não sai do certificado. Serve, por exemplo, ao QR Code versão 3
+ * da NFC-e em contingência offline (NT 2025.001), que assina os seus
+ * parâmetros. Retorna 0, E_ISNULL, E_VALOR (chave que não é RSA ou falha
+ * ao assinar) ou E_MALLOC. */
+int nfe_assinar_dados(const nfe_certificado *cert, const void *dados,
+                      size_t tam, char **assinatura, size_t *tam_assinatura);
+
 /* Confere a assinatura de um documento <NFe>, <evento> ou <inutNFe>
  * assinado, com o certificado
  * que vem dentro dele (sem conferir a cadeia ICP-Brasil nem se o
