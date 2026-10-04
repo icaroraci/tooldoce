@@ -30,6 +30,7 @@
 
 #include <openssl/asn1.h>
 #include <openssl/err.h>
+#include <openssl/evp.h>
 #include <openssl/ssl.h>
 #include <openssl/x509.h>
 
@@ -497,6 +498,44 @@ fim:
 		xmlSecKeysMngrDestroy(mngr);
 	xmlFreeDoc(doc);
 	return rc;
+}
+
+int nfe_certificado_assinar(const nfe_certificado *cert, const void *dados,
+                            size_t tam, unsigned char **assinatura,
+                            size_t *tam_assinatura)
+{
+	EVP_PKEY *pk;
+	EVP_MD_CTX *ctx;
+	unsigned char *sig;
+	size_t tam_sig = 0;
+	int ok;
+
+	if (!cert || (!dados && tam > 0) || !assinatura || !tam_assinatura)
+		return E_ISNULL;
+	pk = xmlSecOpenSSLEvpKeyDataGetEvp(xmlSecKeyGetValue(cert->chave));
+	if (!pk || EVP_PKEY_base_id(pk) != EVP_PKEY_RSA)
+		return E_VALOR;
+	ctx = EVP_MD_CTX_new();
+	if (!ctx)
+		return E_MALLOC;
+	/* PKCS#1 v1.5 é o preenchimento padrão para RSA */
+	ok = EVP_DigestSignInit(ctx, NULL, EVP_sha1(), NULL, pk) == 1 &&
+	     EVP_DigestSign(ctx, NULL, &tam_sig, dados, tam) == 1;
+	sig = ok ? malloc(tam_sig) : NULL;
+	if (ok && !sig) {
+		EVP_MD_CTX_free(ctx);
+		return E_MALLOC;
+	}
+	ok = ok && EVP_DigestSign(ctx, sig, &tam_sig, dados, tam) == 1;
+	EVP_MD_CTX_free(ctx);
+	ERR_clear_error();
+	if (!ok) {
+		free(sig);
+		return E_VALOR;
+	}
+	*assinatura = sig;
+	*tam_assinatura = tam_sig;
+	return 0;
 }
 
 int nfe_certificado_ssl_ctx(const nfe_certificado *cert, void *ssl_ctx)
