@@ -185,5 +185,5 @@ Marque `[x]` quando a estrutura tiver: criação/liberação, setters com valida
 - [x] Assinatura digital XMLDSig (#56)
 - [x] Transmissão aos webservices da SEFAZ e tratamento do retorno (#57)
 - [x] Atualizar os schemas para a Reforma Tributária (PL_010f, com IBS/CBS/IS)
-- [ ] NFS-e, CT-e, MDF-e (ver `docs/VISAO.md`; a NFC-e será um projeto à parte)
+- [ ] NFS-e e CT-e (ver `docs/VISAO.md`); a NFC-e e o MDF-e são projetos à parte ([libnfc](https://github.com/icaroraci/libnfc), [libmdf](https://github.com/icaroraci/libmdf))
 - [x] Troca da licença para LGPL (#59)
