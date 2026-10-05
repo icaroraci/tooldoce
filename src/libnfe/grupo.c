@@ -112,12 +112,10 @@ int nfe_grupo_vazio(const nfe_grupo *g)
 /* O nó casa com o caminho: o último segmento é o nome do nó e os demais
  * aparecem, em ordem, entre os elementos ancestrais. A raiz só entra no
  * caminho quando é o próprio nó (itens de listas de campos simples).
- * Retorna 0 (não casa), CASA_PARCIAL (pulando elementos, como
- * "veicTracao/UF" para veicTracao/prop/UF), CASA_EXATO (os segmentos são
- * elementos consecutivos, sem pular nenhum entre eles, como "UF" para
- * prop/UF) ou CASA_RAIZ (exato e a partir da raiz do grupo, como "UF" para
- * o UF filho direto do grupo). */
-enum { CASA_PARCIAL = 1, CASA_EXATO = 2, CASA_RAIZ = 3 };
+ * Retorna 0 (não casa), CASA_ABREVIADO (faltam elementos no caminho, como
+ * "ICMS10/vBC" para ICMS/ICMS10/vBC ou "UF" para prop/UF) ou CASA_COMPLETO
+ * (todos os elementos a partir da raiz do grupo, como "prop/UF"). */
+enum { CASA_ABREVIADO = 1, CASA_COMPLETO = 2 };
 
 static int casa(const struct nfe_esq *esq, int i, const char *caminho)
 {
@@ -155,11 +153,11 @@ static int casa(const struct nfe_esq *esq, int i, const char *caminho)
 		fim = seg > caminho ? seg - 1 : caminho;
 	}
 	if (pulou)
-		return CASA_PARCIAL;
+		return CASA_ABREVIADO;
 	for (; i > 0; i = esq->nos[i].pai)
 		if (esq->nos[i].nome && esq->nos[i].tipo == ESQ_ELEM)
-			return CASA_EXATO;
-	return CASA_RAIZ;
+			return CASA_ABREVIADO;
+	return CASA_COMPLETO;
 }
 
 /* Ramo da escolha mais próxima de i já está presente */
@@ -174,33 +172,87 @@ static int ramo_presente(const nfe_grupo *g, int i)
 	return 0;
 }
 
+/* a e b são o mesmo campo do leiaute: mesmo nome e mesmos elementos
+ * ancestrais (ramos diferentes de uma escolha, como xNome em
+ * (CNPJ, xNome) | (CPF, xNome)) */
+static int mesmo_campo(const struct nfe_esq *esq, int a, int b)
+{
+	const struct nfe_esq_no *nos = esq->nos;
+
+	for (;;) {
+		if (a <= 0 || b <= 0)
+			return a == b;
+		if (nos[a].tipo != nos[b].tipo ||
+		    strcmp(nos[a].nome, nos[b].nome) != 0)
+			return 0;
+		do
+			a = nos[a].pai;
+		while (a > 0 && nos[a].tipo != ESQ_ELEM);
+		do
+			b = nos[b].pai;
+		while (b > 0 && nos[b].tipo != ESQ_ELEM);
+	}
+}
+
 enum procura_e { FOLHA, LISTA, QUALQUER };
 
-/* Procura o nó do caminho do tipo pedido. Entre vários candidatos, fica
- * com o que casa melhor com o caminho (ver casa); entre esses, com o de ramo já
- * presente; sem nenhum presente, com o primeiro. Retorna o índice ou -1. */
-static int procura(const nfe_grupo *g, const char *caminho, enum procura_e o)
+static int do_tipo(const struct nfe_esq *esq, int i, enum procura_e o)
+{
+	if (i == 0 && esq->nos[0].folha < 0)
+		return 0;
+	if (o == FOLHA)
+		return esq->nos[i].folha >= 0;
+	if (o == LISTA)
+		return esq->nos[i].lista >= 0;
+	return i > 0;
+}
+
+/* Campo do caminho, sem adivinhar: o caminho completo a partir do grupo
+ * ("UF", "prop/UF") vale sempre; um caminho abreviado ("ICMS10/vBC" para
+ * ICMS/ICMS10/vBC) só vale quando um único campo casa com ele. Retorna o
+ * primeiro nó do campo (os outros são o mesmo campo em outros ramos de
+ * escolhas, ver mesmo_campo) ou -1, se nenhum ou mais de um campo casa. */
+static int resolve(const nfe_grupo *g, const char *caminho, enum procura_e o)
 {
 	const struct nfe_esq *esq = g->esq;
-	int i, c, achado = -1, melhor = 0;
+	int i, c, achado = -1, completo = 0;
 
 	if (!caminho || !caminho[0])
 		return -1;
-	/* A raiz só é candidata quando é um campo (item de lista simples) */
-	for (i = esq->nos[0].folha >= 0 ? 0 : 1; i < esq->nnos; i++) {
-		if (o == FOLHA && esq->nos[i].folha < 0)
-			continue;
-		if (o == LISTA && esq->nos[i].lista < 0)
+	for (i = 0; i < esq->nnos; i++)
+		if (do_tipo(esq, i, o) &&
+		    casa(esq, i, caminho) == CASA_COMPLETO) {
+			completo = 1;
+			break;
+		}
+	for (i = 0; i < esq->nnos; i++) {
+		if (!do_tipo(esq, i, o))
 			continue;
 		c = casa(esq, i, caminho);
-		if (!c || c < melhor)
+		if (!c || (completo && c != CASA_COMPLETO))
 			continue;
-		if (achado < 0 || c > melhor ||
-		    (ramo_presente(g, i) && !ramo_presente(g, achado))) {
+		if (achado < 0)
 			achado = i;
-			melhor = c;
-		}
+		else if (!mesmo_campo(esq, achado, i))
+			return -1;
 	}
+	return achado;
+}
+
+/* Nó do caminho do tipo pedido (ver resolve); quando o campo aparece em
+ * vários ramos de escolhas, o do ramo já presente ou, sem nenhum presente,
+ * o primeiro. Retorna o índice ou -1. */
+static int procura(const nfe_grupo *g, const char *caminho, enum procura_e o)
+{
+	const struct nfe_esq *esq = g->esq;
+	int i, achado = resolve(g, caminho, o);
+
+	if (achado < 0 || ramo_presente(g, achado))
+		return achado;
+	for (i = achado + 1; i < esq->nnos; i++)
+		if (do_tipo(esq, i, o) && mesmo_campo(esq, achado, i) &&
+		    casa(esq, i, caminho) && ramo_presente(g, i))
+			return i;
 	return achado;
 }
 
@@ -304,44 +356,37 @@ int nfe_grupo_set(nfe_grupo *g, const char *caminho, const char *valor)
 const char *nfe_grupo_get(const nfe_grupo *g, const char *caminho)
 {
 	const struct nfe_esq *esq;
-	int i, c;
+	int i, achado;
 
 	if (!g || !caminho)
 		return NULL;
 	esq = g->esq;
-	/* Primeiro o campo que casa exatamente com o caminho, a partir da
-	 * raiz do grupo */
-	for (c = CASA_RAIZ; c >= CASA_PARCIAL; c--)
-		for (i = 0; i < esq->nnos; i++)
-			if (esq->nos[i].folha >= 0 &&
-			    g->valor[esq->nos[i].folha] &&
-			    (i > 0 || esq->nos[0].folha >= 0) &&
-			    casa(esq, i, caminho) >= c)
-				return g->valor[esq->nos[i].folha];
+	achado = resolve(g, caminho, FOLHA);
+	if (achado < 0)
+		return NULL;
+	for (i = achado; i < esq->nnos; i++)
+		if (do_tipo(esq, i, FOLHA) && g->valor[esq->nos[i].folha] &&
+		    mesmo_campo(esq, achado, i) && casa(esq, i, caminho))
+			return g->valor[esq->nos[i].folha];
 	return NULL;
 }
 
 int nfe_grupo_remove(nfe_grupo *g, const char *caminho)
 {
 	const struct nfe_esq *esq;
-	int i, c, achou = 0, minimo = CASA_PARCIAL;
+	int i, achado;
 
 	if (!g || !caminho)
 		return E_ISNULL;
 	esq = g->esq;
-	/* Só os elementos que casam melhor com o caminho (ver casa) */
-	for (i = 1; i < esq->nnos; i++) {
-		c = casa(esq, i, caminho);
-		if (c > minimo)
-			minimo = c;
-	}
-	for (i = 1; i < esq->nnos; i++) {
-		if (casa(esq, i, caminho) >= minimo) {
+	achado = resolve(g, caminho, QUALQUER);
+	if (achado < 0)
+		return E_VALOR;
+	for (i = achado; i < esq->nnos; i++)
+		if (do_tipo(esq, i, QUALQUER) && mesmo_campo(esq, achado, i) &&
+		    casa(esq, i, caminho))
 			apaga_no(g, &esq->nos[i]);
-			achou = 1;
-		}
-	}
-	return achou ? 0 : E_VALOR;
+	return 0;
 }
 
 int nfe_grupo_add(nfe_grupo *g, const char *caminho, nfe_grupo **item)

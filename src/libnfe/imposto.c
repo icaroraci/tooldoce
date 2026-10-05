@@ -247,6 +247,46 @@ int nfe_imposto_remove_cofins(nfe_imposto *imp)
 	return nfe_imposto_remove(imp, "COFINS");
 }
 
+/* Valor de "tributo/campo" no grupo do tributo que estiver informado: o
+ * caminho abreviado "ICMS/vBC" casa com o vBC de cada grupo do ICMS
+ * (ICMS00, ICMS10...) e o grupo não adivinha qual; como só um grupo de cada
+ * tributo pode estar presente (escolha do leiaute), lê cada um pelo caminho
+ * completo, como "ICMS/ICMS10/vBC". */
+static const char *valor_tributo(const nfe_grupo *g, const char *caminho)
+{
+	const struct nfe_esq_no *nos = esq_imposto.nos;
+	const char *barra = strchr(caminho, '/'), *v;
+	char completo[64];
+	int i, t = -1, a;
+
+	v = nfe_grupo_get(g, caminho);
+	if (v || !barra)
+		return v;
+	for (i = 1; i < esq_imposto.nnos && t < 0; i++)
+		if (nos[i].tipo == ESQ_ELEM && nos[i].nome &&
+		    strlen(nos[i].nome) == (size_t)(barra - caminho) &&
+		    strncmp(nos[i].nome, caminho, (size_t)(barra - caminho)) ==
+		            0)
+			t = i;
+	/* Os elementos logo abaixo do tributo (através de sequências e
+	 * escolhas) */
+	for (i = t + 1; t > 0 && i < esq_imposto.nnos; i++) {
+		if (nos[i].tipo != ESQ_ELEM)
+			continue;
+		for (a = nos[i].pai; a > 0 && nos[a].tipo != ESQ_ELEM;
+		     a = nos[a].pai)
+			;
+		if (a != t)
+			continue;
+		snprintf(completo, sizeof completo, "%.*s/%s%s",
+		         (int)(barra - caminho), caminho, nos[i].nome, barra);
+		v = nfe_grupo_get(g, completo);
+		if (v)
+			return v;
+	}
+	return NULL;
+}
+
 const char *nfe_imposto_valor(const nfe_imposto *imp,
                               enum nfe_imposto_valor_e campo)
 {
@@ -260,7 +300,7 @@ const char *nfe_imposto_valor(const nfe_imposto *imp,
 	if ((int)campo < 0 ||
 	    (int)campo >= (int)(sizeof caminhos / sizeof caminhos[0]))
 		return "";
-	v = nfe_grupo_get(imp->g, caminhos[campo]);
+	v = valor_tributo(imp->g, caminhos[campo]);
 	return v ? v : "";
 }
 
