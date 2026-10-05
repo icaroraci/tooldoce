@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<enderDest xmlns="http://www.portalfiscal.inf.br/nfe">
+  <xLgr>RUA DAS FLORES</xLgr>
+  <nro>123</nro>
+  <xCpl>SALA 4</xCpl>
+  <xBairro>CENTRO</xBairro>
+  <cMun>3550308</cMun>
+  <xMun>SÃO PAULO</xMun>
+  <UF>SP</UF>
+  <fone>1133334444</fone>
+</enderDest>

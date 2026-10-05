@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prod xmlns="http://www.portalfiscal.inf.br/nfe">
+  <cProd>001</cProd>
+  <cEAN>SEM GTIN</cEAN>
+  <xProd>CANETA ESFEROGRÁFICA AZUL</xProd>
+  <NCM>96081000</NCM>
+  <gCred>
+    <cCredPresumido>SP000001</cCredPresumido>
+    <pCredPresumido>1.00</pCredPresumido>
+    <vCredPresumido>0.15</vCredPresumido>
+  </gCred>
+  <CFOP>5102</CFOP>
+  <uCom>UN</uCom>
+  <qCom>10</qCom>
+  <vUnCom>1.50</vUnCom>
+  <vProd>15.00</vProd>
+  <cEANTrib>SEM GTIN</cEANTrib>
+  <uTrib>UN</uTrib>
+  <qTrib>10</qTrib>
+  <vUnTrib>1.50</vUnTrib>
+  <indTot>1</indTot>
+  <rastro>
+    <nLote>L123</nLote>
+    <qLote>10.000</qLote>
+    <dFab>2026-01-01</dFab>
+    <dVal>2027-01-01</dVal>
+  </rastro>
+  <nRECOPI>12345678901234567890</nRECOPI>
+</prod>

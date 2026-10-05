@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NFe xmlns="http://www.portalfiscal.inf.br/nfe">
+  <infNFe versao="4.00" Id="NFe35261012345678000195650010000000011123456784">
+    <ide>
+      <cUF>35</cUF>
+      <cNF>12345678</cNF>
+      <natOp>VENDA</natOp>
+      <mod>65</mod>
+      <serie>1</serie>
+      <nNF>1</nNF>
+      <dhEmi>2026-10-03T05:00:00-03:00</dhEmi>
+      <tpNF>1</tpNF>
+      <idDest>1</idDest>
+      <cMunFG>3550308</cMunFG>
+      <tpImp>4</tpImp>
+      <tpEmis>1</tpEmis>
+      <cDV>4</cDV>
+      <tpAmb>2</tpAmb>
+      <finNFe>1</finNFe>
+      <indFinal>1</indFinal>
+      <indPres>1</indPres>
+      <procEmi>0</procEmi>
+      <verProc>tooldoce</verProc>
+    </ide>
+    <emit>
+      <CNPJ>12345678000195</CNPJ>
+      <xNome>EMPRESA EXEMPLO LTDA</xNome>
+      <enderEmit>
+        <xLgr>RUA DAS FLORES</xLgr>
+        <nro>123</nro>
+        <xBairro>CENTRO</xBairro>
+        <cMun>3550308</cMun>
+        <xMun>SAO PAULO</xMun>
+        <UF>SP</UF>
+        <CEP>01001000</CEP>
+      </enderEmit>
+      <IE>123456789012</IE>
+      <CRT>1</CRT>
+    </emit>
+    <det nItem="1">
+      <prod>
+        <cProd>001</cProd>
+        <cEAN>SEM GTIN</cEAN>
+        <xProd>CANETA AZUL</xProd>
+        <NCM>96081000</NCM>
+        <CFOP>5102</CFOP>
+        <uCom>UN</uCom>
+        <qCom>10</qCom>
+        <vUnCom>1.50</vUnCom>
+        <vProd>15.00</vProd>
+        <cEANTrib>SEM GTIN</cEANTrib>
+        <uTrib>UN</uTrib>
+        <qTrib>10</qTrib>
+        <vUnTrib>1.50</vUnTrib>
+        <indTot>1</indTot>
+      </prod>
+      <imposto>
+        <ICMS>
+          <ICMSSN102>
+            <orig>0</orig>
+            <CSOSN>102</CSOSN>
+          </ICMSSN102>
+        </ICMS>
+        <PIS>
+          <PISNT>
+            <CST>08</CST>
+          </PISNT>
+        </PIS>
+        <COFINS>
+          <COFINSNT>
+            <CST>08</CST>
+          </COFINSNT>
+        </COFINS>
+      </imposto>
+    </det>
+    <det nItem="2">
+      <prod>
+        <cProd>002</cProd>
+        <cEAN>SEM GTIN</cEAN>
+        <xProd>CANETA AZUL</xProd>
+        <NCM>96081000</NCM>
+        <CFOP>5102</CFOP>
+        <uCom>UN</uCom>
+        <qCom>10</qCom>
+        <vUnCom>1.50</vUnCom>
+        <vProd>15.00</vProd>
+        <cEANTrib>SEM GTIN</cEANTrib>
+        <uTrib>UN</uTrib>
+        <qTrib>10</qTrib>
+        <vUnTrib>1.50</vUnTrib>
+        <indTot>1</indTot>
+      </prod>
+      <imposto>
+        <ICMS>
+          <ICMSSN102>
+            <orig>0</orig>
+            <CSOSN>102</CSOSN>
+          </ICMSSN102>
+        </ICMS>
+        <PIS>
+          <PISNT>
+            <CST>08</CST>
+          </PISNT>
+        </PIS>
+        <COFINS>
+          <COFINSNT>
+            <CST>08</CST>
+          </COFINSNT>
+        </COFINS>
+      </imposto>
+    </det>
+    <total>
+      <ICMSTot>
+        <vBC>0.00</vBC>
+        <vICMS>0.00</vICMS>
+        <vICMSDeson>0.00</vICMSDeson>
+        <vFCP>0.00</vFCP>
+        <vBCST>0.00</vBCST>
+        <vST>0.00</vST>
+        <vFCPST>0.00</vFCPST>
+        <vFCPSTRet>0.00</vFCPSTRet>
+        <vProd>30.00</vProd>
+        <vFrete>0.00</vFrete>
+        <vSeg>0.00</vSeg>
+        <vDesc>0.00</vDesc>
+        <vII>0.00</vII>
+        <vIPI>0.00</vIPI>
+        <vIPIDevol>0.00</vIPIDevol>
+        <vPIS>0.00</vPIS>
+        <vCOFINS>0.00</vCOFINS>
+        <vOutro>0.00</vOutro>
+        <vNF>30.00</vNF>
+      </ICMSTot>
+    </total>
+    <transp>
+      <modFrete>9</modFrete>
+    </transp>
+    <pag>
+      <detPag>
+        <tPag>01</tPag>
+        <vPag>30.00</vPag>
+      </detPag>
+    </pag>
+  </infNFe>
+  <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+    <SignedInfo>
+      <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+      <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+      <Reference URI="#NFe">
+        <Transforms>
+          <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+          <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+        </Transforms>
+        <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+        <DigestValue>AAAA</DigestValue>
+      </Reference>
+    </SignedInfo>
+    <SignatureValue>AAAA</SignatureValue>
+    <KeyInfo>
+      <X509Data>
+        <X509Certificate>AAAA</X509Certificate>
+      </X509Data>
+    </KeyInfo>
+  </Signature>
+</NFe>

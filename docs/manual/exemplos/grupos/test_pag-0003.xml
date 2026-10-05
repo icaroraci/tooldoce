@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pag xmlns="http://www.portalfiscal.inf.br/nfe">
+  <detPag>
+    <tPag>03</tPag>
+    <vPag>50.00</vPag>
+  </detPag>
+  <detPag>
+    <tPag>99</tPag>
+    <vPag>10.00</vPag>
+  </detPag>
+  <detPag>
+    <tPag>17</tPag>
+    <vPag>40.00</vPag>
+    <card>
+      <tpIntegra>2</tpIntegra>
+    </card>
+  </detPag>
+</pag>

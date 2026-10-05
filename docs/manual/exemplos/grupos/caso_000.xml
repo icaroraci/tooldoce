@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agropecuario xmlns="http://www.portalfiscal.inf.br/nfe">
+  <guiaTransito>
+    <tpGuia>1</tpGuia>
+    <UFGuia>AC</UFGuia>
+    <nGuia>1</nGuia>
+  </guiaTransito>
+</agropecuario>

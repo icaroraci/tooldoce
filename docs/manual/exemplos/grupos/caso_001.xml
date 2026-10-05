@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cana xmlns="http://www.portalfiscal.inf.br/nfe">
+  <safra>EXEMPLO</safra>
+  <ref>01/2000</ref>
+  <forDia dia="1">
+    <qtde>1.00</qtde>
+  </forDia>
+  <qTotMes>1.00</qTotMes>
+  <qTotAnt>1.00</qTotAnt>
+  <qTotGer>1.00</qTotGer>
+  <deduc>
+    <xDed>EXEMPLO</xDed>
+    <vDed>1.00</vDed>
+  </deduc>
+  <vFor>1.00</vFor>
+  <vTotDed>1.00</vTotDed>
+  <vLiqFor>1.00</vLiqFor>
+</cana>

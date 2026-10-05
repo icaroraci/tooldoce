@@ -182,7 +182,7 @@ EXEMPLOS = $(addprefix $(LOBJ)/,$(basename $(notdir $(wildcard examples/*.c))))
 
 exemplos: $(EXEMPLOS)
 
-$(LOBJ)/%: examples/%.c $(LIB)/$(LIBNAME) | $(LOBJ)
+$(LOBJ)/%: examples/%.c $(LIB)/$(LIBNAME) $(wildcard examples/manual/*.inc) | $(LOBJ)
 	$(CC) $(filter-out -MMD -MP -fPIC,$(CFLAGS)) -I$(INCLUDE) $< -L$(LIB) -lnfe -Wl,-rpath,$(abspath $(LIB)) -o $@ $(LIBS)
 
 

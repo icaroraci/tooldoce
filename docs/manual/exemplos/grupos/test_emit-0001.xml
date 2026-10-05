@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<emit xmlns="http://www.portalfiscal.inf.br/nfe">
+  <CNPJ>12345678000195</CNPJ>
+  <xNome>EMPRESA EXEMPLO LTDA</xNome>
+  <enderEmit>
+    <xLgr>RUA DAS FLORES</xLgr>
+    <nro>123</nro>
+    <xBairro>CENTRO</xBairro>
+    <cMun>3550308</cMun>
+    <xMun>SAO PAULO</xMun>
+    <UF>SP</UF>
+    <CEP>01001000</CEP>
+  </enderEmit>
+  <CRT>3</CRT>
+</emit>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<total xmlns="http://www.portalfiscal.inf.br/nfe">
+  <ICMSTot>
+    <vBC>1.00</vBC>
+    <vICMS>1.00</vICMS>
+    <vICMSDeson>1.00</vICMSDeson>
+    <vFCP>1.00</vFCP>
+    <vBCST>1.00</vBCST>
+    <vST>1.00</vST>
+    <vFCPST>1.00</vFCPST>
+    <vFCPSTRet>1.00</vFCPSTRet>
+    <vProd>1.00</vProd>
+    <vFrete>1.00</vFrete>
+    <vSeg>1.00</vSeg>
+    <vDesc>1.00</vDesc>
+    <vII>1.00</vII>
+    <vIPI>1.00</vIPI>
+    <vIPIDevol>1.00</vIPIDevol>
+    <vPIS>1.00</vPIS>
+    <vCOFINS>1.00</vCOFINS>
+    <vOutro>1.00</vOutro>
+    <vNF>1.00</vNF>
+  </ICMSTot>
+  <IBSCBSTot>
+    <vBCIBSCBS>1.00</vBCIBSCBS>
+    <gMono>
+      <vIBSMono>1.00</vIBSMono>
+      <vCBSMono>1.00</vCBSMono>
+      <vIBSMonoReten>1.00</vIBSMonoReten>
+      <vCBSMonoReten>1.00</vCBSMonoReten>
+      <vIBSMonoRet>1.00</vIBSMonoRet>
+      <vCBSMonoRet>1.00</vCBSMonoRet>
+    </gMono>
+  </IBSCBSTot>
+</total>

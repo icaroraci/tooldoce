@@ -4,6 +4,11 @@ As mudanças relevantes de cada versão ficam registradas aqui. O formato segue 
 
 ## [Não lançado]
 
+### Documentação
+
+- Manual das 171 estruturas XML do PL010f v1.04, com campos, escolhas, API, C/XML, navegação e normas atuais; referência dos 35 headers instalados e guias do fluxo completo da libnfe.
+- Exemplos reproduzíveis de grupos e mensagens; conferência automática da correspondência com o código, XSD e símbolos públicos. Avisos mostram bases iguais uma vez e mantêm cada rótulo junto de seu hash.
+
 ## [1.0.0-rc4] - 2026-10-05
 
 Quarta candidata à 1.0.0. O motor de grupos deixa de escolher um campo quando o caminho é ambíguo, o que corrige a UF do reboque no MDF-e.

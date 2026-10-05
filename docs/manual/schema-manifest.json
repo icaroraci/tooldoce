@@ -1,9 +1,48 @@
 {
   "pacote_revisado": "PL010f v1.04 (31/08/2026)",
-  "biblioteca_revisada": "94aca18ee130df3070f8fe421c88d7f30b632a2d (1.0.0-rc4)",
+  "biblioteca_revisada": "1dd412eebca80dd80d884b3f03a1a31cfaf42279 (1.0.0-rc4)",
   "data_revisao": "2026-10-05",
   "politica": "Conservadora: conjunto transitivo completo do XSD; revisão fiscal e API são independentes.",
   "paginas": [
+    {
+      "caminho_xml": "NFe",
+      "arquivo": "NFe.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe",
+      "arquivo": "NFe/infNFe.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/ide",
+      "arquivo": "NFe/infNFe/ide.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
     {
       "caminho_xml": "NFe/infNFe/ide/NFref",
       "arquivo": "NFe/infNFe/ide/NFref.md",
@@ -20,6 +59,2164 @@
     {
       "caminho_xml": "NFe/infNFe/ide/NFref/refNF",
       "arquivo": "NFe/infNFe/ide/NFref/refNF.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/ide/NFref/refNFP",
+      "arquivo": "NFe/infNFe/ide/NFref/refNFP.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/ide/NFref/refECF",
+      "arquivo": "NFe/infNFe/ide/NFref/refECF.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/ide/gCompraGov",
+      "arquivo": "NFe/infNFe/ide/gCompraGov.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/ide/gPagAntecipado",
+      "arquivo": "NFe/infNFe/ide/gPagAntecipado.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/emit",
+      "arquivo": "NFe/infNFe/emit.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/emit/enderEmit",
+      "arquivo": "NFe/infNFe/emit/enderEmit.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/avulsa",
+      "arquivo": "NFe/infNFe/avulsa.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/dest",
+      "arquivo": "NFe/infNFe/dest.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/dest/enderDest",
+      "arquivo": "NFe/infNFe/dest/enderDest.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/retirada",
+      "arquivo": "NFe/infNFe/retirada.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/entrega",
+      "arquivo": "NFe/infNFe/entrega.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/autXML",
+      "arquivo": "NFe/infNFe/autXML.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det",
+      "arquivo": "NFe/infNFe/det.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/prod",
+      "arquivo": "NFe/infNFe/det/prod.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/prod/gCred",
+      "arquivo": "NFe/infNFe/det/prod/gCred.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/prod/DI",
+      "arquivo": "NFe/infNFe/det/prod/DI.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/prod/DI/adi",
+      "arquivo": "NFe/infNFe/det/prod/DI/adi.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/prod/detExport",
+      "arquivo": "NFe/infNFe/det/prod/detExport.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/prod/detExport/exportInd",
+      "arquivo": "NFe/infNFe/det/prod/detExport/exportInd.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/prod/rastro",
+      "arquivo": "NFe/infNFe/det/prod/rastro.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/prod/infProdNFF",
+      "arquivo": "NFe/infNFe/det/prod/infProdNFF.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/prod/infProdEmb",
+      "arquivo": "NFe/infNFe/det/prod/infProdEmb.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/prod/veicProd",
+      "arquivo": "NFe/infNFe/det/prod/veicProd.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/prod/med",
+      "arquivo": "NFe/infNFe/det/prod/med.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/prod/arma",
+      "arquivo": "NFe/infNFe/det/prod/arma.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/prod/comb",
+      "arquivo": "NFe/infNFe/det/prod/comb.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/prod/comb/CIDE",
+      "arquivo": "NFe/infNFe/det/prod/comb/CIDE.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/prod/comb/encerrante",
+      "arquivo": "NFe/infNFe/det/prod/comb/encerrante.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/prod/comb/origComb",
+      "arquivo": "NFe/infNFe/det/prod/comb/origComb.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto",
+      "arquivo": "NFe/infNFe/det/imposto.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/ICMS",
+      "arquivo": "NFe/infNFe/det/imposto/ICMS.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/ICMS/ICMS00",
+      "arquivo": "NFe/infNFe/det/imposto/ICMS/ICMS00.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/ICMS/ICMS02",
+      "arquivo": "NFe/infNFe/det/imposto/ICMS/ICMS02.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/ICMS/ICMS10",
+      "arquivo": "NFe/infNFe/det/imposto/ICMS/ICMS10.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/ICMS/ICMS15",
+      "arquivo": "NFe/infNFe/det/imposto/ICMS/ICMS15.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/ICMS/ICMS20",
+      "arquivo": "NFe/infNFe/det/imposto/ICMS/ICMS20.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/ICMS/ICMS30",
+      "arquivo": "NFe/infNFe/det/imposto/ICMS/ICMS30.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/ICMS/ICMS40",
+      "arquivo": "NFe/infNFe/det/imposto/ICMS/ICMS40.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/ICMS/ICMS51",
+      "arquivo": "NFe/infNFe/det/imposto/ICMS/ICMS51.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/ICMS/ICMS53",
+      "arquivo": "NFe/infNFe/det/imposto/ICMS/ICMS53.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/ICMS/ICMS60",
+      "arquivo": "NFe/infNFe/det/imposto/ICMS/ICMS60.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/ICMS/ICMS61",
+      "arquivo": "NFe/infNFe/det/imposto/ICMS/ICMS61.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/ICMS/ICMS70",
+      "arquivo": "NFe/infNFe/det/imposto/ICMS/ICMS70.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/ICMS/ICMS90",
+      "arquivo": "NFe/infNFe/det/imposto/ICMS/ICMS90.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/ICMS/ICMSPart",
+      "arquivo": "NFe/infNFe/det/imposto/ICMS/ICMSPart.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/ICMS/ICMSST",
+      "arquivo": "NFe/infNFe/det/imposto/ICMS/ICMSST.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/ICMS/ICMSSN101",
+      "arquivo": "NFe/infNFe/det/imposto/ICMS/ICMSSN101.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/ICMS/ICMSSN102",
+      "arquivo": "NFe/infNFe/det/imposto/ICMS/ICMSSN102.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/ICMS/ICMSSN201",
+      "arquivo": "NFe/infNFe/det/imposto/ICMS/ICMSSN201.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/ICMS/ICMSSN202",
+      "arquivo": "NFe/infNFe/det/imposto/ICMS/ICMSSN202.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/ICMS/ICMSSN500",
+      "arquivo": "NFe/infNFe/det/imposto/ICMS/ICMSSN500.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/ICMS/ICMSSN900",
+      "arquivo": "NFe/infNFe/det/imposto/ICMS/ICMSSN900.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IPI",
+      "arquivo": "NFe/infNFe/det/imposto/IPI.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IPI/IPITrib",
+      "arquivo": "NFe/infNFe/det/imposto/IPI/IPITrib.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IPI/IPINT",
+      "arquivo": "NFe/infNFe/det/imposto/IPI/IPINT.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/II",
+      "arquivo": "NFe/infNFe/det/imposto/II.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/ISSQN",
+      "arquivo": "NFe/infNFe/det/imposto/ISSQN.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/PIS",
+      "arquivo": "NFe/infNFe/det/imposto/PIS.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/PIS/PISAliq",
+      "arquivo": "NFe/infNFe/det/imposto/PIS/PISAliq.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/PIS/PISQtde",
+      "arquivo": "NFe/infNFe/det/imposto/PIS/PISQtde.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/PIS/PISNT",
+      "arquivo": "NFe/infNFe/det/imposto/PIS/PISNT.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/PIS/PISOutr",
+      "arquivo": "NFe/infNFe/det/imposto/PIS/PISOutr.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/PISST",
+      "arquivo": "NFe/infNFe/det/imposto/PISST.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/COFINS",
+      "arquivo": "NFe/infNFe/det/imposto/COFINS.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/COFINS/COFINSAliq",
+      "arquivo": "NFe/infNFe/det/imposto/COFINS/COFINSAliq.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/COFINS/COFINSQtde",
+      "arquivo": "NFe/infNFe/det/imposto/COFINS/COFINSQtde.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/COFINS/COFINSNT",
+      "arquivo": "NFe/infNFe/det/imposto/COFINS/COFINSNT.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/COFINS/COFINSOutr",
+      "arquivo": "NFe/infNFe/det/imposto/COFINS/COFINSOutr.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/COFINSST",
+      "arquivo": "NFe/infNFe/det/imposto/COFINSST.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/ICMSUFDest",
+      "arquivo": "NFe/infNFe/det/imposto/ICMSUFDest.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IS",
+      "arquivo": "NFe/infNFe/det/imposto/IS.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSUF",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSUF.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSUF/gDif",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSUF/gDif.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSUF/gDevTrib",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSUF/gDevTrib.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSUF/gRed",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSUF/gRed.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSMun",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSMun.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSMun/gDif",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSMun/gDif.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSMun/gDevTrib",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSMun/gDevTrib.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSMun/gRed",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSMun/gRed.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gCBS",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gCBS.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gCBS/gDif",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gCBS/gDif.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gCBS/gDevTrib",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gCBS/gDevTrib.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gCBS/gRed",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gCBS/gRed.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gCBS/gALCZFMCBS",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gCBS/gALCZFMCBS.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gTribRegular",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gTribRegular.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gTribCompraGov",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gTribCompraGov.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdRem",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdRem.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdRem/gMonoPadrao",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdRem/gMonoPadrao.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdRem/gMonoReten",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdRem/gMonoReten.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdRem/gMonoRet",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdRem/gMonoRet.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdRem/gpBioDiferenca",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdRem/gpBioDiferenca.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdValorem",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdValorem.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdValorem/gMonoPadrao",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdValorem/gMonoPadrao.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdValorem/gMonoReten",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdValorem/gMonoReten.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdValorem/gMonoRet",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdValorem/gMonoRet.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdValorem/gpBioDiferenca",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdValorem/gpBioDiferenca.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdRem",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdRem.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdRem/gMonoPadrao",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdRem/gMonoPadrao.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdRem/gMonoReten",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdRem/gMonoReten.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdRem/gMonoRet",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdRem/gMonoRet.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdRem/gpBioDiferenca",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdRem/gpBioDiferenca.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdValorem",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdValorem.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdValorem/gMonoPadrao",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdValorem/gMonoPadrao.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdValorem/gMonoReten",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdValorem/gMonoReten.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdValorem/gMonoRet",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdValorem/gMonoRet.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdValorem/gpBioDiferenca",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdValorem/gpBioDiferenca.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gTransfCred",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gTransfCred.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gAjusteCompet",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gAjusteCompet.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gEstornoCred",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gEstornoCred.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gCredPresOper",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gCredPresOper.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gCredPresOper/gIBSCredPres",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gCredPresOper/gIBSCredPres.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gCredPresOper/gCBSCredPres",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gCredPresOper/gCBSCredPres.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/imposto/IBSCBS/gCredPresIBSZFM",
+      "arquivo": "NFe/infNFe/det/imposto/IBSCBS/gCredPresIBSZFM.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/impostoDevol",
+      "arquivo": "NFe/infNFe/det/impostoDevol.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/impostoDevol/IPI",
+      "arquivo": "NFe/infNFe/det/impostoDevol/IPI.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/obsItem",
+      "arquivo": "NFe/infNFe/det/obsItem.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/obsItem/obsCont",
+      "arquivo": "NFe/infNFe/det/obsItem/obsCont.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/obsItem/obsFisco",
+      "arquivo": "NFe/infNFe/det/obsItem/obsFisco.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/det/DFeReferenciado",
+      "arquivo": "NFe/infNFe/det/DFeReferenciado.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/total",
+      "arquivo": "NFe/infNFe/total.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/total/ICMSTot",
+      "arquivo": "NFe/infNFe/total/ICMSTot.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/total/ISSQNtot",
+      "arquivo": "NFe/infNFe/total/ISSQNtot.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/total/retTrib",
+      "arquivo": "NFe/infNFe/total/retTrib.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/total/ISTot",
+      "arquivo": "NFe/infNFe/total/ISTot.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/total/IBSCBSTot",
+      "arquivo": "NFe/infNFe/total/IBSCBSTot.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/total/IBSCBSTot/gIBS",
+      "arquivo": "NFe/infNFe/total/IBSCBSTot/gIBS.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/total/IBSCBSTot/gIBS/gIBSUF",
+      "arquivo": "NFe/infNFe/total/IBSCBSTot/gIBS/gIBSUF.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/total/IBSCBSTot/gIBS/gIBSMun",
+      "arquivo": "NFe/infNFe/total/IBSCBSTot/gIBS/gIBSMun.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/total/IBSCBSTot/gCBS",
+      "arquivo": "NFe/infNFe/total/IBSCBSTot/gCBS.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/total/IBSCBSTot/gMono",
+      "arquivo": "NFe/infNFe/total/IBSCBSTot/gMono.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/total/IBSCBSTot/gEstornoCred",
+      "arquivo": "NFe/infNFe/total/IBSCBSTot/gEstornoCred.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/transp",
+      "arquivo": "NFe/infNFe/transp.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/transp/transporta",
+      "arquivo": "NFe/infNFe/transp/transporta.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/transp/retTransp",
+      "arquivo": "NFe/infNFe/transp/retTransp.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/transp/veicTransp",
+      "arquivo": "NFe/infNFe/transp/veicTransp.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/transp/reboque",
+      "arquivo": "NFe/infNFe/transp/reboque.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/transp/vol",
+      "arquivo": "NFe/infNFe/transp/vol.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/transp/vol/lacres",
+      "arquivo": "NFe/infNFe/transp/vol/lacres.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/cobr",
+      "arquivo": "NFe/infNFe/cobr.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/cobr/fat",
+      "arquivo": "NFe/infNFe/cobr/fat.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/cobr/dup",
+      "arquivo": "NFe/infNFe/cobr/dup.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/pag",
+      "arquivo": "NFe/infNFe/pag.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/pag/detPag",
+      "arquivo": "NFe/infNFe/pag/detPag.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/pag/detPag/card",
+      "arquivo": "NFe/infNFe/pag/detPag/card.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/infIntermed",
+      "arquivo": "NFe/infNFe/infIntermed.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/infAdic",
+      "arquivo": "NFe/infNFe/infAdic.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/infAdic/obsCont",
+      "arquivo": "NFe/infNFe/infAdic/obsCont.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/infAdic/obsFisco",
+      "arquivo": "NFe/infNFe/infAdic/obsFisco.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/infAdic/procRef",
+      "arquivo": "NFe/infNFe/infAdic/procRef.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/exporta",
+      "arquivo": "NFe/infNFe/exporta.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/compra",
+      "arquivo": "NFe/infNFe/compra.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/cana",
+      "arquivo": "NFe/infNFe/cana.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/cana/forDia",
+      "arquivo": "NFe/infNFe/cana/forDia.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/cana/deduc",
+      "arquivo": "NFe/infNFe/cana/deduc.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/infRespTec",
+      "arquivo": "NFe/infNFe/infRespTec.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/infSolicNFF",
+      "arquivo": "NFe/infNFe/infSolicNFF.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/agropecuario",
+      "arquivo": "NFe/infNFe/agropecuario.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/agropecuario/defensivo",
+      "arquivo": "NFe/infNFe/agropecuario/defensivo.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/agropecuario/guiaTransito",
+      "arquivo": "NFe/infNFe/agropecuario/guiaTransito.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/infPAA",
+      "arquivo": "NFe/infNFe/infPAA.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/infPAA/PAASignature",
+      "arquivo": "NFe/infNFe/infPAA/PAASignature.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/infPAA/PAASignature/RSAKeyValue",
+      "arquivo": "NFe/infNFe/infPAA/PAASignature/RSAKeyValue.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFeSupl",
+      "arquivo": "NFe/infNFeSupl.md",
       "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
       "fontes_revisadas": {
         "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",

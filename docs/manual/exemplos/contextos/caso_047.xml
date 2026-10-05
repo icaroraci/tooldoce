@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<NFe xmlns="http://www.portalfiscal.inf.br/nfe">
+  <infNFe versao="4.00" Id="NFe35261012345678000195550010000000011123456781">
+    <ide>
+      <cUF>35</cUF>
+      <cNF>12345678</cNF>
+      <natOp>VENDA</natOp>
+      <mod>55</mod>
+      <serie>1</serie>
+      <nNF>1</nNF>
+      <dhEmi>2026-10-03T05:00:00-03:00</dhEmi>
+      <tpNF>1</tpNF>
+      <idDest>1</idDest>
+      <cMunFG>3550308</cMunFG>
+      <tpImp>1</tpImp>
+      <tpEmis>1</tpEmis>
+      <cDV>1</cDV>
+      <tpAmb>2</tpAmb>
+      <finNFe>1</finNFe>
+      <indFinal>0</indFinal>
+      <indPres>0</indPres>
+      <procEmi>0</procEmi>
+      <verProc>tooldoce</verProc>
+    </ide>
+    <emit>
+      <CNPJ>12345678000195</CNPJ>
+      <xNome>EMPRESA EXEMPLO LTDA</xNome>
+      <enderEmit>
+        <xLgr>RUA DAS FLORES</xLgr>
+        <nro>123</nro>
+        <xBairro>CENTRO</xBairro>
+        <cMun>3550308</cMun>
+        <xMun>SAO PAULO</xMun>
+        <UF>SP</UF>
+        <CEP>01001000</CEP>
+      </enderEmit>
+      <IE>123456789012</IE>
+      <CRT>1</CRT>
+    </emit>
+    <det nItem="1">
+      <prod>
+        <cProd>001</cProd>
+        <cEAN>SEM GTIN</cEAN>
+        <xProd>CANETA AZUL</xProd>
+        <NCM>96081000</NCM>
+        <CFOP>5102</CFOP>
+        <uCom>UN</uCom>
+        <qCom>10</qCom>
+        <vUnCom>1.50</vUnCom>
+        <vProd>15.00</vProd>
+        <cEANTrib>SEM GTIN</cEANTrib>
+        <uTrib>UN</uTrib>
+        <qTrib>10</qTrib>
+        <vUnTrib>1.50</vUnTrib>
+        <indTot>1</indTot>
+      </prod>
+      <imposto>
+  <ICMS>
+    <ICMS53>
+      <orig>0</orig>
+      <CST>53</CST>
+    </ICMS53>
+  </ICMS>
+</imposto></det>
+    <det nItem="2">
+      <prod>
+        <cProd>002</cProd>
+        <cEAN>SEM GTIN</cEAN>
+        <xProd>CANETA AZUL</xProd>
+        <NCM>96081000</NCM>
+        <CFOP>5102</CFOP>
+        <uCom>UN</uCom>
+        <qCom>10</qCom>
+        <vUnCom>1.50</vUnCom>
+        <vProd>15.00</vProd>
+        <cEANTrib>SEM GTIN</cEANTrib>
+        <uTrib>UN</uTrib>
+        <qTrib>10</qTrib>
+        <vUnTrib>1.50</vUnTrib>
+        <indTot>1</indTot>
+      </prod>
+      <imposto>
+        <ICMS>
+          <ICMSSN102>
+            <orig>0</orig>
+            <CSOSN>102</CSOSN>
+          </ICMSSN102>
+        </ICMS>
+        <PIS>
+          <PISNT>
+            <CST>08</CST>
+          </PISNT>
+        </PIS>
+        <COFINS>
+          <COFINSNT>
+            <CST>08</CST>
+          </COFINSNT>
+        </COFINS>
+      </imposto>
+    </det>
+    <total>
+      <ICMSTot>
+        <vBC>0.00</vBC>
+        <vICMS>0.00</vICMS>
+        <vICMSDeson>0.00</vICMSDeson>
+        <vFCP>0.00</vFCP>
+        <vBCST>0.00</vBCST>
+        <vST>0.00</vST>
+        <vFCPST>0.00</vFCPST>
+        <vFCPSTRet>0.00</vFCPSTRet>
+        <vProd>30.00</vProd>
+        <vFrete>0.00</vFrete>
+        <vSeg>0.00</vSeg>
+        <vDesc>0.00</vDesc>
+        <vII>0.00</vII>
+        <vIPI>0.00</vIPI>
+        <vIPIDevol>0.00</vIPIDevol>
+        <vPIS>0.00</vPIS>
+        <vCOFINS>0.00</vCOFINS>
+        <vOutro>0.00</vOutro>
+        <vNF>30.00</vNF>
+      </ICMSTot>
+    </total>
+    <transp>
+      <modFrete>9</modFrete>
+    </transp>
+    <pag>
+      <detPag>
+        <tPag>01</tPag>
+        <vPag>30.00</vPag>
+      </detPag>
+    </pag>
+  </infNFe>
+  <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+    <SignedInfo>
+      <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+      <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+      <Reference URI="#NFe35261012345678000195550010000000011123456781">
+        <Transforms>
+          <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+          <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+        </Transforms>
+        <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+        <DigestValue>iOXl0pycQ3aQVXLuNXWf21n1YHI=</DigestValue>
+      </Reference>
+    </SignedInfo>
+    <SignatureValue>yduJQD5mUKrc7qynWhb3qNgR4DyGZhue1SFXve4YjFNhuLeaRV8T+04QnU9s49yTIG65ilxsndJCM8Uv4Vg6/k715787foaHnjQfNr3umw1JK43jlnc0u8WrPq54TNC6rH3eeQimE8vq7Ouyoq6MqOypYzEteJKAQhIOP7aU8+WviHNEr5tEzlE3j4QY0dbRuXKICAs6NkX9mf+bfqE8Z6NxPloYFShDK4nq3anYiuU5A/BmedqVhENgYurJ5gmsiQqzYfr4suQvxmTurXva2cGRduAKTliqkF+gNK+gLnK25Cr3+2lhP6/NJtVQwFMaa1G8nvVYJkP30yqcB7Eq3Q==</SignatureValue>
+    <KeyInfo>
+      <X509Data>
+        <X509Certificate>MIID2zCCAsOgAwIBAgIUXKH/gBrWPgtPB2x6NfSKJZpCl44wDQYJKoZIhvcNAQELBQAwfDELMAkGA1UEBhMCQlIxEzARBgNVBAoMCklDUC1CcmFzaWwxKTAnBgNVBAsMIENlcnRpZmljYWRvIGRlIFRFU1RFIGRhIHRvb2xkb2NlMS0wKwYDVQQDDCRFTVBSRVNBIERFIFRFU1RFIExUREE6MTIzNDU2NzgwMDAxOTUwIBcNMjYxMDAzMTUxMTQzWhgPMjA1NjA5MjUxNTExNDNaMHwxCzAJBgNVBAYTAkJSMRMwEQYDVQQKDApJQ1AtQnJhc2lsMSkwJwYDVQQLDCBDZXJ0aWZpY2FkbyBkZSBURVNURSBkYSB0b29sZG9jZTEtMCsGA1UEAwwkRU1QUkVTQSBERSBURVNURSBMVERBOjEyMzQ1Njc4MDAwMTk1MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA5VjUFkNKldPxLHhgTF7GaGqxmlXzJHzgAEn0BeEleaVYGgOTD9lAnHwq7vg5qmjbhMVeuobjN81itZjIHe3KNEJBhTEDvIIco2wS+H4qi88nvWmYNNwVXydXxP38UEV0Q9phfs1SGYGcZjVpILZwJuAtSQo764eH/DfWpPXhIxfj3hqtRoNVbrWZC2f5YRuQ0YONvGrEPoregZtlWOa/PPGzbzUwBE7qgBKwrkBjPrZZSp/Ieg0gCOo9xQQmqGKEZ3xUsk7eiP4UTcVb83Sa8Y3BjmXqVaVRmZXrr7D3f8fjpibKHdWvmsi8rZBzojfjGyyqTbThbDPW6TyiJwuHGwIDAQABo1MwUTAdBgNVHQ4EFgQUkcx91Oqc2Pq8DJ3ryBPUeml/31gwHwYDVR0jBBgwFoAUkcx91Oqc2Pq8DJ3ryBPUeml/31gwDwYDVR0TAQH/BAUwAwEB/zANBgkqhkiG9w0BAQsFAAOCAQEAsCb9BfMPpWl1X1kNOx7gh4wn/RXa3dy+Qyh/ZmKiYCHI/1vBJX3nXNURb/KGbN75POIpHoI+Nm1kBBSAFxQ55yHQXrbKcmPfwf2LbcD1iKvtLmUVKxeXtYd2Cw4CYvO/7ndA/yrW5XMnsks5fxiBOcEFkt0uJg6vRItd3JE1sluDmJ9gB+2b+xZYb15au6qvT3N1fBSyErnTMEYFjwO8n2OY51A06cZOSlYTq3XpU6iW5/zVX6dM+H5b7wO3ca1AD1wZvZb88Zv5/RHSYAkI5iDrLL8zLyrq23cr5NOD0Q5RtgBV43QRprHd36nOkiW0IhlmrDeuQudj8Z06UMBuhQ==</X509Certificate>
+      </X509Data>
+    </KeyInfo>
+  </Signature>
+</NFe>

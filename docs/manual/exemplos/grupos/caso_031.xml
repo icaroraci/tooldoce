@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<imposto xmlns="http://www.portalfiscal.inf.br/nfe">
+  <IBSCBS>
+    <CST>111</CST>
+    <cClassTrib>111111</cClassTrib>
+    <gIBSCBSMono>
+      <gCBSMonoAdValorem>
+        <gpBioDiferenca>
+          <qBCBioComb>1</qBCBioComb>
+          <vCBSDiferenca>1.00</vCBSDiferenca>
+        </gpBioDiferenca>
+      </gCBSMonoAdValorem>
+      <vTotIBSMonoItem>1.00</vTotIBSMonoItem>
+      <vTotCBSMonoItem>1.00</vTotCBSMonoItem>
+    </gIBSCBSMono>
+  </IBSCBS>
+</imposto>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<imposto xmlns="http://www.portalfiscal.inf.br/nfe">
+  <ICMS>
+    <ICMS90>
+      <orig>0</orig>
+      <CST>90</CST>
+    </ICMS90>
+  </ICMS>
+</imposto>

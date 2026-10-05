@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<imposto xmlns="http://www.portalfiscal.inf.br/nfe">
+  <IBSCBS>
+    <CST>111</CST>
+    <cClassTrib>111111</cClassTrib>
+    <gIBSCBSMono>
+      <gCBSMonoAdRem>
+        <gMonoReten>
+          <qBCMonoReten>1</qBCMonoReten>
+          <adRemCBSReten>1.00</adRemCBSReten>
+          <vCBSMonoReten>1.00</vCBSMonoReten>
+        </gMonoReten>
+      </gCBSMonoAdRem>
+      <vTotIBSMonoItem>1.00</vTotIBSMonoItem>
+      <vTotCBSMonoItem>1.00</vTotCBSMonoItem>
+    </gIBSCBSMono>
+  </IBSCBS>
+</imposto>

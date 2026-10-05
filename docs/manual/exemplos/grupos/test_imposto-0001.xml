@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<imposto xmlns="http://www.portalfiscal.inf.br/nfe">
+  <vTotTrib>31.45</vTotTrib>
+  <ICMS>
+    <ICMS00>
+      <orig>0</orig>
+      <CST>00</CST>
+      <modBC>3</modBC>
+      <vBC>100.00</vBC>
+      <pICMS>18.00</pICMS>
+      <vICMS>18.00</vICMS>
+    </ICMS00>
+  </ICMS>
+  <PIS>
+    <PISAliq>
+      <CST>01</CST>
+      <vBC>100.00</vBC>
+      <pPIS>1.65</pPIS>
+      <vPIS>1.65</vPIS>
+    </PISAliq>
+  </PIS>
+  <COFINS>
+    <COFINSAliq>
+      <CST>01</CST>
+      <vBC>100.00</vBC>
+      <pCOFINS>7.60</pCOFINS>
+      <vCOFINS>7.60</vCOFINS>
+    </COFINSAliq>
+  </COFINS>
+</imposto>

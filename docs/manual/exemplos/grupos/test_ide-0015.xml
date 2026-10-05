@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ide xmlns="http://www.portalfiscal.inf.br/nfe">
+  <cUF>35</cUF>
+  <cNF>12345678</cNF>
+  <natOp>VENDA DE MERCADORIA</natOp>
+  <mod>55</mod>
+  <serie>1</serie>
+  <nNF>42</nNF>
+  <dhEmi>2010-08-19T14:00:15-03:00</dhEmi>
+  <tpNF>1</tpNF>
+  <idDest>1</idDest>
+  <cMunFG>3550308</cMunFG>
+  <tpImp>1</tpImp>
+  <tpEmis>1</tpEmis>
+  <cDV>7</cDV>
+  <tpAmb>2</tpAmb>
+  <finNFe>1</finNFe>
+  <indFinal>1</indFinal>
+  <indPres>1</indPres>
+  <procEmi>0</procEmi>
+  <verProc>tooldoce 0.1</verProc>
+  <NFref>
+    <refNFe>35100812345678000195550010000000421123456781</refNFe>
+  </NFref>
+  <NFref>
+    <refNFP>
+      <cUF>35</cUF>
+      <AAMM>2609</AAMM>
+      <CPF>12345678909</CPF>
+      <IE>ISENTO</IE>
+      <mod>04</mod>
+      <serie>1</serie>
+      <nNF>123</nNF>
+    </refNFP>
+  </NFref>
+  <NFref>
+    <refECF>
+      <mod>2D</mod>
+      <nECF>1</nECF>
+      <nCOO>456</nCOO>
+    </refECF>
+  </NFref>
+  <NFref>
+    <refCTe>35100812345678000195550010000000421123456781</refCTe>
+  </NFref>
+</ide>
