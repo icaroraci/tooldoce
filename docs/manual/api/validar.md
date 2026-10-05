@@ -82,6 +82,32 @@ int nfe_erros_linha(const nfe_erros *erros, int i);
  * schema, regra sem código único ou i inexistente) */
 int nfe_erros_codigo(const nfe_erros *erros, int i);
 
+/* Diagnóstico estrutural automático. Os textos pertencem à lista e ficam
+ * válidos até limpa/free ou a próxima validação. NULL indica informação
+ * indisponível; valor "" é um conteúdo vazio, diferente de NULL.
+ * Caminho absoluto para exibição, com prefixos do XML e índices quando
+ * houver irmãos do mesmo nome/namespace; atributos usam /@nome. Não é
+ * uma expressão XPath independente dos namespaces do documento.
+ * Valor é o conteúdo textual do nó (após o parser XML); quando o nó
+ * escalar não é fornecido, usa o valor
+ * informado no erro da faceta, que pode estar normalizado pelo XSD.
+ * Grupos não têm valor escalar. A libxml2 pode indicar apenas o pai de
+ * um atributo: nesse caso campo/caminho indicam o pai, e a mensagem
+ * identifica o atributo.
+ * restricao é o nome da faceta XSD violada (pattern, enumeration,
+ * minLength...), esperado é o padrão/lista/limite fornecido pela libxml2.
+ * Não há catálogo de tags nem tradução de regex para máscara. Erros
+ * estruturais, tipos compostos e casos sem faceta usam a mensagem original
+ * como diagnóstico; restricao/esperado podem ser NULL. */
+const char *nfe_erros_caminho(const nfe_erros *erros, int i);
+const char *nfe_erros_valor(const nfe_erros *erros, int i);
+const char *nfe_erros_restricao(const nfe_erros *erros, int i);
+const char *nfe_erros_esperado(const nfe_erros *erros, int i);
+/* Domínio e código originais da libxml2 (xmlErrorDomain/xmlParserErrors),
+ * distintos de cStat e dos retornos E_*. 0 se regra local ou inexistente. */
+int nfe_erros_dominio_xml(const nfe_erros *erros, int i);
+int nfe_erros_codigo_xml(const nfe_erros *erros, int i);
+
 /* Diretório padrão dos schemas, onde make install os coloca */
 const char *nfe_dir_schemas(void);
 
@@ -119,3 +145,7 @@ int nfe_validar_xsd(nfe_validador *v, const char *xml, size_t tam,
 - [Implementação validar.c](../../../src/libnfe/validar.c).
 - [Programa de testes compilável](../../../tests/test_validar.c): `make obj/test_validar` e `./obj/test_validar tests`.
 - [Exemplos e execução](../EXEMPLOS.md), com a distinção entre casos estruturais, assinatura de teste e comunicação real.
+
+## Diagnóstico automático
+
+Consulte [diagnósticos XSD](../DIAGNOSTICOS.md) para exemplos, facetas, caminhos, dados indisponíveis e diferenças entre código nativo, retorno local e cStat.

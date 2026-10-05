@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:t="urn:diagnostico:tipos" elementFormDefault="qualified"
+           targetNamespace="urn:diagnostico">
+  <xs:import namespace="urn:diagnostico:tipos" schemaLocation="tipos.xsd"/>
+  <xs:element name="dados">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="item" minOccurs="1" maxOccurs="2">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="codigo" type="t:Derivado"/>
+              <xs:element name="modo">
+                <xs:simpleType><xs:restriction base="xs:string">
+                  <xs:enumeration value="01"/><xs:enumeration value="02"/>
+                </xs:restriction></xs:simpleType>
+              </xs:element>
+              <xs:element name="texto">
+                <xs:simpleType><xs:restriction base="xs:string">
+                  <xs:minLength value="2"/><xs:maxLength value="4"/>
+                </xs:restriction></xs:simpleType>
+              </xs:element>
+              <xs:element name="numero">
+                <xs:simpleType><xs:restriction base="xs:decimal">
+                  <xs:minInclusive value="1"/><xs:maxExclusive value="10"/>
+                  <xs:totalDigits value="3"/><xs:fractionDigits value="1"/>
+                </xs:restriction></xs:simpleType>
+              </xs:element>
+              <xs:choice><xs:element name="a"/><xs:element name="b"/></xs:choice>
+            </xs:sequence>
+            <xs:attribute name="id" use="required">
+              <xs:simpleType><xs:restriction base="xs:string">
+                <xs:length value="2"/>
+              </xs:restriction></xs:simpleType>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

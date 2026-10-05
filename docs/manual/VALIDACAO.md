@@ -43,6 +43,8 @@ A lista não inclui todas as regras de RTC, GTIN, CFOP, cadastro ou as NT public
 
 Erros XSD normalmente vêm da libxml2 em inglês; regras locais têm mensagens em português. Trate o retorno antes de confiar na saída. Uma falha lexical pode impedir as verificações de regras seguintes: corrija a estrutura e valide novamente.
 
+Os [diagnósticos automáticos](DIAGNOSTICOS.md) acrescentam caminho, valor recebido, faceta e padrão/lista/limite esperado, quando disponíveis. Essas informações vêm do validador XSD, sem uma mensagem específica para cada tag. `nfe_erros_codigo_xml` e `nfe_erros_dominio_xml` identificam o erro nativo da libxml2; `nfe_erros_codigo` continua reservado às associações locais com cStat. Para erros sem faceta estruturada, exiba `nfe_erros_msg`.
+
 ## Exemplos e reprodução
 
 O [teste completo](../../tests/test_validar.c) exercita XML válido e rejeições deliberadas, incluindo chave e totais. Os exemplos de cada estrutura têm XML proveniente de C, fonte e cenário identificados no [catálogo](exemplos/catalogo.json). Para grupos sem elemento global, a conferência usa o pai oficial ou uma NFe completa; não basta validar uma tag isolada sem contexto.

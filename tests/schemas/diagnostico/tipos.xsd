@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:t="urn:diagnostico:tipos" targetNamespace="urn:diagnostico:tipos">
+  <xs:simpleType name="Base">
+    <xs:restriction base="xs:token"><xs:pattern value="[A-Z]{2}"/></xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Derivado">
+    <xs:restriction base="t:Base"><xs:maxLength value="2"/></xs:restriction>
+  </xs:simpleType>
+</xs:schema>
