@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NFref xmlns="http://www.portalfiscal.inf.br/nfe">
+  <refNF>
+    <cUF>35</cUF>
+    <AAMM>2609</AAMM>
+    <CNPJ>12345678000195</CNPJ>
+    <mod>01</mod>
+    <serie>0</serie>
+    <nNF>123</nNF>
+  </refNF>
+</NFref>

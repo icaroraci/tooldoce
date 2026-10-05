@@ -1,0 +1,44 @@
+{
+  "pacote_revisado": "PL010f v1.04 (31/08/2026)",
+  "biblioteca_revisada": "94aca18ee130df3070f8fe421c88d7f30b632a2d (1.0.0-rc4)",
+  "data_revisao": "2026-10-05",
+  "politica": "Conservadora: conjunto transitivo completo do XSD; revisão fiscal e API são independentes.",
+  "paginas": [
+    {
+      "caminho_xml": "NFe/infNFe/ide/NFref",
+      "arquivo": "NFe/infNFe/ide/NFref.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    },
+    {
+      "caminho_xml": "NFe/infNFe/ide/NFref/refNF",
+      "arquivo": "NFe/infNFe/ide/NFref/refNF.md",
+      "assinatura_revisada": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+      "fontes_revisadas": {
+        "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+        "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+        "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+        "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+        "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+      },
+      "estado": "documentado"
+    }
+  ],
+  "base_atual": {
+    "assinatura": "c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917",
+    "fontes": {
+      "nfe_v4.00.xsd": "144e0535982003a35c2c6ea38852f0e17be88dc5c728d2103dae66814665388a",
+      "leiauteNFe_v4.00.xsd": "9613c4e67f6b37cb2e725671af70bfe48c4bcde55ce94445ed4f97b97a099e46",
+      "xmldsig-core-schema_v1.01.xsd": "6a93f9101093f744b32f0281447f41e3d57586e4ba05d27b693ee5d39ac8b45b",
+      "tiposBasico_v4.00.xsd": "02b9e2f8235cc560004252d579429b2d42153746406f5875421233301fbb530f",
+      "DFeTiposBasicos_v1.00.xsd": "670b35e1291c659d40e1245935004cee3633ad1f1c5182c8c1be204ebad5adc0"
+    }
+  }
+}
