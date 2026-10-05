@@ -4,6 +4,10 @@ As mudanças relevantes de cada versão ficam registradas aqui. O formato segue 
 
 ## [Não lançado]
 
+## [1.0.0-rc4] - 2026-10-05
+
+Quarta candidata à 1.0.0. O motor de grupos deixa de escolher um campo quando o caminho é ambíguo, o que corrige a UF do reboque no MDF-e.
+
 ### Alterado
 
 - Motor de grupos: o caminho de um campo não é mais adivinhado. O caminho completo a partir do grupo (`"UF"`, `"prop/UF"`) identifica sempre um único campo; um caminho abreviado (`"ICMS10/vBC"`) só é aceito quando casa com um único campo, e com mais de um `nfe_grupo_set`, `nfe_grupo_remove`, `nfe_grupo_add` e `nfe_grupo_quantidade` devolvem `E_VALOR`, `nfe_grupo_get` e `nfe_grupo_item` devolvem `NULL`. Antes o motor escolhia um dos campos pela forma como casavam, e um caminho abreviado podia gravar um campo diferente do esperado sem erro.
@@ -70,7 +74,8 @@ Candidata à primeira versão estável (1.0.0). Cobre a emissão da NF-e modelo 
 - `SONAME` passa de `libnfe.so.0` para `libnfe.so.1`.
 - Licença trocada de GPLv3+ para LGPLv3+, o que permite usar a biblioteca em programas de qualquer licença.
 
-[Não lançado]: https://github.com/icaroraci/tooldoce/compare/v1.0.0-rc3...HEAD
+[Não lançado]: https://github.com/icaroraci/tooldoce/compare/v1.0.0-rc4...HEAD
+[1.0.0-rc4]: https://github.com/icaroraci/tooldoce/compare/v1.0.0-rc3...v1.0.0-rc4
 [1.0.0-rc3]: https://github.com/icaroraci/tooldoce/compare/v1.0.0-rc2...v1.0.0-rc3
 [1.0.0-rc2]: https://github.com/icaroraci/tooldoce/compare/v1.0.0-rc1...v1.0.0-rc2
 [1.0.0-rc1]: https://github.com/icaroraci/tooldoce/releases/tag/v1.0.0-rc1
