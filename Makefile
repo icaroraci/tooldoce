@@ -71,7 +71,7 @@ CFLAGS += -DNFE_DIR_SCHEMAS='"$(SCHEMADIR)"'
 
 #Geradores instalados para as bibliotecas de outros documentos (libmdf...),
 #que geram as tabelas do motor de grupos dos seus schemas (docs/ESQUEMAS.md)
-FERRAMENTAS = $(addprefix tools/,documento.py gerar_padroes.py gerar_esquemas.py gerar_diagramas.py gerar_issues.py)
+FERRAMENTAS = $(addprefix tools/,documento.py manual.py gerar_padroes.py gerar_esquemas.py gerar_diagramas.py gerar_issues.py)
 
 
 #Nome de todas os arquivos fontes com path e extensão (*.c)

@@ -113,6 +113,8 @@ Compila e executa os testes de `tests/` com AddressSanitizer e UBSan (desative c
 
 ## Documentação e contribuição
 
+* [Manual da libnfe](docs/manual/README.md): referência XML e API C, começando por NFref e refNF.
+
 * [Como documentar os nós XML e a API da libnfe](docs/COMO_DOCUMENTAR.md): padrão de páginas, exemplos, referências oficiais e revisão após atualizações dos XSD.
 
 * [Visão e requisitos do projeto](docs/VISAO.md)

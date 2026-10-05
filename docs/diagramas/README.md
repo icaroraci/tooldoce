@@ -7,8 +7,8 @@ Em cada diagrama: caixa tracejada = opcional; `0..1`, `1..∞` = ocorrências; *
 - [NFe](NFe.svg) — Tipo Nota Fiscal Eletrônica
   - [infNFe](NFe/infNFe.svg) — Informações da Nota Fiscal eletrônica
     - [ide](NFe/infNFe/ide.svg) — identificação da NF-e
-      - [NFref](NFe/infNFe/ide/NFref.svg) `0..999` — Grupo de infromações da NF referenciada
-        - [refNF](NFe/infNFe/ide/NFref/refNF.svg) — Dados da NF modelo 1/1A referenciada ou NF modelo 2 referenciada
+      - [NFref](NFe/infNFe/ide/NFref.svg) `0..999` — Grupo de infromações da NF referenciada — [manual](../manual/NFe/infNFe/ide/NFref.md)
+        - [refNF](NFe/infNFe/ide/NFref/refNF.svg) — Dados da NF modelo 1/1A referenciada ou NF modelo 2 referenciada — [manual](../manual/NFe/infNFe/ide/NFref/refNF.md)
         - [refNFP](NFe/infNFe/ide/NFref/refNFP.svg) — Grupo com as informações NF de produtor referenciada
         - [refECF](NFe/infNFe/ide/NFref/refECF.svg) — Grupo do Cupom Fiscal vinculado à NF-e
       - [gCompraGov](NFe/infNFe/ide/gCompraGov.svg) `0..1` — Grupo de Compras Governamentais

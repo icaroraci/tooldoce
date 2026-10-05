@@ -31,6 +31,7 @@ import xml.etree.ElementTree as ET
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from documento import Documento, argumento  # noqa: E402
+from manual import atualizar as atualizar_manual  # noqa: E402
 
 # Documento em uso (configurar()); a NF-e, se nada for configurado
 DOC = None
@@ -498,6 +499,11 @@ def indice(raiz):
         doc = f" — {e.doc}" if e.doc else ""
         partes.append(f"{'  ' * nivel}- [{e.nome}]({e.caminho}.svg)"
                       f"{oc}{curto(doc, 110)}")
+        if doc_atual().padrao:
+            pagina = os.path.join(doc_atual().base, "docs", "manual", e.caminho + ".md")
+            if os.path.isfile(pagina):
+                link = os.path.relpath(pagina, SAIDA).replace(os.sep, "/")
+                partes[-1] += f" — [manual]({link})"
     return "\n".join(partes) + "\n"
 
 
@@ -613,6 +619,10 @@ def main():
         conteudo = todo(raiz, extras_todo())
         with open(TODO, "w", encoding="utf-8") as f:
             f.write(conteudo)
+
+    if doc_atual().padrao:
+        atualizar_manual(doc_atual().base, {e.caminho for e in todas},
+                         doc_atual().caminho(os.path.join(doc_atual()["schemas"], "nfe_v4.00.xsd")))
 
     print(f"{len(todas)} diagramas em {os.path.relpath(SAIDA)}/"
           + (f" e {os.path.relpath(TODO)} atualizado" if args.todo else ""))
