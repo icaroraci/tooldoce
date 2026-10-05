@@ -4,6 +4,10 @@ As mudanças relevantes de cada versão ficam registradas aqui. O formato segue 
 
 ## [Não lançado]
 
+### Corrigido
+
+- Motor de grupos: entre os campos que casam exatamente com o caminho, vale o que começa na raiz do grupo. No grupo de um reboque do MDF-e (`veicReboque`), `"UF"` gravava a UF do proprietário (`prop/UF`) e a UF do reboque não podia ser preenchida. `nfe_grupo_get` e `nfe_grupo_remove` seguem a mesma regra.
+
 ## [1.0.0-rc3] - 2026-10-04
 
 Terceira candidata à 1.0.0. Traz o motor de grupos como API para os outros documentos, usado pela [libmdf](https://github.com/icaroraci/libmdf) (MDF-e), e mais regras da SEFAZ na validação.

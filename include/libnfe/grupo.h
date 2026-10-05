@@ -30,7 +30,9 @@
  * Quando mais de um campo casa com o caminho, vale o que casa exatamente,
  * com os elementos do caminho consecutivos: no modal rodoviário do MDF-e,
  * "veicTracao/UF" é a UF do veículo, e não a do proprietário
- * (veicTracao/prop/UF).
+ * (veicTracao/prop/UF). Entre os que casam exatamente, vale o que começa
+ * na raiz do grupo: no grupo de um reboque, "UF" é a UF do reboque, e
+ * "prop/UF" a do proprietário.
  * Atributos de um elemento são gravados como campos do elemento.
  *
  * Ao gravar um campo de um ramo de uma escolha do leiaute, os campos dos
