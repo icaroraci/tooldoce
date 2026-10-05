@@ -96,9 +96,14 @@ int main(int argc, char **argv)
 	VERIFICA_INT(nfe_grupo_set(g, "placa", "ABC1D23"), 0);
 	VERIFICA_INT(nfe_grupo_set(g, "vCarga", "1500.00"), 0);
 
-	/* Dois campos casam com "veiculo/UF" (veiculo/UF e veiculo/prop/UF):
-	 * vale o que casa exatamente, com os elementos consecutivos */
+	/* "UF" abreviado casa com veiculo/UF e veiculo/prop/UF: é recusado,
+	 * sem escolher um deles. O caminho completo vale sempre. */
+	VERIFICA_INT(nfe_grupo_set(g, "UF", "RJ"), E_VALOR);
+	VERIFICA_INT(nfe_grupo_valida(g, "UF", "RJ"), E_VALOR);
+	VERIFICA_INT(nfe_grupo_remove(g, "UF"), E_VALOR);
+	VERIFICA(nfe_grupo_vazio(g) == 0);
 	VERIFICA_INT(nfe_grupo_set(g, "veiculo/UF", "RJ"), 0);
+	VERIFICA(nfe_grupo_get(g, "UF") == NULL);
 	VERIFICA(nfe_grupo_get(g, "prop/UF") == NULL);
 	VERIFICA_INT(nfe_grupo_set(g, "prop/UF", "SP"), 0);
 	VERIFICA_STR(nfe_grupo_get(g, "veiculo/UF"), "RJ");
@@ -145,8 +150,8 @@ int main(int argc, char **argv)
 	VERIFICA(veic != NULL);
 	VERIFICA_INT(nfe_grupo_set(veic, "tara", "8000.00"), 0);
 	VERIFICA_STR(nfe_grupo_get(veic, "tara"), "8000.00");
-	/* No grupo do próprio veículo, "UF" casa com UF e com prop/UF: vale o
-	 * filho direto do grupo */
+	/* No grupo do próprio veículo, "UF" é o caminho completo da UF do
+	 * veículo; a do proprietário é "prop/UF" */
 	VERIFICA_INT(nfe_grupo_set(veic, "UF", "RJ"), 0);
 	VERIFICA(nfe_grupo_get(veic, "prop/UF") == NULL);
 	VERIFICA_INT(nfe_grupo_set(veic, "prop/UF", "SP"), 0);

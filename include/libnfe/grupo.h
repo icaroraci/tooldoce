@@ -25,14 +25,14 @@
  * Grupos com muitos campos (os tributos do item, os subgrupos do produto,
  * cana, exportação...) são preenchidos campo a campo pelo caminho: os nomes
  * dos elementos do leiaute, separados por "/", a partir do grupo. O caminho
- * só precisa ter os nomes suficientes para identificar o campo, na ordem:
- *   nfe_grupo_set(g, "ICMS10/vBC", "100.00");
- * Quando mais de um campo casa com o caminho, vale o que casa exatamente,
- * com os elementos do caminho consecutivos: no modal rodoviário do MDF-e,
- * "veicTracao/UF" é a UF do veículo, e não a do proprietário
- * (veicTracao/prop/UF). Entre os que casam exatamente, vale o que começa
- * na raiz do grupo: no grupo de um reboque, "UF" é a UF do reboque, e
- * "prop/UF" a do proprietário.
+ * completo identifica sempre um único campo: no grupo de um reboque do
+ * MDF-e, "UF" é a UF do reboque e "prop/UF" a do proprietário. O caminho
+ * pode ser abreviado, com os nomes na ordem, quando só um campo casa com
+ * ele:
+ *   nfe_grupo_set(g, "ICMS10/vBC", "100.00");   (ICMS/ICMS10/vBC)
+ * Um caminho abreviado que casa com mais de um campo é recusado (E_VALOR),
+ * sem escolher um deles: em <imposto>, "vBC" casa com o vBC de cada grupo
+ * do ICMS, do IPI, do PIS...
  * Atributos de um elemento são gravados como campos do elemento.
  *
  * Ao gravar um campo de um ramo de uma escolha do leiaute, os campos dos
@@ -49,16 +49,17 @@
  * Os grupos pertencem ao objeto que os contém (nfe_imposto, nfe_prod...),
  * que os libera.
  *
- * Retornos: 0, E_ISNULL, E_TAMANHO, E_VALOR (campo inexistente, valor fora
- * do domínio ou do formato, ou lista cheia) ou E_MALLOC. Em caso de erro o
- * grupo não é alterado.
+ * Retornos: 0, E_ISNULL, E_TAMANHO, E_VALOR (campo inexistente ou caminho
+ * ambíguo, valor fora do domínio ou do formato, ou lista cheia) ou
+ * E_MALLOC. Em caso de erro o grupo não é alterado.
  */
 
 typedef struct nfe_grupo nfe_grupo;
 
 /* Grava o campo; NULL apaga */
 int nfe_grupo_set(nfe_grupo *g, const char *caminho, const char *valor);
-/* Valor do campo, ou NULL (texto pertencente ao grupo) */
+/* Valor do campo, ou NULL (também com caminho ambíguo; o texto pertence
+ * ao grupo) */
 const char *nfe_grupo_get(const nfe_grupo *g, const char *caminho);
 /* Apaga todos os campos e itens de listas dentro dos elementos do
  * caminho */

@@ -4,9 +4,13 @@ As mudanças relevantes de cada versão ficam registradas aqui. O formato segue 
 
 ## [Não lançado]
 
+### Alterado
+
+- Motor de grupos: o caminho de um campo não é mais adivinhado. O caminho completo a partir do grupo (`"UF"`, `"prop/UF"`) identifica sempre um único campo; um caminho abreviado (`"ICMS10/vBC"`) só é aceito quando casa com um único campo, e com mais de um `nfe_grupo_set`, `nfe_grupo_remove`, `nfe_grupo_add` e `nfe_grupo_quantidade` devolvem `E_VALOR`, `nfe_grupo_get` e `nfe_grupo_item` devolvem `NULL`. Antes o motor escolhia um dos campos pela forma como casavam, e um caminho abreviado podia gravar um campo diferente do esperado sem erro.
+
 ### Corrigido
 
-- Motor de grupos: entre os campos que casam exatamente com o caminho, vale o que começa na raiz do grupo. No grupo de um reboque do MDF-e (`veicReboque`), `"UF"` gravava a UF do proprietário (`prop/UF`) e a UF do reboque não podia ser preenchida. `nfe_grupo_get` e `nfe_grupo_remove` seguem a mesma regra.
+- Motor de grupos: no grupo de um reboque do MDF-e (`veicReboque`), `"UF"` gravava a UF do proprietário (`prop/UF`) e a UF do reboque não podia ser preenchida.
 
 ## [1.0.0-rc3] - 2026-10-04
 
