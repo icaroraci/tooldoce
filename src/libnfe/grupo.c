@@ -112,11 +112,12 @@ int nfe_grupo_vazio(const nfe_grupo *g)
 /* O nó casa com o caminho: o último segmento é o nome do nó e os demais
  * aparecem, em ordem, entre os elementos ancestrais. A raiz só entra no
  * caminho quando é o próprio nó (itens de listas de campos simples).
- * Retorna 0 (não casa), CASA_EXATO (os segmentos são elementos
- * consecutivos, sem pular nenhum entre eles, como "veicTracao/UF" para
- * veicTracao/UF) ou CASA_PARCIAL (pulando elementos, como "veicTracao/UF"
- * para veicTracao/prop/UF). */
-enum { CASA_PARCIAL = 1, CASA_EXATO = 2 };
+ * Retorna 0 (não casa), CASA_PARCIAL (pulando elementos, como
+ * "veicTracao/UF" para veicTracao/prop/UF), CASA_EXATO (os segmentos são
+ * elementos consecutivos, sem pular nenhum entre eles, como "UF" para
+ * prop/UF) ou CASA_RAIZ (exato e a partir da raiz do grupo, como "UF" para
+ * o UF filho direto do grupo). */
+enum { CASA_PARCIAL = 1, CASA_EXATO = 2, CASA_RAIZ = 3 };
 
 static int casa(const struct nfe_esq *esq, int i, const char *caminho)
 {
@@ -153,7 +154,12 @@ static int casa(const struct nfe_esq *esq, int i, const char *caminho)
 		i = esq->nos[i].pai;
 		fim = seg > caminho ? seg - 1 : caminho;
 	}
-	return pulou ? CASA_PARCIAL : CASA_EXATO;
+	if (pulou)
+		return CASA_PARCIAL;
+	for (; i > 0; i = esq->nos[i].pai)
+		if (esq->nos[i].nome && esq->nos[i].tipo == ESQ_ELEM)
+			return CASA_EXATO;
+	return CASA_RAIZ;
 }
 
 /* Ramo da escolha mais próxima de i já está presente */
@@ -171,7 +177,7 @@ static int ramo_presente(const nfe_grupo *g, int i)
 enum procura_e { FOLHA, LISTA, QUALQUER };
 
 /* Procura o nó do caminho do tipo pedido. Entre vários candidatos, fica
- * com o que casa exatamente com o caminho; entre esses, com o de ramo já
+ * com o que casa melhor com o caminho (ver casa); entre esses, com o de ramo já
  * presente; sem nenhum presente, com o primeiro. Retorna o índice ou -1. */
 static int procura(const nfe_grupo *g, const char *caminho, enum procura_e o)
 {
@@ -303,8 +309,9 @@ const char *nfe_grupo_get(const nfe_grupo *g, const char *caminho)
 	if (!g || !caminho)
 		return NULL;
 	esq = g->esq;
-	/* Primeiro o campo que casa exatamente com o caminho */
-	for (c = CASA_EXATO; c >= CASA_PARCIAL; c--)
+	/* Primeiro o campo que casa exatamente com o caminho, a partir da
+	 * raiz do grupo */
+	for (c = CASA_RAIZ; c >= CASA_PARCIAL; c--)
 		for (i = 0; i < esq->nnos; i++)
 			if (esq->nos[i].folha >= 0 &&
 			    g->valor[esq->nos[i].folha] &&
@@ -317,15 +324,17 @@ const char *nfe_grupo_get(const nfe_grupo *g, const char *caminho)
 int nfe_grupo_remove(nfe_grupo *g, const char *caminho)
 {
 	const struct nfe_esq *esq;
-	int i, achou = 0, minimo = CASA_PARCIAL;
+	int i, c, achou = 0, minimo = CASA_PARCIAL;
 
 	if (!g || !caminho)
 		return E_ISNULL;
 	esq = g->esq;
-	/* Se algum elemento casa exatamente com o caminho, só ele */
-	for (i = 1; i < esq->nnos && minimo < CASA_EXATO; i++)
-		if (casa(esq, i, caminho) == CASA_EXATO)
-			minimo = CASA_EXATO;
+	/* Só os elementos que casam melhor com o caminho (ver casa) */
+	for (i = 1; i < esq->nnos; i++) {
+		c = casa(esq, i, caminho);
+		if (c > minimo)
+			minimo = c;
+	}
 	for (i = 1; i < esq->nnos; i++) {
 		if (casa(esq, i, caminho) >= minimo) {
 			apaga_no(g, &esq->nos[i]);

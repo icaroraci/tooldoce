@@ -145,6 +145,18 @@ int main(int argc, char **argv)
 	VERIFICA(veic != NULL);
 	VERIFICA_INT(nfe_grupo_set(veic, "tara", "8000.00"), 0);
 	VERIFICA_STR(nfe_grupo_get(veic, "tara"), "8000.00");
+	/* No grupo do próprio veículo, "UF" casa com UF e com prop/UF: vale o
+	 * filho direto do grupo */
+	VERIFICA_INT(nfe_grupo_set(veic, "UF", "RJ"), 0);
+	VERIFICA(nfe_grupo_get(veic, "prop/UF") == NULL);
+	VERIFICA_INT(nfe_grupo_set(veic, "prop/UF", "SP"), 0);
+	VERIFICA_STR(nfe_grupo_get(veic, "UF"), "RJ");
+	/* Só a UF do veículo é apagada */
+	VERIFICA_INT(nfe_grupo_remove(veic, "UF"), 0);
+	VERIFICA_STR(nfe_grupo_get(veic, "prop/UF"), "SP");
+	VERIFICA_INT(nfe_grupo_set(veic, "UF", "RJ"), 0);
+	VERIFICA_STR(nfe_grupo_get(veic, "UF"), "RJ");
+	VERIFICA_STR(nfe_grupo_get(veic, "prop/UF"), "SP");
 
 	/* Header de padrões gerado com o prefixo do documento */
 	VERIFICA_STR(EX_PADRAO_TPlaca, "[A-Z]{3}[0-9][A-Z0-9][0-9]{2}");
