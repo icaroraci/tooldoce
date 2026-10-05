@@ -44,14 +44,14 @@ Regra: **os documentos mais usados primeiro**. A NF-e vem à frente.
 | Prioridade | Documento | Modelo | Situação |
 |---|---|---|---|
 | 1 | NF-e — Nota Fiscal Eletrônica | 55 | Pronta (1.0.0-rc4) |
-| 2 | NFS-e — Nota Fiscal de Serviço Eletrônica (padrão nacional) | — | Planejado |
+| 2 | NFS-e — Nota Fiscal de Serviço Eletrônica (padrão nacional) | — | Iniciado, como projeto à parte: [libnfse](https://github.com/icaroraci/libnfse) |
 | 3 | CT-e — Conhecimento de Transporte Eletrônico | 57 | Planejado |
 | 4 | MDF-e — Manifesto Eletrônico de Documentos Fiscais | 58 | Homologado, candidata 1.0.0-rc1, como projeto à parte: [libmdf](https://github.com/icaroraci/libmdf) |
 | 5+ | Demais documentos de uso comercial (CT-e OS, BP-e, NF3e, NFCom etc.) | — | Futuro |
 
 A ordem a partir do item 2 é uma proposta e pode ser revista conforme a demanda dos usuários.
 
-A **NFC-e** (modelo 65) é um projeto à parte, a [libnfc](https://github.com/icaroraci/libnfc) (decisão de 04/10/2026). O **MDF-e** segue o mesmo modelo, na [libmdf](https://github.com/icaroraci/libmdf): cada biblioteca depende da libnfe, que reúne o que é comum aos documentos (chave de acesso, assinatura, comunicação com a SEFAZ e validação contra XSD).
+A **NFC-e** (modelo 65) é um projeto à parte, a [libnfc](https://github.com/icaroraci/libnfc) (decisão de 04/10/2026). O **MDF-e** e a **NFS-e** seguem o mesmo modelo, na [libmdf](https://github.com/icaroraci/libmdf) e na [libnfse](https://github.com/icaroraci/libnfse): cada biblioteca depende da libnfe, que reúne o que é comum aos documentos (chave de acesso, assinatura, comunicação com a SEFAZ e validação contra XSD).
 
 ## 5. Plataforma e dependências
 
