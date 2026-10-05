@@ -113,6 +113,8 @@ Compila e executa os testes de `tests/` com AddressSanitizer e UBSan (desative c
 
 ## Documentação e contribuição
 
+* [Como documentar os nós XML e a API da libnfe](docs/COMO_DOCUMENTAR.md): padrão de páginas, exemplos, referências oficiais e revisão após atualizações dos XSD.
+
 * [Visão e requisitos do projeto](docs/VISAO.md)
 * [Diagramas das estruturas da NF-e](docs/diagramas/README.md), gerados do schema oficial, e a [lista do que falta implementar](TODO.md)
 * [Convenções de código](docs/CONVENCOES.md) — antes de enviar uma alteração, rode `make formatar` e `make test`
