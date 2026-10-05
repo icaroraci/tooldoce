@@ -300,6 +300,44 @@ int main(int argc, char **argv)
 			             E_ISNULL);
 		}
 		nfe_validador_free(x);
+
+		/* ^ e $ como âncoras num xs:pattern de um schema incluído
+		 * (como a série da DPS da NFS-e): tirados ao carregar */
+		snprintf(caminho, sizeof caminho,
+		         "%s/schemas/ancoras/ancoras.xsd", argv[1]);
+		x = nfe_validador_xsd(caminho);
+		VERIFICA(x != NULL);
+		if (x) {
+			static const char *const docs[][2] = {
+				{ "<serie>1</serie>", "0" },
+				{ "<serie>00001</serie>", "0" },
+				{ "<serie>123456</serie>", "1" },
+				{ "<serie>^1$</serie>", "1" },
+				{ "<serie>1</serie><preco>10.00</preco>", "0" },
+				{ "<serie>1</serie><preco>10</preco>", "1" },
+				{ "<serie>1</serie><sigla>AB</sigla>", "0" },
+				{ "<serie>1</serie><sigla>ab</sigla>", "1" },
+			};
+			char doc[256];
+			size_t i;
+
+			for (i = 0; i < sizeof docs / sizeof docs[0]; i++) {
+				int n = snprintf(
+				        doc, sizeof doc,
+				        "<doc xmlns=\"urn:teste:ancoras\">"
+				        "%s</doc>",
+				        docs[i][0]);
+				int rc = nfe_validar_xsd(x, doc, (size_t)n, 0,
+				                         NULL);
+
+				if (rc != (docs[i][1][0] == '0' ? 0 : E_VALOR))
+					fprintf(stderr, "âncoras: %s -> %d\n",
+					        docs[i][0], rc);
+				VERIFICA_INT(
+				        rc, docs[i][1][0] == '0' ? 0 : E_VALOR);
+			}
+		}
+		nfe_validador_free(x);
 	}
 
 	free(xml);

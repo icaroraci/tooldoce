@@ -101,7 +101,12 @@ const char *nfe_dir_schemas(void);
 nfe_validador *nfe_validador_new(const char *dir_schemas);
 /* Validador de outro leiaute (MDF-e, CT-e...) ou de outra mensagem: carrega
  * o schema caminho_xsd (com os arquivos que ele inclui, na mesma pasta).
- * Use com nfe_validar_xsd. Retorna NULL se caminho_xsd for NULL, se não
+ * Use com nfe_validar_xsd.
+ * Um ^ no início ou um $ no fim de um xs:pattern é lido como âncora
+ * redundante e ignorado, como no validador dos autorizadores: o XML Schema
+ * os trata como caracteres comuns, e o schema da NFS-e nacional (série da
+ * DPS, "^0{0,4}\d{1,5}$") recusaria qualquer valor. Os arquivos não são
+ * alterados. Retorna NULL se caminho_xsd for NULL, se não
  * for possível carregá-lo ou se faltar memória. */
 nfe_validador *nfe_validador_xsd(const char *caminho_xsd);
 void nfe_validador_free(nfe_validador *v);

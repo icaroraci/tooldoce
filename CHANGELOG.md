@@ -4,6 +4,10 @@ As mudanças relevantes de cada versão ficam registradas aqui. O formato segue 
 
 ## [Não lançado]
 
+### Corrigido
+
+- Validador e geradores: um `^` no início ou um `$` no fim de um `xs:pattern` são lidos como âncoras redundantes e ignorados, como fazem os autorizadores. O schema oficial da NFS-e nacional 1.01 usa `^0{0,4}\d{1,5}$` na série da DPS, e a libxml2, que segue o XML Schema e trata `^` e `$` como caracteres comuns, recusava qualquer série real (#291). Os arquivos dos schemas não são alterados.
+
 ## [1.0.0-rc4] - 2026-10-05
 
 Quarta candidata à 1.0.0. O motor de grupos deixa de escolher um campo quando o caminho é ambíguo, o que corrige a UF do reboque no MDF-e.
