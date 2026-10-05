@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<imposto xmlns="http://www.portalfiscal.inf.br/nfe">
+  <IBSCBS>
+    <CST>111</CST>
+    <cClassTrib>111111</cClassTrib>
+    <gEstornoCred>
+      <vIBSEstCred>1.00</vIBSEstCred>
+      <vCBSEstCred>1.00</vCBSEstCred>
+    </gEstornoCred>
+  </IBSCBS>
+</imposto>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transp xmlns="http://www.portalfiscal.inf.br/nfe">
+  <modFrete>0</modFrete>
+  <veicTransp>
+    <placa>ABC1D23</placa>
+    <UF>SP</UF>
+  </veicTransp>
+  <reboque>
+    <placa>XYZ9A87</placa>
+  </reboque>
+  <vol>
+    <qVol>1</qVol>
+    <esp>CAIXA</esp>
+    <lacres>
+      <nLacre>LAC-1</nLacre>
+    </lacres>
+  </vol>
+</transp>

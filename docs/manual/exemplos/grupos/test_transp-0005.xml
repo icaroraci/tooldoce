@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transp xmlns="http://www.portalfiscal.inf.br/nfe">
+  <modFrete>0</modFrete>
+  <vagao>VAG-01</vagao>
+  <vol>
+    <qVol>1</qVol>
+    <esp>CAIXA</esp>
+    <lacres>
+      <nLacre>LAC-1</nLacre>
+    </lacres>
+  </vol>
+</transp>

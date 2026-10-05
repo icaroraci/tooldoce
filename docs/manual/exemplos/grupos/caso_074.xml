@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<infPAA xmlns="http://www.portalfiscal.inf.br/nfe">
+  <CNPJPAA>12345678000195</CNPJPAA>
+  <PAASignature>
+    <SignatureValue>AQ==</SignatureValue>
+    <RSAKeyValue>
+      <Modulus>AQ==</Modulus>
+      <Exponent>AQ==</Exponent>
+    </RSAKeyValue>
+  </PAASignature>
+</infPAA>

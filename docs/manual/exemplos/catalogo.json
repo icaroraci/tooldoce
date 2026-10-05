@@ -1,0 +1,2567 @@
+{
+  "NFe": {
+    "arquivo": "exemplos/grupos/test_validar-0001.xml",
+    "fonte": "tests/test_validar.c",
+    "funcao": "main",
+    "linha": 94,
+    "programa": "test_validar",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "NFe",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "47ddc7c5e9bc10cc480bf75719cfa74d7dfe473765388b29edbe236ba8154842",
+    "linha_validacao": 120
+  },
+  "NFe/infNFe": {
+    "arquivo": "exemplos/grupos/test_nfe-0001.xml",
+    "fonte": "tests/test_nfe.c",
+    "funcao": "teste_nfce",
+    "linha": 61,
+    "programa": "test_nfe",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "infNFe",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "74747950d2f83994392917cd12c396157ea34acd98880757ba660bbb224d5b78",
+    "linha_validacao": 103
+  },
+  "NFe/infNFe/ide": {
+    "arquivo": "exemplos/grupos/test_ide-0002.xml",
+    "fonte": "tests/test_ide.c",
+    "funcao": "teste_fusos",
+    "linha": 161,
+    "programa": "test_ide",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "ide",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "19ef56fee3fc66111ecaaa9c2ac16d2038eb54cd19428c35407a198479363cc4",
+    "linha_validacao": 181
+  },
+  "NFe/infNFe/ide/NFref": {
+    "arquivo": "exemplos/grupos/test_ide-0007.xml",
+    "fonte": "tests/test_ide.c",
+    "funcao": "teste_cnpj_alfanumerico",
+    "linha": 231,
+    "programa": "test_ide",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "ide",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "19ef56fee3fc66111ecaaa9c2ac16d2038eb54cd19428c35407a198479363cc4",
+    "linha_validacao": 255
+  },
+  "NFe/infNFe/ide/NFref/refNF": {
+    "arquivo": "exemplos/grupos/test_ide-0007.xml",
+    "fonte": "tests/test_ide.c",
+    "funcao": "teste_cnpj_alfanumerico",
+    "linha": 231,
+    "programa": "test_ide",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "ide",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "19ef56fee3fc66111ecaaa9c2ac16d2038eb54cd19428c35407a198479363cc4",
+    "linha_validacao": 255
+  },
+  "NFe/infNFe/ide/NFref/refNFP": {
+    "arquivo": "exemplos/grupos/test_ide-0015.xml",
+    "fonte": "tests/test_ide.c",
+    "funcao": "teste_nfref_generico",
+    "linha": 563,
+    "programa": "test_ide",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "ide",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "19ef56fee3fc66111ecaaa9c2ac16d2038eb54cd19428c35407a198479363cc4",
+    "linha_validacao": 599
+  },
+  "NFe/infNFe/ide/NFref/refECF": {
+    "arquivo": "exemplos/grupos/test_ide-0015.xml",
+    "fonte": "tests/test_ide.c",
+    "funcao": "teste_nfref_generico",
+    "linha": 563,
+    "programa": "test_ide",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "ide",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "19ef56fee3fc66111ecaaa9c2ac16d2038eb54cd19428c35407a198479363cc4",
+    "linha_validacao": 599
+  },
+  "NFe/infNFe/ide/gCompraGov": {
+    "arquivo": "exemplos/grupos/test_ide-0013.xml",
+    "fonte": "tests/test_ide.c",
+    "funcao": "teste_compragov_pagantecipado",
+    "linha": 436,
+    "programa": "test_ide",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "ide",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "19ef56fee3fc66111ecaaa9c2ac16d2038eb54cd19428c35407a198479363cc4",
+    "linha_validacao": 535
+  },
+  "NFe/infNFe/ide/gPagAntecipado": {
+    "arquivo": "exemplos/grupos/test_ide-0012.xml",
+    "fonte": "tests/test_ide.c",
+    "funcao": "teste_compragov_pagantecipado",
+    "linha": 436,
+    "programa": "test_ide",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "ide",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "19ef56fee3fc66111ecaaa9c2ac16d2038eb54cd19428c35407a198479363cc4",
+    "linha_validacao": 505
+  },
+  "NFe/infNFe/emit": {
+    "arquivo": "exemplos/grupos/test_emit-0001.xml",
+    "fonte": "tests/test_emit.c",
+    "funcao": "teste_completo",
+    "linha": 68,
+    "programa": "test_emit",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "emit",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "a259d8720fbce6cac8c1ce7f79b6719fdc199033b8090225e8ce9f3b3f4c1db5",
+    "linha_validacao": 88
+  },
+  "NFe/infNFe/emit/enderEmit": {
+    "arquivo": "exemplos/grupos/test_endereco-0001.xml",
+    "fonte": "tests/test_endereco.c",
+    "funcao": "teste_emitente",
+    "linha": 106,
+    "programa": "test_endereco",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "enderEmit",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "d37e8aa44ef00e5ee3700a84e759905d85d7876d9e1232b1a3156ded12705085",
+    "linha_validacao": 128
+  },
+  "NFe/infNFe/avulsa": {
+    "arquivo": "exemplos/grupos/test_nfe-0008.xml",
+    "fonte": "tests/test_nfe.c",
+    "funcao": "teste_grupos_genericos",
+    "linha": 519,
+    "programa": "test_nfe",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "infNFe",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "74747950d2f83994392917cd12c396157ea34acd98880757ba660bbb224d5b78",
+    "linha_validacao": 584
+  },
+  "NFe/infNFe/dest": {
+    "arquivo": "exemplos/grupos/test_dest-0001.xml",
+    "fonte": "tests/test_dest.c",
+    "funcao": "teste_consumidor",
+    "linha": 52,
+    "programa": "test_dest",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "dest",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "b5f8f76d8f4c7c52f919c2afd803e7880ac2ebcb79a276cac51eec8402c77cd0",
+    "linha_validacao": 74
+  },
+  "NFe/infNFe/dest/enderDest": {
+    "arquivo": "exemplos/grupos/test_endereco-0003.xml",
+    "fonte": "tests/test_endereco.c",
+    "funcao": "teste_emitente",
+    "linha": 106,
+    "programa": "test_endereco",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "enderDest",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "d37e8aa44ef00e5ee3700a84e759905d85d7876d9e1232b1a3156ded12705085",
+    "linha_validacao": 179
+  },
+  "NFe/infNFe/retirada": {
+    "arquivo": "exemplos/grupos/test_nfe-0006.xml",
+    "fonte": "tests/test_nfe.c",
+    "funcao": "teste_grupos_opcionais",
+    "linha": 357,
+    "programa": "test_nfe",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "infNFe",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "74747950d2f83994392917cd12c396157ea34acd98880757ba660bbb224d5b78",
+    "linha_validacao": 441
+  },
+  "NFe/infNFe/entrega": {
+    "arquivo": "exemplos/grupos/test_nfe-0006.xml",
+    "fonte": "tests/test_nfe.c",
+    "funcao": "teste_grupos_opcionais",
+    "linha": 357,
+    "programa": "test_nfe",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "infNFe",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "74747950d2f83994392917cd12c396157ea34acd98880757ba660bbb224d5b78",
+    "linha_validacao": 441
+  },
+  "NFe/infNFe/autXML": {
+    "arquivo": "exemplos/grupos/test_nfe-0006.xml",
+    "fonte": "tests/test_nfe.c",
+    "funcao": "teste_grupos_opcionais",
+    "linha": 357,
+    "programa": "test_nfe",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "infNFe",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "74747950d2f83994392917cd12c396157ea34acd98880757ba660bbb224d5b78",
+    "linha_validacao": 441
+  },
+  "NFe/infNFe/det": {
+    "arquivo": "exemplos/grupos/test_det-0001.xml",
+    "fonte": "tests/test_det.c",
+    "funcao": "teste_item",
+    "linha": 66,
+    "programa": "test_det",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "det",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "0aafba37d06076fae61ba7d36c10fafdb8c6b639df9202a100f134843a262294",
+    "linha_validacao": 86
+  },
+  "NFe/infNFe/det/prod": {
+    "arquivo": "exemplos/grupos/test_prod-0001.xml",
+    "fonte": "tests/test_prod.c",
+    "funcao": "teste_minimo",
+    "linha": 52,
+    "programa": "test_prod",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "prod",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "7743dbb6d5d59b1d4426c9613f15788ee8955ff2c61b69733ed78cec2a119ac8",
+    "linha_validacao": 76
+  },
+  "NFe/infNFe/det/prod/gCred": {
+    "arquivo": "exemplos/grupos/test_prod-0006.xml",
+    "fonte": "tests/test_prod.c",
+    "funcao": "teste_subgrupos",
+    "linha": 256,
+    "programa": "test_prod",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "prod",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "7743dbb6d5d59b1d4426c9613f15788ee8955ff2c61b69733ed78cec2a119ac8",
+    "linha_validacao": 338
+  },
+  "NFe/infNFe/det/prod/DI": {
+    "arquivo": "exemplos/grupos/test_prod-0005.xml",
+    "fonte": "tests/test_prod.c",
+    "funcao": "teste_subgrupos",
+    "linha": 256,
+    "programa": "test_prod",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "prod",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "7743dbb6d5d59b1d4426c9613f15788ee8955ff2c61b69733ed78cec2a119ac8",
+    "linha_validacao": 318
+  },
+  "NFe/infNFe/det/prod/DI/adi": {
+    "arquivo": "exemplos/grupos/test_prod-0005.xml",
+    "fonte": "tests/test_prod.c",
+    "funcao": "teste_subgrupos",
+    "linha": 256,
+    "programa": "test_prod",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "prod",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "7743dbb6d5d59b1d4426c9613f15788ee8955ff2c61b69733ed78cec2a119ac8",
+    "linha_validacao": 318
+  },
+  "NFe/infNFe/det/prod/detExport": {
+    "arquivo": "exemplos/grupos/caso_069.xml",
+    "contexto": "exemplos/contextos/caso_069.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_069",
+    "linha": 1247,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/prod/detExport"
+    ],
+    "raiz": "prod",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/prod/detExport/exportInd": {
+    "arquivo": "exemplos/grupos/caso_070.xml",
+    "contexto": "exemplos/contextos/caso_070.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_070",
+    "linha": 1271,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/prod/detExport/exportInd"
+    ],
+    "raiz": "prod",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/prod/rastro": {
+    "arquivo": "exemplos/grupos/test_prod-0006.xml",
+    "fonte": "tests/test_prod.c",
+    "funcao": "teste_subgrupos",
+    "linha": 256,
+    "programa": "test_prod",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "prod",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "7743dbb6d5d59b1d4426c9613f15788ee8955ff2c61b69733ed78cec2a119ac8",
+    "linha_validacao": 338
+  },
+  "NFe/infNFe/det/prod/infProdNFF": {
+    "arquivo": "exemplos/grupos/caso_072.xml",
+    "contexto": "exemplos/contextos/caso_072.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_072",
+    "linha": 1324,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/prod/infProdNFF"
+    ],
+    "raiz": "prod",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/prod/infProdEmb": {
+    "arquivo": "exemplos/grupos/caso_071.xml",
+    "contexto": "exemplos/contextos/caso_071.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_071",
+    "linha": 1299,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/prod/infProdEmb"
+    ],
+    "raiz": "prod",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/prod/veicProd": {
+    "arquivo": "exemplos/grupos/caso_073.xml",
+    "contexto": "exemplos/contextos/caso_073.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_073",
+    "linha": 1348,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/prod/veicProd"
+    ],
+    "raiz": "prod",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/prod/med": {
+    "arquivo": "exemplos/grupos/test_prod-0005.xml",
+    "fonte": "tests/test_prod.c",
+    "funcao": "teste_subgrupos",
+    "linha": 256,
+    "programa": "test_prod",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "prod",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "7743dbb6d5d59b1d4426c9613f15788ee8955ff2c61b69733ed78cec2a119ac8",
+    "linha_validacao": 318
+  },
+  "NFe/infNFe/det/prod/arma": {
+    "arquivo": "exemplos/grupos/caso_064.xml",
+    "contexto": "exemplos/contextos/caso_064.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_064",
+    "linha": 1107,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/prod/arma"
+    ],
+    "raiz": "prod",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/prod/comb": {
+    "arquivo": "exemplos/grupos/caso_065.xml",
+    "contexto": "exemplos/contextos/caso_065.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_065",
+    "linha": 1135,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/prod/comb"
+    ],
+    "raiz": "prod",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/prod/comb/CIDE": {
+    "arquivo": "exemplos/grupos/caso_066.xml",
+    "contexto": "exemplos/contextos/caso_066.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_066",
+    "linha": 1160,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/prod/comb/CIDE"
+    ],
+    "raiz": "prod",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/prod/comb/encerrante": {
+    "arquivo": "exemplos/grupos/caso_067.xml",
+    "contexto": "exemplos/contextos/caso_067.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_067",
+    "linha": 1188,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/prod/comb/encerrante"
+    ],
+    "raiz": "prod",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/prod/comb/origComb": {
+    "arquivo": "exemplos/grupos/caso_068.xml",
+    "contexto": "exemplos/contextos/caso_068.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_068",
+    "linha": 1217,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/prod/comb/origComb"
+    ],
+    "raiz": "prod",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto": {
+    "arquivo": "exemplos/grupos/test_imposto-0005.xml",
+    "fonte": "tests/test_imposto.c",
+    "funcao": "teste_simples_nacional",
+    "linha": 103,
+    "programa": "test_imposto",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "imposto",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "5432e1041b3f2a919013ab1a11f49de5733f0648a4bb4a0956f5bc84969b0c30",
+    "linha_validacao": 153
+  },
+  "NFe/infNFe/det/imposto/ICMS": {
+    "arquivo": "exemplos/grupos/test_imposto-0006.xml",
+    "fonte": "tests/test_imposto.c",
+    "funcao": "teste_valores_invalidos",
+    "linha": 159,
+    "programa": "test_imposto",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "imposto",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "5432e1041b3f2a919013ab1a11f49de5733f0648a4bb4a0956f5bc84969b0c30",
+    "linha_validacao": 245
+  },
+  "NFe/infNFe/det/imposto/ICMS/ICMS00": {
+    "arquivo": "exemplos/grupos/test_imposto-0001.xml",
+    "fonte": "tests/test_imposto.c",
+    "funcao": "teste_regime_normal",
+    "linha": 35,
+    "programa": "test_imposto",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "imposto",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "5432e1041b3f2a919013ab1a11f49de5733f0648a4bb4a0956f5bc84969b0c30",
+    "linha_validacao": 73
+  },
+  "NFe/infNFe/det/imposto/ICMS/ICMS02": {
+    "arquivo": "exemplos/grupos/caso_043.xml",
+    "contexto": "exemplos/contextos/caso_043.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_043",
+    "linha": 836,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/ICMS/ICMS02"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/ICMS/ICMS10": {
+    "arquivo": "exemplos/grupos/test_imposto-0007.xml",
+    "fonte": "tests/test_imposto.c",
+    "funcao": "teste_caminhos",
+    "linha": 264,
+    "programa": "test_imposto",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "imposto",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "5432e1041b3f2a919013ab1a11f49de5733f0648a4bb4a0956f5bc84969b0c30",
+    "linha_validacao": 405
+  },
+  "NFe/infNFe/det/imposto/ICMS/ICMS15": {
+    "arquivo": "exemplos/grupos/caso_044.xml",
+    "contexto": "exemplos/contextos/caso_044.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_044",
+    "linha": 848,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/ICMS/ICMS15"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/ICMS/ICMS20": {
+    "arquivo": "exemplos/grupos/test_exemplo_ibscbs-0001.xml",
+    "fonte": "tests/test_exemplo_ibscbs.c",
+    "funcao": "main",
+    "linha": 46,
+    "programa": "test_exemplo_ibscbs",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "NFe",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "2366325cf4a7b9e77994801d1d46dffb8d912bf64268dbdee535ad67d3c49709",
+    "linha_validacao": 70
+  },
+  "NFe/infNFe/det/imposto/ICMS/ICMS30": {
+    "arquivo": "exemplos/grupos/caso_045.xml",
+    "contexto": "exemplos/contextos/caso_045.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_045",
+    "linha": 862,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/ICMS/ICMS30"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/ICMS/ICMS40": {
+    "arquivo": "exemplos/grupos/test_imposto-0008.xml",
+    "fonte": "tests/test_imposto.c",
+    "funcao": "teste_caminhos",
+    "linha": 264,
+    "programa": "test_imposto",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "imposto",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "5432e1041b3f2a919013ab1a11f49de5733f0648a4bb4a0956f5bc84969b0c30",
+    "linha_validacao": 418
+  },
+  "NFe/infNFe/det/imposto/ICMS/ICMS51": {
+    "arquivo": "exemplos/grupos/caso_046.xml",
+    "contexto": "exemplos/contextos/caso_046.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_046",
+    "linha": 876,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/ICMS/ICMS51"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/ICMS/ICMS53": {
+    "arquivo": "exemplos/grupos/caso_047.xml",
+    "contexto": "exemplos/contextos/caso_047.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_047",
+    "linha": 886,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/ICMS/ICMS53"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/ICMS/ICMS60": {
+    "arquivo": "exemplos/grupos/caso_048.xml",
+    "contexto": "exemplos/contextos/caso_048.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_048",
+    "linha": 896,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/ICMS/ICMS60"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/ICMS/ICMS61": {
+    "arquivo": "exemplos/grupos/caso_049.xml",
+    "contexto": "exemplos/contextos/caso_049.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_049",
+    "linha": 906,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/ICMS/ICMS61"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/ICMS/ICMS70": {
+    "arquivo": "exemplos/grupos/caso_050.xml",
+    "contexto": "exemplos/contextos/caso_050.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_050",
+    "linha": 918,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/ICMS/ICMS70"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/ICMS/ICMS90": {
+    "arquivo": "exemplos/grupos/caso_051.xml",
+    "contexto": "exemplos/contextos/caso_051.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_051",
+    "linha": 937,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/ICMS/ICMS90"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/ICMS/ICMSPart": {
+    "arquivo": "exemplos/grupos/caso_052.xml",
+    "contexto": "exemplos/contextos/caso_052.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_052",
+    "linha": 947,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/ICMS/ICMSPart"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/ICMS/ICMSST": {
+    "arquivo": "exemplos/grupos/caso_058.xml",
+    "contexto": "exemplos/contextos/caso_058.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_058",
+    "linha": 1028,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/ICMS/ICMSST"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/ICMS/ICMSSN101": {
+    "arquivo": "exemplos/grupos/caso_053.xml",
+    "contexto": "exemplos/contextos/caso_053.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_053",
+    "linha": 967,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/ICMS/ICMSSN101"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/ICMS/ICMSSN102": {
+    "arquivo": "exemplos/grupos/test_imposto-0006.xml",
+    "fonte": "tests/test_imposto.c",
+    "funcao": "teste_valores_invalidos",
+    "linha": 159,
+    "programa": "test_imposto",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "imposto",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "5432e1041b3f2a919013ab1a11f49de5733f0648a4bb4a0956f5bc84969b0c30",
+    "linha_validacao": 245
+  },
+  "NFe/infNFe/det/imposto/ICMS/ICMSSN201": {
+    "arquivo": "exemplos/grupos/caso_054.xml",
+    "contexto": "exemplos/contextos/caso_054.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_054",
+    "linha": 979,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/ICMS/ICMSSN201"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/ICMS/ICMSSN202": {
+    "arquivo": "exemplos/grupos/caso_055.xml",
+    "contexto": "exemplos/contextos/caso_055.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_055",
+    "linha": 995,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/ICMS/ICMSSN202"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/ICMS/ICMSSN500": {
+    "arquivo": "exemplos/grupos/caso_056.xml",
+    "contexto": "exemplos/contextos/caso_056.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_056",
+    "linha": 1009,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/ICMS/ICMSSN500"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/ICMS/ICMSSN900": {
+    "arquivo": "exemplos/grupos/caso_057.xml",
+    "contexto": "exemplos/contextos/caso_057.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_057",
+    "linha": 1019,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/ICMS/ICMSSN900"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IPI": {
+    "arquivo": "exemplos/grupos/test_imposto-0008.xml",
+    "fonte": "tests/test_imposto.c",
+    "funcao": "teste_caminhos",
+    "linha": 264,
+    "programa": "test_imposto",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "imposto",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "5432e1041b3f2a919013ab1a11f49de5733f0648a4bb4a0956f5bc84969b0c30",
+    "linha_validacao": 418
+  },
+  "NFe/infNFe/det/imposto/IPI/IPITrib": {
+    "arquivo": "exemplos/grupos/test_imposto-0008.xml",
+    "fonte": "tests/test_imposto.c",
+    "funcao": "teste_caminhos",
+    "linha": 264,
+    "programa": "test_imposto",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "imposto",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "5432e1041b3f2a919013ab1a11f49de5733f0648a4bb4a0956f5bc84969b0c30",
+    "linha_validacao": 418
+  },
+  "NFe/infNFe/det/imposto/IPI/IPINT": {
+    "arquivo": "exemplos/grupos/caso_059.xml",
+    "contexto": "exemplos/contextos/caso_059.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_059",
+    "linha": 1042,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IPI/IPINT"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/II": {
+    "arquivo": "exemplos/grupos/test_imposto-0008.xml",
+    "fonte": "tests/test_imposto.c",
+    "funcao": "teste_caminhos",
+    "linha": 264,
+    "programa": "test_imposto",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "imposto",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "5432e1041b3f2a919013ab1a11f49de5733f0648a4bb4a0956f5bc84969b0c30",
+    "linha_validacao": 418
+  },
+  "NFe/infNFe/det/imposto/ISSQN": {
+    "arquivo": "exemplos/grupos/caso_060.xml",
+    "contexto": "exemplos/contextos/caso_060.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_060",
+    "linha": 1058,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/ISSQN"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/PIS": {
+    "arquivo": "exemplos/grupos/test_imposto-0006.xml",
+    "fonte": "tests/test_imposto.c",
+    "funcao": "teste_valores_invalidos",
+    "linha": 159,
+    "programa": "test_imposto",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "imposto",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "5432e1041b3f2a919013ab1a11f49de5733f0648a4bb4a0956f5bc84969b0c30",
+    "linha_validacao": 245
+  },
+  "NFe/infNFe/det/imposto/PIS/PISAliq": {
+    "arquivo": "exemplos/grupos/test_imposto-0001.xml",
+    "fonte": "tests/test_imposto.c",
+    "funcao": "teste_regime_normal",
+    "linha": 35,
+    "programa": "test_imposto",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "imposto",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "5432e1041b3f2a919013ab1a11f49de5733f0648a4bb4a0956f5bc84969b0c30",
+    "linha_validacao": 73
+  },
+  "NFe/infNFe/det/imposto/PIS/PISQtde": {
+    "arquivo": "exemplos/grupos/caso_062.xml",
+    "contexto": "exemplos/contextos/caso_062.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_062",
+    "linha": 1085,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/PIS/PISQtde"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/PIS/PISNT": {
+    "arquivo": "exemplos/grupos/test_imposto-0006.xml",
+    "fonte": "tests/test_imposto.c",
+    "funcao": "teste_valores_invalidos",
+    "linha": 159,
+    "programa": "test_imposto",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "imposto",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "5432e1041b3f2a919013ab1a11f49de5733f0648a4bb4a0956f5bc84969b0c30",
+    "linha_validacao": 245
+  },
+  "NFe/infNFe/det/imposto/PIS/PISOutr": {
+    "arquivo": "exemplos/grupos/caso_061.xml",
+    "contexto": "exemplos/contextos/caso_061.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_061",
+    "linha": 1073,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/PIS/PISOutr"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/PISST": {
+    "arquivo": "exemplos/grupos/test_imposto-0008.xml",
+    "fonte": "tests/test_imposto.c",
+    "funcao": "teste_caminhos",
+    "linha": 264,
+    "programa": "test_imposto",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "imposto",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "5432e1041b3f2a919013ab1a11f49de5733f0648a4bb4a0956f5bc84969b0c30",
+    "linha_validacao": 418
+  },
+  "NFe/infNFe/det/imposto/COFINS": {
+    "arquivo": "exemplos/grupos/test_imposto-0004.xml",
+    "fonte": "tests/test_imposto.c",
+    "funcao": "teste_simples_nacional",
+    "linha": 103,
+    "programa": "test_imposto",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "imposto",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "5432e1041b3f2a919013ab1a11f49de5733f0648a4bb4a0956f5bc84969b0c30",
+    "linha_validacao": 139
+  },
+  "NFe/infNFe/det/imposto/COFINS/COFINSAliq": {
+    "arquivo": "exemplos/grupos/test_imposto-0001.xml",
+    "fonte": "tests/test_imposto.c",
+    "funcao": "teste_regime_normal",
+    "linha": 35,
+    "programa": "test_imposto",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "imposto",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "5432e1041b3f2a919013ab1a11f49de5733f0648a4bb4a0956f5bc84969b0c30",
+    "linha_validacao": 73
+  },
+  "NFe/infNFe/det/imposto/COFINS/COFINSQtde": {
+    "arquivo": "exemplos/grupos/caso_003.xml",
+    "contexto": "exemplos/contextos/caso_003.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_003",
+    "linha": 51,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/COFINS/COFINSQtde"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/COFINS/COFINSNT": {
+    "arquivo": "exemplos/grupos/test_imposto-0004.xml",
+    "fonte": "tests/test_imposto.c",
+    "funcao": "teste_simples_nacional",
+    "linha": 103,
+    "programa": "test_imposto",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "imposto",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "5432e1041b3f2a919013ab1a11f49de5733f0648a4bb4a0956f5bc84969b0c30",
+    "linha_validacao": 139
+  },
+  "NFe/infNFe/det/imposto/COFINS/COFINSOutr": {
+    "arquivo": "exemplos/grupos/caso_002.xml",
+    "contexto": "exemplos/contextos/caso_002.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_002",
+    "linha": 39,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/COFINS/COFINSOutr"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/COFINSST": {
+    "arquivo": "exemplos/grupos/caso_004.xml",
+    "contexto": "exemplos/contextos/caso_004.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_004",
+    "linha": 63,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/COFINSST"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/ICMSUFDest": {
+    "arquivo": "exemplos/grupos/test_imposto-0008.xml",
+    "fonte": "tests/test_imposto.c",
+    "funcao": "teste_caminhos",
+    "linha": 264,
+    "programa": "test_imposto",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "imposto",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "5432e1041b3f2a919013ab1a11f49de5733f0648a4bb4a0956f5bc84969b0c30",
+    "linha_validacao": 418
+  },
+  "NFe/infNFe/det/imposto/IS": {
+    "arquivo": "exemplos/grupos/test_imposto-0008.xml",
+    "fonte": "tests/test_imposto.c",
+    "funcao": "teste_caminhos",
+    "linha": 264,
+    "programa": "test_imposto",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "imposto",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "5432e1041b3f2a919013ab1a11f49de5733f0648a4bb4a0956f5bc84969b0c30",
+    "linha_validacao": 418
+  },
+  "NFe/infNFe/det/imposto/IBSCBS": {
+    "arquivo": "exemplos/grupos/test_imposto-0008.xml",
+    "fonte": "tests/test_imposto.c",
+    "funcao": "teste_caminhos",
+    "linha": 264,
+    "programa": "test_imposto",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "imposto",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "5432e1041b3f2a919013ab1a11f49de5733f0648a4bb4a0956f5bc84969b0c30",
+    "linha_validacao": 418
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS": {
+    "arquivo": "exemplos/grupos/test_imposto-0008.xml",
+    "fonte": "tests/test_imposto.c",
+    "funcao": "teste_caminhos",
+    "linha": 264,
+    "programa": "test_imposto",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "imposto",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "5432e1041b3f2a919013ab1a11f49de5733f0648a4bb4a0956f5bc84969b0c30",
+    "linha_validacao": 418
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSUF": {
+    "arquivo": "exemplos/grupos/test_imposto-0008.xml",
+    "fonte": "tests/test_imposto.c",
+    "funcao": "teste_caminhos",
+    "linha": 264,
+    "programa": "test_imposto",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "imposto",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "5432e1041b3f2a919013ab1a11f49de5733f0648a4bb4a0956f5bc84969b0c30",
+    "linha_validacao": 418
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSUF/gDif": {
+    "arquivo": "exemplos/grupos/caso_018.xml",
+    "contexto": "exemplos/contextos/caso_018.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_018",
+    "linha": 305,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSUF/gDif"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSUF/gDevTrib": {
+    "arquivo": "exemplos/grupos/caso_017.xml",
+    "contexto": "exemplos/contextos/caso_017.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_017",
+    "linha": 285,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSUF/gDevTrib"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSUF/gRed": {
+    "arquivo": "exemplos/grupos/test_exemplo_ibscbs-0001.xml",
+    "fonte": "tests/test_exemplo_ibscbs.c",
+    "funcao": "main",
+    "linha": 46,
+    "programa": "test_exemplo_ibscbs",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "NFe",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "2366325cf4a7b9e77994801d1d46dffb8d912bf64268dbdee535ad67d3c49709",
+    "linha_validacao": 70
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSMun": {
+    "arquivo": "exemplos/grupos/test_imposto-0008.xml",
+    "fonte": "tests/test_imposto.c",
+    "funcao": "teste_caminhos",
+    "linha": 264,
+    "programa": "test_imposto",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "imposto",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "5432e1041b3f2a919013ab1a11f49de5733f0648a4bb4a0956f5bc84969b0c30",
+    "linha_validacao": 418
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSMun/gDif": {
+    "arquivo": "exemplos/grupos/caso_015.xml",
+    "contexto": "exemplos/contextos/caso_015.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_015",
+    "linha": 243,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSMun/gDif"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSMun/gDevTrib": {
+    "arquivo": "exemplos/grupos/caso_014.xml",
+    "contexto": "exemplos/contextos/caso_014.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_014",
+    "linha": 223,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSMun/gDevTrib"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSMun/gRed": {
+    "arquivo": "exemplos/grupos/caso_016.xml",
+    "contexto": "exemplos/contextos/caso_016.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_016",
+    "linha": 263,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gIBSMun/gRed"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gCBS": {
+    "arquivo": "exemplos/grupos/test_imposto-0008.xml",
+    "fonte": "tests/test_imposto.c",
+    "funcao": "teste_caminhos",
+    "linha": 264,
+    "programa": "test_imposto",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "imposto",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "5432e1041b3f2a919013ab1a11f49de5733f0648a4bb4a0956f5bc84969b0c30",
+    "linha_validacao": 418
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gCBS/gDif": {
+    "arquivo": "exemplos/grupos/caso_013.xml",
+    "contexto": "exemplos/contextos/caso_013.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_013",
+    "linha": 203,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gCBS/gDif"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gCBS/gDevTrib": {
+    "arquivo": "exemplos/grupos/caso_012.xml",
+    "contexto": "exemplos/contextos/caso_012.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_012",
+    "linha": 183,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gCBS/gDevTrib"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gCBS/gRed": {
+    "arquivo": "exemplos/grupos/test_exemplo_ibscbs-0001.xml",
+    "fonte": "tests/test_exemplo_ibscbs.c",
+    "funcao": "main",
+    "linha": 46,
+    "programa": "test_exemplo_ibscbs",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "NFe",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "2366325cf4a7b9e77994801d1d46dffb8d912bf64268dbdee535ad67d3c49709",
+    "linha_validacao": 70
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gCBS/gALCZFMCBS": {
+    "arquivo": "exemplos/grupos/caso_011.xml",
+    "contexto": "exemplos/contextos/caso_011.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_011",
+    "linha": 159,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gCBS/gALCZFMCBS"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gTribRegular": {
+    "arquivo": "exemplos/grupos/caso_020.xml",
+    "contexto": "exemplos/contextos/caso_020.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_020",
+    "linha": 355,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gTribRegular"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gTribCompraGov": {
+    "arquivo": "exemplos/grupos/caso_019.xml",
+    "contexto": "exemplos/contextos/caso_019.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_019",
+    "linha": 325,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gIBSCBS/gTribCompraGov"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono": {
+    "arquivo": "exemplos/grupos/caso_021.xml",
+    "contexto": "exemplos/contextos/caso_021.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_021",
+    "linha": 388,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdRem": {
+    "arquivo": "exemplos/grupos/caso_032.xml",
+    "contexto": "exemplos/contextos/caso_032.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_032",
+    "linha": 600,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdRem"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdRem/gMonoPadrao": {
+    "arquivo": "exemplos/grupos/caso_033.xml",
+    "contexto": "exemplos/contextos/caso_033.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_033",
+    "linha": 621,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdRem/gMonoPadrao"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdRem/gMonoReten": {
+    "arquivo": "exemplos/grupos/caso_035.xml",
+    "contexto": "exemplos/contextos/caso_035.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_035",
+    "linha": 657,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdRem/gMonoReten"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdRem/gMonoRet": {
+    "arquivo": "exemplos/grupos/caso_034.xml",
+    "contexto": "exemplos/contextos/caso_034.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_034",
+    "linha": 642,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdRem/gMonoRet"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdRem/gpBioDiferenca": {
+    "arquivo": "exemplos/grupos/caso_036.xml",
+    "contexto": "exemplos/contextos/caso_036.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_036",
+    "linha": 678,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdRem/gpBioDiferenca"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdValorem": {
+    "arquivo": "exemplos/grupos/caso_037.xml",
+    "contexto": "exemplos/contextos/caso_037.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_037",
+    "linha": 697,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdValorem"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdValorem/gMonoPadrao": {
+    "arquivo": "exemplos/grupos/caso_038.xml",
+    "contexto": "exemplos/contextos/caso_038.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_038",
+    "linha": 731,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdValorem/gMonoPadrao"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdValorem/gMonoReten": {
+    "arquivo": "exemplos/grupos/caso_040.xml",
+    "contexto": "exemplos/contextos/caso_040.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_040",
+    "linha": 780,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdValorem/gMonoReten"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdValorem/gMonoRet": {
+    "arquivo": "exemplos/grupos/caso_039.xml",
+    "contexto": "exemplos/contextos/caso_039.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_039",
+    "linha": 765,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdValorem/gMonoRet"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdValorem/gpBioDiferenca": {
+    "arquivo": "exemplos/grupos/caso_041.xml",
+    "contexto": "exemplos/contextos/caso_041.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_041",
+    "linha": 804,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gIBSMonoAdValorem/gpBioDiferenca"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdRem": {
+    "arquivo": "exemplos/grupos/caso_022.xml",
+    "contexto": "exemplos/contextos/caso_022.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_022",
+    "linha": 400,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdRem"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdRem/gMonoPadrao": {
+    "arquivo": "exemplos/grupos/caso_023.xml",
+    "contexto": "exemplos/contextos/caso_023.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_023",
+    "linha": 421,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdRem/gMonoPadrao"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdRem/gMonoReten": {
+    "arquivo": "exemplos/grupos/caso_025.xml",
+    "contexto": "exemplos/contextos/caso_025.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_025",
+    "linha": 457,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdRem/gMonoReten"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdRem/gMonoRet": {
+    "arquivo": "exemplos/grupos/caso_024.xml",
+    "contexto": "exemplos/contextos/caso_024.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_024",
+    "linha": 442,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdRem/gMonoRet"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdRem/gpBioDiferenca": {
+    "arquivo": "exemplos/grupos/caso_026.xml",
+    "contexto": "exemplos/contextos/caso_026.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_026",
+    "linha": 478,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdRem/gpBioDiferenca"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdValorem": {
+    "arquivo": "exemplos/grupos/caso_027.xml",
+    "contexto": "exemplos/contextos/caso_027.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_027",
+    "linha": 497,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdValorem"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdValorem/gMonoPadrao": {
+    "arquivo": "exemplos/grupos/caso_028.xml",
+    "contexto": "exemplos/contextos/caso_028.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_028",
+    "linha": 519,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdValorem/gMonoPadrao"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdValorem/gMonoReten": {
+    "arquivo": "exemplos/grupos/caso_030.xml",
+    "contexto": "exemplos/contextos/caso_030.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_030",
+    "linha": 556,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdValorem/gMonoReten"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdValorem/gMonoRet": {
+    "arquivo": "exemplos/grupos/caso_029.xml",
+    "contexto": "exemplos/contextos/caso_029.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_029",
+    "linha": 541,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdValorem/gMonoRet"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdValorem/gpBioDiferenca": {
+    "arquivo": "exemplos/grupos/caso_031.xml",
+    "contexto": "exemplos/contextos/caso_031.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_031",
+    "linha": 580,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gIBSCBSMono/gCBSMonoAdValorem/gpBioDiferenca"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gTransfCred": {
+    "arquivo": "exemplos/grupos/caso_042.xml",
+    "contexto": "exemplos/contextos/caso_042.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_042",
+    "linha": 824,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gTransfCred"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gAjusteCompet": {
+    "arquivo": "exemplos/grupos/caso_005.xml",
+    "contexto": "exemplos/contextos/caso_005.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_005",
+    "linha": 74,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gAjusteCompet"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gEstornoCred": {
+    "arquivo": "exemplos/grupos/caso_010.xml",
+    "contexto": "exemplos/contextos/caso_010.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_010",
+    "linha": 147,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gEstornoCred"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gCredPresOper": {
+    "arquivo": "exemplos/grupos/caso_007.xml",
+    "contexto": "exemplos/contextos/caso_007.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_007",
+    "linha": 103,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gCredPresOper"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gCredPresOper/gIBSCredPres": {
+    "arquivo": "exemplos/grupos/caso_009.xml",
+    "contexto": "exemplos/contextos/caso_009.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_009",
+    "linha": 131,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gCredPresOper/gIBSCredPres"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gCredPresOper/gCBSCredPres": {
+    "arquivo": "exemplos/grupos/caso_008.xml",
+    "contexto": "exemplos/contextos/caso_008.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_008",
+    "linha": 115,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gCredPresOper/gCBSCredPres"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/imposto/IBSCBS/gCredPresIBSZFM": {
+    "arquivo": "exemplos/grupos/caso_006.xml",
+    "contexto": "exemplos/contextos/caso_006.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_006",
+    "linha": 87,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/imposto/IBSCBS/gCredPresIBSZFM"
+    ],
+    "raiz": "imposto",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/impostoDevol": {
+    "arquivo": "exemplos/grupos/test_det-0003.xml",
+    "fonte": "tests/test_det.c",
+    "funcao": "teste_grupos",
+    "linha": 121,
+    "programa": "test_det",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "det",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "0aafba37d06076fae61ba7d36c10fafdb8c6b639df9202a100f134843a262294",
+    "linha_validacao": 167
+  },
+  "NFe/infNFe/det/impostoDevol/IPI": {
+    "arquivo": "exemplos/grupos/test_det-0003.xml",
+    "fonte": "tests/test_det.c",
+    "funcao": "teste_grupos",
+    "linha": 121,
+    "programa": "test_det",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "det",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "0aafba37d06076fae61ba7d36c10fafdb8c6b639df9202a100f134843a262294",
+    "linha_validacao": 167
+  },
+  "NFe/infNFe/det/obsItem": {
+    "arquivo": "exemplos/grupos/test_det-0003.xml",
+    "fonte": "tests/test_det.c",
+    "funcao": "teste_grupos",
+    "linha": 121,
+    "programa": "test_det",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "det",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "0aafba37d06076fae61ba7d36c10fafdb8c6b639df9202a100f134843a262294",
+    "linha_validacao": 167
+  },
+  "NFe/infNFe/det/obsItem/obsCont": {
+    "arquivo": "exemplos/grupos/test_det-0003.xml",
+    "fonte": "tests/test_det.c",
+    "funcao": "teste_grupos",
+    "linha": 121,
+    "programa": "test_det",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "det",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "0aafba37d06076fae61ba7d36c10fafdb8c6b639df9202a100f134843a262294",
+    "linha_validacao": 167
+  },
+  "NFe/infNFe/det/obsItem/obsFisco": {
+    "arquivo": "exemplos/grupos/caso_063.xml",
+    "contexto": "exemplos/contextos/caso_063.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_063",
+    "linha": 1097,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/det/obsItem/obsFisco"
+    ],
+    "raiz": "obsItem",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/det/DFeReferenciado": {
+    "arquivo": "exemplos/grupos/test_det-0003.xml",
+    "fonte": "tests/test_det.c",
+    "funcao": "teste_grupos",
+    "linha": 121,
+    "programa": "test_det",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "det",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "0aafba37d06076fae61ba7d36c10fafdb8c6b639df9202a100f134843a262294",
+    "linha_validacao": 167
+  },
+  "NFe/infNFe/total": {
+    "arquivo": "exemplos/grupos/test_total-0001.xml",
+    "fonte": "tests/test_total.c",
+    "funcao": "teste_padrao",
+    "linha": 35,
+    "programa": "test_total",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "total",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "9c2e18adfaa2ec5382a7c52b9408c9716d6f3e7445b9329a9cc964557740f537",
+    "linha_validacao": 63
+  },
+  "NFe/infNFe/total/ICMSTot": {
+    "arquivo": "exemplos/grupos/test_total-0001.xml",
+    "fonte": "tests/test_total.c",
+    "funcao": "teste_padrao",
+    "linha": 35,
+    "programa": "test_total",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "total",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "9c2e18adfaa2ec5382a7c52b9408c9716d6f3e7445b9329a9cc964557740f537",
+    "linha_validacao": 63
+  },
+  "NFe/infNFe/total/ISSQNtot": {
+    "arquivo": "exemplos/grupos/caso_080.xml",
+    "contexto": "exemplos/contextos/caso_080.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_080",
+    "linha": 1503,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/total/ISSQNtot"
+    ],
+    "raiz": "total",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/total/retTrib": {
+    "arquivo": "exemplos/grupos/caso_081.xml",
+    "contexto": "exemplos/contextos/caso_081.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_081",
+    "linha": 1531,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/total/retTrib"
+    ],
+    "raiz": "total",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/total/ISTot": {
+    "arquivo": "exemplos/grupos/test_total-0004.xml",
+    "fonte": "tests/test_total.c",
+    "funcao": "teste_ibscbs",
+    "linha": 137,
+    "programa": "test_total",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "total",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "9c2e18adfaa2ec5382a7c52b9408c9716d6f3e7445b9329a9cc964557740f537",
+    "linha_validacao": 194
+  },
+  "NFe/infNFe/total/IBSCBSTot": {
+    "arquivo": "exemplos/grupos/test_total-0004.xml",
+    "fonte": "tests/test_total.c",
+    "funcao": "teste_ibscbs",
+    "linha": 137,
+    "programa": "test_total",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "total",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "9c2e18adfaa2ec5382a7c52b9408c9716d6f3e7445b9329a9cc964557740f537",
+    "linha_validacao": 194
+  },
+  "NFe/infNFe/total/IBSCBSTot/gIBS": {
+    "arquivo": "exemplos/grupos/test_total-0004.xml",
+    "fonte": "tests/test_total.c",
+    "funcao": "teste_ibscbs",
+    "linha": 137,
+    "programa": "test_total",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "total",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "9c2e18adfaa2ec5382a7c52b9408c9716d6f3e7445b9329a9cc964557740f537",
+    "linha_validacao": 194
+  },
+  "NFe/infNFe/total/IBSCBSTot/gIBS/gIBSUF": {
+    "arquivo": "exemplos/grupos/test_total-0004.xml",
+    "fonte": "tests/test_total.c",
+    "funcao": "teste_ibscbs",
+    "linha": 137,
+    "programa": "test_total",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "total",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "9c2e18adfaa2ec5382a7c52b9408c9716d6f3e7445b9329a9cc964557740f537",
+    "linha_validacao": 194
+  },
+  "NFe/infNFe/total/IBSCBSTot/gIBS/gIBSMun": {
+    "arquivo": "exemplos/grupos/test_total-0004.xml",
+    "fonte": "tests/test_total.c",
+    "funcao": "teste_ibscbs",
+    "linha": 137,
+    "programa": "test_total",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "total",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "9c2e18adfaa2ec5382a7c52b9408c9716d6f3e7445b9329a9cc964557740f537",
+    "linha_validacao": 194
+  },
+  "NFe/infNFe/total/IBSCBSTot/gCBS": {
+    "arquivo": "exemplos/grupos/test_total-0004.xml",
+    "fonte": "tests/test_total.c",
+    "funcao": "teste_ibscbs",
+    "linha": 137,
+    "programa": "test_total",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "total",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "9c2e18adfaa2ec5382a7c52b9408c9716d6f3e7445b9329a9cc964557740f537",
+    "linha_validacao": 194
+  },
+  "NFe/infNFe/total/IBSCBSTot/gMono": {
+    "arquivo": "exemplos/grupos/caso_079.xml",
+    "contexto": "exemplos/contextos/caso_079.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_079",
+    "linha": 1469,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/total/IBSCBSTot/gMono"
+    ],
+    "raiz": "total",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/total/IBSCBSTot/gEstornoCred": {
+    "arquivo": "exemplos/grupos/caso_078.xml",
+    "contexto": "exemplos/contextos/caso_078.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_078",
+    "linha": 1439,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/total/IBSCBSTot/gEstornoCred"
+    ],
+    "raiz": "total",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/transp": {
+    "arquivo": "exemplos/grupos/test_transp-0001.xml",
+    "fonte": "tests/test_transp.c",
+    "funcao": "teste_sem_transporte",
+    "linha": 35,
+    "programa": "test_transp",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "transp",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "2444d4c9ad66a1abb44b63c412646c60148a64ac14039cb061ffef322d07f916",
+    "linha_validacao": 51
+  },
+  "NFe/infNFe/transp/transporta": {
+    "arquivo": "exemplos/grupos/test_transp-0003.xml",
+    "fonte": "tests/test_transp.c",
+    "funcao": "teste_transportador_e_volumes",
+    "linha": 57,
+    "programa": "test_transp",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "transp",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "2444d4c9ad66a1abb44b63c412646c60148a64ac14039cb061ffef322d07f916",
+    "linha_validacao": 115
+  },
+  "NFe/infNFe/transp/retTransp": {
+    "arquivo": "exemplos/grupos/caso_082.xml",
+    "contexto": "exemplos/contextos/caso_082.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_082",
+    "linha": 1559,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/transp/retTransp"
+    ],
+    "raiz": "transp",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/transp/veicTransp": {
+    "arquivo": "exemplos/grupos/test_transp-0004.xml",
+    "fonte": "tests/test_transp.c",
+    "funcao": "teste_subgrupos",
+    "linha": 133,
+    "programa": "test_transp",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "transp",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "2444d4c9ad66a1abb44b63c412646c60148a64ac14039cb061ffef322d07f916",
+    "linha_validacao": 162
+  },
+  "NFe/infNFe/transp/reboque": {
+    "arquivo": "exemplos/grupos/test_transp-0004.xml",
+    "fonte": "tests/test_transp.c",
+    "funcao": "teste_subgrupos",
+    "linha": 133,
+    "programa": "test_transp",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "transp",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "2444d4c9ad66a1abb44b63c412646c60148a64ac14039cb061ffef322d07f916",
+    "linha_validacao": 162
+  },
+  "NFe/infNFe/transp/vol": {
+    "arquivo": "exemplos/grupos/test_transp-0005.xml",
+    "fonte": "tests/test_transp.c",
+    "funcao": "teste_subgrupos",
+    "linha": 133,
+    "programa": "test_transp",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "transp",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "2444d4c9ad66a1abb44b63c412646c60148a64ac14039cb061ffef322d07f916",
+    "linha_validacao": 174
+  },
+  "NFe/infNFe/transp/vol/lacres": {
+    "arquivo": "exemplos/grupos/test_transp-0005.xml",
+    "fonte": "tests/test_transp.c",
+    "funcao": "teste_subgrupos",
+    "linha": 133,
+    "programa": "test_transp",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "transp",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "2444d4c9ad66a1abb44b63c412646c60148a64ac14039cb061ffef322d07f916",
+    "linha_validacao": 174
+  },
+  "NFe/infNFe/cobr": {
+    "arquivo": "exemplos/grupos/test_nfe-0007.xml",
+    "fonte": "tests/test_nfe.c",
+    "funcao": "teste_grupos_opcionais",
+    "linha": 357,
+    "programa": "test_nfe",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "infNFe",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "74747950d2f83994392917cd12c396157ea34acd98880757ba660bbb224d5b78",
+    "linha_validacao": 501
+  },
+  "NFe/infNFe/cobr/fat": {
+    "arquivo": "exemplos/grupos/test_nfe-0006.xml",
+    "fonte": "tests/test_nfe.c",
+    "funcao": "teste_grupos_opcionais",
+    "linha": 357,
+    "programa": "test_nfe",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "infNFe",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "74747950d2f83994392917cd12c396157ea34acd98880757ba660bbb224d5b78",
+    "linha_validacao": 441
+  },
+  "NFe/infNFe/cobr/dup": {
+    "arquivo": "exemplos/grupos/test_nfe-0006.xml",
+    "fonte": "tests/test_nfe.c",
+    "funcao": "teste_grupos_opcionais",
+    "linha": 357,
+    "programa": "test_nfe",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "infNFe",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "74747950d2f83994392917cd12c396157ea34acd98880757ba660bbb224d5b78",
+    "linha_validacao": 441
+  },
+  "NFe/infNFe/pag": {
+    "arquivo": "exemplos/grupos/test_pag-0004.xml",
+    "fonte": "tests/test_pag.c",
+    "funcao": "teste_valores_invalidos",
+    "linha": 157,
+    "programa": "test_pag",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "pag",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "708961b70161a3fc3e450bdfa4d8e317b7a9ac058e7c014d03c93b0dc84df8c9",
+    "linha_validacao": 216
+  },
+  "NFe/infNFe/pag/detPag": {
+    "arquivo": "exemplos/grupos/test_pag-0004.xml",
+    "fonte": "tests/test_pag.c",
+    "funcao": "teste_valores_invalidos",
+    "linha": 157,
+    "programa": "test_pag",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "pag",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "708961b70161a3fc3e450bdfa4d8e317b7a9ac058e7c014d03c93b0dc84df8c9",
+    "linha_validacao": 216
+  },
+  "NFe/infNFe/pag/detPag/card": {
+    "arquivo": "exemplos/grupos/test_pag-0003.xml",
+    "fonte": "tests/test_pag.c",
+    "funcao": "teste_varias_formas",
+    "linha": 80,
+    "programa": "test_pag",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "pag",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "708961b70161a3fc3e450bdfa4d8e317b7a9ac058e7c014d03c93b0dc84df8c9",
+    "linha_validacao": 151
+  },
+  "NFe/infNFe/infIntermed": {
+    "arquivo": "exemplos/grupos/test_nfe-0006.xml",
+    "fonte": "tests/test_nfe.c",
+    "funcao": "teste_grupos_opcionais",
+    "linha": 357,
+    "programa": "test_nfe",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "infNFe",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "74747950d2f83994392917cd12c396157ea34acd98880757ba660bbb224d5b78",
+    "linha_validacao": 441
+  },
+  "NFe/infNFe/infAdic": {
+    "arquivo": "exemplos/grupos/test_nfe-0007.xml",
+    "fonte": "tests/test_nfe.c",
+    "funcao": "teste_grupos_opcionais",
+    "linha": 357,
+    "programa": "test_nfe",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "infNFe",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "74747950d2f83994392917cd12c396157ea34acd98880757ba660bbb224d5b78",
+    "linha_validacao": 501
+  },
+  "NFe/infNFe/infAdic/obsCont": {
+    "arquivo": "exemplos/grupos/test_nfe-0006.xml",
+    "fonte": "tests/test_nfe.c",
+    "funcao": "teste_grupos_opcionais",
+    "linha": 357,
+    "programa": "test_nfe",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "infNFe",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "74747950d2f83994392917cd12c396157ea34acd98880757ba660bbb224d5b78",
+    "linha_validacao": 441
+  },
+  "NFe/infNFe/infAdic/obsFisco": {
+    "arquivo": "exemplos/grupos/test_nfe-0006.xml",
+    "fonte": "tests/test_nfe.c",
+    "funcao": "teste_grupos_opcionais",
+    "linha": 357,
+    "programa": "test_nfe",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "infNFe",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "74747950d2f83994392917cd12c396157ea34acd98880757ba660bbb224d5b78",
+    "linha_validacao": 441
+  },
+  "NFe/infNFe/infAdic/procRef": {
+    "arquivo": "exemplos/grupos/test_nfe-0006.xml",
+    "fonte": "tests/test_nfe.c",
+    "funcao": "teste_grupos_opcionais",
+    "linha": 357,
+    "programa": "test_nfe",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "infNFe",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "74747950d2f83994392917cd12c396157ea34acd98880757ba660bbb224d5b78",
+    "linha_validacao": 441
+  },
+  "NFe/infNFe/exporta": {
+    "arquivo": "exemplos/grupos/test_nfe-0008.xml",
+    "fonte": "tests/test_nfe.c",
+    "funcao": "teste_grupos_genericos",
+    "linha": 519,
+    "programa": "test_nfe",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "infNFe",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "74747950d2f83994392917cd12c396157ea34acd98880757ba660bbb224d5b78",
+    "linha_validacao": 584
+  },
+  "NFe/infNFe/compra": {
+    "arquivo": "exemplos/grupos/test_nfe-0008.xml",
+    "fonte": "tests/test_nfe.c",
+    "funcao": "teste_grupos_genericos",
+    "linha": 519,
+    "programa": "test_nfe",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "infNFe",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "74747950d2f83994392917cd12c396157ea34acd98880757ba660bbb224d5b78",
+    "linha_validacao": 584
+  },
+  "NFe/infNFe/cana": {
+    "arquivo": "exemplos/grupos/test_nfe-0008.xml",
+    "fonte": "tests/test_nfe.c",
+    "funcao": "teste_grupos_genericos",
+    "linha": 519,
+    "programa": "test_nfe",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "infNFe",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "74747950d2f83994392917cd12c396157ea34acd98880757ba660bbb224d5b78",
+    "linha_validacao": 584
+  },
+  "NFe/infNFe/cana/forDia": {
+    "arquivo": "exemplos/grupos/test_nfe-0008.xml",
+    "fonte": "tests/test_nfe.c",
+    "funcao": "teste_grupos_genericos",
+    "linha": 519,
+    "programa": "test_nfe",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "infNFe",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "74747950d2f83994392917cd12c396157ea34acd98880757ba660bbb224d5b78",
+    "linha_validacao": 584
+  },
+  "NFe/infNFe/cana/deduc": {
+    "arquivo": "exemplos/grupos/caso_001.xml",
+    "contexto": "exemplos/contextos/caso_001.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_001",
+    "linha": 15,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/cana/deduc"
+    ],
+    "raiz": "cana",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/infRespTec": {
+    "arquivo": "exemplos/grupos/test_nfe-0007.xml",
+    "fonte": "tests/test_nfe.c",
+    "funcao": "teste_grupos_opcionais",
+    "linha": 357,
+    "programa": "test_nfe",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "infNFe",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "74747950d2f83994392917cd12c396157ea34acd98880757ba660bbb224d5b78",
+    "linha_validacao": 501
+  },
+  "NFe/infNFe/infSolicNFF": {
+    "arquivo": "exemplos/grupos/caso_077.xml",
+    "contexto": "exemplos/contextos/caso_077.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_077",
+    "linha": 1430,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/infSolicNFF"
+    ],
+    "raiz": "infSolicNFF",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/agropecuario": {
+    "arquivo": "exemplos/grupos/test_nfe-0008.xml",
+    "fonte": "tests/test_nfe.c",
+    "funcao": "teste_grupos_genericos",
+    "linha": 519,
+    "programa": "test_nfe",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "infNFe",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "74747950d2f83994392917cd12c396157ea34acd98880757ba660bbb224d5b78",
+    "linha_validacao": 584
+  },
+  "NFe/infNFe/agropecuario/defensivo": {
+    "arquivo": "exemplos/grupos/test_nfe-0008.xml",
+    "fonte": "tests/test_nfe.c",
+    "funcao": "teste_grupos_genericos",
+    "linha": 519,
+    "programa": "test_nfe",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "infNFe",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "74747950d2f83994392917cd12c396157ea34acd98880757ba660bbb224d5b78",
+    "linha_validacao": 584
+  },
+  "NFe/infNFe/agropecuario/guiaTransito": {
+    "arquivo": "exemplos/grupos/caso_000.xml",
+    "contexto": "exemplos/contextos/caso_000.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_000",
+    "linha": 4,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/agropecuario/guiaTransito"
+    ],
+    "raiz": "agropecuario",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/infPAA": {
+    "arquivo": "exemplos/grupos/caso_074.xml",
+    "contexto": "exemplos/contextos/caso_074.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_074",
+    "linha": 1394,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/infPAA"
+    ],
+    "raiz": "infPAA",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/infPAA/PAASignature": {
+    "arquivo": "exemplos/grupos/caso_075.xml",
+    "contexto": "exemplos/contextos/caso_075.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_075",
+    "linha": 1406,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/infPAA/PAASignature"
+    ],
+    "raiz": "infPAA",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFe/infPAA/PAASignature/RSAKeyValue": {
+    "arquivo": "exemplos/grupos/caso_076.xml",
+    "contexto": "exemplos/contextos/caso_076.xml",
+    "fonte": "examples/manual/casos.inc",
+    "funcao": "caso_076",
+    "linha": 1418,
+    "programa": "manual_grupos",
+    "argumentos": [
+      "NFe/infNFe/infPAA/PAASignature/RSAKeyValue"
+    ],
+    "raiz": "infPAA",
+    "tipo": "programa",
+    "schema": "tests/schemas/nfe/nfe_v4.00.xsd",
+    "fonte_sha256": "3db94104c5d3839a76187938da2096c442b109d6ed7580edaff83a028746bf25"
+  },
+  "NFe/infNFeSupl": {
+    "arquivo": "exemplos/grupos/test_nfe-0009.xml",
+    "fonte": "tests/test_nfe.c",
+    "funcao": "teste_grupos_genericos",
+    "linha": 519,
+    "programa": "test_nfe",
+    "argumentos": [
+      "tests"
+    ],
+    "tipo": "teste",
+    "raiz": "infNFeSupl",
+    "schema": "tests/schemas/nfe/tipos_v4.00.xsd",
+    "fonte_sha256": "74747950d2f83994392917cd12c396157ea34acd98880757ba660bbb224d5b78",
+    "linha_validacao": 584
+  }
+}

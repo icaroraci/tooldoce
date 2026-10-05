@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<imposto xmlns="http://www.portalfiscal.inf.br/nfe">
+  <IBSCBS>
+    <CST>111</CST>
+    <cClassTrib>111111</cClassTrib>
+    <gIBSCBS>
+      <vBC>1.00</vBC>
+      <gIBSUF>
+        <pIBSUF>1.00</pIBSUF>
+        <gDevTrib>
+          <vDevTrib>1.00</vDevTrib>
+        </gDevTrib>
+        <vIBSUF>1.00</vIBSUF>
+      </gIBSUF>
+      <gIBSMun>
+        <pIBSMun>1.00</pIBSMun>
+        <vIBSMun>1.00</vIBSMun>
+      </gIBSMun>
+      <vIBS>1.00</vIBS>
+      <gCBS>
+        <pCBS>1.00</pCBS>
+        <vCBS>1.00</vCBS>
+      </gCBS>
+    </gIBSCBS>
+  </IBSCBS>
+</imposto>

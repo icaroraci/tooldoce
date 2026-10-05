@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<imposto xmlns="http://www.portalfiscal.inf.br/nfe">
+  <ICMS>
+    <ICMSSN900>
+      <CSOSN>900</CSOSN>
+    </ICMSSN900>
+  </ICMS>
+</imposto>

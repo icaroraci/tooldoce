@@ -1,9 +1,11 @@
 # NFref — documentos fiscais referenciados
 
-[Manual](../../../README.md) › [NFe (diagrama)](../../../../diagramas/NFe.svg) › [infNFe (diagrama)](../../../../diagramas/NFe/infNFe.svg) › [ide, grupo pai (diagrama)](../../../../diagramas/NFe/infNFe/ide.svg) › NFref
+[Manual](../../../README.md) › [NFe](../../../NFe.md) › [infNFe](../../infNFe.md) › [ide](../ide.md) › NFref
 
 <!-- estado-xsd:inicio -->
-> **Estado: documentado.** Estrutura conferida contra a base XSD registrada. Base revisada: `c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917`. Base atual: `c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917`.
+> **Estado: documentado.** Estrutura conferida contra a base XSD registrada.
+>
+> `Base atual e revisada: c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917`
 <!-- estado-xsd:fim -->
 
 | Informação | Base conferida |
@@ -14,7 +16,7 @@
 | Última revisão | 2026-10-05 |
 | Normas consultadas | MOC 7.0, Anexo I; NT 2022.003 v1.11; NT 2026.004 v1.01; NT 2025.002 v1.52 |
 
-Caminho XML: `NFe/infNFe/ide/NFref`. Os ancestrais ainda não possuem página editorial; a navegação acima abre seus diagramas.
+Caminho XML: `NFe/infNFe/ide/NFref`. Consulte também as páginas de [ide](../ide.md), [infNFe](../../infNFe.md) e [NFe](../../../NFe.md).
 
 ## Finalidade e quando preencher
 
@@ -151,4 +153,4 @@ Fontes oficiais: [MOC 7.0 e anexos](https://www.nfe.fazenda.gov.br/portal/listaC
 
 Código conferido: [ide.h](../../../../../include/libnfe/ide.h), [ide.c](../../../../../src/libnfe/ide.c), [grupo.h](../../../../../include/libnfe/grupo.h), [grupo.c](../../../../../src/libnfe/grupo.c), [test_ide.c](../../../../../tests/test_ide.c), [validar.c](../../../../../src/libnfe/validar.c) e [verificação do manual](../../../../../tests/verificar_manual.py).
 
-Anterior: [índice](../../../README.md) | Pai: [ide (diagrama)](../../../../diagramas/NFe/infNFe/ide.svg) | Próximo: [refNF](NFref/refNF.md)
+Anterior: [índice](../../../README.md) | Pai: [ide](../ide.md) | Próximo: [refNF](NFref/refNF.md)

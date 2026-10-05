@@ -231,7 +231,7 @@ Compare a estrutura nova com a base revisada de cada página:
 
 Inclua as dependências que a página efetivamente descreve, como o contexto de ocorrência no pai e os subgrupos usados em exemplos. Uma mudança em um filho deve marcar também as páginas cujo conteúdo depende dele. Esse controle pode ser conservador, mas deve informar o motivo de cada marcação.
 
-Exiba o aviso no início da página e o estado no índice. O aviso deve informar a base revisada, o novo pacote XSD, o motivo e os campos ou grupos afetados. Exemplo de texto:
+Exiba o aviso no início da página e o estado no índice. O aviso deve informar a base revisada, o novo pacote XSD, o motivo e os campos ou grupos afetados. Quando os hashes da base atual e revisada forem iguais, mostre uma única identificação, `Base atual e revisada`. Quando forem diferentes, mostre os dois pares em linhas próprias, mantendo `Base revisada` e `Base atual` na mesma linha de seus respectivos hashes. Não deixe um rótulo isolado na linha anterior. Use um único trecho de código por par, com espaços inseparáveis entre rótulo e hash. Exemplo de texto:
 
 > **Documentação obsoleta — revisão necessária.** O diagrama apresenta o XSD atual, mas o texto e os exemplos foram revisados para uma base anterior. Mudanças detectadas: indicar os campos e as restrições alterados. Consulte as versões identificadas abaixo antes de usar os exemplos.
 

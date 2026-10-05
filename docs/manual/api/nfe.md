@@ -1,0 +1,381 @@
+# nfe.h — Tipos, enumerações e códigos usados nos argumentos C. A tabela fiscal vigente e a enumeração da versão instalada são referências diferentes; valores presentes em uma norma futura podem ainda não existir na API.
+
+[Manual](../README.md) · [Índice da API](../FUNCOES.md) · [Memória e erros](../API.md)
+
+Header de inclusão: `<libnfe/nfe.h>`. Tipos, enumerações e códigos usados nos argumentos C. A tabela fiscal vigente e a enumeração da versão instalada são referências diferentes; valores presentes em uma norma futura podem ainda não existir na API.
+
+## Contrato, argumentos e retornos
+
+Os comentários preservam os detalhes por função: limites, NULL, códigos, cópia, empréstimo, propriedade e estado em falha. Os tipos/enumerações têm seus nomes reais; as funções não foram renomeadas para uniformizar a documentação.
+
+```c
+/* Data e hora (strftime) no formato AAAA-MM-DDThh:mm:ss; o fuso (TZD, ex.:
+ * -03:00) é acrescentado depois, conforme nfe_tzd. */
+#define NFE_FORMATO_DATA_HORA "%Y-%m-%dT%H:%M:%S"
+
+/* cUF: código IBGE da Unidade Federativa */
+typedef enum nfe_uf {
+	/* Região Norte */
+	NFE_UF_RO = 11, /* Rondônia */
+	NFE_UF_AC = 12, /* Acre */
+	NFE_UF_AM = 13, /* Amazonas */
+	NFE_UF_RR = 14, /* Roraima */
+	NFE_UF_PA = 15, /* Pará */
+	NFE_UF_AP = 16, /* Amapá */
+	NFE_UF_TO = 17, /* Tocantins */
+	/* Região Nordeste */
+	NFE_UF_MA = 21, /* Maranhão */
+	NFE_UF_PI = 22, /* Piauí */
+	NFE_UF_CE = 23, /* Ceará */
+	NFE_UF_RN = 24, /* Rio Grande do Norte */
+	NFE_UF_PB = 25, /* Paraíba */
+	NFE_UF_PE = 26, /* Pernambuco */
+	NFE_UF_AL = 27, /* Alagoas */
+	NFE_UF_SE = 28, /* Sergipe */
+	NFE_UF_BA = 29, /* Bahia */
+	/* Região Sudeste */
+	NFE_UF_MG = 31, /* Minas Gerais */
+	NFE_UF_ES = 32, /* Espírito Santo */
+	NFE_UF_RJ = 33, /* Rio de Janeiro */
+	NFE_UF_SP = 35, /* São Paulo */
+	/* Região Sul */
+	NFE_UF_PR = 41, /* Paraná */
+	NFE_UF_SC = 42, /* Santa Catarina */
+	NFE_UF_RS = 43, /* Rio Grande do Sul */
+	/* Região Centro-Oeste */
+	NFE_UF_MS = 50, /* Mato Grosso do Sul */
+	NFE_UF_MT = 51, /* Mato Grosso */
+	NFE_UF_GO = 52, /* Goiás */
+	NFE_UF_DF = 53  /* Distrito Federal */
+} nfe_uf;
+
+/* Mês, usado no campo AAMM das notas referenciadas */
+typedef enum nfe_mes {
+	NFE_MES_JANEIRO = 1,
+	NFE_MES_FEVEREIRO = 2,
+	NFE_MES_MARCO = 3,
+	NFE_MES_ABRIL = 4,
+	NFE_MES_MAIO = 5,
+	NFE_MES_JUNHO = 6,
+	NFE_MES_JULHO = 7,
+	NFE_MES_AGOSTO = 8,
+	NFE_MES_SETEMBRO = 9,
+	NFE_MES_OUTUBRO = 10,
+	NFE_MES_NOVEMBRO = 11,
+	NFE_MES_DEZEMBRO = 12
+} nfe_mes;
+
+/* indPag: forma de pagamento (grupo pag/detPag) */
+typedef enum nfe_forma_pagamento {
+	NFE_PAGAMENTO_NAO_INFORMADO = -1,
+	NFE_PAGAMENTO_AVISTA = 0,
+	NFE_PAGAMENTO_PRAZO = 1
+} nfe_forma_pagamento;
+
+/* tPag: meio de pagamento. O leiaute aceita qualquer código de 2 dígitos;
+ * estes são os da tabela do MOC. */
+typedef enum nfe_meio_pagamento {
+	NFE_MEIO_DINHEIRO = 1,
+	NFE_MEIO_CHEQUE = 2,
+	NFE_MEIO_CARTAO_CREDITO = 3,
+	NFE_MEIO_CARTAO_DEBITO = 4,
+	NFE_MEIO_CREDITO_LOJA = 5, /* cartão da loja (private label) */
+	NFE_MEIO_VALE_ALIMENTACAO = 10,
+	NFE_MEIO_VALE_REFEICAO = 11,
+	NFE_MEIO_VALE_PRESENTE = 12,
+	NFE_MEIO_VALE_COMBUSTIVEL = 13,
+	NFE_MEIO_BOLETO = 15,
+	NFE_MEIO_DEPOSITO = 16,
+	NFE_MEIO_PIX_DINAMICO = 17,
+	NFE_MEIO_TRANSFERENCIA = 18, /* transferência bancária, carteira
+	                                digital */
+	NFE_MEIO_FIDELIDADE = 19,    /* programa de fidelidade, cashback,
+	                                crédito virtual */
+	NFE_MEIO_PIX_ESTATICO = 20,
+	NFE_MEIO_CREDITO_EM_LOJA = 21, /* crédito em loja (devolução etc.) */
+	NFE_MEIO_ELETRONICO_FALHA = 22, /* pagamento eletrônico não informado
+	                                   (falha de hardware) */
+	NFE_MEIO_SEM_PAGAMENTO = 90,
+	NFE_MEIO_OUTROS = 99 /* descreva em xPag */
+} nfe_meio_pagamento;
+
+/* tpIntegra: integração do pagamento com o sistema de automação */
+typedef enum nfe_integracao {
+	NFE_INTEGRACAO_TEF = 1, /* integrado (TEF, e-commerce) */
+	NFE_INTEGRACAO_POS = 2  /* não integrado (POS) */
+} nfe_integracao;
+
+/* mod: modelo do documento fiscal */
+typedef enum nfe_modelo {
+	NFE_MODELO_NFE = 55,
+	NFE_MODELO_NFCE = 65
+} nfe_modelo;
+
+/* tpNF: tipo de operação */
+typedef enum nfe_tipo_operacao {
+	NFE_OPERACAO_ENTRADA = 0,
+	NFE_OPERACAO_SAIDA = 1
+} nfe_tipo_operacao;
+
+/* idDest: destino da operação */
+typedef enum nfe_destino {
+	NFE_DESTINO_INTERNO = 1,
+	NFE_DESTINO_INTERESTADUAL = 2,
+	NFE_DESTINO_EXTERIOR = 3
+} nfe_destino;
+
+/* tpImp: formato de impressão da DANFE */
+typedef enum nfe_danfe {
+	NFE_DANFE_SEM_GERAR = 0,
+	NFE_DANFE_NORMAL_RETRATO = 1,
+	NFE_DANFE_NORMAL_PAISAGEM = 2,
+	NFE_DANFE_SIMPLIFICADA = 3,
+	NFE_DANFE_NFCE = 4,
+	NFE_DANFE_NFCE_MSG_ELETRONICA =
+	        5, /* DANFE NFC-e em mensagem eletrônica */
+	NFE_DANFE_SIMPLIFICADA_TIPO2 =
+	        6 /* DANFE simplificado tipo 2 (Ajuste SINIEF 13/26) */
+} nfe_danfe;
+
+/* tpEmis: tipo de emissão */
+typedef enum nfe_emissao {
+	/* Sem contingência */
+	NFE_EMISSAO_NORMAL = 1,
+	/* Contingência */
+	NFE_EMISSAO_CONTINGENCIA_FSIA = 2,
+	NFE_EMISSAO_REGIME_ESPECIAL_NFF = 3, /* regime especial NFF (NT
+	                                        2021.002) */
+	NFE_EMISSAO_CONTINGENCIA_SCAN = 3,   /* nome antigo do valor 3 */
+	NFE_EMISSAO_CONTINGENCIA_DPEC = 4,
+	NFE_EMISSAO_CONTINGENCIA_FSDA = 5,
+	NFE_EMISSAO_CONTINGENCIA_SVC_AN = 6,
+	NFE_EMISSAO_CONTINGENCIA_SVC_RS = 7,
+	NFE_EMISSAO_CONTINGENCIA_OFFLINE_NFCE = 9
+} nfe_emissao;
+
+/* tpAmb: ambiente de emissão */
+typedef enum nfe_ambiente {
+	NFE_AMBIENTE_PRODUCAO = 1,
+	NFE_AMBIENTE_HOMOLOGACAO = 2
+} nfe_ambiente;
+
+/* finNFe: finalidade da emissão */
+typedef enum nfe_finalidade {
+	NFE_FINALIDADE_NORMAL = 1,
+	NFE_FINALIDADE_COMPLEMENTAR = 2,
+	NFE_FINALIDADE_AJUSTE = 3,
+	NFE_FINALIDADE_DEVOLUCAO = 4,
+	NFE_FINALIDADE_CREDITO = 5, /* nota de crédito (ver nfe_tipo_credito) */
+	NFE_FINALIDADE_DEBITO = 6   /* nota de débito (ver nfe_tipo_debito) */
+} nfe_finalidade;
+
+/* tpNFDebito: tipo de nota de débito (finNFe = 6) */
+typedef enum nfe_tipo_debito {
+	NFE_DEBITO_NAO_INFORMADO = 0,
+	NFE_DEBITO_TRANSF_COOPERATIVA = 1, /* transferência de créditos para
+	                                      cooperativas */
+	NFE_DEBITO_ANULACAO_CREDITO = 2,   /* anulação de crédito por saídas
+	                                      imunes/isentas */
+	NFE_DEBITO_NAO_PROCESSADAS = 3,    /* débitos de notas fiscais não
+	                                      processadas na apuração */
+	NFE_DEBITO_MULTA_JUROS = 4,
+	NFE_DEBITO_TRANSF_SUCESSAO = 5, /* transferência de crédito na
+	                                   sucessão */
+	NFE_DEBITO_PAGAMENTO_ANTECIPADO = 6,
+	NFE_DEBITO_PERDA_ESTOQUE = 7, /* perecimento, perda, furto, roubo */
+	NFE_DEBITO_DESENQUADRAMENTO_SN = 8
+} nfe_tipo_debito;
+
+/* tpNFCredito: tipo de nota de crédito (finNFe = 5) */
+typedef enum nfe_tipo_credito {
+	NFE_CREDITO_NAO_INFORMADO = 0,
+	NFE_CREDITO_MULTA_JUROS = 1,
+	NFE_CREDITO_PRESUMIDO_ZFM = 2, /* crédito presumido de IBS na ZFM
+	                                  (art. 450, § 1º, LC 214/25) */
+	NFE_CREDITO_RETORNO_RECUSA = 3, /* recusa na entrega ou destinatário não
+	                                   localizado */
+	NFE_CREDITO_REDUCAO_VALORES = 4,
+	NFE_CREDITO_TRANSF_SUCESSAO = 5, /* transferência de crédito na
+	                                    sucessão */
+	NFE_CREDITO_RETORNO_RECUSA_PARCIAL = 6
+} nfe_tipo_credito;
+
+/* indIntermed: intermediador da transação */
+typedef enum nfe_intermediador {
+	NFE_INTERMEDIADOR_NAO_INFORMADO = -1,
+	NFE_INTERMEDIADOR_SEM = 0,      /* site ou plataforma própria */
+	NFE_INTERMEDIADOR_TERCEIROS = 1 /* site ou plataforma de terceiros
+	                                   (marketplace) */
+} nfe_intermediador;
+
+/* tpEnteGov: ente governamental da compra (grupo gCompraGov) */
+typedef enum nfe_ente_gov {
+	NFE_ENTE_GOV_NAO_INFORMADO = 0,
+	NFE_ENTE_GOV_UNIAO = 1,
+	NFE_ENTE_GOV_ESTADO = 2,
+	NFE_ENTE_GOV_DISTRITO_FEDERAL = 3,
+	NFE_ENTE_GOV_MUNICIPIO = 4,
+	NFE_ENTE_GOV_CONSORCIO_PUBLICO = 5,
+	NFE_ENTE_GOV_COMITE_GESTOR_IBS = 6
+} nfe_ente_gov;
+
+/* tpOperGov: tipo da operação com ente governamental (grupo gCompraGov) */
+typedef enum nfe_oper_gov {
+	NFE_OPER_GOV_FORNECIMENTO_PAGAMENTO_POSTERIOR = 1,
+	NFE_OPER_GOV_PAGAMENTO_FORNECIMENTO_REALIZADO = 2, /* exige uma chave
+	                                                      anterior */
+	NFE_OPER_GOV_FORNECIMENTO_PAGAMENTO_REALIZADO = 3, /* exige ao menos
+	                                                      uma chave
+	                                                      anterior */
+	NFE_OPER_GOV_PAGAMENTO_FORNECIMENTO_POSTERIOR = 4
+} nfe_oper_gov;
+
+/* indFinal: operação com consumidor final */
+typedef enum nfe_consumidor {
+	NFE_CONSUMIDOR_NORMAL = 0,
+	NFE_CONSUMIDOR_FINAL = 1
+} nfe_consumidor;
+
+/* indPres: presença do comprador no momento da operação */
+typedef enum nfe_presenca {
+	NFE_PRESENCA_NAO_SE_APLICA = 0,
+	NFE_PRESENCA_PRESENCIAL = 1,
+	NFE_PRESENCA_INTERNET = 2,
+	NFE_PRESENCA_TELEATENDIMENTO = 3,
+	NFE_PRESENCA_ENTREGA_DOMICILIO = 4, /* não presencial com entrega (NFC-e
+	                                       ou DANFE simplificado tipo 2) */
+	NFE_PRESENCA_PRESENCIAL_FORA =
+	        5, /* presencial, fora do estabelecimento */
+	NFE_PRESENCA_OUTROS = 9
+} nfe_presenca;
+
+/* procEmis: processo de emissão */
+typedef enum nfe_processo_emissao {
+	NFE_PROCESSO_APP_CONTRIBUINTE = 0,
+	NFE_PROCESSO_AVULSA_FISCO = 1,
+	NFE_PROCESSO_AVULSA_SITE_FISCO = 2,
+	NFE_PROCESSO_APP_FISCO = 3,
+	NFE_PROCESSO_PAA = 4 /* provedor de assinatura e autorização (PAA) */
+} nfe_processo_emissao;
+
+/* CRT: código de regime tributário do emitente */
+typedef enum nfe_crt {
+	NFE_CRT_NAO_INFORMADO = 0,
+	NFE_CRT_SIMPLES_NACIONAL = 1,
+	NFE_CRT_SIMPLES_EXCESSO_SUBLIMITE = 2, /* Simples Nacional, excesso de
+	                                          sublimite de receita bruta */
+	NFE_CRT_REGIME_NORMAL = 3,
+	NFE_CRT_MEI = 4 /* Simples Nacional, Microempreendedor Individual */
+} nfe_crt;
+
+/* indIEDest: indicador da IE do destinatário */
+typedef enum nfe_ind_ie_dest {
+	NFE_IE_DEST_NAO_INFORMADO = 0,
+	NFE_IE_DEST_CONTRIBUINTE = 1, /* contribuinte ICMS (informar a IE) */
+	NFE_IE_DEST_ISENTO = 2,       /* contribuinte isento de inscrição */
+	NFE_IE_DEST_NAO_CONTRIBUINTE = 9 /* não contribuinte (pode ter IE) */
+} nfe_ind_ie_dest;
+
+/* indEscala: produção em escala relevante (Convênio ICMS 52/17) */
+typedef enum nfe_escala {
+	NFE_ESCALA_NAO_INFORMADA = 0,
+	NFE_ESCALA_RELEVANTE,    /* "S" */
+	NFE_ESCALA_NAO_RELEVANTE /* "N" */
+} nfe_escala;
+
+/* tpCredPresIBSZFM: classificação para o crédito presumido de IBS na Zona
+ * Franca de Manaus (art. 450, § 1º, LC 214/25) */
+typedef enum nfe_cred_pres_zfm {
+	NFE_CRED_PRES_ZFM_NAO_INFORMADO = -1,
+	NFE_CRED_PRES_ZFM_SEM = 0,            /* sem crédito presumido */
+	NFE_CRED_PRES_ZFM_CONSUMO_FINAL = 1,  /* bens de consumo final (55%) */
+	NFE_CRED_PRES_ZFM_CAPITAL = 2,        /* bens de capital (75%) */
+	NFE_CRED_PRES_ZFM_INTERMEDIARIOS = 3, /* bens intermediários (90,25%) */
+	NFE_CRED_PRES_ZFM_INFORMATICA = 4     /* bens de informática e outros
+	                                         (100%) */
+} nfe_cred_pres_zfm;
+
+/* orig: origem da mercadoria */
+typedef enum nfe_origem {
+	NFE_ORIGEM_NAO_INFORMADA = -1, /* só no ICMSSN102, onde é opcional */
+	NFE_ORIGEM_NACIONAL = 0,
+	NFE_ORIGEM_ESTRANGEIRA_IMPORTACAO = 1, /* importação direta */
+	NFE_ORIGEM_ESTRANGEIRA_MERCADO_INTERNO = 2,
+	NFE_ORIGEM_NACIONAL_IMPORTACAO_40_70 = 3, /* conteúdo de importação
+	                                             acima de 40% e até 70% */
+	NFE_ORIGEM_NACIONAL_PROCESSO_BASICO = 4,  /* processos produtivos
+	                                             básicos */
+	NFE_ORIGEM_NACIONAL_IMPORTACAO_ATE_40 = 5,
+	NFE_ORIGEM_ESTRANGEIRA_IMPORTACAO_SEM_SIMILAR = 6, /* lista CAMEX */
+	NFE_ORIGEM_ESTRANGEIRA_MERCADO_INTERNO_SEM_SIMILAR = 7,
+	NFE_ORIGEM_NACIONAL_IMPORTACAO_ACIMA_70 = 8
+} nfe_origem;
+
+/* modBC: modalidade de determinação da base de cálculo do ICMS */
+typedef enum nfe_mod_bc {
+	NFE_MOD_BC_MVA = 0,            /* margem de valor agregado (%) */
+	NFE_MOD_BC_PAUTA = 1,          /* pauta (valor) */
+	NFE_MOD_BC_PRECO_TABELADO = 2, /* preço tabelado máximo (valor) */
+	NFE_MOD_BC_VALOR_OPERACAO = 3
+} nfe_mod_bc;
+
+/* CSOSN do grupo ICMSSN102 (Simples Nacional sem crédito) */
+typedef enum nfe_csosn_102 {
+	NFE_CSOSN_102 = 102, /* tributada sem permissão de crédito */
+	NFE_CSOSN_103 = 103, /* isenção do ICMS para faixa de receita bruta */
+	NFE_CSOSN_300 = 300, /* imune */
+	NFE_CSOSN_400 = 400  /* não tributada */
+} nfe_csosn_102;
+
+/* CST do PIS e da COFINS */
+typedef enum nfe_cst_pis_cofins {
+	NFE_CST_PC_ALIQUOTA_BASICA = 1, /* alíquota básica */
+	NFE_CST_PC_ALIQUOTA_DIFERENCIADA = 2,
+	NFE_CST_PC_MONOFASICA_ZERO = 4, /* monofásica, revenda a alíquota
+	                                   zero */
+	NFE_CST_PC_SUBSTITUICAO = 5,    /* substituição tributária */
+	NFE_CST_PC_ALIQUOTA_ZERO = 6,
+	NFE_CST_PC_ISENTA = 7,
+	NFE_CST_PC_SEM_INCIDENCIA = 8,
+	NFE_CST_PC_SUSPENSAO = 9
+} nfe_cst_pis_cofins;
+
+/* modFrete: modalidade do frete */
+typedef enum nfe_mod_frete {
+	NFE_FRETE_REMETENTE = 0,    /* contratação por conta do remetente
+	                               (CIF) */
+	NFE_FRETE_DESTINATARIO = 1, /* contratação por conta do
+	                               destinatário (FOB) */
+	NFE_FRETE_TERCEIROS = 2,    /* contratação por conta de terceiros */
+	NFE_FRETE_PROPRIO_REMETENTE = 3,    /* transporte próprio do
+	                                       remetente */
+	NFE_FRETE_PROPRIO_DESTINATARIO = 4, /* transporte próprio do
+	                                       destinatário */
+	NFE_FRETE_SEM_TRANSPORTE = 9        /* sem ocorrência de transporte */
+} nfe_mod_frete;
+
+/**
+ * nfe_tzd:
+ * @NFE_TZD_FERNANDO_NORONHA: horário de Fernando de Noronha (UTC-02:00)
+ * @NFE_TZD_BRASILIA: horário oficial de Brasília (UTC-03:00)
+ * @NFE_TZD_MANAUS: horário do Amazonas e demais estados em UTC-04:00
+ * @NFE_TZD_ACRE: horário do Acre e do extremo oeste do Amazonas (UTC-05:00)
+ *
+ * Fuso horário (TZD) das datas no formato AAAA-MM-DDThh:mm:ssTZD.
+ * Ex.: 2010-08-19T13:00:15-03:00.
+ *
+ * O horário de verão foi extinto no Brasil em 2019 (Decreto 9.772/2019).
+ */
+typedef enum nfe_tzd {
+	NFE_TZD_FERNANDO_NORONHA = -2,
+	NFE_TZD_BRASILIA = -3,
+	NFE_TZD_MANAUS = -4,
+	NFE_TZD_ACRE = -5
+} nfe_tzd;
+```
+
+## Fonte e exemplos
+
+- [Header conferido](../../../include/libnfe/nfe.h).
+- [Programa de testes compilável](../../../tests/test_nfe.c): `make obj/test_nfe` e `./obj/test_nfe tests`.
+- [Exemplos e execução](../EXEMPLOS.md), com a distinção entre casos estruturais, assinatura de teste e comunicação real.

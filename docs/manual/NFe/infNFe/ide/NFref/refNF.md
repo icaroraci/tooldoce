@@ -3,7 +3,9 @@
 [Manual](../../../../README.md) › [NFref, grupo pai](../NFref.md) › refNF
 
 <!-- estado-xsd:inicio -->
-> **Estado: documentado.** Estrutura conferida contra a base XSD registrada. Base revisada: `c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917`. Base atual: `c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917`.
+> **Estado: documentado.** Estrutura conferida contra a base XSD registrada.
+>
+> `Base atual e revisada: c537394250f913b591f3984f1de2e9d1a1ec94d334a0086e7a41f9850f5f7917`
 <!-- estado-xsd:fim -->
 
 | Informação | Base conferida |

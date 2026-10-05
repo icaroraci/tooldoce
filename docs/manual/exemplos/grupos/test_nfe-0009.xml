@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<infNFeSupl xmlns="http://www.portalfiscal.inf.br/nfe">
+  <qrCode>https://www.homologacao.nfce.fazenda.sp.gov.br/qrcode?p=35261012345678000195650010000000011123456784|2|2|1|ABCDEF0123456789ABCDEF0123456789ABCDEF01</qrCode>
+  <urlChave>https://www.homologacao.nfce.fazenda.sp.gov.br/consulta</urlChave>
+</infNFeSupl>

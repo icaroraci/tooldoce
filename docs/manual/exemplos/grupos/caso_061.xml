@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<imposto xmlns="http://www.portalfiscal.inf.br/nfe">
+  <PIS>
+    <PISOutr>
+      <CST>49</CST>
+      <vBC>1.00</vBC>
+      <pPIS>1.00</pPIS>
+      <vPIS>1.00</vPIS>
+    </PISOutr>
+  </PIS>
+</imposto>

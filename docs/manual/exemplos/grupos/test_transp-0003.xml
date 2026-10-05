@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transp xmlns="http://www.portalfiscal.inf.br/nfe">
+  <modFrete>1</modFrete>
+  <transporta>
+    <CPF>12345678909</CPF>
+    <xNome>TRANSPORTES LTDA</xNome>
+    <xMun>CAMPINAS</xMun>
+    <UF>SP</UF>
+  </transporta>
+</transp>

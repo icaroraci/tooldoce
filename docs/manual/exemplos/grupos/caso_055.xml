@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<imposto xmlns="http://www.portalfiscal.inf.br/nfe">
+  <ICMS>
+    <ICMSSN202>
+      <orig>0</orig>
+      <CSOSN>202</CSOSN>
+      <modBCST>0</modBCST>
+      <vBCST>1.00</vBCST>
+      <pICMSST>1.00</pICMSST>
+      <vICMSST>1.00</vICMSST>
+    </ICMSSN202>
+  </ICMS>
+</imposto>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<imposto xmlns="http://www.portalfiscal.inf.br/nfe">
+  <ICMS>
+    <ICMS61>
+      <orig>0</orig>
+      <CST>61</CST>
+      <adRemICMSRet>1.00</adRemICMSRet>
+      <vICMSMonoRet>1.00</vICMSMonoRet>
+    </ICMS61>
+  </ICMS>
+</imposto>

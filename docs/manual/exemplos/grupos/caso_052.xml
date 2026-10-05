@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<imposto xmlns="http://www.portalfiscal.inf.br/nfe">
+  <ICMS>
+    <ICMSPart>
+      <orig>0</orig>
+      <CST>10</CST>
+      <modBC>0</modBC>
+      <vBC>1.00</vBC>
+      <pICMS>1.00</pICMS>
+      <vICMS>1.00</vICMS>
+      <modBCST>0</modBCST>
+      <vBCST>1.00</vBCST>
+      <pICMSST>1.00</pICMSST>
+      <vICMSST>1.00</vICMSST>
+      <pBCOp>1.00</pBCOp>
+      <UFST>AC</UFST>
+    </ICMSPart>
+  </ICMS>
+</imposto>

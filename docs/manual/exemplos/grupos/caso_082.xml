@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transp xmlns="http://www.portalfiscal.inf.br/nfe">
+  <modFrete>0</modFrete>
+  <retTransp>
+    <vServ>1.00</vServ>
+    <vBCRet>1.00</vBCRet>
+    <pICMSRet>1.00</pICMSRet>
+    <vICMSRet>1.00</vICMSRet>
+    <CFOP>1000</CFOP>
+    <cMunFG>3550308</cMunFG>
+  </retTransp>
+</transp>

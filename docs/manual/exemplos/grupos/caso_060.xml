@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<imposto xmlns="http://www.portalfiscal.inf.br/nfe">
+  <ISSQN>
+    <vBC>1.00</vBC>
+    <vAliq>1.00</vAliq>
+    <vISSQN>1.00</vISSQN>
+    <cMunFG>3550308</cMunFG>
+    <cListServ>00A00</cListServ>
+    <indISS>1</indISS>
+    <indIncentivo>1</indIncentivo>
+  </ISSQN>
+</imposto>

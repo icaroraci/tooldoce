@@ -80,7 +80,15 @@ def atualizar(base, caminhos, leiaute):
         estados.append(f"- [{pagina['caminho_xml']}]({pagina['arquivo']}) — **{estado}**. {motivo}")
         p = manual / pagina["arquivo"]
         texto = p.read_text(encoding="utf-8")
-        bloco = f"{INICIO}\n> **Estado: {estado}.** {motivo} Base revisada: `{pagina.get('assinatura_revisada', 'ausente')}`. Base atual: `{assinatura}`.\n{FIM}"
+        revisada = pagina.get("assinatura_revisada", "ausente")
+        def linha_base(rotulo, valor):
+            # Um unico trecho de codigo, com espacos inseparaveis, mantem
+            # rotulo e hash juntos mesmo quando o aviso ocupa varias linhas.
+            titulo = rotulo.replace(" ", "\u00a0")
+            return f"> `{titulo}:\u00a0{valor}`"
+        bases = [linha_base("Base atual e revisada", assinatura)] if revisada == assinatura else [
+            linha_base("Base revisada", revisada), linha_base("Base atual", assinatura)]
+        bloco = f"{INICIO}\n> **Estado: {estado}.** {motivo}\n>\n" + "  \n".join(bases) + f"\n{FIM}"
         if removido:
             # Preserva o texto, mas evita incorporar um SVG que foi removido.
             texto = re.sub(r"!\[([^]]*)\]\(([^)]+\.svg)\)",
