@@ -99,8 +99,8 @@ int nfe_erros_codigo(const nfe_erros *erros, int i);
  * houver irmãos do mesmo nome/namespace; atributos usam /@nome. Não é
  * uma expressão XPath independente dos namespaces do documento.
  * Valor é o conteúdo textual do nó (após o parser XML); quando o nó
- * escalar não é fornecido, usa o valor
- * informado no erro da faceta, que pode estar normalizado pelo XSD.
+ * escalar não é fornecido ou o pai pode representar um atributo, usa
+ * o valor da faceta, que pode estar normalizado pelo XSD.
  * Grupos não têm valor escalar. A libxml2 pode indicar apenas o pai de
  * um atributo: nesse caso campo/caminho indicam o pai, e a mensagem
  * identifica o atributo.

@@ -26,6 +26,15 @@
                   <xs:totalDigits value="3"/><xs:fractionDigits value="1"/>
                 </xs:restriction></xs:simpleType>
               </xs:element>
+              <xs:element name="medida" minOccurs="0">
+                <xs:complexType><xs:simpleContent><xs:extension base="xs:decimal">
+                  <xs:attribute name="unidade">
+                    <xs:simpleType><xs:restriction base="xs:string">
+                      <xs:pattern value="[A-Z]{2}"/>
+                    </xs:restriction></xs:simpleType>
+                  </xs:attribute>
+                </xs:extension></xs:simpleContent></xs:complexType>
+              </xs:element>
               <xs:choice><xs:element name="a"/><xs:element name="b"/></xs:choice>
             </xs:sequence>
             <xs:attribute name="id" use="required">

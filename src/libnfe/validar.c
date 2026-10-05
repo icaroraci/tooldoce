@@ -378,10 +378,14 @@ static void guarda_erro(void *ctx, xmlErrorPtr erro)
 		e->valor = duplica(erro->str1);
 		if (erro->str1 && !e->valor)
 			erros->sem_memoria = 1;
-	} else if (!e->valor && erro->str1 &&
-	           erro->code != XML_SCHEMAV_CVC_LENGTH_VALID &&
+	} else if ((!e->valor ||
+	            (no && no->type == XML_ELEMENT_NODE && no->properties)) &&
+	           erro->str1 && erro->code != XML_SCHEMAV_CVC_LENGTH_VALID &&
 	           erro->code != XML_SCHEMAV_CVC_MINLENGTH_VALID &&
 	           erro->code != XML_SCHEMAV_CVC_MAXLENGTH_VALID) {
+		/* O pai pode ter texto escalar próprio. Sem o nó atributo,
+		 * prefira o valor da faceta a atribuir esse texto ao erro. */
+		free(e->valor);
 		e->valor = duplica(erro->str1);
 		if (!e->valor)
 			erros->sem_memoria = 1;

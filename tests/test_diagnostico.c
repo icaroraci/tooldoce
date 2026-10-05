@@ -156,6 +156,9 @@ int main(int argc, char **argv)
 	        "maxLength", "áéíóú", "4", "/dados/item[1]/texto");
 	confere(v, erros, "id=\"CD\"", "id=\"C\"", "length", "C", "2",
 	        "/dados/item[2]");
+	/* Atributo inválido em pai com texto: não confundir xx com 7. */
+	confere(v, erros, "<b/>", "<medida unidade=\"xx\">7</medida><b/>",
+	        "pattern", "xx", "[A-Z]{2}", "/dados/item[2]/medida");
 	confere(v, erros, "<numero>2.0</numero>", "<numero>0</numero>",
 	        "minInclusive", "0", "1", "/dados/item[2]/numero");
 	confere(v, erros, "<numero>2.0</numero>", "<numero>10</numero>",

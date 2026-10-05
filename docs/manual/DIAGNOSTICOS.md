@@ -19,7 +19,7 @@ Quando o XML é inválido, a aplicação pode exibir tag, caminho, linha, valor 
 
 Os retornos das funções permanecem `0`, `E_VALOR`, `E_XML`, `E_ISNULL` e `E_MALLOC`, conforme seu contrato. Os seis getters novos acrescentam informações à lista opaca sem alterar a assinatura de validação. Eles retornam NULL/0 para uma lista nula ou índice inexistente. Todos os textos pertencem à lista e deixam de ser válidos quando ela é limpa, liberada ou reutilizada numa validação.
 
-O conteúdo do nó já passou pelo parser XML: entidades e normalização XML não preservam byte a byte o arquivo original. Em nós identificados, mantém-se o texto anterior à normalização XSD; quando a libxml2 fornece apenas o valor da faceta, esse valor pode estar normalizado pelo tipo XSD. Grupos com filhos não são concatenados para produzir um suposto valor escalar.
+O conteúdo do nó já passou pelo parser XML: entidades e normalização XML não preservam byte a byte o arquivo original. Em nós escalares identificados sem atributos, mantém-se o texto anterior à normalização XSD. Quando falta o nó escalar ou o pai pode representar um atributo, prefere-se o valor da faceta, que pode estar normalizado pelo tipo XSD; não se atribui o texto do pai ao erro de um atributo. Grupos com filhos não são concatenados para produzir um suposto valor escalar.
 
 ## Facetas e erros estruturais
 
