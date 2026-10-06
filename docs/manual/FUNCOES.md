@@ -1,8 +1,8 @@
 # Referência pública da API C
 
-Base: libnfe `1.0.0-rc4`, commit `1dd412eebca80dd80d884b3f03a1a31cfaf42279`, conferido em 05/10/2026. Os contratos abaixo reproduzem os tipos, assinaturas e comentários públicos dos headers; funções `NFE_INTERNO` são excluídas. O comportamento específico prevalece sobre as convenções gerais.
+Referência da libnfe `1.0.0-rc5`. Os contratos abaixo reproduzem os tipos, assinaturas e comentários públicos dos headers desta revisão; funções `NFE_INTERNO` são excluídas. O comportamento específico prevalece sobre as convenções gerais. As bases históricas de conferência das páginas XML estão no [manifesto](schema-manifest.json).
 
-Atualização não lançada: seis getters de diagnóstico acrescentados em `validar.h`, descritos em [DIAGNOSTICOS.md](DIAGNOSTICOS.md).
+Na rc5, seis getters de diagnóstico foram acrescentados em `validar.h`, descritos em [DIAGNOSTICOS.md](DIAGNOSTICOS.md).
 
 [Manual](README.md) · [Memória e erros](API.md) · [Fluxo completo](EMISSAO.md)
 

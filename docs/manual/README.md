@@ -2,6 +2,8 @@
 
 Este manual documenta o tooldoce/libnfe: estruturas XML, montagem, validação, assinatura e comunicação. Base conferida em **05/10/2026**: libnfe **1.0.0-rc4**, commit `1dd412eebca80dd80d884b3f03a1a31cfaf42279`, leiaute NF-e/NFC-e 4.00, pacote oficial **PL010f v1.04**, de 31/08/2026.
 
+A **1.0.0-rc5** acrescenta [diagnósticos automáticos de validação](DIAGNOSTICOS.md) e atualiza a [referência da API](FUNCOES.md). As páginas XML mantêm suas bases históricas de revisão; a versão da biblioteca não altera a assinatura dos XSDs nem substitui a conferência editorial.
+
 Há páginas para as **171 estruturas do índice de diagramas**, com finalidade, campos/atributos, ocorrências, escolhas, API, C executável, XML correspondente, navegação e fontes oficiais. [NFref](NFe/infNFe/ide/NFref.md) e [refNF](NFe/infNFe/ide/NFref/refNF.md) permanecem como primeira referência interna conferida segundo [Como documentar](../COMO_DOCUMENTAR.md).
 
 ## Começar pelo fluxo de uso
