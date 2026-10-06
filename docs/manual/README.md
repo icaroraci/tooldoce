@@ -26,7 +26,7 @@ Há páginas para as **171 estruturas do índice de diagramas**, com finalidade,
 
 O [índice XML completo](INDICE.md) segue a árvore dos grupos. Comece por [NFe](NFe.md) → [infNFe](NFe/infNFe.md) → [ide](NFe/infNFe/ide.md), ou consulte o item em [det](NFe/infNFe/det.md). As páginas dos pais explicam sequências/escolhas; as dos filhos detalham seus campos e acesso.
 
-O [índice da API](FUNCOES.md) cobre os 35 headers instalados, com contratos públicos, tipos e enumerações. Símbolos internos não são API de integração. O [índice de diagramas](../diagramas/README.md) liga às páginas editoriais preservando os SVGs.
+O [índice da API](FUNCOES.md) cobre os 36 headers instalados, com contratos públicos, tipos e enumerações. Símbolos internos não são API de integração. O [índice de diagramas](../diagramas/README.md) liga às páginas editoriais preservando os SVGs.
 
 ## Cobertura e estado
 

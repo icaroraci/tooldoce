@@ -2,7 +2,7 @@
 
 Base: libnfe `1.0.0-rc4`, commit `1dd412eebca80dd80d884b3f03a1a31cfaf42279`, conferido em 05/10/2026. Os contratos abaixo reproduzem os tipos, assinaturas e comentários públicos dos headers; funções `NFE_INTERNO` são excluídas. O comportamento específico prevalece sobre as convenções gerais.
 
-Atualização não lançada: seis getters de diagnóstico acrescentados em `validar.h`, descritos em [DIAGNOSTICOS.md](DIAGNOSTICOS.md).
+Atualização não lançada: seis getters de diagnóstico acrescentados em `validar.h`, descritos em [DIAGNOSTICOS.md](DIAGNOSTICOS.md), e o novo `compacta.h`, com gzip e base64.
 
 [Manual](README.md) · [Memória e erros](API.md) · [Fluxo completo](EMISSAO.md)
 
@@ -12,6 +12,7 @@ Atualização não lançada: seis getters de diagnóstico acrescentados em `vali
 | [chave.h](api/chave.md) | Composição lexical da chave e cálculo/conferência do DV. As posições do CNPJ admitem letras maiúsculas no formato atualizado; preserve tamanho, posições e zeros. | 2 |
 | [cnpjcpf.h](api/cnpjcpf.md) | Validação de documentos numéricos e CNPJ alfanumérico, com formatos e dígitos verificadores. Um documento válido matematicamente não comprova existência ou situação cadastral. | 2 |
 | [cobr.h](api/cobr.md) | Fatura e duplicatas da cobrança, com valores e vencimentos. Estes dados não criam automaticamente formas de pagamento. | 6 |
+| [compacta.h](api/compacta.md) | Compactação gzip com base64 do XML que trafega compactado (MDF-e, NFS-e nacional). A descompactação tem limite de tamanho, porque o texto vem de fora. | 2 |
 | [decimal.h](api/decimal.md) | A aritmética decimal usada internamente preserva escala sem ponto flutuante binário; os limites, conversões e arredondamentos são os publicados no header. Confira a visibilidade das funções antes de usá-las externamente. | 0 |
 | [defs.h](api/defs.md) |  | 0 |
 | [dest.h](api/dest.md) | Identificação do destinatário, documentos, endereço e inscrições. Setters de identificação e ligação ao endereço têm efeitos específicos de escolha e transferência de posse. | 13 |

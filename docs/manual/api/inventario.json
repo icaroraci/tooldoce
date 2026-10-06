@@ -27,6 +27,10 @@
     "nfe_cobr_remove_dup",
     "nfe_cobr_write_xml"
   ],
+  "compacta": [
+    "nfe_gzip_base64",
+    "nfe_base64_gunzip"
+  ],
   "decimal": [],
   "defs": [],
   "dest": [
