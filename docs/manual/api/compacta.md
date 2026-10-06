@@ -40,8 +40,6 @@ int nfe_gzip_base64(const char *dados, size_t tam, char **saida);
  * E_MALLOC. */
 int nfe_base64_gunzip(const char *texto, size_t tam, size_t limite,
                       char **dados, size_t *tam_dados);
-
-#endif /* LIBNFE_COMPACTA_H */
 ```
 
 ## Fonte e exemplos
