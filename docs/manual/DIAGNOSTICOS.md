@@ -2,6 +2,8 @@
 
 [Manual](README.md) · [Validação](VALIDACAO.md) · [Contrato da API](api/validar.md)
 
+Disponível a partir da libnfe **1.0.0-rc5**.
+
 Quando o XML é inválido, a aplicação pode exibir tag, caminho, linha, valor recebido e a restrição que falhou. A libxml2 continua sendo o validador: a biblioteca copia seu erro estruturado e os dados do nó antes de liberar o documento. O padrão, conjunto enumerado ou limite vem do schema efetivamente carregado, incluindo tipos herdados, referências, includes e imports. Não existe uma tabela de erros por tag nem uma segunda implementação de validação.
 
 ## Dados disponíveis
