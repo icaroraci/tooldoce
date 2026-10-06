@@ -17,7 +17,8 @@
  ** */
 
 /* Testes da comunicação com a SEFAZ (sefaz.h), contra o servidor falso
- * tests/servidor_sefaz.py (HTTPS com autenticação mútua, em 127.0.0.1).
+ * tests/servidor_sefaz.py (HTTPS com autenticação mútua, em 127.0.0.1): SOAP
+ * e requisições REST com JSON, no estilo da NFS-e nacional.
  *
  * Uso: test_sefaz <diretório tests> */
 
@@ -33,7 +34,9 @@
 
 #include <libnfe/assinatura.h>
 #include <libnfe/chave.h>
+#include <libnfe/compacta.h>
 #include <libnfe/erros.h>
+#include <libnfe/json.h>
 #include <libnfe/nfe_nfe.h>
 #include <libnfe/sefaz.h>
 
@@ -221,6 +224,129 @@ static void testa_retorno(void)
 		        nfe_sefaz_cstat(vazio, strlen(vazio), &cstat, NULL, 0),
 		        E_XML);
 	}
+}
+
+/* Requisições REST (nfe_sefaz_requisicao) na API JSON do servidor falso,
+ * no estilo da NFS-e nacional */
+static void testa_rest(nfe_sefaz *s, int porta)
+{
+	char url[128], corpo[512];
+	char *b64 = NULL, *ret = NULL, *xml = NULL;
+	size_t tam = 0, tam_xml = 0;
+	nfe_json *j = NULL;
+	const nfe_json *erro;
+	long http = 0;
+	int n;
+
+	/* POST /nfse com a DPS em gzip e base64 */
+	snprintf(url, sizeof url, "https://127.0.0.1:%d/rest/nfse", porta);
+	VERIFICA_INT(nfe_gzip_base64("<DPS/>", 6, &b64), 0);
+	n = snprintf(corpo, sizeof corpo, "{\"dpsXmlGZipB64\":\"%s\"}",
+	             b64 ? b64 : "");
+	free(b64);
+	VERIFICA_INT(nfe_sefaz_requisicao(s, "POST", url, "application/json",
+	                                  corpo, (size_t)n, &http, &ret, &tam),
+	             0);
+	VERIFICA(http == 201);
+	VERIFICA_INT(nfe_json_ler(ret, tam, &j), 0);
+	VERIFICA_STR(nfe_json_texto(nfe_json_campo(j, "chaveAcesso")),
+	             "33045572123456780001959999999999999999999999999999");
+	VERIFICA(nfe_json_tipo_de(nfe_json_campo(j, "alertas")) ==
+	         NFE_JSON_NULO);
+	VERIFICA_INT(nfe_base64_gunzip(nfe_json_texto(nfe_json_campo(
+	                                       j, "nfseXmlGZipB64")),
+	                               strlen(nfe_json_texto(nfe_json_campo(
+	                                       j, "nfseXmlGZipB64"))),
+	                               0, &xml, &tam_xml),
+	             0);
+	VERIFICA_STR(xml, "<NFSe><DPS/></NFSe>");
+	free(xml);
+	nfe_json_free(j);
+	j = NULL;
+	free(ret);
+	ret = NULL;
+
+	/* 400 com a lista de erros não é falha de rede */
+	VERIFICA_INT(nfe_sefaz_requisicao(s, "POST", url, "application/json",
+	                                  "{}", 2, &http, &ret, &tam),
+	             0);
+	VERIFICA(http == 400);
+	VERIFICA_INT(nfe_json_ler(ret, tam, &j), 0);
+	VERIFICA(nfe_json_qtd(nfe_json_campo(j, "erros")) == 1);
+	erro = nfe_json_item(nfe_json_campo(j, "erros"), 0);
+	VERIFICA_STR(nfe_json_texto(nfe_json_campo(erro, "Codigo")), "E0001");
+	VERIFICA_STR(nfe_json_texto(nfe_json_campo(erro, "Descricao")),
+	             "DPS inv\xC3\xA1lida");
+	nfe_json_free(j);
+	j = NULL;
+	free(ret);
+	ret = NULL;
+
+	/* GET pela chave; HEAD sem corpo; 404 */
+	snprintf(url, sizeof url,
+	         "https://127.0.0.1:%d/rest/nfse/"
+	         "33045572123456780001959999999999999999999999999999",
+	         porta);
+	VERIFICA_INT(nfe_sefaz_requisicao(s, "GET", url, NULL, NULL, 0, &http,
+	                                  &ret, NULL),
+	             0);
+	VERIFICA(http == 200 && strstr(ret, "nfseXmlGZipB64"));
+	free(ret);
+	ret = NULL;
+	snprintf(url, sizeof url, "https://127.0.0.1:%d/rest/dps/DPS1", porta);
+	VERIFICA_INT(nfe_sefaz_requisicao(s, "HEAD", url, NULL, NULL, 0, &http,
+	                                  &ret, &tam),
+	             0);
+	VERIFICA(http == 200 && tam == 0);
+	VERIFICA_STR(ret, "");
+	free(ret);
+	ret = NULL;
+	snprintf(url, sizeof url, "https://127.0.0.1:%d/rest/dps/DPS2", porta);
+	VERIFICA_INT(nfe_sefaz_requisicao(s, "HEAD", url, NULL, NULL, 0, &http,
+	                                  &ret, &tam),
+	             0);
+	VERIFICA(http == 404);
+	free(ret);
+	ret = NULL;
+
+	/* Outro método com corpo e tipo */
+	snprintf(url, sizeof url, "https://127.0.0.1:%d/rest/eco", porta);
+	VERIFICA_INT(nfe_sefaz_requisicao(s, "PUT", url, "text/plain", "abc", 3,
+	                                  &http, &ret, NULL),
+	             0);
+	VERIFICA_STR(ret, "PUT text/plain abc");
+	free(ret);
+	ret = NULL;
+
+	/* Argumentos inválidos */
+	http = 7;
+	VERIFICA_INT(nfe_sefaz_requisicao(s, "get", url, NULL, NULL, 0, &http,
+	                                  &ret, NULL),
+	             E_VALOR);
+	VERIFICA_INT(nfe_sefaz_requisicao(s, "", url, NULL, NULL, 0, &http,
+	                                  &ret, NULL),
+	             E_VALOR);
+	VERIFICA_INT(nfe_sefaz_requisicao(s, "POST", url, "a\r\nX: y", "a", 1,
+	                                  &http, &ret, NULL),
+	             E_VALOR);
+	VERIFICA_INT(nfe_sefaz_requisicao(s, "GET", url, NULL, "a", 1, &http,
+	                                  &ret, NULL),
+	             E_VALOR);
+	VERIFICA_INT(nfe_sefaz_requisicao(s, "POST", url, NULL, NULL, 1, &http,
+	                                  &ret, NULL),
+	             E_ISNULL);
+	VERIFICA_INT(nfe_sefaz_requisicao(s, "GET", url, NULL, NULL, 0, NULL,
+	                                  &ret, NULL),
+	             E_ISNULL);
+	VERIFICA(http == 7 && ret == NULL);
+	/* Sem servidor: falha de rede */
+	VERIFICA_INT(nfe_sefaz_requisicao(s, "GET", "https://127.0.0.1:1/",
+	                                  NULL, NULL, 0, &http, &ret, NULL),
+	             E_REDE);
+	VERIFICA(nfe_sefaz_erro(s)[0] != '\0' && http == 7 && ret == NULL);
+	VERIFICA_INT(nfe_sefaz_requisicao(s, "GET", "http://127.0.0.1:1/", NULL,
+	                                  NULL, 0, &http, &ret, NULL),
+	             E_REDE);
 }
 
 int main(int argc, char **argv)
@@ -415,6 +541,8 @@ int main(int argc, char **argv)
 		VERIFICA_INT(nfe_sefaz_enviar(s, url, NFE_SERVICO_STATUS, msg,
 		                              &ret, NULL),
 		             E_XML);
+
+		testa_rest(s, porta);
 	}
 	if (pid > 0) {
 		kill(pid, SIGTERM);

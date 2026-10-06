@@ -2,7 +2,7 @@
 
 Base: libnfe `1.0.0-rc4`, commit `1dd412eebca80dd80d884b3f03a1a31cfaf42279`, conferido em 05/10/2026. Os contratos abaixo reproduzem os tipos, assinaturas e comentários públicos dos headers; funções `NFE_INTERNO` são excluídas. O comportamento específico prevalece sobre as convenções gerais.
 
-Atualização não lançada: seis getters de diagnóstico acrescentados em `validar.h`, descritos em [DIAGNOSTICOS.md](DIAGNOSTICOS.md).
+Atualização não lançada: seis getters de diagnóstico acrescentados em `validar.h`, descritos em [DIAGNOSTICOS.md](DIAGNOSTICOS.md), o novo `compacta.h`, com gzip e base64, o novo `json.h`, com a leitura de JSON, e `nfe_sefaz_requisicao` em `sefaz.h`, para serviços REST.
 
 [Manual](README.md) · [Memória e erros](API.md) · [Fluxo completo](EMISSAO.md)
 
@@ -12,6 +12,7 @@ Atualização não lançada: seis getters de diagnóstico acrescentados em `vali
 | [chave.h](api/chave.md) | Composição lexical da chave e cálculo/conferência do DV. As posições do CNPJ admitem letras maiúsculas no formato atualizado; preserve tamanho, posições e zeros. | 2 |
 | [cnpjcpf.h](api/cnpjcpf.md) | Validação de documentos numéricos e CNPJ alfanumérico, com formatos e dígitos verificadores. Um documento válido matematicamente não comprova existência ou situação cadastral. | 2 |
 | [cobr.h](api/cobr.md) | Fatura e duplicatas da cobrança, com valores e vencimentos. Estes dados não criam automaticamente formas de pagamento. | 6 |
+| [compacta.h](api/compacta.md) | Compactação gzip com base64 do XML que trafega compactado (MDF-e, NFS-e nacional). A descompactação tem limite de tamanho, porque o texto vem de fora. | 2 |
 | [decimal.h](api/decimal.md) | A aritmética decimal usada internamente preserva escala sem ponto flutuante binário; os limites, conversões e arredondamentos são os publicados no header. Confira a visibilidade das funções antes de usá-las externamente. | 0 |
 | [defs.h](api/defs.md) |  | 0 |
 | [dest.h](api/dest.md) | Identificação do destinatário, documentos, endereço e inscrições. Setters de identificação e ligação ao endereço têm efeitos específicos de escolha e transferência de posse. | 13 |
@@ -27,6 +28,7 @@ Atualização não lançada: seis getters de diagnóstico acrescentados em `vali
 | [imposto.h](api/imposto.md) | Tributos do item, motor de grupos e atalhos mais usados. Formatos e presença são conferidos; o enquadramento e as contas continuam sob responsabilidade do emissor. | 17 |
 | [infadic.h](api/infadic.md) | Informações ao Fisco/contribuinte, observações e processos. Cada tipo tem limites próprios; texto livre não substitui campos estruturados. | 10 |
 | [inutilizacao.h](api/inutilizacao.md) | Montagem do pedido de inutilização para série e faixa numérica. Aceitação local do pedido não significa homologação da faixa pela SEFAZ. | 1 |
+| [json.h](api/json.md) | Leitura mínima de JSON para respostas de serviços REST, como a NFS-e nacional. A árvore é somente de leitura e pertence à raiz; os textos devolvidos valem até nfe_json_free. | 8 |
 | [local.h](api/local.md) | Locais de retirada e entrega. O grupo recebe um endereço e passa a possuí-lo após sucesso; identificação e endereço não são substitutos do destinatário da nota. | 9 |
 | [nfe.h](api/nfe.md) | Tipos, enumerações e códigos usados nos argumentos C. A tabela fiscal vigente e a enumeração da versão instalada são referências diferentes; valores presentes em uma norma futura podem ainda não existir na API. | 0 |
 | [nfe_nfe.h](api/nfe_nfe.md) | Montagem da nota completa, integração dos filhos, chave, totais, escrita, arquivo e assinatura. A nota passa a possuir os grupos anexados após sucesso. | 24 |
@@ -36,7 +38,7 @@ Atualização não lançada: seis getters de diagnóstico acrescentados em `vali
 | [refNF.h](api/refNF.md) | Nota não eletrônica referenciada. Consulte a página editorial refNF para as diferenças entre domínio do XSD e setters legados. | 15 |
 | [refNFe.h](api/refNFe.md) | Referência de NF-e por chave eletrônica. A API específica confere a chave/DV; não fornece automaticamente o fluxo de referência com sigilo. | 5 |
 | [resptec.h](api/resptec.md) | Responsável técnico e hash CSRT já calculado. O setter do hash não calcula SHA-1 nem gera o segredo CSRT. | 5 |
-| [sefaz.h](api/sefaz.md) | Mensagens, conexão SOAP/HTTPS, leitura de retorno e documentos processados. Retorno 0 indica êxito da operação local; a situação fiscal é informada pelo cStat adequado. | 18 |
+| [sefaz.h](api/sefaz.md) | Mensagens, conexão SOAP/HTTPS, requisições REST na mesma conexão, leitura de retorno e documentos processados. Retorno 0 indica êxito da operação local; a situação fiscal é informada pelo cStat adequado. | 19 |
 | [total.h](api/total.md) | Totais de ICMSTot e demais grupos fiscais. A soma automática da nota não cobre automaticamente todos os novos tributos ou retenções. | 6 |
 | [transp.h](api/transp.md) | Frete, transportador, veículo, reboques, volumes e lacres. Listas e seus subgrupos pertencem ao objeto de transporte. | 14 |
 | [utils.h](api/utils.md) | Tipos e rotinas auxiliares da biblioteca. O contrato público exclui funções marcadas NFE_INTERNO; não use os símbolos ocultos como API de integração. | 0 |

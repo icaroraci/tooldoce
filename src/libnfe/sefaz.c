@@ -385,23 +385,18 @@ static int nome_seguro(const char *t)
 	return 1;
 }
 
-/* Envio SOAP 1.2: <elemento xmlns="ns">msg</elemento> no corpo e
- * action="ns/operacao"; cabecalho (ou NULL) vai em <soap12:Header> */
-static int envia(nfe_sefaz *s, const char *url, const char *ns,
-                 const char *operacao, const char *elemento,
-                 const char *cabecalho_soap, const char *msg, char **resposta,
-                 size_t *tam)
+/* Executa uma requisição HTTPS com o certificado da conexão: metodo (GET,
+ * HEAD, POST...), cabeçalhos h, corpo de n bytes (NULL: sem corpo). Guarda
+ * a resposta em *recebido e o status HTTP em *http. Retorna 0, E_REDE (ver
+ * s->erro) ou E_MALLOC. */
+static int executa(nfe_sefaz *s, const char *url, const char *metodo,
+                   struct curl_slist *h, const char *corpo, size_t n,
+                   struct buf *recebido, long *http)
 {
-	struct buf envelope = { 0 }, cabecalho = { 0 }, recebido = { 0 };
 	char errbuf[CURL_ERROR_SIZE];
-	struct curl_slist *h = NULL, *h2;
 	const curl_version_info_data *ver;
-	const char *corpo;
-	size_t n;
-	long http = 0;
 	CURLcode cc;
 	CURL *c;
-	int rc;
 
 	pthread_once(&inicio, inicia_curl);
 	if (inicio_rc != CURLE_OK) {
@@ -414,6 +409,67 @@ static int envia(nfe_sefaz *s, const char *url, const char *ns,
 		         "a libcurl precisa usar a OpenSSL para o certificado");
 		return E_REDE;
 	}
+
+	c = curl_easy_init();
+	if (!c)
+		return E_MALLOC;
+	errbuf[0] = '\0';
+	curl_easy_setopt(c, CURLOPT_URL, url);
+#if LIBCURL_VERSION_NUM >= 0x075500
+	curl_easy_setopt(c, CURLOPT_PROTOCOLS_STR, "https");
+#else
+	curl_easy_setopt(c, CURLOPT_PROTOCOLS, (long)CURLPROTO_HTTPS);
+#endif
+	curl_easy_setopt(c, CURLOPT_NOSIGNAL, 1L);
+	curl_easy_setopt(c, CURLOPT_TIMEOUT, s->timeout);
+	curl_easy_setopt(c, CURLOPT_ERRORBUFFER, errbuf);
+	curl_easy_setopt(c, CURLOPT_HTTPHEADER, h);
+	if (strcmp(metodo, "HEAD") == 0) {
+		curl_easy_setopt(c, CURLOPT_NOBODY, 1L);
+	} else if (corpo || strcmp(metodo, "POST") == 0) {
+		/* POST sem corpo vai com Content-Length: 0 */
+		curl_easy_setopt(c, CURLOPT_POSTFIELDS, corpo ? corpo : "");
+		curl_easy_setopt(c, CURLOPT_POSTFIELDSIZE_LARGE, (curl_off_t)n);
+		if (strcmp(metodo, "POST") != 0)
+			curl_easy_setopt(c, CURLOPT_CUSTOMREQUEST, metodo);
+	} else if (strcmp(metodo, "GET") == 0) {
+		curl_easy_setopt(c, CURLOPT_HTTPGET, 1L);
+	} else {
+		curl_easy_setopt(c, CURLOPT_CUSTOMREQUEST, metodo);
+	}
+	curl_easy_setopt(c, CURLOPT_WRITEFUNCTION, recebe);
+	curl_easy_setopt(c, CURLOPT_WRITEDATA, recebido);
+	curl_easy_setopt(c, CURLOPT_SSLVERSION, (long)CURL_SSLVERSION_TLSv1_2);
+	curl_easy_setopt(c, CURLOPT_SSL_CTX_FUNCTION, poe_certificado);
+	curl_easy_setopt(c, CURLOPT_SSL_CTX_DATA, (void *)s->cert);
+	if (s->ca)
+		curl_easy_setopt(c, CURLOPT_CAINFO, s->ca);
+
+	cc = curl_easy_perform(c);
+	*http = 0;
+	curl_easy_getinfo(c, CURLINFO_RESPONSE_CODE, http);
+	curl_easy_cleanup(c);
+	if (cc != CURLE_OK) {
+		snprintf(s->erro, sizeof s->erro, "%s",
+		         errbuf[0] ? errbuf : curl_easy_strerror(cc));
+		return recebido->erro ? recebido->erro : E_REDE;
+	}
+	return 0;
+}
+
+/* Envio SOAP 1.2: <elemento xmlns="ns">msg</elemento> no corpo e
+ * action="ns/operacao"; cabecalho (ou NULL) vai em <soap12:Header> */
+static int envia(nfe_sefaz *s, const char *url, const char *ns,
+                 const char *operacao, const char *elemento,
+                 const char *cabecalho_soap, const char *msg, char **resposta,
+                 size_t *tam)
+{
+	struct buf envelope = { 0 }, cabecalho = { 0 }, recebido = { 0 };
+	struct curl_slist *h = NULL, *h2;
+	const char *corpo;
+	size_t n;
+	long http = 0;
+	int rc;
 
 	n = strlen(msg);
 	corpo = pula_declaracao(msg, &n);
@@ -442,59 +498,94 @@ static int envia(nfe_sefaz *s, const char *url, const char *ns,
 	poe(&cabecalho, "/");
 	poe(&cabecalho, operacao);
 	poe(&cabecalho, "\"");
-	if (envelope.erro || cabecalho.erro) {
-		free(envelope.p);
-		free(cabecalho.p);
-		return E_MALLOC;
-	}
-
-	c = curl_easy_init();
-	h = curl_slist_append(NULL, cabecalho.p);
+	h = envelope.erro || cabecalho.erro
+	            ? NULL
+	            : curl_slist_append(NULL, cabecalho.p);
 	h2 = h ? curl_slist_append(h, "Expect:") : NULL;
-	if (!c || !h2) {
-		curl_easy_cleanup(c);
+	if (!h2) {
 		curl_slist_free_all(h);
 		free(envelope.p);
 		free(cabecalho.p);
 		return E_MALLOC;
 	}
 	h = h2;
-	errbuf[0] = '\0';
-	curl_easy_setopt(c, CURLOPT_URL, url);
-#if LIBCURL_VERSION_NUM >= 0x075500
-	curl_easy_setopt(c, CURLOPT_PROTOCOLS_STR, "https");
-#else
-	curl_easy_setopt(c, CURLOPT_PROTOCOLS, (long)CURLPROTO_HTTPS);
-#endif
-	curl_easy_setopt(c, CURLOPT_NOSIGNAL, 1L);
-	curl_easy_setopt(c, CURLOPT_TIMEOUT, s->timeout);
-	curl_easy_setopt(c, CURLOPT_ERRORBUFFER, errbuf);
-	curl_easy_setopt(c, CURLOPT_HTTPHEADER, h);
-	curl_easy_setopt(c, CURLOPT_POSTFIELDS, envelope.p);
-	curl_easy_setopt(c, CURLOPT_POSTFIELDSIZE_LARGE,
-	                 (curl_off_t)envelope.n);
-	curl_easy_setopt(c, CURLOPT_WRITEFUNCTION, recebe);
-	curl_easy_setopt(c, CURLOPT_WRITEDATA, &recebido);
-	curl_easy_setopt(c, CURLOPT_SSLVERSION, (long)CURL_SSLVERSION_TLSv1_2);
-	curl_easy_setopt(c, CURLOPT_SSL_CTX_FUNCTION, poe_certificado);
-	curl_easy_setopt(c, CURLOPT_SSL_CTX_DATA, (void *)s->cert);
-	if (s->ca)
-		curl_easy_setopt(c, CURLOPT_CAINFO, s->ca);
-
-	cc = curl_easy_perform(c);
-	curl_easy_getinfo(c, CURLINFO_RESPONSE_CODE, &http);
-	curl_easy_cleanup(c);
+	rc = executa(s, url, "POST", h, envelope.p, envelope.n, &recebido,
+	             &http);
 	curl_slist_free_all(h);
 	free(envelope.p);
 	free(cabecalho.p);
+	if (rc == 0)
+		rc = le_resposta(s, &recebido, http, resposta, tam);
+	free(recebido.p);
+	return rc;
+}
 
-	if (cc != CURLE_OK) {
-		snprintf(s->erro, sizeof s->erro, "%s",
-		         errbuf[0] ? errbuf : curl_easy_strerror(cc));
-		free(recebido.p);
-		return recebido.erro ? recebido.erro : E_REDE;
+/* Método HTTP: de 1 a 16 letras maiúsculas ASCII */
+static int metodo_valido(const char *m)
+{
+	size_t i;
+
+	for (i = 0; m[i]; i++)
+		if (m[i] < 'A' || m[i] > 'Z' || i >= 16)
+			return 0;
+	return i > 0;
+}
+
+/* Valor de cabeçalho HTTP: sem caracteres de controle */
+static int cabecalho_valido(const char *t)
+{
+	if (!*t)
+		return 0;
+	for (; *t; t++)
+		if ((unsigned char)*t < 0x20 || *t == 0x7f)
+			return 0;
+	return 1;
+}
+
+int nfe_sefaz_requisicao(nfe_sefaz *s, const char *metodo, const char *url,
+                         const char *tipo, const char *corpo, size_t tam_corpo,
+                         long *http, char **resposta, size_t *tam)
+{
+	struct buf cabecalho = { 0 }, recebido = { 0 };
+	struct curl_slist *h = NULL, *h2;
+	long status = 0;
+	int rc;
+
+	if (!s || !metodo || !url || !http || !resposta ||
+	    (!corpo && tam_corpo))
+		return E_ISNULL;
+	s->erro[0] = '\0';
+	if (!metodo_valido(metodo) || (tipo && !cabecalho_valido(tipo)) ||
+	    (corpo && strcmp(metodo, "HEAD") == 0) ||
+	    (corpo && strcmp(metodo, "GET") == 0))
+		return E_VALOR;
+	if (tipo) {
+		poe(&cabecalho, "Content-Type: ");
+		poe(&cabecalho, tipo);
+		if (cabecalho.erro)
+			return E_MALLOC;
+		h = curl_slist_append(NULL, cabecalho.p);
 	}
-	rc = le_resposta(s, &recebido, http, resposta, tam);
+	h2 = curl_slist_append(h, "Expect:");
+	if (!h2 || (tipo && !h)) {
+		curl_slist_free_all(h2 ? h2 : h);
+		free(cabecalho.p);
+		return E_MALLOC;
+	}
+	h = h2;
+	rc = executa(s, url, metodo, h, corpo, tam_corpo, &recebido, &status);
+	curl_slist_free_all(h);
+	free(cabecalho.p);
+	if (rc == 0) {
+		/* resposta vazia (HEAD, 204...) vira "" */
+		poe_n(&recebido, "", 0);
+		if (!recebido.p && !recebido.erro)
+			recebido.erro = E_MALLOC;
+		rc = entrega(&recebido, resposta, tam);
+		if (rc == 0)
+			*http = status;
+		return rc;
+	}
 	free(recebido.p);
 	return rc;
 }

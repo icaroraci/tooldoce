@@ -2,13 +2,17 @@
 """Servidor HTTPS falso da SEFAZ para tests/test_sefaz.c.
 
 Exige o certificado de cliente de tests/certificados/teste.pfx (autenticação
-mútua, como a SEFAZ) e responde mensagens fixas. Escreve a porta na saída e
+mútua, como a SEFAZ) e responde mensagens fixas: SOAP, e em /rest/ uma API
+JSON no estilo da NFS-e nacional. Escreve a porta na saída e
 atende até ser encerrado.
 
 Uso: servidor_sefaz.py <diretório tests>
 """
 
+import base64
+import gzip
 import http.server
+import json
 import os
 import re
 import ssl
@@ -72,18 +76,76 @@ def status_mdfe():
         '</retConsStatServMDFe></mdfeStatusServicoMDFResult>')
 
 
+CHAVE_NFSE = "3304557" + "2" + "12345678000195" + "9" * 28
+
+
+def gz64(texto):
+    return base64.b64encode(gzip.compress(texto.encode("utf-8"))).decode()
+
+
 class Tratador(http.server.BaseHTTPRequestHandler):
-    def responde(self, codigo, corpo):
+    def responde(self, codigo, corpo,
+                 tipo="application/soap+xml; charset=utf-8"):
         dados = corpo.encode("utf-8")
         self.send_response(codigo)
-        self.send_header("Content-Type", "application/soap+xml; charset=utf-8")
+        self.send_header("Content-Type", tipo)
         self.send_header("Content-Length", str(len(dados)))
         self.end_headers()
-        self.wfile.write(dados)
+        if self.command != "HEAD":
+            self.wfile.write(dados)
+
+    def json(self, codigo, obj):
+        self.responde(codigo, json.dumps(obj), "application/json")
+
+    def erro_json(self, codigo, codigo_erro, descricao):
+        self.json(codigo, {"erros": [{"Codigo": codigo_erro,
+                                      "Descricao": descricao}]})
+
+    def rest(self, corpo):
+        if self.path == "/rest/nfse" and self.command == "POST":
+            dps = None
+            if self.headers.get("Content-Type") == "application/json":
+                try:
+                    pedido = json.loads(corpo)
+                    dps = gzip.decompress(base64.b64decode(
+                        pedido["dpsXmlGZipB64"], validate=True)).decode()
+                except (ValueError, KeyError, TypeError, OSError):
+                    dps = None
+            if dps and dps.startswith("<DPS"):
+                self.json(201, {"tipoAmbiente": 2, "chaveAcesso": CHAVE_NFSE,
+                                "nfseXmlGZipB64": gz64("<NFSe>" + dps +
+                                                       "</NFSe>"),
+                                "alertas": None})
+            else:
+                self.erro_json(400, "E0001", "DPS inv\u00e1lida")
+        elif self.path == "/rest/nfse/" + CHAVE_NFSE and self.command == "GET":
+            self.json(200, {"chaveAcesso": CHAVE_NFSE,
+                            "nfseXmlGZipB64": gz64("<NFSe/>")})
+        elif self.path == "/rest/dps/DPS1" and self.command == "HEAD":
+            self.responde(200, "", "application/json")
+        elif self.path == "/rest/eco":
+            self.responde(200, self.command + " " +
+                          self.headers.get("Content-Type", "-") + " " + corpo,
+                          "text/plain")
+        else:
+            self.responde(404, "", "application/json")
+
+    def do_GET(self):
+        self.rest("")
+
+    def do_HEAD(self):
+        self.rest("")
+
+    def do_PUT(self):
+        n = int(self.headers.get("Content-Length", "0"))
+        self.rest(self.rfile.read(n).decode("utf-8"))
 
     def do_POST(self):
         n = int(self.headers.get("Content-Length", "0"))
         corpo = self.rfile.read(n).decode("utf-8")
+        if self.path.startswith("/rest/"):
+            self.rest(corpo)
+            return
         tipo = self.headers.get("Content-Type", "")
         m = re.search(r'action="([^"]*)"', tipo)
         acao = m.group(1) if m else ""

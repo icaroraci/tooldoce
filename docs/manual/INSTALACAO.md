@@ -6,10 +6,10 @@ Esta revisão usa a **1.0.0-rc4**, candidata à versão 1.0. A plataforma nativa
 
 ## Dependências e compilação
 
-O [Makefile](../../Makefile) exige compilador C99, GNU make, libxml2 de desenvolvimento, xmlsec1 com OpenSSL, libcurl de desenvolvimento e pkg-config. Em Debian/Ubuntu:
+O [Makefile](../../Makefile) exige compilador C99, GNU make, libxml2 de desenvolvimento, xmlsec1 com OpenSSL, libcurl e zlib de desenvolvimento e pkg-config. Em Debian/Ubuntu:
 
 ```sh
-sudo apt install build-essential pkg-config libxml2-dev libxmlsec1-dev libcurl4-openssl-dev
+sudo apt install build-essential pkg-config libxml2-dev libxmlsec1-dev libcurl4-openssl-dev zlib1g-dev
 make
 make exemplos
 ```
@@ -37,7 +37,7 @@ Num prefixo próprio, configure a busca do pkg-config e do carregador para os di
 cc meu_programa.c -o meu_programa $(pkg-config --cflags --libs libnfe)
 ```
 
-Os headers usam `<libnfe/...h>`. `libnfe.pc` declara libxml2 como dependência pública e xmlsec1/libcurl como dependências privadas. A biblioteca é compartilhada, com SONAME `libnfe.so.1`; a versão completa de pré-lançamento é fornecida pelo `.pc`, por `NFE_VERSAO` e por `nfe_versao()`.
+Os headers usam `<libnfe/...h>`. `libnfe.pc` declara libxml2 como dependência pública e xmlsec1/libcurl/zlib como dependências privadas. A biblioteca é compartilhada, com SONAME `libnfe.so.1`; a versão completa de pré-lançamento é fornecida pelo `.pc`, por `NFE_VERSAO` e por `nfe_versao()`.
 
 ## Conferência após instalar
 

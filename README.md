@@ -83,11 +83,12 @@ Para compilar um programa seu com a biblioteca instalada:
 * [libxml2](http://xmlsoft.org/) com os arquivos de desenvolvimento (fornece o `xml2-config`)
 * [xmlsec1](https://www.aleksey.com/xmlsec/) com OpenSSL, para a assinatura digital (licenças MIT e Apache 2.0)
 * [libcurl](https://curl.se/libcurl/) com OpenSSL, para a comunicação com a SEFAZ (licença curl, no estilo MIT)
+* [zlib](https://zlib.net/), para o XML compactado em gzip do MDF-e e da NFS-e (licença zlib)
 
 | Distribuição | Comando |
 |---|---|
-| Debian / Ubuntu | `sudo apt install build-essential libxml2-dev libxmlsec1-dev libcurl4-openssl-dev` |
-| Fedora / RHEL | `sudo dnf install gcc make libxml2-devel xmlsec1-devel xmlsec1-openssl-devel libcurl-devel` |
+| Debian / Ubuntu | `sudo apt install build-essential libxml2-dev libxmlsec1-dev libcurl4-openssl-dev zlib1g-dev` |
+| Fedora / RHEL | `sudo dnf install gcc make libxml2-devel xmlsec1-devel xmlsec1-openssl-devel libcurl-devel zlib-devel` |
 | Arch Linux | `sudo pacman -S base-devel libxml2` |
 | macOS (Homebrew) | `brew install libxml2` |
 

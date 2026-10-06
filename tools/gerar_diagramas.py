@@ -30,7 +30,7 @@ import textwrap
 import xml.etree.ElementTree as ET
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from documento import Documento, argumento  # noqa: E402
+from documento import Documento, argumento, padrao  # noqa: E402
 from manual import atualizar as atualizar_manual  # noqa: E402
 
 # Documento em uso (configurar()); a NF-e, se nada for configurado
@@ -128,7 +128,9 @@ class Leiaute:
             nome = f.tag.replace(XS, "")
             if nome == "enumeration":
                 facetas.setdefault("enumeration", []).append(f.get("value"))
-            elif nome in ("pattern", "minLength", "maxLength", "length",
+            elif nome == "pattern":
+                facetas.setdefault(nome, padrao(f.get("value")))
+            elif nome in ("minLength", "maxLength", "length",
                           "totalDigits", "fractionDigits", "whiteSpace"):
                 facetas.setdefault(nome, f.get("value"))
         base_local = base.split(":")[-1]
