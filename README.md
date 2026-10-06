@@ -67,7 +67,7 @@ Os setters validam cada valor contra o leiaute e retornam um código de erro (`e
 
 A resposta esperada é `cStat 107: Servico em Operacao`. Se a conexão falhar com "unable to get local issuer certificate", falta a autoridade certificadora da ICP-Brasil usada pelo servidor: veja [`docs/TLS.md`](docs/TLS.md).
 
-[`examples/nfe_ibscbs.c`](examples/nfe_ibscbs.c) monta uma NF-e de regime normal com os tributos da Reforma Tributária (IBS e CBS) no item e nos totais, exigidos pela SEFAZ desde 2026 (sem eles, a nota é rejeitada com o código 1115). `nfe_nfe_calcular_totais` soma os itens só no ICMSTot; o IBSCBSTot é preenchido por quem usa a biblioteca, como no exemplo.
+[`examples/nfe_ibscbs.c`](examples/nfe_ibscbs.c) monta uma NF-e de regime normal com os tributos da Reforma Tributária (IBS e CBS) no item e nos totais. A exigência depende das condições e cronogramas das Notas Técnicas vigentes; consulte [bases e transições do manual](docs/manual/BASES.md). `nfe_nfe_calcular_totais` soma os itens só no ICMSTot; o IBSCBSTot é preenchido por quem usa a biblioteca, como no exemplo.
 
 Para conferir a nota antes de assinar e transmitir, `validar.h` valida o XML contra os schemas oficiais, que `make install` instala em `$(PREFIX)/share/tooldoce/schemas`, e confere também regras da SEFAZ que o schema não cobre (chave de acesso coerente com os campos, totais iguais à soma dos itens, regras da NFC-e), devolvendo a lista de erros com o campo, a linha e, quando houver, o código de rejeição da SEFAZ.
 
@@ -112,6 +112,10 @@ Instala a biblioteca em `/usr/local/lib` e os headers em `/usr/local/include/lib
 Compila e executa os testes de `tests/` com AddressSanitizer e UBSan (desative com `make test SANITIZE=`). O XML gerado é validado contra os schemas oficiais da NF-e em `tests/schemas/`. Com clang, é necessário o runtime dos sanitizers (no Debian/Ubuntu, `libclang-rt-dev`). Em kernels com `vm.mmap_rnd_bits` acima de 28 (comum na WSL2), o AddressSanitizer de compiladores mais antigos, como o GCC 12 do Debian 12, entra em laço (`AddressSanitizer:DEADLYSIGNAL`); nesse caso o Makefile compila os testes sem PIE (`-fno-pie -no-pie`), o que resolve. Depois de trocar `SANITIZE`, recompile com `make -B test`.
 
 ## Documentação e contribuição
+
+* [Manual da libnfe](docs/manual/README.md): 171 estruturas XML, referência da API C e guias de instalação, emissão, validação, assinatura, serviços, eventos e atualização.
+
+* [Como documentar os nós XML e a API da libnfe](docs/COMO_DOCUMENTAR.md): padrão de páginas, exemplos, referências oficiais e revisão após atualizações dos XSD.
 
 * [Visão e requisitos do projeto](docs/VISAO.md)
 * [Diagramas das estruturas da NF-e](docs/diagramas/README.md), gerados do schema oficial, e a [lista do que falta implementar](TODO.md)

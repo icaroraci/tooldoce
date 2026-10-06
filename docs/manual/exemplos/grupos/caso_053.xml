@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<imposto xmlns="http://www.portalfiscal.inf.br/nfe">
+  <ICMS>
+    <ICMSSN101>
+      <orig>0</orig>
+      <CSOSN>101</CSOSN>
+      <pCredSN>1.00</pCredSN>
+      <vCredICMSSN>1.00</vCredICMSSN>
+    </ICMSSN101>
+  </ICMS>
+</imposto>

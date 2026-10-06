@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<infNFe xmlns="http://www.portalfiscal.inf.br/nfe" versao="4.00" Id="NFe35261012345678000195550010000000011123456781">
+  <ide>
+    <cUF>35</cUF>
+    <cNF>12345678</cNF>
+    <natOp>VENDA</natOp>
+    <mod>55</mod>
+    <serie>1</serie>
+    <nNF>1</nNF>
+    <dhEmi>2026-10-03T05:00:00-03:00</dhEmi>
+    <tpNF>1</tpNF>
+    <idDest>1</idDest>
+    <cMunFG>3550308</cMunFG>
+    <tpImp>1</tpImp>
+    <tpEmis>1</tpEmis>
+    <cDV>1</cDV>
+    <tpAmb>2</tpAmb>
+    <finNFe>1</finNFe>
+    <indFinal>0</indFinal>
+    <indPres>0</indPres>
+    <procEmi>0</procEmi>
+    <verProc>tooldoce</verProc>
+  </ide>
+  <emit>
+    <CNPJ>12345678000195</CNPJ>
+    <xNome>EMPRESA EXEMPLO LTDA</xNome>
+    <enderEmit>
+      <xLgr>RUA DAS FLORES</xLgr>
+      <nro>123</nro>
+      <xBairro>CENTRO</xBairro>
+      <cMun>3550308</cMun>
+      <xMun>SAO PAULO</xMun>
+      <UF>SP</UF>
+      <CEP>01001000</CEP>
+    </enderEmit>
+    <IE>123456789012</IE>
+    <CRT>1</CRT>
+  </emit>
+  <retirada>
+    <CNPJ>12345678000195</CNPJ>
+    <xNome>DEPOSITO CENTRAL</xNome>
+    <xLgr>AV. BRASIL</xLgr>
+    <nro>1000</nro>
+    <xBairro>JARDIM</xBairro>
+    <cMun>3304557</cMun>
+    <xMun>RIO DE JANEIRO</xMun>
+    <UF>RJ</UF>
+    <fone>2133334444</fone>
+    <email>deposito@exemplo.com.br</email>
+    <IE>123456789</IE>
+  </retirada>
+  <entrega>
+    <CPF>12345678909</CPF>
+    <xLgr>AV. BRASIL</xLgr>
+    <nro>1000</nro>
+    <xBairro>JARDIM</xBairro>
+    <cMun>3304557</cMun>
+    <xMun>RIO DE JANEIRO</xMun>
+    <UF>RJ</UF>
+    <fone>2133334444</fone>
+  </entrega>
+  <autXML>
+    <CNPJ>12345678000195</CNPJ>
+  </autXML>
+  <autXML>
+    <CPF>12345678909</CPF>
+  </autXML>
+  <det nItem="1">
+    <prod>
+      <cProd>001</cProd>
+      <cEAN>SEM GTIN</cEAN>
+      <xProd>CANETA AZUL</xProd>
+      <NCM>96081000</NCM>
+      <CFOP>5102</CFOP>
+      <uCom>UN</uCom>
+      <qCom>10</qCom>
+      <vUnCom>1.50</vUnCom>
+      <vProd>15.00</vProd>
+      <cEANTrib>SEM GTIN</cEANTrib>
+      <uTrib>UN</uTrib>
+      <qTrib>10</qTrib>
+      <vUnTrib>1.50</vUnTrib>
+      <indTot>1</indTot>
+    </prod>
+    <imposto>
+      <ICMS>
+        <ICMSSN102>
+          <orig>0</orig>
+          <CSOSN>102</CSOSN>
+        </ICMSSN102>
+      </ICMS>
+      <PIS>
+        <PISNT>
+          <CST>08</CST>
+        </PISNT>
+      </PIS>
+      <COFINS>
+        <COFINSNT>
+          <CST>08</CST>
+        </COFINSNT>
+      </COFINS>
+    </imposto>
+  </det>
+  <det nItem="2">
+    <prod>
+      <cProd>002</cProd>
+      <cEAN>SEM GTIN</cEAN>
+      <xProd>CANETA AZUL</xProd>
+      <NCM>96081000</NCM>
+      <CFOP>5102</CFOP>
+      <uCom>UN</uCom>
+      <qCom>10</qCom>
+      <vUnCom>1.50</vUnCom>
+      <vProd>15.00</vProd>
+      <cEANTrib>SEM GTIN</cEANTrib>
+      <uTrib>UN</uTrib>
+      <qTrib>10</qTrib>
+      <vUnTrib>1.50</vUnTrib>
+      <indTot>1</indTot>
+    </prod>
+    <imposto>
+      <ICMS>
+        <ICMSSN102>
+          <orig>0</orig>
+          <CSOSN>102</CSOSN>
+        </ICMSSN102>
+      </ICMS>
+      <PIS>
+        <PISNT>
+          <CST>08</CST>
+        </PISNT>
+      </PIS>
+      <COFINS>
+        <COFINSNT>
+          <CST>08</CST>
+        </COFINSNT>
+      </COFINS>
+    </imposto>
+  </det>
+  <total>
+    <ICMSTot>
+      <vBC>0.00</vBC>
+      <vICMS>0.00</vICMS>
+      <vICMSDeson>0.00</vICMSDeson>
+      <vFCP>0.00</vFCP>
+      <vBCST>0.00</vBCST>
+      <vST>0.00</vST>
+      <vFCPST>0.00</vFCPST>
+      <vFCPSTRet>0.00</vFCPSTRet>
+      <vProd>30.00</vProd>
+      <vFrete>0.00</vFrete>
+      <vSeg>0.00</vSeg>
+      <vDesc>0.00</vDesc>
+      <vII>0.00</vII>
+      <vIPI>0.00</vIPI>
+      <vIPIDevol>0.00</vIPIDevol>
+      <vPIS>0.00</vPIS>
+      <vCOFINS>0.00</vCOFINS>
+      <vOutro>0.00</vOutro>
+      <vNF>30.00</vNF>
+    </ICMSTot>
+  </total>
+  <transp>
+    <modFrete>9</modFrete>
+  </transp>
+  <cobr>
+    <fat>
+      <nFat>FAT-1</nFat>
+      <vOrig>30.00</vOrig>
+      <vDesc>0.00</vDesc>
+      <vLiq>30.00</vLiq>
+    </fat>
+    <dup>
+      <nDup>001</nDup>
+      <dVenc>2026-11-03</dVenc>
+      <vDup>15.00</vDup>
+    </dup>
+    <dup>
+      <nDup>002</nDup>
+      <dVenc>2026-12-03</dVenc>
+      <vDup>15.00</vDup>
+    </dup>
+  </cobr>
+  <pag>
+    <detPag>
+      <tPag>01</tPag>
+      <vPag>30.00</vPag>
+    </detPag>
+  </pag>
+  <infIntermed>
+    <CNPJ>12ABC34501DE35</CNPJ>
+    <idCadIntTran>LOJA-42</idCadIntTran>
+  </infIntermed>
+  <infAdic>
+    <infAdFisco>Documento emitido por ME ou EPP</infAdFisco>
+    <infCpl>Pedido 123. Obrigado pela compra!</infCpl>
+    <obsCont xCampo="vendedor">
+      <xTexto>MARIA</xTexto>
+    </obsCont>
+    <obsFisco xCampo="regime">
+      <xTexto>ESPECIAL</xTexto>
+    </obsFisco>
+    <procRef>
+      <nProc>PROC-2026/1</nProc>
+      <indProc>0</indProc>
+      <tpAto>10</tpAto>
+    </procRef>
+    <procRef>
+      <nProc>0001234-56.2026.4.03.0000</nProc>
+      <indProc>1</indProc>
+    </procRef>
+  </infAdic>
+  <infRespTec>
+    <CNPJ>12ABC34501DE35</CNPJ>
+    <xContato>SUPORTE TECNICO</xContato>
+    <email>suporte@exemplo.com.br</email>
+    <fone>1140028922</fone>
+    <idCSRT>01</idCSRT>
+    <hashCSRT>AAECAwQFBgcICQoLDA0ODxAREhM=</hashCSRT>
+  </infRespTec>
+</infNFe>

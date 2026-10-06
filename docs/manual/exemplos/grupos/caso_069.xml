@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prod xmlns="http://www.portalfiscal.inf.br/nfe">
+  <cProd>EXEMPLO</cProd>
+  <cEAN>SEM GTIN</cEAN>
+  <xProd>EXEMPLO</xProd>
+  <NCM>01</NCM>
+  <CFOP>1000</CFOP>
+  <uCom>1.00</uCom>
+  <qCom>1.00</qCom>
+  <vUnCom>1.00</vUnCom>
+  <vProd>1.00</vProd>
+  <cEANTrib>SEM GTIN</cEANTrib>
+  <uTrib>1.00</uTrib>
+  <qTrib>1.00</qTrib>
+  <vUnTrib>1.00</vUnTrib>
+  <indTot>0</indTot>
+  <detExport/>
+</prod>

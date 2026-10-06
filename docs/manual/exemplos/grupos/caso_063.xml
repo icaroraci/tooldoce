@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<obsItem xmlns="http://www.portalfiscal.inf.br/nfe">
+  <obsFisco xCampo="EXEMPLO">
+    <xTexto>EXEMPLO</xTexto>
+  </obsFisco>
+</obsItem>

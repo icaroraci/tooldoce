@@ -1,0 +1,7 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:diagnostico">
+  <xs:element name="codigo">
+    <xs:simpleType><xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]{3}"/>
+    </xs:restriction></xs:simpleType>
+  </xs:element>
+</xs:schema>

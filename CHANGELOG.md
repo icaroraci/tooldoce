@@ -4,9 +4,19 @@ As mudanças relevantes de cada versão ficam registradas aqui. O formato segue 
 
 ## [Não lançado]
 
+### Adicionado
+
+- Diagnósticos automáticos de validação: `nfe_erros_caminho`, `nfe_erros_valor`, `nfe_erros_restricao`, `nfe_erros_esperado`, `nfe_erros_dominio_xml` e `nfe_erros_codigo_xml` (`validar.h`). Padrões, enumerações e limites vêm dos erros estruturados do XSD carregado, sem catálogo por tag; mensagens nativas e retornos existentes são preservados. Falhas ao copiar diagnósticos retornam `E_MALLOC`.
+- Exemplo `diagnosticar_xml` e guia de diagnóstico, com reprodução dos quatro erros de `refNF`, facetas herdadas/importadas, atributos e alternativas para dados indisponíveis.
+
 ### Corrigido
 
 - Validador e geradores: um `^` no início ou um `$` no fim de um `xs:pattern` são lidos como âncoras redundantes e ignorados, como fazem os autorizadores. O schema oficial da NFS-e nacional 1.01 usa `^0{0,4}\d{1,5}$` na série da DPS, e a libxml2, que segue o XML Schema e trata `^` e `$` como caracteres comuns, recusava qualquer série real (#291). Os arquivos dos schemas não são alterados.
+
+### Documentação
+
+- Manual das 171 estruturas XML do PL010f v1.04, com campos, escolhas, API, C/XML, navegação e normas atuais; referência dos 35 headers instalados e guias do fluxo completo da libnfe.
+- Exemplos reproduzíveis de grupos e mensagens; conferência automática da correspondência com o código, XSD e símbolos públicos. Avisos mostram bases iguais uma vez e mantêm cada rótulo junto de seu hash.
 
 ## [1.0.0-rc4] - 2026-10-05
 

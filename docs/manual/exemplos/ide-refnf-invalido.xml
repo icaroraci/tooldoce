@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ide xmlns="http://www.portalfiscal.inf.br/nfe">
+  <cUF>35</cUF>
+  <cNF>12345678</cNF>
+  <natOp>EXEMPLO DE REFERENCIAS</natOp>
+  <mod>55</mod>
+  <serie>1</serie>
+  <nNF>1</nNF>
+  <dhEmi>2026-10-05T09:00:00-03:00</dhEmi>
+  <tpNF>1</tpNF>
+  <idDest>1</idDest>
+  <cMunFG>3550308</cMunFG>
+  <tpImp>1</tpImp>
+  <tpEmis>1</tpEmis>
+  <cDV>0</cDV>
+  <tpAmb>2</tpAmb>
+  <finNFe>1</finNFe>
+  <indFinal>0</indFinal>
+  <indPres>0</indPres>
+  <procEmi>0</procEmi>
+  <verProc>manual NFref</verProc>
+  <NFref>
+    <refNF>
+      <cUF>35</cUF>
+      <AAMM>202610</AAMM>
+      <CNPJ>12345678000195</CNPJ>
+      <mod>55</mod>
+      <serie>01</serie>
+      <nNF>0</nNF>
+    </refNF>
+  </NFref>
+  <NFref>
+    <refECF>
+      <mod>2D</mod>
+      <nECF>1</nECF>
+      <nCOO>456</nCOO>
+    </refECF>
+  </NFref>
+</ide>

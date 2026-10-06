@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<imposto xmlns="http://www.portalfiscal.inf.br/nfe">
+  <IBSCBS>
+    <CST>111</CST>
+    <cClassTrib>111111</cClassTrib>
+    <gCredPresIBSZFM>
+      <competApur>2026-09</competApur>
+      <tpCredPresIBSZFM>0</tpCredPresIBSZFM>
+      <vCredPresIBSZFM>1.00</vCredPresIBSZFM>
+    </gCredPresIBSZFM>
+  </IBSCBS>
+</imposto>

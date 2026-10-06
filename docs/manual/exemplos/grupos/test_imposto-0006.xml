@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<imposto xmlns="http://www.portalfiscal.inf.br/nfe">
+  <ICMS>
+    <ICMSSN102>
+      <orig>0</orig>
+      <CSOSN>103</CSOSN>
+    </ICMSSN102>
+  </ICMS>
+  <PIS>
+    <PISNT>
+      <CST>06</CST>
+    </PISNT>
+  </PIS>
+</imposto>

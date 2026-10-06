@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<imposto xmlns="http://www.portalfiscal.inf.br/nfe">
+  <COFINSST>
+    <vBC>1.00</vBC>
+    <pCOFINS>1.00</pCOFINS>
+    <vCOFINS>1.00</vCOFINS>
+  </COFINSST>
+</imposto>

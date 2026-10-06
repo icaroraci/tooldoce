@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<det xmlns="http://www.portalfiscal.inf.br/nfe" nItem="1">
+  <prod>
+    <cProd>001</cProd>
+    <cEAN>SEM GTIN</cEAN>
+    <xProd>CANETA AZUL</xProd>
+    <NCM>96081000</NCM>
+    <CFOP>5102</CFOP>
+    <uCom>UN</uCom>
+    <qCom>10</qCom>
+    <vUnCom>1.50</vUnCom>
+    <vProd>15.00</vProd>
+    <cEANTrib>SEM GTIN</cEANTrib>
+    <uTrib>UN</uTrib>
+    <qTrib>10</qTrib>
+    <vUnTrib>1.50</vUnTrib>
+    <indTot>1</indTot>
+  </prod>
+  <imposto>
+    <ICMS>
+      <ICMSSN102>
+        <orig>0</orig>
+        <CSOSN>102</CSOSN>
+      </ICMSSN102>
+    </ICMS>
+    <PIS>
+      <PISNT>
+        <CST>08</CST>
+      </PISNT>
+    </PIS>
+    <COFINS>
+      <COFINSNT>
+        <CST>08</CST>
+      </COFINSNT>
+    </COFINS>
+  </imposto>
+</det>
