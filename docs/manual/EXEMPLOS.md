@@ -18,6 +18,7 @@ make exemplos
 | [assinar_nfe.c](../../examples/assinar_nfe.c) | ./obj/assinar_nfe tests/certificados/teste.pfx teste: assinatura local com certificado de teste |
 | [status_sefaz.c](../../examples/status_sefaz.c) | Consulta real com certificado, senha, URL e UF fornecidos. Acessa a rede; seguir [serviços](SERVICOS.md) |
 | [referenciar_nf.c](../../examples/referenciar_nf.c) | Sem opção: ide com referências; --generico: mesma saída pelo motor; --isolado: NFref pela API histórica |
+| [diagnosticar_xml.c](../../examples/diagnosticar_xml.c) | Recebe XSD e XML; mostra tag, caminho, valor, restrição e diagnóstico nativo. [Reprodução com refNF](DIAGNOSTICOS.md) |
 | [manual_grupos.c](../../examples/manual_grupos.c), [casos.inc](../../examples/manual/casos.inc) | 83 cenários genéricos; argumento é o caminho XML completo |
 | [manual_servicos.c](../../examples/manual_servicos.c) | Mensagens sintéticas, sem certificado/rede; opções abaixo |
 

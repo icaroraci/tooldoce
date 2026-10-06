@@ -2,6 +2,8 @@
 
 Base: libnfe `1.0.0-rc4`, commit `1dd412eebca80dd80d884b3f03a1a31cfaf42279`, conferido em 05/10/2026. Os contratos abaixo reproduzem os tipos, assinaturas e comentários públicos dos headers; funções `NFE_INTERNO` são excluídas. O comportamento específico prevalece sobre as convenções gerais.
 
+Atualização não lançada: seis getters de diagnóstico acrescentados em `validar.h`, descritos em [DIAGNOSTICOS.md](DIAGNOSTICOS.md).
+
 [Manual](README.md) · [Memória e erros](API.md) · [Fluxo completo](EMISSAO.md)
 
 | Header | Finalidade | Funções públicas |
@@ -39,5 +41,5 @@ Base: libnfe `1.0.0-rc4`, commit `1dd412eebca80dd80d884b3f03a1a31cfaf42279`, con
 | [transp.h](api/transp.md) | Frete, transportador, veículo, reboques, volumes e lacres. Listas e seus subgrupos pertencem ao objeto de transporte. | 14 |
 | [utils.h](api/utils.md) | Tipos e rotinas auxiliares da biblioteca. O contrato público exclui funções marcadas NFE_INTERNO; não use os símbolos ocultos como API de integração. | 0 |
 | [valida.h](api/valida.md) | Validadores lexicais, domínios, datas e textos. O texto deve atender ao padrão e aos limites; validação local não consulta tabelas ou cadastros remotos. | 0 |
-| [validar.h](api/validar.md) | Validação de documentos por XSD, regras locais de NF-e e lista de problemas. Reaproveite o validador; as regras locais não cobrem todo o catálogo da SEFAZ. | 14 |
+| [validar.h](api/validar.md) | Validação XSD, regras locais e diagnósticos automáticos com caminho, valor e restrição. Reaproveite o validador; as regras locais não cobrem todo o catálogo da SEFAZ. | 20 |
 | [versao.h](api/versao.md) | Versão compilada e versão em execução da biblioteca. Registre também o pacote XSD e as normas aplicáveis, pois não são versões intercambiáveis. | 1 |

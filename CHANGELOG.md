@@ -4,6 +4,11 @@ As mudanças relevantes de cada versão ficam registradas aqui. O formato segue 
 
 ## [Não lançado]
 
+### Adicionado
+
+- Diagnósticos automáticos de validação: `nfe_erros_caminho`, `nfe_erros_valor`, `nfe_erros_restricao`, `nfe_erros_esperado`, `nfe_erros_dominio_xml` e `nfe_erros_codigo_xml` (`validar.h`). Padrões, enumerações e limites vêm dos erros estruturados do XSD carregado, sem catálogo por tag; mensagens nativas e retornos existentes são preservados. Falhas ao copiar diagnósticos retornam `E_MALLOC`.
+- Exemplo `diagnosticar_xml` e guia de diagnóstico, com reprodução dos quatro erros de `refNF`, facetas herdadas/importadas, atributos e alternativas para dados indisponíveis.
+
 ### Documentação
 
 - Manual das 171 estruturas XML do PL010f v1.04, com campos, escolhas, API, C/XML, navegação e normas atuais; referência dos 35 headers instalados e guias do fluxo completo da libnfe.

@@ -13,6 +13,7 @@ Há páginas para as **171 estruturas do índice de diagramas**, com finalidade,
 | [API e memória](API.md) | Cópia, empréstimo, posse, caminhos e erros |
 | [Montagem da nota](EMISSAO.md) | Pais/filhos, itens, tributos, totais e XML |
 | [Validação](VALIDACAO.md) | XSD, regras locais e limites de cobertura |
+| [Diagnósticos XSD](DIAGNOSTICOS.md) | Tag, caminho, valor recebido e restrição extraída automaticamente do validador |
 | [Assinatura](ASSINATURA.md) | A1, XMLDSig e verificação |
 | [Serviços](SERVICOS.md) | Endpoints, SOAP/TLS, recibos, cStat e protocolos |
 | [Eventos](EVENTOS.md) | Cancelamento, substituição e CC-e |

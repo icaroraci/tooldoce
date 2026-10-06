@@ -207,6 +207,36 @@ def mensagens():
     print("Mensagens: seis saídas C/XML; cinco XSD/contextos e contrato de status conferidos.")
 
 
+def diagnosticos():
+    programa = str(RAIZ / "obj/diagnosticar_xml")
+    schema = str(RAIZ / "tests/schemas/nfe/tipos_v4.00.xsd")
+    fixture = RAIZ / "docs/manual/exemplos/ide-refnf-invalido.xml"
+    p = subprocess.run([programa, schema, str(fixture)], capture_output=True,
+                       text=True, encoding="utf-8")
+    assert p.returncode == 1, (p.stdout, p.stderr)
+    assert "Retorno local: -3 · 4 problema(s)" in p.stdout
+    for tag, valor in [("AAMM", "202610"), ("mod", "55"),
+                       ("serie", "01"), ("nNF", "0")]:
+        assert f'Tag: "{tag}"' in p.stdout
+        assert f'Recebido: "{valor}"' in p.stdout
+        assert f'/ide/NFref[1]/refNF/{tag}' in p.stdout
+    assert "'01', '02'" in p.stdout
+    assert p.stdout.count("Diagnóstico original:") == 4
+    tree = ET.parse(fixture)
+    ref = tree.getroot().find(NS + "NFref/" + NS + "refNF")
+    for tag, valor in [("AAMM", "2610"), ("mod", "01"),
+                       ("serie", "1"), ("nNF", "10")]:
+        ref.find(NS + tag).text = valor
+    with tempfile.TemporaryDirectory() as pasta:
+        corrigido = Path(pasta) / "corrigido.xml"
+        tree.write(corrigido, encoding="utf-8", xml_declaration=True)
+        p = subprocess.run([programa, schema, str(corrigido)],
+                           capture_output=True, text=True, encoding="utf-8")
+        assert p.returncode == 0, (p.stdout, p.stderr)
+        assert "Retorno local: 0 · 0 problema(s)" in p.stdout
+    print("Diagnósticos: quatro erros XSD e correção da fixture conferidos.")
+
+
 def funcoes_header(p):
     t = re.sub(r"/\*.*?\*/", "", p.read_text(encoding="utf-8"), flags=re.S)
     linhas = []
@@ -295,6 +325,7 @@ if __name__ == "__main__":
     exemplos()
     catalogo()
     mensagens()
+    diagnosticos()
     api()
     links()
     obsolescencia()
