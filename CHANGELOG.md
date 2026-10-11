@@ -4,6 +4,10 @@ As mudanças relevantes de cada versão ficam registradas aqui. O formato segue 
 
 ## [Não lançado]
 
+## [1.0.0-rc6] - 2026-10-11
+
+Sexta candidata à 1.0.0. Traz para a libnfe o que a NFS-e nacional (libnfse) precisa: gzip com base64, requisições REST na conexão com o certificado e leitura de JSON. Corrige `^` e `$` em `xs:pattern`. Mantém os retornos existentes e o SONAME `libnfe.so.1`; a zlib passa a ser dependência.
+
 ### Adicionado
 
 - `compacta.h`: `nfe_gzip_base64` e `nfe_base64_gunzip`, para o XML que trafega compactado em gzip e base64 (autorização do MDF-e, `dpsXmlGZipB64` e `nfseXmlGZipB64` da NFS-e nacional). A descompactação recusa conteúdo acima de um limite (16 MiB por padrão). A libnfe passa a depender da zlib, declarada em `Requires.private` do `libnfe.pc` (#285).
@@ -98,7 +102,8 @@ Candidata à primeira versão estável (1.0.0). Cobre a emissão da NF-e modelo 
 - `SONAME` passa de `libnfe.so.0` para `libnfe.so.1`.
 - Licença trocada de GPLv3+ para LGPLv3+, o que permite usar a biblioteca em programas de qualquer licença.
 
-[Não lançado]: https://github.com/icaroraci/tooldoce/compare/v1.0.0-rc5...HEAD
+[Não lançado]: https://github.com/icaroraci/tooldoce/compare/v1.0.0-rc6...HEAD
+[1.0.0-rc6]: https://github.com/icaroraci/tooldoce/compare/v1.0.0-rc5...v1.0.0-rc6
 [1.0.0-rc5]: https://github.com/icaroraci/tooldoce/compare/v1.0.0-rc4...v1.0.0-rc5
 [1.0.0-rc4]: https://github.com/icaroraci/tooldoce/compare/v1.0.0-rc3...v1.0.0-rc4
 [1.0.0-rc3]: https://github.com/icaroraci/tooldoce/compare/v1.0.0-rc2...v1.0.0-rc3
