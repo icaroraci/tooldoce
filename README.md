@@ -9,7 +9,9 @@ Biblioteca livre em C para emissão de documentos fiscais eletrônicos brasileir
 
 ## Situação
 
-**Versão 1.0.0-rc4**, candidata à 1.0 (ver o [histórico de mudanças](CHANGELOG.md)): a emissão da NF-e modelo 55 está completa, da montagem do XML à autorização, aos eventos e à inutilização na SEFAZ. A partir da 1.0, a API segue o [versionamento semântico](https://semver.org/lang/pt-BR/): mudanças incompatíveis só numa nova versão maior, que também troca o `SONAME` (`libnfe.so.1`). A versão fica em `<libnfe/versao.h>` (`NFE_VERSAO`) e, em tempo de execução, em `nfe_versao()`.
+**Versão 1.0.0-rc5**, candidata à 1.0 (ver o [histórico de mudanças](CHANGELOG.md)): a emissão da NF-e modelo 55 está completa, da montagem do XML à autorização, aos eventos e à inutilização na SEFAZ. A partir da 1.0, a API segue o [versionamento semântico](https://semver.org/lang/pt-BR/): mudanças incompatíveis só numa nova versão maior, que também troca o `SONAME` (`libnfe.so.1`). A versão fica em `<libnfe/versao.h>` (`NFE_VERSAO`) e, em tempo de execução, em `nfe_versao()`.
+
+A rc5 acrescenta [diagnósticos automáticos do XSD](docs/manual/DIAGNOSTICOS.md), com tag, caminho, linha, valor recebido e padrão/lista/limite esperado, quando disponíveis. Inclui o [manual das 171 estruturas XML e da API](docs/manual/README.md) e um [exemplo C de exibição dos erros](examples/diagnosticar_xml.c).
 
 O que existe hoje:
 

@@ -2,7 +2,7 @@
 
 [Manual](README.md) · [Referência por header](FUNCOES.md) · [Exemplos executáveis](EXEMPLOS.md)
 
-A libnfe 1.0.0-rc4 oferece objetos específicos para os grupos usuais e um motor de grupos para as estruturas descritas em tabelas derivadas do XSD. Inclua somente os headers utilizados. A referência de cada módulo preserva os nomes, argumentos, limites e retornos efetivamente declarados; os contratos variam, inclusive na API histórica de `refNF`.
+A libnfe 1.0.0-rc5 oferece objetos específicos para os grupos usuais e um motor de grupos para as estruturas descritas em tabelas derivadas do XSD. Inclua somente os headers utilizados. A referência de cada módulo preserva os nomes, argumentos, limites e retornos efetivamente declarados; os contratos variam, inclusive na API histórica de `refNF`.
 
 ## Criação, empréstimo e transferência
 

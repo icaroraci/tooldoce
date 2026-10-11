@@ -4,6 +4,10 @@ As mudanças relevantes de cada versão ficam registradas aqui. O formato segue 
 
 ## [Não lançado]
 
+## [1.0.0-rc5] - 2026-10-06
+
+Quinta candidata à 1.0.0. Acrescenta diagnósticos automáticos de validação XSD, com caminho, valor recebido e restrição esperada, e o manual completo das estruturas XML e da API. Mantém os retornos existentes e o SONAME `libnfe.so.1`.
+
 ### Adicionado
 
 - Diagnósticos automáticos de validação: `nfe_erros_caminho`, `nfe_erros_valor`, `nfe_erros_restricao`, `nfe_erros_esperado`, `nfe_erros_dominio_xml` e `nfe_erros_codigo_xml` (`validar.h`). Padrões, enumerações e limites vêm dos erros estruturados do XSD carregado, sem catálogo por tag; mensagens nativas e retornos existentes são preservados. Falhas ao copiar diagnósticos retornam `E_MALLOC`.
@@ -13,6 +17,7 @@ As mudanças relevantes de cada versão ficam registradas aqui. O formato segue 
 
 - Manual das 171 estruturas XML do PL010f v1.04, com campos, escolhas, API, C/XML, navegação e normas atuais; referência dos 35 headers instalados e guias do fluxo completo da libnfe.
 - Exemplos reproduzíveis de grupos e mensagens; conferência automática da correspondência com o código, XSD e símbolos públicos. Avisos mostram bases iguais uma vez e mantêm cada rótulo junto de seu hash.
+- Guia de documentação dos nós XML e primeira referência interna de `NFref`/`refNF`, com exemplos C/XML conferidos.
 
 ## [1.0.0-rc4] - 2026-10-05
 
@@ -84,7 +89,8 @@ Candidata à primeira versão estável (1.0.0). Cobre a emissão da NF-e modelo 
 - `SONAME` passa de `libnfe.so.0` para `libnfe.so.1`.
 - Licença trocada de GPLv3+ para LGPLv3+, o que permite usar a biblioteca em programas de qualquer licença.
 
-[Não lançado]: https://github.com/icaroraci/tooldoce/compare/v1.0.0-rc4...HEAD
+[Não lançado]: https://github.com/icaroraci/tooldoce/compare/v1.0.0-rc5...HEAD
+[1.0.0-rc5]: https://github.com/icaroraci/tooldoce/compare/v1.0.0-rc4...v1.0.0-rc5
 [1.0.0-rc4]: https://github.com/icaroraci/tooldoce/compare/v1.0.0-rc3...v1.0.0-rc4
 [1.0.0-rc3]: https://github.com/icaroraci/tooldoce/compare/v1.0.0-rc2...v1.0.0-rc3
 [1.0.0-rc2]: https://github.com/icaroraci/tooldoce/compare/v1.0.0-rc1...v1.0.0-rc2
