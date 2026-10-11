@@ -6,19 +6,27 @@ As mudanças relevantes de cada versão ficam registradas aqui. O formato segue 
 
 ### Adicionado
 
-- Diagnósticos automáticos de validação: `nfe_erros_caminho`, `nfe_erros_valor`, `nfe_erros_restricao`, `nfe_erros_esperado`, `nfe_erros_dominio_xml` e `nfe_erros_codigo_xml` (`validar.h`). Padrões, enumerações e limites vêm dos erros estruturados do XSD carregado, sem catálogo por tag; mensagens nativas e retornos existentes são preservados. Falhas ao copiar diagnósticos retornam `E_MALLOC`.
 - `compacta.h`: `nfe_gzip_base64` e `nfe_base64_gunzip`, para o XML que trafega compactado em gzip e base64 (autorização do MDF-e, `dpsXmlGZipB64` e `nfseXmlGZipB64` da NFS-e nacional). A descompactação recusa conteúdo acima de um limite (16 MiB por padrão). A libnfe passa a depender da zlib, declarada em `Requires.private` do `libnfe.pc` (#285).
 - `nfe_sefaz_requisicao` (`sefaz.h`): requisição HTTPS qualquer (GET, HEAD, POST...) sobre a conexão com o certificado, que devolve o status HTTP e o corpo sem interpretá-los, para serviços REST como a NFS-e nacional. `json.h`: leitura mínima de JSON, sem dependência nova, para as respostas desses serviços (#284).
-- Exemplo `diagnosticar_xml` e guia de diagnóstico, com reprodução dos quatro erros de `refNF`, facetas herdadas/importadas, atributos e alternativas para dados indisponíveis.
 
 ### Corrigido
 
 - Validador e geradores: um `^` no início ou um `$` no fim de um `xs:pattern` são lidos como âncoras redundantes e ignorados, como fazem os autorizadores. O schema oficial da NFS-e nacional 1.01 usa `^0{0,4}\d{1,5}$` na série da DPS, e a libxml2, que segue o XML Schema e trata `^` e `$` como caracteres comuns, recusava qualquer série real (#291). Os arquivos dos schemas não são alterados.
 
+## [1.0.0-rc5] - 2026-10-06
+
+Quinta candidata à 1.0.0. Acrescenta diagnósticos automáticos de validação XSD, com caminho, valor recebido e restrição esperada, e o manual completo das estruturas XML e da API. Mantém os retornos existentes e o SONAME `libnfe.so.1`.
+
+### Adicionado
+
+- Diagnósticos automáticos de validação: `nfe_erros_caminho`, `nfe_erros_valor`, `nfe_erros_restricao`, `nfe_erros_esperado`, `nfe_erros_dominio_xml` e `nfe_erros_codigo_xml` (`validar.h`). Padrões, enumerações e limites vêm dos erros estruturados do XSD carregado, sem catálogo por tag; mensagens nativas e retornos existentes são preservados. Falhas ao copiar diagnósticos retornam `E_MALLOC`.
+- Exemplo `diagnosticar_xml` e guia de diagnóstico, com reprodução dos quatro erros de `refNF`, facetas herdadas/importadas, atributos e alternativas para dados indisponíveis.
+
 ### Documentação
 
 - Manual das 171 estruturas XML do PL010f v1.04, com campos, escolhas, API, C/XML, navegação e normas atuais; referência dos 35 headers instalados e guias do fluxo completo da libnfe.
 - Exemplos reproduzíveis de grupos e mensagens; conferência automática da correspondência com o código, XSD e símbolos públicos. Avisos mostram bases iguais uma vez e mantêm cada rótulo junto de seu hash.
+- Guia de documentação dos nós XML e primeira referência interna de `NFref`/`refNF`, com exemplos C/XML conferidos.
 
 ## [1.0.0-rc4] - 2026-10-05
 
@@ -90,7 +98,8 @@ Candidata à primeira versão estável (1.0.0). Cobre a emissão da NF-e modelo 
 - `SONAME` passa de `libnfe.so.0` para `libnfe.so.1`.
 - Licença trocada de GPLv3+ para LGPLv3+, o que permite usar a biblioteca em programas de qualquer licença.
 
-[Não lançado]: https://github.com/icaroraci/tooldoce/compare/v1.0.0-rc4...HEAD
+[Não lançado]: https://github.com/icaroraci/tooldoce/compare/v1.0.0-rc5...HEAD
+[1.0.0-rc5]: https://github.com/icaroraci/tooldoce/compare/v1.0.0-rc4...v1.0.0-rc5
 [1.0.0-rc4]: https://github.com/icaroraci/tooldoce/compare/v1.0.0-rc3...v1.0.0-rc4
 [1.0.0-rc3]: https://github.com/icaroraci/tooldoce/compare/v1.0.0-rc2...v1.0.0-rc3
 [1.0.0-rc2]: https://github.com/icaroraci/tooldoce/compare/v1.0.0-rc1...v1.0.0-rc2

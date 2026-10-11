@@ -2,7 +2,7 @@
 
 [Manual](README.md) · [Bases conferidas](BASES.md) · [API](API.md)
 
-Esta revisão usa a **1.0.0-rc4**, candidata à versão 1.0. A plataforma nativa é Linux; os exemplos e testes foram executados em Debian via WSL. O número do leiaute XML 4.00, a versão do pacote PL010f e a versão da biblioteca são identificadores independentes.
+Esta revisão usa a **1.0.0-rc5**, candidata à versão 1.0. A plataforma nativa é Linux; os exemplos e testes foram executados em Debian via WSL. O número do leiaute XML 4.00, a versão do pacote PL010f e a versão da biblioteca são identificadores independentes.
 
 ## Dependências e compilação
 
