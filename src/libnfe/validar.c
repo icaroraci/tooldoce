@@ -16,11 +16,16 @@
  ** along with tooldoce.  If not, see <https://www.gnu.org/licenses/>.
  ** */
 
+/* pthread_once e pthread_key (POSIX) */
+#define _POSIX_C_SOURCE 200809L
+
+#include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include <libxml/parser.h>
+#include <libxml/xmlIO.h>
 #include <libxml/tree.h>
 #include <libxml/xmlschemas.h>
 
@@ -401,6 +406,175 @@ const char *nfe_dir_schemas(void)
 	return NFE_DIR_SCHEMAS;
 }
 
+/*
+ * Âncoras redundantes em xs:pattern
+ *
+ * No XML Schema, o padrão casa sempre com o valor inteiro, e ^ e $ são
+ * caracteres comuns. Alguns schemas oficiais (a série da DPS na NFS-e
+ * nacional, TSSerieDPS: "^0{0,4}\d{1,5}$") usam ^ e $ como âncoras, como
+ * no validador do autorizador; a libxml2 segue a norma e recusaria
+ * qualquer valor real. Enquanto carrega() lê um schema e os que ele inclui,
+ * os arquivos .xsd passam por um leitor que tira o ^ do início e o $ do
+ * fim (não escapado) do atributo value de cada xs:pattern. Os arquivos não
+ * são alterados.
+ */
+
+/* Ligado (não NULL) na thread que está dentro de carrega() */
+static pthread_key_t carregando;
+static pthread_once_t leitor_once = PTHREAD_ONCE_INIT;
+static int leitor_ok;
+
+struct leitor {
+	char *p;
+	size_t tam, pos;
+};
+
+/* Tira as âncoras dos xs:pattern do texto t (tam bytes), no lugar;
+ * devolve o novo tamanho */
+static size_t tira_ancoras(char *t, size_t tam)
+{
+	size_t i = 0, j = 0;
+
+	while (i < tam) {
+		char aspa;
+		size_t ini, fim, k;
+
+		/* Começo de uma tag <xs:pattern (qualquer prefixo) */
+		if (t[i] != '<') {
+			t[j++] = t[i++];
+			continue;
+		}
+		k = i + 1;
+		while (k < tam && t[k] != ' ' && t[k] != '\t' && t[k] != '\n' &&
+		       t[k] != '\r' && t[k] != '>' && t[k] != '/')
+			k++;
+		ini = k;
+		while (ini > i + 1 && t[ini - 1] != ':')
+			ini--;
+		if (k - ini != 7 || memcmp(t + ini, "pattern", 7) != 0) {
+			t[j++] = t[i++];
+			continue;
+		}
+		/* Copia a tag até o valor de value="..." */
+		while (i < tam && t[i] != '>') {
+			if (t[i] == 'v' && i + 5 <= tam &&
+			    memcmp(t + i, "value", 5) == 0 &&
+			    (t[i - 1] == ' ' || t[i - 1] == '\t' ||
+			     t[i - 1] == '\n' || t[i - 1] == '\r')) {
+				k = i + 5;
+				while (k < tam &&
+				       (t[k] == ' ' || t[k] == '\t' ||
+				        t[k] == '\n' || t[k] == '\r'))
+					k++;
+				if (k < tam && t[k] == '=') {
+					k++;
+					while (k < tam &&
+					       (t[k] == ' ' || t[k] == '\t' ||
+					        t[k] == '\n' || t[k] == '\r'))
+						k++;
+					if (k < tam &&
+					    (t[k] == '"' || t[k] == '\'')) {
+						aspa = t[k];
+						fim = k + 1;
+						while (fim < tam &&
+						       t[fim] != aspa)
+							fim++;
+						if (fim >= tam)
+							break;
+						while (i <= k)
+							t[j++] = t[i++];
+						/* i: primeiro caractere do
+						 * valor; fim: aspa final */
+						if (i < fim && t[i] == '^')
+							i++;
+						if (fim > i &&
+						    t[fim - 1] == '$' &&
+						    (fim - 1 == i ||
+						     t[fim - 2] != '\\'))
+							fim--;
+						while (i < fim)
+							t[j++] = t[i++];
+						if (t[i] == '$')
+							i++;
+						continue;
+					}
+				}
+			}
+			t[j++] = t[i++];
+		}
+	}
+	return j;
+}
+
+static int leitor_casa(const char *nome)
+{
+	size_t n;
+
+	if (!nome || !pthread_getspecific(carregando))
+		return 0;
+	n = strlen(nome);
+	return n > 4 && strcmp(nome + n - 4, ".xsd") == 0 &&
+	       strstr(nome, "://") == NULL;
+}
+
+static void *leitor_abre(const char *nome)
+{
+	struct leitor *l;
+	FILE *f;
+	long n;
+
+	if (strncmp(nome, "file:", 5) == 0)
+		return NULL; /* URI: fica com o leitor da libxml2 */
+	f = fopen(nome, "rb");
+	if (!f)
+		return NULL;
+	l = (struct leitor *)calloc(1, sizeof *l);
+	if (!l || fseek(f, 0, SEEK_END) != 0 || (n = ftell(f)) < 0 ||
+	    fseek(f, 0, SEEK_SET) != 0 ||
+	    !(l->p = (char *)malloc((size_t)n + 1)) ||
+	    fread(l->p, 1, (size_t)n, f) != (size_t)n) {
+		if (l)
+			free(l->p);
+		free(l);
+		fclose(f);
+		return NULL;
+	}
+	fclose(f);
+	l->tam = tira_ancoras(l->p, (size_t)n);
+	return l;
+}
+
+static int leitor_le(void *ctx, char *buf, int len)
+{
+	struct leitor *l = (struct leitor *)ctx;
+	size_t n = l->tam - l->pos;
+
+	if (len < 0)
+		return -1;
+	if (n > (size_t)len)
+		n = (size_t)len;
+	memcpy(buf, l->p + l->pos, n);
+	l->pos += n;
+	return (int)n;
+}
+
+static int leitor_fecha(void *ctx)
+{
+	struct leitor *l = (struct leitor *)ctx;
+
+	free(l->p);
+	free(l);
+	return 0;
+}
+
+static void inicia_leitor(void)
+{
+	xmlInitParser();
+	leitor_ok = pthread_key_create(&carregando, NULL) == 0 &&
+	            xmlRegisterInputCallbacks(leitor_casa, leitor_abre,
+	                                      leitor_le, leitor_fecha) >= 0;
+}
+
 /* Carrega o schema do arquivo caminho; NULL se não der */
 static nfe_validador *carrega(const char *caminho)
 {
@@ -418,11 +592,16 @@ static nfe_validador *carrega(const char *caminho)
 	v = (nfe_validador *)calloc(1, sizeof(nfe_validador));
 	if (!v)
 		return NULL;
+	pthread_once(&leitor_once, inicia_leitor);
 	pctx = xmlSchemaNewParserCtxt(caminho);
 	if (pctx) {
 		/* Erros de carga não são impressos */
 		xmlSchemaSetParserStructuredErrors(pctx, guarda_erro, NULL);
+		if (leitor_ok)
+			pthread_setspecific(carregando, v);
 		v->schema = xmlSchemaParse(pctx);
+		if (leitor_ok)
+			pthread_setspecific(carregando, NULL);
 		xmlSchemaFreeParserCtxt(pctx);
 	}
 	if (!v->schema) {

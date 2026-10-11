@@ -32,7 +32,7 @@ import xml.etree.ElementTree as ET
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from gerar_padroes import literal_c, PRIMITIVOS  # noqa: E402
-from documento import Documento, argumento  # noqa: E402
+from documento import Documento, argumento, padrao  # noqa: E402
 
 XS = "{http://www.w3.org/2001/XMLSchema}"
 
@@ -109,7 +109,7 @@ class Tipos:
             if chave == "enumeration":
                 proprias.append(c.get("value"))
             elif chave == "pattern":
-                padroes.append(c.get("value"))
+                padroes.append(padrao(c.get("value")))
             elif chave in ("minLength", "maxLength"):
                 f[chave] = int(c.get("value"))
             elif chave == "length":

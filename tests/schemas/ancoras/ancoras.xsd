@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Schema de teste (não oficial) para as âncoras em xs:pattern -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="urn:teste:ancoras" xmlns="urn:teste:ancoras"
+           elementFormDefault="qualified">
+  <xs:include schemaLocation="tipos.xsd"/>
+  <xs:element name="doc">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="serie" type="TSerie"/>
+        <xs:element name="preco" type="TPreco" minOccurs="0"/>
+        <xs:element name="sigla" type="TSemAncora" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

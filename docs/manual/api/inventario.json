@@ -27,6 +27,10 @@
     "nfe_cobr_remove_dup",
     "nfe_cobr_write_xml"
   ],
+  "compacta": [
+    "nfe_gzip_base64",
+    "nfe_base64_gunzip"
+  ],
   "decimal": [],
   "defs": [],
   "dest": [
@@ -187,6 +191,16 @@
   "inutilizacao": [
     "nfe_inutilizacao"
   ],
+  "json": [
+    "nfe_json_ler",
+    "nfe_json_free",
+    "nfe_json_tipo_de",
+    "nfe_json_texto",
+    "nfe_json_qtd",
+    "nfe_json_item",
+    "nfe_json_nome",
+    "nfe_json_campo"
+  ],
   "local": [
     "nfe_local_new",
     "nfe_local_free",
@@ -315,6 +329,7 @@
     "nfe_sefaz_set_timeout",
     "nfe_sefaz_enviar",
     "nfe_sefaz_enviar_ws",
+    "nfe_sefaz_requisicao",
     "nfe_sefaz_erro",
     "nfe_sefaz_msg_status",
     "nfe_sefaz_msg_lote",

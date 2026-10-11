@@ -94,3 +94,17 @@ def argumento(ap):
     ap.add_argument("--config", metavar="ARQUIVO.json",
                     help="configuração do documento (padrão: a NF-e, em "
                          "tools/documentos/nfe.json)")
+
+
+def padrao(valor):
+    """Valor de um xs:pattern sem o ^ do início e o $ do fim. No XML Schema
+    o padrão já casa com o valor inteiro e ^ e $ são caracteres comuns, mas
+    alguns schemas oficiais os usam como âncoras (TSSerieDPS da NFS-e:
+    "^0{0,4}\\d{1,5}$"); o validador da libnfe os tira do mesmo jeito."""
+    if valor is None:
+        return None
+    if valor.startswith("^"):
+        valor = valor[1:]
+    if valor.endswith("$") and not valor.endswith("\\$"):
+        valor = valor[:-1]
+    return valor

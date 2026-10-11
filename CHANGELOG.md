@@ -4,6 +4,15 @@ As mudanças relevantes de cada versão ficam registradas aqui. O formato segue 
 
 ## [Não lançado]
 
+### Adicionado
+
+- `compacta.h`: `nfe_gzip_base64` e `nfe_base64_gunzip`, para o XML que trafega compactado em gzip e base64 (autorização do MDF-e, `dpsXmlGZipB64` e `nfseXmlGZipB64` da NFS-e nacional). A descompactação recusa conteúdo acima de um limite (16 MiB por padrão). A libnfe passa a depender da zlib, declarada em `Requires.private` do `libnfe.pc` (#285).
+- `nfe_sefaz_requisicao` (`sefaz.h`): requisição HTTPS qualquer (GET, HEAD, POST...) sobre a conexão com o certificado, que devolve o status HTTP e o corpo sem interpretá-los, para serviços REST como a NFS-e nacional. `json.h`: leitura mínima de JSON, sem dependência nova, para as respostas desses serviços (#284).
+
+### Corrigido
+
+- Validador e geradores: um `^` no início ou um `$` no fim de um `xs:pattern` são lidos como âncoras redundantes e ignorados, como fazem os autorizadores. O schema oficial da NFS-e nacional 1.01 usa `^0{0,4}\d{1,5}$` na série da DPS, e a libxml2, que segue o XML Schema e trata `^` e `$` como caracteres comuns, recusava qualquer série real (#291). Os arquivos dos schemas não são alterados.
+
 ## [1.0.0-rc5] - 2026-10-06
 
 Quinta candidata à 1.0.0. Acrescenta diagnósticos automáticos de validação XSD, com caminho, valor recebido e restrição esperada, e o manual completo das estruturas XML e da API. Mantém os retornos existentes e o SONAME `libnfe.so.1`.

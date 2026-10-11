@@ -26,7 +26,8 @@
 
 /*
  * Comunicação com os webservices da SEFAZ (SOAP 1.2 sobre HTTPS, com
- * autenticação mútua pelo certificado A1 do emitente).
+ * autenticação mútua pelo certificado A1 do emitente) e, por
+ * nfe_sefaz_requisicao, com serviços REST na mesma conexão.
  *
  * A conexão guarda o certificado e as opções; cada chamada a
  * nfe_sefaz_enviar envia uma mensagem (montada pelas funções
@@ -130,8 +131,26 @@ int nfe_sefaz_enviar_ws(nfe_sefaz *s, const char *url, const char *ns_wsdl,
                         const char *cabecalho, const char *msg, char **resposta,
                         size_t *tam);
 
-/* Descrição da última falha de nfe_sefaz_enviar ou nfe_sefaz_enviar_ws
- * ("" se não houve); texto pertencente à conexão */
+/* Requisição HTTPS qualquer sobre a mesma conexão (certificado, CA e
+ * timeout), para serviços REST como a NFS-e nacional. metodo é o método
+ * HTTP em maiúsculas ("GET", "HEAD", "POST"...); tipo, se não for NULL,
+ * vai no cabeçalho Content-Type; corpo (tam_corpo bytes, ou NULL sem
+ * corpo) vai como está. O status HTTP vai em *http e o corpo da resposta,
+ * sem interpretação, em *resposta, alocado e terminado em '\0' (vazio
+ * numa resposta sem corpo; libere com free()); o tamanho vai em *tam, se
+ * não for NULL. Um status de erro (400, 404, 500...) não é falha: o
+ * retorno é 0 e o corpo traz o que o servidor respondeu.
+ * Retorna 0, E_ISNULL (s, metodo, url, http ou resposta NULL, ou corpo
+ * NULL com tam_corpo > 0), E_VALOR (método inválido, tipo com caracteres
+ * de controle, ou corpo em GET ou HEAD), E_REDE (sem resposta HTTP; ver
+ * nfe_sefaz_erro) ou E_MALLOC. Em caso de erro *http e *resposta não são
+ * alterados. */
+int nfe_sefaz_requisicao(nfe_sefaz *s, const char *metodo, const char *url,
+                         const char *tipo, const char *corpo, size_t tam_corpo,
+                         long *http, char **resposta, size_t *tam);
+
+/* Descrição da última falha de nfe_sefaz_enviar, nfe_sefaz_enviar_ws ou
+ * nfe_sefaz_requisicao ("" se não houve); texto pertencente à conexão */
 const char *nfe_sefaz_erro(const nfe_sefaz *s);
 
 /* ---- Mensagens (alocadas, terminadas em '\0'; libere com free()) ----

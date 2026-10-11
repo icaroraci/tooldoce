@@ -19,11 +19,11 @@ endif
 
 # Flags do compilador
 # -MMD -MP gera arquivos .d para recompilar quando um header muda
-CFLAGS := -Werror -Wall -Wextra -Wwrite-strings -std=c99 -g -fPIC -MMD -MP $(shell $(XML2_CONFIG) --cflags 2>/dev/null) $(shell $(PKG_CONFIG) --cflags xmlsec1-openssl libcurl 2>/dev/null)
+CFLAGS := -Werror -Wall -Wextra -Wwrite-strings -std=c99 -g -fPIC -MMD -MP $(shell $(XML2_CONFIG) --cflags 2>/dev/null) $(shell $(PKG_CONFIG) --cflags xmlsec1-openssl libcurl zlib 2>/dev/null)
 
 
 # Flags para adicionar libs
-LIBS := $(shell $(XML2_CONFIG) --libs 2>/dev/null) $(shell $(PKG_CONFIG) --libs xmlsec1-openssl libcurl 2>/dev/null)
+LIBS := $(shell $(XML2_CONFIG) --libs 2>/dev/null) $(shell $(PKG_CONFIG) --libs xmlsec1-openssl libcurl zlib 2>/dev/null)
 
 
 #-I includes
@@ -125,8 +125,8 @@ install: libnfe
 
 
 #libnfe.pc para o pkg-config. A libxml2 fica em Requires porque os headers
-#públicos incluem libxml/xmlwriter.h e expõem xmlTextWriterPtr; xmlsec1 e
-#libcurl só são usadas dentro da biblioteca (Requires.private serve à
+#públicos incluem libxml/xmlwriter.h e expõem xmlTextWriterPtr; xmlsec1,
+#libcurl e zlib só são usadas dentro da biblioteca (Requires.private serve à
 #ligação estática). Diretórios dentro de PREFIX são escritos em relação a
 #$${prefix}.
 relativo_prefix = $(patsubst $(PREFIX)/%,$${prefix}/%,$(1))
@@ -142,7 +142,7 @@ define libnfe_pc
 		'URL: https://github.com/icaroraci/tooldoce' \
 		'Version: $(VERSAO)' \
 		'Requires: libxml-2.0' \
-		'Requires.private: xmlsec1-openssl libcurl' \
+		'Requires.private: xmlsec1-openssl libcurl zlib' \
 		'Cflags: -I$${includedir}' \
 		'Libs: -L$${libdir} -lnfe'
 endef

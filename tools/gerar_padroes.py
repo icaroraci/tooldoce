@@ -24,7 +24,7 @@ import sys
 import xml.etree.ElementTree as ET
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from documento import Documento, argumento  # noqa: E402
+from documento import Documento, argumento, padrao  # noqa: E402
 
 XS = "{http://www.w3.org/2001/XMLSchema}"
 
@@ -97,7 +97,7 @@ def tipos(doc):
                 elif chave == "pattern":
                     if "pattern" in facetas:
                         sys.exit(f"{nome}: mais de um xs:pattern")
-                    facetas["pattern"] = f.get("value")
+                    facetas["pattern"] = padrao(f.get("value"))
                 elif chave in ("minLength", "maxLength", "length"):
                     facetas[chave] = f.get("value")
             item = (nome, r.get("base"), facetas)
